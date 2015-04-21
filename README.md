@@ -29,7 +29,7 @@ The initialization doesn't run over twice for a element.
 
 ## Examples
 
-```
+```html
 <script>
 
 $.registerCustomClass('go-to-example-com', function () {
@@ -47,7 +47,7 @@ $.registerCustomClass('go-to-example-com', function () {
 <div class="go-to-example-com">...</div>
 ```
 
-When you click the above div, the page go to the example.com
+When you click the above div, the page go to the example.com.
 
 ----
 
