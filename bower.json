@@ -1,0 +1,21 @@
+{
+  "name": "custom-class",
+  "main": "custom-class.js",
+  "version": "1.0.0",
+  "authors": [
+    "Yoshiya Hinosawa <stibium121@gmail.com>"
+  ],
+  "description": "define a special class with js ability",
+  "keywords": [
+    "class",
+    "custom-class"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
