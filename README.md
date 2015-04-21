@@ -86,3 +86,7 @@ $.registerCustomClass('my-anchor', function () {
 This `.my-anchor` class is similar to `<a>`.
 
 When you click the above div, the page goes to href's url (https://www.google.com/ in this case) and when you mouse over it, it gets `.hover` class.
+
+## License
+
+MIT
