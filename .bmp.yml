@@ -3,3 +3,4 @@ version: 1.0.0
 files:
   README.md: v%.%.%
   bower.json: '"version": "%.%.%"'
+  custom-element.js: v%.%.%
