@@ -22,8 +22,8 @@ You can define the behaviour of the custom class by the defining function. `this
 
 This automatically initializes all custom class elements on the page at `$(document).ready` timing.
 
-This also registers `init.class-name` event handler to `document`, which invokes the initialization of the class,
-so if you want to initialize them after `$(document).ready`, you need to trigger `init.class-name` event on the document.
+This also registers `init.{class-name}` event handler to `document`, which invokes the initialization of the class,
+so if you want to initialize them after `$(document).ready`, you need to trigger `init.{class-name}` event on the document.
 
 The initialization doesn't run over twice for a element.
 
