@@ -1,0 +1,50 @@
+<script src="./bower_components/jquery/dist/jquery.js"></script>
+<script src="./custom-class.js"></script>
+
+<h2>Custom Class Demo</h2>
+    
+<p>See the source code!</p>
+
+<hr />
+
+<h3>.hello class</h3>
+
+<script>
+$.registerCustomClass('hello', function () {
+
+    $(this).text('Hello, world!');
+
+});
+</script>
+
+<p class="hello"></p>
+
+<p>.hello class replace the contents of the element with "Hello, world!" string.</p>
+
+<hr />
+
+<h3>.hover class</h3>
+
+<script>
+
+$.registerCustomClass('hover', function () {
+
+    $(this).on('mouseover', function () {
+
+        $(this).css('background-color', 'green');
+
+    }).on('mouseout', function () {
+
+        $(this).css('background-color', '');
+
+    });
+
+});
+
+</script>
+
+<p>
+<span class="hover">mouse over here!</span>
+</p>
+
+.hover class
