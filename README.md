@@ -18,14 +18,12 @@ $.registerCustomClass(name, definingFunction);
 This library expose the function `$.registerCustomClass(name, definingFunction)`.
 
 This registers a "custom class" of the given name using the given defining function.
-You can define the behaviour of the custom class by the defining function. `this` of the defining function scope is the custome class element itself.
+The given defining function is called only once on an element of the given class name at `$(document).ready` timing.
+The defining function doesn't take arugments and `this` of the scope is the custom class element itself and you can modify it as you want.
 
-This automatically initializes all custom class elements on the page at `$(document).ready` timing.
+If you want to add custom class elements after `$(document).ready` timing, you can initialize them by triggering `init.{class-name}` event on `document`, which automatically initializes all custom elements on the page. The initialization doesn't run twice on a element.
 
-This also registers `init.{class-name}` event handler to `document`, which invokes the initialization of the class,
-so if you want to initialize them after `$(document).ready`, you need to trigger `init.{class-name}` event on the document.
-
-The initialization doesn't run over twice for a element.
+See the [DEMO](http://kt3k.github.io/custom-class/test.html).
 
 ## Examples
 
