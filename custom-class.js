@@ -46,7 +46,7 @@
         // <div class="go-to-example-com">...</div>
         //
         // When you click the above div, the page go to the example.com
-         
+
 
      @example
 
@@ -77,7 +77,7 @@
         // `.my-anchor` is similar to <a>
         //
         // <div class="my-anchor" href="https://www.google.com/">...</div>
-        // 
+        //
         // When you click the above, the page goes to href's url (https://www.google.com/ in this case).
         // When you mouse over the above it gets `.hover` class.
 
