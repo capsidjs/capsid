@@ -1,4 +1,4 @@
-# custom-class.js v1.1.0
+# custom-class.js v1.1.1
 
 > The utility to create reusable special html classes
 
