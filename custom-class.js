@@ -175,7 +175,7 @@
      */
     pt.applyCustomDefinition = function (elem) {
 
-        this.definingFunction.call(elem, $(this));
+        this.definingFunction.call(elem, $(elem));
 
     };
 
