@@ -5,7 +5,7 @@
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
-  "description": "define a special class with js ability",
+  "description": "The utility to create reusable special html classes",
   "keywords": [
     "class",
     "custom-class"

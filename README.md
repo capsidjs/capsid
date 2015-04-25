@@ -1,8 +1,31 @@
 # custom-class.js v1.0.1
 
-> define a special class with js ability
+> The utility to create reusable special html classes
 
 ***note*** This library depends on jQuery.
+
+
+## Custom Class
+
+What's a custom class?
+
+### Background
+
+It's very common in frontend engineering to bind handlers to the specific html classes like the following.
+
+```js
+$(function () {
+
+    $('.do-something').on('click', someProcess);
+
+});
+```
+
+In this example, `.do-something` class has the special functionality of peforming `someProcess` at click on it. However this `.do-something` functionality is only available on that page and isn't reusable everywhere because you always need to write the above piece of code when you want to use `.do-something` class.
+
+A custom class is the reusable version of the above and you can use them everywhere you want. This library help defining such custom classes.
+
+This idea is inspired by Custom Element of Web Components spec.
 
 
 ## Doc
