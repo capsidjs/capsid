@@ -80,6 +80,18 @@
     $.registerCustomClass = function (name, definingFunction) {
         'use strict';
 
+        if (typeof name !== 'string') {
+
+            throw new Error('`name` of a custom class has to be a string');
+
+        }
+
+        if (typeof definingFunction !== 'function') {
+
+            throw new Error('`definingFunction` of a custom class has to be a string');
+
+        }
+
         var customClass = new CustomClass(name, definingFunction);
 
         var init = function () {
