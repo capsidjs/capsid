@@ -44,7 +44,7 @@ This registers a "custom class" of the given name using the given defining funct
 The given defining function is called only once on an element of the given class name at `$(document).ready` timing.
 The defining function takes one arugment which is jquery object of the element. This function is called only once for each custom class element.
 
-If you want to add custom class elements after `$(document).ready` timing, you can initialize them by triggering `init.{class-name}` event on `document`, which automatically initializes all custom elements on the page. The initialization doesn't run twice on a element.
+If you want to add custom class elements after `$(document).ready` timing, you can initialize them by triggering `init-class.{class-name}` event on `document`, which automatically initializes all custom elements on the page. The initialization doesn't run twice on a element.
 
 See the [DEMO](http://kt3k.github.io/custom-class/test.html).
 
