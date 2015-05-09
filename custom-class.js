@@ -1,5 +1,5 @@
 /**
- * custom-class.js v1.1.1
+ * custom-class.js v2.0.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
