@@ -20,8 +20,8 @@
 
      This automatically initializes all `.class-name` elements on the page at `$(document).ready` timing.
 
-     This also registers `init.class-name` event handler to `document`, which invokes the initialization of the class,
-     so if you want to initialize them after `$(document).ready`, you need to trigger `init.class-name` event on the document.
+     This also registers `init.{class-name}` event handler to `document`, which invokes the initialization of the class,
+     so if you want to initialize them after `$(document).ready`, you need to trigger `init.{class-name}` event on the document.
 
      The initialization doesn't run over twice for a element.
 
@@ -30,9 +30,9 @@
 
      @example
 
-        $.registerCustomClass('go-to-example-com', function () {
+        $.registerCustomClass('go-to-example-com', function (elem) {
 
-            $(this).click(function () {
+            elem.click(function () {
 
                 location.href = 'http://example.com/';
 
@@ -47,23 +47,21 @@
 
      @example
 
-        $.registerCustomClass('my-anchor', function () {
+        $.registerCustomClass('my-anchor', function (elem) {
 
-            var self = $(this); //
-
-            self.on('click', function () {
+            elem.on('click', function () {
 
                 location.href = $(this).attr('href');
 
             });
 
-            self.on('mouseover', function () {
+            elem.on('mouseover', function () {
 
                 $(this).addClass('hover');
 
             });
 
-            self.on('mouseout', function () {
+            elem.on('mouseout', function () {
 
                 $(this).removeClass('hover');
 
