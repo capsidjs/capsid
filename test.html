@@ -10,9 +10,9 @@
 <h3>.hello class</h3>
 
 <script>
-$.registerCustomClass('hello', function () {
+$.registerCustomClass('hello', function (elem) {
 
-    $(this).text('Hello, world!');
+    elem.text('Hello, world!');
 
 });
 </script>
@@ -27,15 +27,15 @@ $.registerCustomClass('hello', function () {
 
 <script>
 
-$.registerCustomClass('hover', function () {
+$.registerCustomClass('hover', function (elem) {
 
-    $(this).on('mouseover', function () {
+    elem.on('mouseover', function () {
 
-        $(this).css('background-color', 'green');
+        elem.css('background-color', 'green');
 
     }).on('mouseout', function () {
 
-        $(this).css('background-color', '');
+        elem.css('background-color', '');
 
     });
 
