@@ -10,10 +10,7 @@
 
     if (typeof $ === 'undefined') {
 
-        console.log('error: jQuery unavailable');
-        console.log('custom-class.js depends on jQuery. load jQuery in global scope before this library.');
-
-        return;
+        throw new Error('jQuery unavailable. custom-class.js depends on jQuery. Load jQuery in global scope before this library.');
 
     }
 
