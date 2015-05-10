@@ -1,7 +1,7 @@
 {
   "name": "custom-class",
   "main": "custom-class.js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
