@@ -28,54 +28,7 @@
      @param {String} className The class name
      @param {Function} definition The class definition
 
-     @example
-
-        $.registerCustomClass('go-to-example-com', function (elem) {
-
-            elem.click(function () {
-
-                location.href = 'http://example.com/';
-
-            });
-
-        });
-
-        // <div class="go-to-example-com">...</div>
-        //
-        // When you click the above div, the page go to the example.com
-
-
-     @example
-
-        $.registerCustomClass('my-anchor', function (elem) {
-
-            elem.on('click', function () {
-
-                location.href = $(this).attr('href');
-
-            });
-
-            elem.on('mouseover', function () {
-
-                $(this).addClass('hover');
-
-            });
-
-            elem.on('mouseout', function () {
-
-                $(this).removeClass('hover');
-
-            });
-
-        });
-
-        // `.my-anchor` is similar to <a>
-        //
-        // <div class="my-anchor" href="https://www.google.com/">...</div>
-        //
-        // When you click the above, the page goes to href's url (https://www.google.com/ in this case).
-        // When you mouse over the above it gets `.hover` class.
-
+     See README.md for examples.
      */
     $.registerCustomClass = function (name, definingFunction) {
         'use strict';
@@ -96,13 +49,15 @@
 
         var init = function () {
 
-            $(customClass.selector()).each(function () {
+            var elements = $(customClass.selector()).each(function () {
 
                 customClass.markInitialized(this);
 
                 customClass.applyCustomDefinition(this);
 
             });
+
+            $(document).trigger(customClass.initStartedEvent(), [elements]);
 
         };
 
@@ -118,9 +73,25 @@
     };
 
 
+    /**
+     * Gets or sets the promise which resolves when the initializaion of the custom class is ready.
+     *
+     * @param {String} className The class name
+     * @param {Promise} promise The promise which resolves when the init process finished
+     * @return {Promise}
+     */
+    $.fn.customClassReady = function (className, promise) {
+
+        return this.data('__custom_class_init_promise:' + className, promise);
+
+    };
+
+
 
     /**
      CustomClass is the utility class for custom class initialization.
+
+     @class
      */
     function CustomClass(className, definingFunction) {
 
@@ -141,7 +112,13 @@
 
         return 'init-class.' + this.className;
 
-    }
+    };
+
+    pt.initStartedEvent = function () {
+
+        return 'init-class-started.' + this.className;
+
+    };
 
     /**
      @private
@@ -151,7 +128,7 @@
 
         return this.className + '-initialized';
 
-    }
+    };
 
     /**
      Returns the selector for uninitialized custom class.
