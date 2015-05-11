@@ -5,7 +5,7 @@
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
-  "description": "The utility to create reusable special html classes",
+  "description": "Utility to define reusable HTML class component",
   "keywords": [
     "class",
     "class-component"

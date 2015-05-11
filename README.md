@@ -1,6 +1,6 @@
 # class-component.js v1.0.0
 
-> The utility to create reusable special html class component
+> Utility to define reusable HTML class component
 
 ***note*** This library depends on jQuery.
 
