@@ -1,5 +1,5 @@
 /**
- * custom-class.js v2.1.0
+ * class-component.js v2.1.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -10,13 +10,13 @@
 
     if (typeof $ === 'undefined') {
 
-        throw new Error('jQuery unavailable. custom-class.js depends on jQuery. Load jQuery in global scope before this library.');
+        throw new Error('jQuery unavailable. class-component.js depends on jQuery. Load jQuery in global scope before this library.');
 
     }
 
 
     /**
-     Registers a custom class of the given name using the given defining function.
+     Registers a class component of the given name using the given defining function.
 
      This automatically initializes all `.class-name` elements on the page at `$(document).ready` timing.
 
@@ -35,38 +35,38 @@
 
         if (typeof name !== 'string') {
 
-            throw new Error('`name` of a custom class has to be a string');
+            throw new Error('`name` of a class component has to be a string');
 
         }
 
         if (typeof definingFunction !== 'function') {
 
-            throw new Error('`definingFunction` of a custom class has to be a string');
+            throw new Error('`definingFunction` of a class component has to be a string');
 
         }
 
-        var customClass = new CustomClass(name, definingFunction);
+        var classComponent = new ClassComponent(name, definingFunction);
 
         var init = function () {
 
-            var elements = $(customClass.selector()).each(function () {
+            var elements = $(classComponent.selector()).each(function () {
 
-                customClass.markInitialized(this);
+                classComponent.markInitialized(this);
 
-                customClass.applyCustomDefinition(this);
+                classComponent.applyCustomDefinition(this);
 
             });
 
-            $(document).trigger(customClass.initStartedEvent(), [elements]);
+            $(document).trigger(classComponent.initStartedEvent(), [elements]);
 
         };
 
 
-        $(document).on(customClass.initEvent(), init);
+        $(document).on(classComponent.initEvent(), init);
 
         $(document).ready(function () {
 
-            $(document).trigger(customClass.initEvent());
+            $(document).trigger(classComponent.initEvent());
 
         });
 
@@ -74,33 +74,33 @@
 
 
     /**
-     * Gets or sets the promise which resolves when the initializaion of the custom class is ready.
+     * Gets or sets the promise which resolves when the initializaion of the class component is ready.
      *
      * @param {String} className The class name
      * @param {Promise} promise The promise which resolves when the init process finished
      * @return {Promise}
      */
-    $.fn.customClassReady = function (className, promise) {
+    $.fn.classComponentReady = function (className, promise) {
 
-        return this.data('__custom_class_init_promise:' + className, promise);
+        return this.data('__class_component_init_promise:' + className, promise);
 
     };
 
 
 
     /**
-     CustomClass is the utility class for custom class initialization.
+     ClassComponent is the utility class for class component initialization.
 
      @class
      */
-    function CustomClass(className, definingFunction) {
+    function ClassComponent(className, definingFunction) {
 
         this.className = className;
         this.definingFunction = definingFunction;
 
     };
 
-    var pt = CustomClass.prototype;
+    var pt = ClassComponent.prototype;
 
 
     /**
@@ -131,7 +131,7 @@
     };
 
     /**
-     Returns the selector for uninitialized custom class.
+     Returns the selector for uninitialized class component.
 
      @return {String}
      */
@@ -142,7 +142,7 @@
     };
 
     /**
-     Marks the given element as initialized as this custom class.
+     Marks the given element as initialized as this class component.
 
      @param {HTMLElement} elem
      */

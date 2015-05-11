@@ -1,31 +1,29 @@
-# custom-class.js v2.1.0
+# class-component.js v2.1.0
 
-> The utility to create reusable special html classes
+> The utility to create reusable special html class component
 
 ***note*** This library depends on jQuery.
 
 
-## Custom Class
+## Class Component
 
-What's a custom class?
+What is a class component?
+
+A class component is a HTML element which has the special functionality according to its `class` attribute.
 
 ### Background
 
-It's very common in frontend engineering to bind handlers to the specific html classes like the following.
+It's a common technique in frontend development to bind handlers to the specific HTML classes like the following.
 
 ```js
-$(function () {
-
-    $('.do-something').on('click', someProcess);
-
-});
+$('.do-something').on('click', someProcess);
 ```
 
-In this example, `.do-something` class has the special functionality of peforming `someProcess` at click on it. However this `.do-something` functionality is only available on that page and isn't reusable everywhere because you always need to write the above piece of code when you want to use `.do-something` class.
+In the above, `.do-something` class has the special functionality of peforming `someProcess` on click on it. However this `.do-something` functionality is only available on that page and isn't reusable everywhere because you always need to write the above piece of code when you want to use `.do-something` class.
 
-A custom class is the reusable version of the above and you can use them everywhere you want. This library help defining such custom classes.
+A class component is the reusable version of the above and you can use them everywhere you want. This library help defining such class components.
 
-This idea is inspired by Custom Element of Web Components spec.
+This idea is inspired by [Custom Element](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/) of Web Components.
 
 
 ## Doc
@@ -35,25 +33,25 @@ This idea is inspired by Custom Element of Web Components spec.
  * @param {String} name The name
  * @param {Function} definingFunction The defining function
  */
-$.registerCustomClass(name, definingFunction);
+$.registerClassComponent(name, definingFunction);
 ```
 
-This library expose the function `$.registerCustomClass(name, definingFunction)`.
+This library expose the function `$.registerClassComponent(name, definingFunction)`.
 
-This registers a "custom class" of the given name using the given defining function.
+This registers a "class component" of the given name using the given defining function.
 The given defining function is called only once on an element of the given class name at `$(document).ready` timing.
-The defining function takes one arugment which is jquery object of the element. This function is called only once for each custom class element.
+The defining function takes one arugment which is jquery object of the element. This function is called only once for each class component element.
 
-If you want to add custom class elements after `$(document).ready` timing, you can initialize them by triggering `init-class.{class-name}` event on `document`, which automatically initializes all custom elements on the page. The initialization doesn't run twice on a element.
+If you want to add class component elements after `$(document).ready` timing, you can initialize them by triggering `init-class.{class-name}` event on `document`, which automatically initializes all class component elements on the page. The initialization doesn't run twice on a element.
 
-See the [DEMO](http://kt3k.github.io/custom-class/test.html).
+See the [DEMO](http://kt3k.github.io/class-component/test.html).
 
 ## Examples
 
 ```html
 <script>
 
-$.registerCustomClass('go-to-example-com', function (elem) {
+$.registerClassComponent('go-to-example-com', function (elem) {
 
     elem.click(function () {
 
@@ -75,7 +73,7 @@ When you click the above div, the page go to the example.com.
 ```html
 <script>
 
-$.registerCustomClass('my-anchor', function (elem) {
+$.registerClassComponent('my-anchor', function (elem) {
 
     elem.on('click', function () {
 

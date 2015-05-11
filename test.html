@@ -1,7 +1,7 @@
 <script src="./bower_components/jquery/dist/jquery.js"></script>
 <script src="./custom-class.js"></script>
 
-<h2>Custom Class Demo</h2>
+<h2>Class Component Demo</h2>
     
 <p>See the source code!</p>
 
@@ -10,7 +10,7 @@
 <h3>.hello class</h3>
 
 <script>
-$.registerCustomClass('hello', function (elem) {
+$.registerClassComponent('hello', function (elem) {
 
     elem.text('Hello, world!');
 
@@ -27,7 +27,7 @@ $.registerCustomClass('hello', function (elem) {
 
 <script>
 
-$.registerCustomClass('hover', function (elem) {
+$.registerClassComponent('hover', function (elem) {
 
     elem.on('mouseover', function () {
 

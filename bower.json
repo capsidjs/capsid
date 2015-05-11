@@ -1,6 +1,6 @@
 {
-  "name": "custom-class",
-  "main": "custom-class.js",
+  "name": "class-component",
+  "main": "class-component.js",
   "version": "2.1.0",
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
@@ -8,7 +8,7 @@
   "description": "The utility to create reusable special html classes",
   "keywords": [
     "class",
-    "custom-class"
+    "class-component"
   ],
   "license": "MIT",
   "ignore": [
