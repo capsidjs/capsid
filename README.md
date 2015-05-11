@@ -16,10 +16,10 @@ A class component is a HTML element which has the special functionality accordin
 It's a common technique in frontend development to bind handlers to the specific HTML classes like the following.
 
 ```js
-$('.do-something').on('click', someProcess);
+$('.foo').on('click', someProcess);
 ```
 
-In the above, `.do-something` class has the special functionality of peforming `someProcess` on click on it. However this `.do-something` functionality is only available on that page and isn't reusable everywhere because you always need to write the above piece of code when you want to use `.do-something` class.
+In the above, `.foo` class has the special functionality of peforming `someProcess` on click on it. However this `.foo` isn't such reusable everywhere because the above doesn't care much about the timing of initialization and the prevention of the double initialization.
 
 A class component is the reusable version of the above and you can use them everywhere you want. This library help defining such class components.
 
@@ -45,6 +45,19 @@ The defining function takes one arugment which is jquery object of the element. 
 If you want to add class component elements after `$(document).ready` timing, you can initialize them by triggering `init-class.{class-name}` event on `document`, which automatically initializes all class component elements on the page. The initialization doesn't run twice on a element.
 
 See the [DEMO](http://kt3k.github.io/class-component/test.html).
+
+----
+
+```
+/**
+ * Gets or sets the promise which resolves when the initializaion of the class component is ready.
+ *
+ * @param {String} className
+ * @param {Promise} promise
+ * @return {Promise}
+ */
+$.fn.classComponentReady(className, promise);
+```
 
 ## Examples
 
