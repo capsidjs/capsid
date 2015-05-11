@@ -1,6 +1,6 @@
 ---
-version: 2.1.0
+version: 1.0.0
 files:
   README.md: v%.%.%
   bower.json: '"version": "%.%.%"'
-  custom-class.js: v%.%.%
+  class-component.js: v%.%.%

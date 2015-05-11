@@ -1,4 +1,4 @@
-# class-component.js v2.1.0
+# class-component.js v1.0.0
 
 > The utility to create reusable special html class component
 
