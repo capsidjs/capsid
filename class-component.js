@@ -30,7 +30,7 @@
 
      See README.md for examples.
      */
-    $.registerCustomClass = function (name, definingFunction) {
+    $.registerClassComponent = function (name, definingFunction) {
         'use strict';
 
         if (typeof name !== 'string') {
