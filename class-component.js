@@ -82,7 +82,13 @@
      */
     $.fn.classComponentReady = function (className, promise) {
 
-        return this.data('__class_component_init_promise:' + className, promise);
+        if (promise) {
+
+            return this.data('__class_component_init_promise:' + className, promise);
+
+        }
+
+        return this.data('__class_component_init_promise:' + className);
 
     };
 
