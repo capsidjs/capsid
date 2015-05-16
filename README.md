@@ -59,6 +59,8 @@ See the [DEMO](http://kt3k.github.io/class-component/test.html).
 $.fn.classComponentReady(className, promise);
 ```
 
+`classComponentReady` sets the promise to `__class_component_init_promise:{class-name__}` and it can be used as the marker of the initialization. It's use is optional.
+
 ## Examples
 
 ```html
@@ -116,6 +118,19 @@ $.registerClassComponent('my-anchor', function (elem) {
 This `.my-anchor` class is similar to `<a>`.
 
 When you click the above div, the page goes to href's url (https://www.google.com/ in this case) and when you mouse over it, it gets `.hover` class.
+
+## See also
+
+- [actor-system](https://github.com/kt3k/actor-system)
+  - The utility to define more complex class components easily
+- [class-component-intializer](https://github.com/kt3k/class-component-initializer)
+  - Another way to initialize the class components
+  - This library detects the end of the initialization of class components
+
+## Realistic Examples
+
+- [event-hub](https://github.com/kt3k/event-hub)
+- [event-twister](https://github.com/kt3k/event-twister)
 
 ## License
 
