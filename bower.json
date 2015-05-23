@@ -1,7 +1,7 @@
 {
   "name": "class-component",
   "main": "class-component.js",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
