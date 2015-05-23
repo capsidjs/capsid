@@ -1,0 +1,22 @@
+{
+  "name": "class-component",
+  "version": "3.1.0",
+  "description": "Define reusable HTML class component",
+  "main": "class-component.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kt3k/class-component.git"
+  },
+  "keywords": [
+    "class-component"
+  ],
+  "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kt3k/class-component/issues"
+  },
+  "homepage": "https://github.com/kt3k/class-component"
+}

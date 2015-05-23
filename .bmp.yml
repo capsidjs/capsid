@@ -3,4 +3,5 @@ version: 3.1.0
 files:
   README.md: v%.%.%
   bower.json: '"version": "%.%.%"'
+  package.json: '"version": "%.%.%"'
   class-component.js: v%.%.%
