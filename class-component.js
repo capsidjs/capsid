@@ -8,12 +8,6 @@
 (function ($) {
     'use strict';
 
-    if (typeof $ === 'undefined') {
-
-        throw new Error('jQuery unavailable. class-component.js depends on jQuery. Load jQuery in global scope before this library.');
-
-    }
-
 
     /**
      Registers a class component of the given name using the given defining function.
@@ -71,6 +65,16 @@
         });
 
     };
+
+
+
+    /**
+     * The main namespace for class component modules.
+     */
+    $.CC = $.registerClassComponent;
+
+
+    $.CC.register = $.registerClassComponent;
 
 
     /**
