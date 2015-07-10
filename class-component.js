@@ -8,7 +8,6 @@
 (function ($) {
     'use strict';
 
-
     /**
      Registers a class component of the given name using the given defining function.
 
@@ -25,7 +24,6 @@
      See README.md for examples.
      */
     $.registerClassComponent = function (name, definingFunction) {
-        'use strict';
 
         if (typeof name !== 'string') {
 
@@ -39,28 +37,12 @@
 
         }
 
-        var classComponent = new ClassComponentConfiguration(name, definingFunction);
+        ccm.register(name, new ClassComponentConfiguration(name, definingFunction));
 
-        var init = function () {
-
-            var elements = $(classComponent.selector()).each(function () {
-
-                classComponent.markInitialized(this);
-
-                classComponent.applyCustomDefinition(this);
-
-            });
-
-            $(document).trigger(classComponent.initStartedEvent(), [elements]);
-
-        };
-
-
-        $(document).on(classComponent.initEvent(), init);
 
         $(document).ready(function () {
 
-            $(document).trigger(classComponent.initEvent());
+            ccm.init(name);
 
         });
 
@@ -72,9 +54,6 @@
      * The main namespace for class component modules.
      */
     $.CC = $.registerClassComponent;
-
-
-    $.CC.register = $.registerClassComponent;
 
 
     /**
@@ -111,24 +90,6 @@
     };
 
     var pt = ClassComponentConfiguration.prototype;
-
-
-    /**
-     Returns init event string.
-
-     @return {String}
-     */
-    pt.initEvent = function () {
-
-        return 'init-class.' + this.className;
-
-    };
-
-    pt.initStartedEvent = function () {
-
-        return 'init-class-started.' + this.className;
-
-    };
 
     /**
      @private
@@ -172,5 +133,78 @@
         this.definingFunction.call(elem, $(elem));
 
     };
+
+    /**
+     * ClassComponentManger handles the registration and initialization of the class compoents.
+     *
+     * @class
+     */
+    var ClassComponentManager = function () {
+
+        /**
+         * @property {Object<ClassComponentConfiguration>} ccc
+         */
+        this.ccc = {};
+
+    };
+
+    var ccmPt = ClassComponentManager.prototype;
+
+    /**
+     * Registers the class component configuration for the given name.
+     *
+     * @param {String} name The name
+     * @param {ClassComponentConfiguration} ccc The class component configuration
+     */
+    ccmPt.register = function (name, ccc) {
+
+        this.ccc[name] = ccc;
+
+    };
+
+
+    /**
+     * Gets the class component of the given name.
+     *
+     * @param {String} name The name
+     * @return {ClassComponentConfiguration}
+     */
+    ccmPt.get = function (name) {
+
+        return this.ccc[name];
+
+    };
+
+    /**
+     * Initializes the class components of the given name on the given dom.
+     *
+     * @param {String} name The name
+     * @param {HTMLElement|String} dom The dom where class componets are initialized
+     */
+    ccmPt.init = function (name, dom) {
+
+        var ccc = this.ccc[name];
+
+        var elements = $(ccc.selector(), dom).each(function () {
+
+            ccc.markInitialized(this);
+
+            ccc.applyCustomDefinition(this);
+
+        });
+
+    };
+
+    var ccm = new ClassComponentManager();
+
+    $.CC.register = $.registerClassComponent;
+
+    $.CC.initClassComponent = function (name) {
+
+        ccm.init(name);
+
+    };
+
+    $.CC.__manager__ = ccm;
 
 }(jQuery));
