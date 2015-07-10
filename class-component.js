@@ -180,6 +180,7 @@
      *
      * @param {String} name The name
      * @param {HTMLElement|String} dom The dom where class componets are initialized
+     * @return {Array<HTMLElement>} The elements which are initialized in this initialization
      */
     ccmPt.init = function (name, dom) {
 
@@ -193,6 +194,8 @@
 
         });
 
+        return elements.toArray();
+
     };
 
     var ccm = new ClassComponentManager();
@@ -201,7 +204,7 @@
 
     $.CC.initClassComponent = function (name) {
 
-        ccm.init(name);
+        return ccm.init(name);
 
     };
 
