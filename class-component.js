@@ -39,7 +39,7 @@
 
         }
 
-        var classComponent = new ClassComponent(name, definingFunction);
+        var classComponent = new ClassComponentConfiguration(name, definingFunction);
 
         var init = function () {
 
@@ -103,14 +103,14 @@
 
      @class
      */
-    function ClassComponent(className, definingFunction) {
+    function ClassComponentConfiguration(className, definingFunction) {
 
         this.className = className;
         this.definingFunction = definingFunction;
 
     };
 
-    var pt = ClassComponent.prototype;
+    var pt = ClassComponentConfiguration.prototype;
 
 
     /**
