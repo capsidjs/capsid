@@ -181,10 +181,17 @@
      * @param {String} name The name
      * @param {HTMLElement|String} dom The dom where class componets are initialized
      * @return {Array<HTMLElement>} The elements which are initialized in this initialization
+     * @throw {Error}
      */
     ccmPt.init = function (name, dom) {
 
         var ccc = this.ccc[name];
+
+        if (ccc == null) {
+
+            throw new Error('Class componet "' + name + '" is not defined.');
+
+        }
 
         var elements = $(ccc.selector(), dom).each(function () {
 
