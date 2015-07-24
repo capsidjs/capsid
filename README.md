@@ -1,4 +1,4 @@
-# class-component.js v4.2.0
+# class-component.js v4.3.0
 
 > Utility to define reusable HTML class component
 
