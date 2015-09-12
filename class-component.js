@@ -6,6 +6,7 @@
 
 
 (function ($) {
+
     'use strict';
 
     /**
@@ -78,7 +79,7 @@
 
 
     /**
-     ClassComponent is the utility class for class component initialization.
+     ClassComponentConfiguration is the utility class for class component initialization.
 
      @class
      */
@@ -209,12 +210,55 @@
 
     $.CC.register = $.registerClassComponent;
 
-    $.CC.initClassComponent = function (name) {
+    $.CC.initClassComponent = function (name, elem) {
 
-        return ccm.init(name);
+        return ccm.init(name, elem);
 
     };
 
     $.CC.__manager__ = ccm;
+
+
+
+
+    var reSpaces = / +/;
+
+    /**
+     * Initialized the all class components of the given names and returns of the promise of all initialization.
+     *
+     * @param {String[]|String} arguments
+     * @return {Promise}
+     */
+    $.CC.init = function (classNames, elem) {
+
+        if (typeof classNames === 'string') {
+
+            classNames = classNames.split(reSpaces);
+
+        }
+
+        var elemGroups = classNames.map(function (className) {
+
+            return initOne(className, elem);
+
+        });
+
+        var x = [];
+
+        return x.concat.apply(x, elemGroups);
+
+    };
+
+    /**
+     * Initializes one kind of class components of the given name and returns the promise of all initialization.
+     *
+     * @param {String} className The class name to initialize
+     * @return {Promise}
+     */
+    var initOne = function (className, elem) {
+
+        return $.CC.initClassComponent(className, elem);
+
+    };
 
 }(jQuery));
