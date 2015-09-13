@@ -1,6 +1,4 @@
 # TODO
-- subclass dependency
-- separate files
 - rename to coelement
 - make namespace $.co
 - make special property $.fn.co
@@ -8,5 +6,7 @@
 - update README.md
 
 # DONE
+- separate files
+- subclass dependency
 - Merge class-component-initializer
 - remove promise init
