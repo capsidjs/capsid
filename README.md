@@ -59,6 +59,20 @@ If you want to add class component elements after `$(document).ready` timing, yo
 
 See the [DEMO](http://kt3k.github.io/class-component/test.html).
 
+
+---
+
+```js
+/**
+ * @param {String} name The name of the class component
+ * @param {HTMLElement|null} elem The element in which the class components are initialized
+ */
+$.cc.init(name, elem);
+```
+
+`$.cc.init` initializes the class components `name` in `elem`. If `elem` is omitted, then the elements in the whole page are initialized. If `name` is omitted, then all registered class components are initialized.
+
+
 ## Examples
 
 Download button
