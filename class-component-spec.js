@@ -2,27 +2,15 @@
 
 before(function () {
 
-    $.defineRole('foo', function (pt, parent) {
+    $.CC.register('foo', function (elem) {
 
-        pt.constructor = function (elem) {
-
-            parent.constructor.call(this, elem);
-
-            elem.attr('is_foo', 'true');
-
-        };
+        elem.attr('is_foo', 'true');
 
     });
 
-    $.defineRole('bar', function (pt, parent) {
+    $.CC.register('bar', function (elem) {
 
-        pt.constructor = function (elem) {
-
-            parent.constructor.call(this, elem);
-
-            elem.attr('is_bar', 'true');
-
-        };
+        elem.attr('is_bar', 'true');
 
     });
 

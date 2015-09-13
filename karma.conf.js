@@ -18,7 +18,6 @@ module.exports = function(config) {
       'node_modules/jquery/dist/jquery.js',
       'class-component.js',
       'node_modules/subclassjs/index.js',
-      'node_modules/actor-system/actor-system.js',
       'class-component-spec.js'
     ],
 

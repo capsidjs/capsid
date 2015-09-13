@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/kt3k/class-component",
   "devDependencies": {
-    "actor-system": "^1.4.1",
     "chai": "^3.2.0",
     "jquery": "^2.1.4",
     "karma": "^0.13.9",

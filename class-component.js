@@ -24,7 +24,7 @@
 
      See README.md for examples.
      */
-    $.registerClassComponent = function (name, definingFunction) {
+    var registerClassComponent = function (name, definingFunction) {
 
         if (typeof name !== 'string') {
 
@@ -54,28 +54,8 @@
     /**
      * The main namespace for class component modules.
      */
-    $.CC = $.registerClassComponent;
-
-
-    /**
-     * Gets or sets the promise which resolves when the initializaion of the class component is ready.
-     *
-     * @param {String} className The class name
-     * @param {Promise} promise The promise which resolves when the init process finished
-     * @return {Promise}
-     */
-    $.fn.classComponentReady = function (className, promise) {
-
-        if (promise) {
-
-            return this.data('__class_component_init_promise:' + className, promise);
-
-        }
-
-        return this.data('__class_component_init_promise:' + className);
-
-    };
-
+    $.CC = registerClassComponent;
+    $.CC.register = registerClassComponent;
 
 
     /**
@@ -208,17 +188,8 @@
 
     var ccm = new ClassComponentManager();
 
-    $.CC.register = $.registerClassComponent;
-
-    $.CC.initClassComponent = function (name, elem) {
-
-        return ccm.init(name, elem);
-
-    };
 
     $.CC.__manager__ = ccm;
-
-
 
 
     var reSpaces = / +/;
@@ -257,7 +228,7 @@
      */
     var initOne = function (className, elem) {
 
-        return $.CC.initClassComponent(className, elem);
+        return ccm.init(className, elem);
 
     };
 
