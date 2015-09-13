@@ -1,4 +1,5 @@
 # TODO
+- pass test of actor-system with cc v5
 - bring assign into this repo
 - rename to coelement
 - make special property $.fn.co
