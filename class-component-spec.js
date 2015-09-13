@@ -2,13 +2,13 @@
 
 before(function () {
 
-    $.CC.register('foo', function (elem) {
+    $.cc.register('foo', function (elem) {
 
         elem.attr('is_foo', 'true');
 
     });
 
-    $.CC.register('bar', function (elem) {
+    $.cc.register('bar', function (elem) {
 
         elem.attr('is_bar', 'true');
 
@@ -16,7 +16,7 @@ before(function () {
 
 });
 
-describe('$.CC.init', function () {
+describe('$.cc.init', function () {
     'use strict';
 
     beforeEach(function () {
@@ -29,7 +29,7 @@ describe('$.CC.init', function () {
 
         var foo = $('<div class="foo" />').appendTo(document.body);
 
-        $.CC.init('foo');
+        $.cc.init('foo');
 
         expect(foo.attr('is_foo')).to.equal('true');
 
@@ -41,7 +41,7 @@ describe('$.CC.init', function () {
         var foo = $('<div class="foo" />').appendTo('body');
         var bar = $('<div class="bar" />').appendTo('body');
 
-        $.CC.init(['foo', 'bar']);
+        $.cc.init(['foo', 'bar']);
 
         expect(foo.attr('is_foo')).to.equal('true');
         expect(bar.attr('is_bar')).to.equal('true');
@@ -53,7 +53,7 @@ describe('$.CC.init', function () {
         var foo = $('<div class="foo" />').appendTo('body');
         var bar = $('<div class="bar" />').appendTo('body');
 
-        $.CC.init('foo bar');
+        $.cc.init('foo bar');
 
         expect(foo.attr('is_foo')).to.equal('true');
         expect(bar.attr('is_bar')).to.equal('true');

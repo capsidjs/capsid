@@ -9,25 +9,18 @@
 (function ($) {
     'use strict';
 
+    var reSpaces = / +/;
+
     var ClassComponentManager = require('./lib/ClassComponentManager');
     var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
-
-    var reSpaces = / +/;
 
     /**
      Registers a class component of the given name using the given defining function.
 
-     This automatically initializes all `.class-name` elements on the page at `$(document).ready` timing.
-
-     This also registers `init-class.{class-name}` event handler to `document`, which invokes the initialization of the class,
-     so if you want to initialize them after `$(document).ready`, you need to trigger `init-class.{class-name}` event on the document.
-
-     The initialization doesn't run over twice for a element.
+     See README.md for details.
 
      @param {String} className The class name
      @param {Function} definition The class definition
-
-     See README.md for examples.
      */
     var registerClassComponent = function (name, definingFunction) {
 
@@ -59,10 +52,10 @@
     /**
      * The main namespace for class component modules.
      */
-    $.CC = registerClassComponent;
-    $.CC.register = registerClassComponent;
+    $.cc = registerClassComponent;
+    $.cc.register = registerClassComponent;
 
-    var ccm = $.CC.__manager__ = new ClassComponentManager();
+    var ccm = $.cc.__manager__ = new ClassComponentManager();
 
 
     /**
@@ -71,7 +64,7 @@
      * @param {String[]|String} arguments
      * @return {Promise}
      */
-    $.CC.init = function (classNames, elem) {
+    $.cc.init = function (classNames, elem) {
 
         if (typeof classNames === 'string') {
 
@@ -85,9 +78,7 @@
 
         });
 
-        var x = [];
-
-        return x.concat.apply(x, elemGroups);
+        return Array.prototype.concat.apply([], elemGroups);
 
     };
 
