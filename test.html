@@ -1,8 +1,8 @@
 <script src="./node_modules/jquery/dist/jquery.js"></script>
-<script src="./class-component.js"></script>
+<script src="./dist.js"></script>
 
 <h2>Class Component Demo</h2>
-    
+
 <p>See the source code!</p>
 
 <hr />
@@ -10,7 +10,7 @@
 <h3>.hello class</h3>
 
 <script>
-$.registerClassComponent('hello', function (elem) {
+$.cc.register('hello', function (elem) {
 
     elem.text('Hello, world!');
 
@@ -27,7 +27,7 @@ $.registerClassComponent('hello', function (elem) {
 
 <script>
 
-$.registerClassComponent('hover', function (elem) {
+$.cc.register('hover', function (elem) {
 
     elem.on('mouseover', function () {
 
