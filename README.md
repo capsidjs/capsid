@@ -1,4 +1,4 @@
-# class-component.js v5.0.0
+# class-component.js v5.1.0
 
 > Framework to define reusable HTML class component
 
