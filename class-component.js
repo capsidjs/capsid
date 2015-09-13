@@ -81,4 +81,6 @@
 
     };
 
+    $.cc.subclass = require('subclassjs');
+
 }(jQuery));
