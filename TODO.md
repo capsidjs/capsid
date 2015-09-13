@@ -1,4 +1,5 @@
 # TODO
+- bring assign into this repo
 - rename to coelement
 - make special property $.fn.co
   - like $.fn.defineGetter('co', blah);
