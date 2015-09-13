@@ -1,8 +1,10 @@
 # TODO
+- subclass dependency
+- separate files
 - rename to coelement
-- $.co.blah
-- $.fn.co.blah
-  - actually $.fn.defineGetter('co', blah);
+- make namespace $.co
+- make special property $.fn.co
+  - like $.fn.defineGetter('co', blah);
 
 # DONE
 - Merge class-component-initializer
