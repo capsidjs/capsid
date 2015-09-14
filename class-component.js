@@ -62,9 +62,17 @@
      * Initialized the all class components of the given names and returns of the promise of all initialization.
      *
      * @param {String[]|String} arguments
-     * @return {Promise}
+     * @return {HTMLElement[]}
      */
     cc.init = function (classNames, elem) {
+
+        if (classNames == null) {
+
+            cc.__manager__.initAll(elem);
+
+            return;
+
+        }
 
         if (typeof classNames === 'string') {
 
@@ -72,13 +80,11 @@
 
         }
 
-        var elemGroups = classNames.map(function (className) {
+        classNames.map(function (className) {
 
             return cc.__manager__.init(className, elem);
 
         });
-
-        return Array.prototype.concat.apply([], elemGroups);
 
     };
 

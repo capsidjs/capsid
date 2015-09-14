@@ -103,7 +103,6 @@ describe('$.cc', function () {
     });
 
     describe('subscribe', function () {
-        'use strict';
 
         it('is a function', function () {
 
@@ -126,20 +125,25 @@ describe('$.cc', function () {
 });
 
 describe('$.fn.cc', function () {
+    'use strict';
+
+    var Spam = $.cc.subclass(function (pt) {
+
+        pt.construtor = function () {
+
+            elem.attr('is_ham', 'true');
+
+        };
+
+    });
+
+    var Ham = $.cc.subclass($.cc.Actor, function (pt) {});
 
     before(function () {
 
-        $.cc.register('spam', function (elem) {
+        $.cc.assign('spam', Spam);
 
-            elem.attr('is_foo', 'true');
-
-        });
-
-        $.cc.register('ham', function (elem) {
-
-            elem.attr('is_bar', 'true');
-
-        });
+        $.cc.assign('ham', Ham);
 
     });
 
@@ -148,9 +152,7 @@ describe('$.fn.cc', function () {
         var elem = $('<div />');
 
         expect(elem.cc).to.exist;
-        expect(elem.cc.constructor).to.be.a('function');
-        expect(elem.cc.init).to.be.a('function');
-        expect(elem.cc.get).to.be.a('function');
+        expect(elem.cc).to.be.instanceof(require('./lib/ClassComponentContext'));
 
     });
 
@@ -163,6 +165,68 @@ describe('$.fn.cc', function () {
             elem.cc.init('spam');
 
             expect(elem.hasClass('spam')).to.be.true;
+
+        });
+
+        it('sets the coelement if it has a coelemental', function () {
+
+            var elem = $('<div />');
+
+            elem.cc.init('spam');
+
+            expect(elem.cc.get('spam')).to.exists;
+            expect(elem.cc.get('spam')).to.be.instanceof(Spam);
+
+        });
+
+        it('returns the coelement if it has a coelement', function () {
+
+            var elem = $('<div />');
+
+            expect(elem.cc.init('spam')).to.be.instanceof(Spam);
+
+        });
+
+    });
+
+    describe('get', function () {
+
+        it('gets the coelement of the given name', function () {
+
+            var elem = $('<div class="spam" />').appendTo('body');
+
+            $.cc.init();
+
+            expect(elem.cc.get('spam')).to.exist;
+            expect(elem.cc.get('spam')).to.be.instanceof(Spam);
+
+        });
+
+        it('throws an error when the corresponding coelement is unavailable', function () {
+
+            var elem = $('<div class="does-not-exist" />').appendTo('body');
+
+            $.cc.init();
+
+            expect(function () {
+
+                elem.cc.get('does-not-exist');
+
+            }).to.throw();
+
+        });
+
+    });
+
+    describe('getActor', function () {
+
+        it('gets the actor', function () {
+
+            var elem = $('<div class="ham" />').appendTo('body');
+
+            $.cc.init();
+
+            expect(elem.cc.getActor()).to.be.instanceof(Ham);
 
         });
 
