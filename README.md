@@ -160,6 +160,19 @@ $.assign('foo', Foo);
 
 In the above, when the page is loaded, Foo class is initialized with `div.foo` and its accompanies the div. The accompanying coelement can be obtained by calling `dom.cc.get('foo')` in this case.
 
+
+----
+
+```js
+/**
+ * @param {String} className The class name
+ * @param {Function} constructor The coelement class constructor
+ */
+$.cc.assign(className, constructor);
+```
+
+`$.cc.assign` is similar to the `$.cc.register`. It registers the class component of the given name, but the second argument is not just called but called as the constructor and its instance becomes the accompanying coelement. The coelement can be accessed by calling `elem.cc.get('className')`.
+
 ----
 
 Dynamic creation
