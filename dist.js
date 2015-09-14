@@ -15,6 +15,13 @@
     var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
 
     /**
+     * The main namespace for class component module.
+     */
+    var cc = {};
+
+    cc.__manager__ = new ClassComponentManager();
+
+    /**
      Registers a class component of the given name using the given defining function.
 
      See README.md for details.
@@ -22,7 +29,7 @@
      @param {String} className The class name
      @param {Function} definition The class definition
      */
-    var registerClassComponent = function (name, definingFunction) {
+    cc.register = function (name, definingFunction) {
 
         if (typeof name !== 'string') {
 
@@ -32,30 +39,20 @@
 
         if (typeof definingFunction !== 'function') {
 
-            throw new Error('`definingFunction` of a class component has to be a string');
+            throw new Error('`definingFunction` of a class component has to be a function');
 
         }
 
-        ccm.register(name, new ClassComponentConfiguration(name, definingFunction));
+        cc.__manager__.register(name, new ClassComponentConfiguration(name, definingFunction));
 
 
         $(document).ready(function () {
 
-            ccm.init(name);
+            cc.__manager__.init(name);
 
         });
 
     };
-
-
-
-    /**
-     * The main namespace for class component modules.
-     */
-    $.cc = registerClassComponent;
-    $.cc.register = registerClassComponent;
-
-    var ccm = $.cc.__manager__ = new ClassComponentManager();
 
 
     /**
@@ -64,7 +61,7 @@
      * @param {String[]|String} arguments
      * @return {Promise}
      */
-    $.cc.init = function (classNames, elem) {
+    cc.init = function (classNames, elem) {
 
         if (typeof classNames === 'string') {
 
@@ -74,7 +71,7 @@
 
         var elemGroups = classNames.map(function (className) {
 
-            return ccm.init(className, elem);
+            return cc.__manager__.init(className, elem);
 
         });
 
@@ -82,11 +79,68 @@
 
     };
 
-    $.cc.subclass = require('subclassjs');
+
+    /**
+     * Assign a class as the accompanying coelement of the class component
+     *
+     * @param {String} className
+     * @param {Function} DefiningClass
+     */
+    cc.assign = function (className, DefiningClass) {
+
+        DefiningClass.coelementName = className;
+
+        $.cc.register(className, function (elem) {
+
+            new DefiningClass(elem);
+
+        });
+
+    };
+
+    // Exports subclass.
+    cc.subclass = require('subclassjs');
+
+    // Exports Coelement and Actor.
+    cc.Coelement = require('./lib/Coelement');
+    cc.Actor = require('./lib/Actor');
+
+    $.cc = cc;
 
 }(jQuery));
 
-},{"./lib/ClassComponentConfiguration":2,"./lib/ClassComponentManager":3,"subclassjs":4}],2:[function(require,module,exports){
+},{"./lib/Actor":2,"./lib/ClassComponentConfiguration":3,"./lib/ClassComponentManager":4,"./lib/Coelement":5,"subclassjs":6}],2:[function(require,module,exports){
+
+
+var subclass = require('subclassjs');
+var Coelement = require('./Coelement');
+
+
+/**
+ * Actor is the primary coelement on a dom. A dom is able to have only one actor.
+ */
+var Actor = subclass(Coelement, function (pt, parent) {
+
+    pt.constructor = function (elem) {
+
+        parent.constructor.call(this, elem);
+
+        if (elem.data('__primary_coelement') != null) {
+
+            throw new Error('actor is already set: ' + elem.data('__primary_coelement').constructor.coelementName);
+
+        };
+
+        elem.data('__primary_coelement', this);
+
+    };
+
+});
+
+
+module.exports = Actor;
+
+},{"./Coelement":5,"subclassjs":6}],3:[function(require,module,exports){
 
 
 var subclass = require('subclassjs');
@@ -152,7 +206,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
 
 module.exports = ClassComponentConfiguration;
 
-},{"subclassjs":4}],3:[function(require,module,exports){
+},{"subclassjs":6}],4:[function(require,module,exports){
 
 
 var subclass = require('subclassjs');
@@ -232,7 +286,31 @@ var ClassComponentManager = subclass(function (pt) {
 
 module.exports = ClassComponentManager;
 
-},{"subclassjs":4}],4:[function(require,module,exports){
+},{"subclassjs":6}],5:[function(require,module,exports){
+
+
+var subclass = require('subclassjs');
+
+/**
+ * Coelement is the additional function of the dom element. A coelement is bound to the element and works together with it.
+ */
+var Coelement = subclass(function (pt) {
+
+    pt.constructor = function (elem) {
+
+        this.elem = elem;
+
+        // embeds coelement in the jquery object
+        // to make it possible to reference coelement from the element.
+        this.elem.data('__coelement:' + this.constructor.coelementName, this);
+
+    };
+
+});
+
+module.exports = Coelement;
+
+},{"subclassjs":6}],6:[function(require,module,exports){
 /**
  * subclassjs v1.3.0
  */
