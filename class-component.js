@@ -14,9 +14,9 @@
     var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
 
     /**
-     * The main namespace for class component modules.
+     * The main namespace for class component module.
      */
-    var cc = $.cc = {};
+    var cc = {};
 
     cc.__manager__ = new ClassComponentManager();
 
@@ -79,7 +79,31 @@
     };
 
 
+    /**
+     * Assign a class as the accompanying coelement of the class component
+     *
+     * @param {String} className
+     * @param {Function} DefiningClass
+     */
+    cc.assign = function (className, DefiningClass) {
+
+        DefiningClass.coelementName = className;
+
+        $.cc.register(className, function (elem) {
+
+            new DefiningClass(elem);
+
+        });
+
+    };
+
     // Exports subclass.
     cc.subclass = require('subclassjs');
+
+    // Exports Coelement and Actor.
+    cc.Coelement = require('./lib/Coelement');
+    cc.Actor = require('./lib/Actor');
+
+    $.cc = cc;
 
 }(jQuery));
