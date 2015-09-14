@@ -14,6 +14,13 @@
     var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
 
     /**
+     * The main namespace for class component modules.
+     */
+    var cc = $.cc = {};
+
+    cc.__manager__ = new ClassComponentManager();
+
+    /**
      Registers a class component of the given name using the given defining function.
 
      See README.md for details.
@@ -21,7 +28,7 @@
      @param {String} className The class name
      @param {Function} definition The class definition
      */
-    var registerClassComponent = function (name, definingFunction) {
+    cc.register = function (name, definingFunction) {
 
         if (typeof name !== 'string') {
 
@@ -35,26 +42,16 @@
 
         }
 
-        ccm.register(name, new ClassComponentConfiguration(name, definingFunction));
+        cc.__manager__.register(name, new ClassComponentConfiguration(name, definingFunction));
 
 
         $(document).ready(function () {
 
-            ccm.init(name);
+            cc.__manager__.init(name);
 
         });
 
     };
-
-
-
-    /**
-     * The main namespace for class component modules.
-     */
-    $.cc = registerClassComponent;
-    $.cc.register = registerClassComponent;
-
-    var ccm = $.cc.__manager__ = new ClassComponentManager();
 
 
     /**
@@ -63,7 +60,7 @@
      * @param {String[]|String} arguments
      * @return {Promise}
      */
-    $.cc.init = function (classNames, elem) {
+    cc.init = function (classNames, elem) {
 
         if (typeof classNames === 'string') {
 
@@ -73,7 +70,7 @@
 
         var elemGroups = classNames.map(function (className) {
 
-            return ccm.init(className, elem);
+            return cc.__manager__.init(className, elem);
 
         });
 
@@ -81,6 +78,8 @@
 
     };
 
-    $.cc.subclass = require('subclassjs');
+
+    // Exports subclass.
+    cc.subclass = require('subclassjs');
 
 }(jQuery));
