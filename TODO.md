@@ -1,13 +1,13 @@
 # TODO
-- use karma-browserify
-- make special property $.fn.co
-  - like $.fn.defineGetter('co', blah);
-  - bring ClassComponentContext to the repo
 - write doc of assign
-- update README.md
 - make coverage report
 
 # DONE
+- update README.md
+- make special property $.fn.co
+  - like Object.defineProperty($.fn, 'co', blah);
+  - bring ClassComponentContext to the repo
+- use karma-browserify
 - bring assign into this repo
 - rename to coelement
 - pass test of actor-system with cc v5
