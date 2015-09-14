@@ -91,7 +91,9 @@
 
         $.cc.register(className, function (elem) {
 
-            new DefiningClass(elem);
+            var coelement = new DefiningClass(elem);
+
+            elem.data('__coelement:' + DefiningClass.coelementName, coelement);
 
         });
 
@@ -100,8 +102,7 @@
     // Exports subclass.
     cc.subclass = require('subclassjs');
 
-    // Exports Coelement and Actor.
-    cc.Coelement = require('./lib/Coelement');
+    // Exports Actor.
     cc.Actor = require('./lib/Actor');
 
     $.cc = cc;

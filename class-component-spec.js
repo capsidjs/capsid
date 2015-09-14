@@ -66,6 +66,38 @@ describe('$.cc', function () {
 
     describe('assign', function () {
 
+        it('registers a class component of the given name', function () {
+
+            $.cc.assign('assign-test0', function () {});
+
+            expect($.cc.__manager__.ccc['assign-test0']).to.be.exist;
+
+        });
+
+        it('sets coelementName property to the given construtor', function () {
+
+            var Class0 = function () {};
+
+            $.cc.assign('assgin-test1', Class0);
+
+            expect(Class0.coelementName).to.equal('assgin-test1');
+
+        });
+
+        it('sets __coelement:class-name data property when the class component is initialized', function () {
+
+            var Class1 = function () {};
+
+            $.cc.assign('assign-test2', Class1);
+
+            var elem = $('<div class="assign-test2" />').appendTo('body');
+
+            $.cc.init('assign-test2', 'body');
+
+            expect(elem.data('__coelement:assign-test2')).to.be.instanceof(Class1);
+
+        });
+
     });
 
     describe('subscribe', function () {
@@ -74,16 +106,6 @@ describe('$.cc', function () {
         it('is a function', function () {
 
             expect($.cc.subclass).to.be.a('function');
-
-        });
-
-    });
-
-    describe('Coelement', function () {
-
-        it('is a function', function () {
-
-            expect($.cc.Coelement).to.be.a('function');
 
         });
 
