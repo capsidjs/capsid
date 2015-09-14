@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
- * class-component.js v5.1.0
+ * class-component.js v5.2.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -11,7 +11,11 @@
 
     var reSpaces = / +/;
 
+    var Actor = require('./lib/Actor');
+    var subclass = require('subclassjs');
+
     var ClassComponentManager = require('./lib/ClassComponentManager');
+    var ClassComponentContext = require('./lib/ClassComponentContext');
     var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
 
     /**
@@ -59,9 +63,17 @@
      * Initialized the all class components of the given names and returns of the promise of all initialization.
      *
      * @param {String[]|String} arguments
-     * @return {Promise}
+     * @return {HTMLElement[]}
      */
     cc.init = function (classNames, elem) {
+
+        if (classNames == null) {
+
+            cc.__manager__.initAll(elem);
+
+            return;
+
+        }
 
         if (typeof classNames === 'string') {
 
@@ -69,13 +81,11 @@
 
         }
 
-        var elemGroups = classNames.map(function (className) {
+        classNames.map(function (className) {
 
             return cc.__manager__.init(className, elem);
 
         });
-
-        return Array.prototype.concat.apply([], elemGroups);
 
     };
 
@@ -90,40 +100,63 @@
 
         DefiningClass.coelementName = className;
 
-        $.cc.register(className, function (elem) {
+        cc.register(className, function (elem) {
 
-            new DefiningClass(elem);
+            var coelement = new DefiningClass(elem);
+
+            elem.data('__coelement:' + DefiningClass.coelementName, coelement);
 
         });
 
     };
 
+
+    // Defines the special property cc on a jquery property.
+    Object.defineProperty($.fn, 'cc', {
+
+        get: function () {
+
+            var ctx = this.data('__class_component_context__');
+
+            if (!ctx) {
+
+                ctx = new ClassComponentContext(this);
+
+                this.data('__class_component_context__', ctx);
+
+            }
+
+            return ctx;
+
+        },
+
+        enumerable: false,
+        configurable: false
+
+    });
+
     // Exports subclass.
-    cc.subclass = require('subclassjs');
+    cc.subclass = subclass;
 
-    // Exports Coelement and Actor.
-    cc.Coelement = require('./lib/Coelement');
-    cc.Actor = require('./lib/Actor');
+    // Exports Actor.
+    cc.Actor = Actor;
 
+    // Exports the main namespace
     $.cc = cc;
 
 }(jQuery));
 
-},{"./lib/Actor":2,"./lib/ClassComponentConfiguration":3,"./lib/ClassComponentManager":4,"./lib/Coelement":5,"subclassjs":6}],2:[function(require,module,exports){
+},{"./lib/Actor":2,"./lib/ClassComponentConfiguration":3,"./lib/ClassComponentContext":4,"./lib/ClassComponentManager":5,"subclassjs":6}],2:[function(require,module,exports){
 
 
 var subclass = require('subclassjs');
-var Coelement = require('./Coelement');
-
 
 /**
  * Actor is the primary coelement on a dom. A dom is able to have only one actor.
  */
-var Actor = subclass(Coelement, function (pt, parent) {
+var Actor = subclass(function (pt) {
 
     pt.constructor = function (elem) {
-
-        parent.constructor.call(this, elem);
 
         if (elem.data('__primary_coelement') != null) {
 
@@ -140,9 +173,11 @@ var Actor = subclass(Coelement, function (pt, parent) {
 
 module.exports = Actor;
 
-},{"./Coelement":5,"subclassjs":6}],3:[function(require,module,exports){
+},{"subclassjs":6}],3:[function(require,module,exports){
+(function (global){
 
 
+var $ = global.jQuery;
 var subclass = require('subclassjs');
 
 /**
@@ -152,6 +187,10 @@ var subclass = require('subclassjs');
  */
 var ClassComponentConfiguration = subclass(function (pt) {
 
+    /**
+     * @param {String} className The class name
+     * @param {Function} definingFunction The defining function
+     */
     pt.constructor = function (className, definingFunction) {
 
         this.className = className;
@@ -206,9 +245,85 @@ var ClassComponentConfiguration = subclass(function (pt) {
 
 module.exports = ClassComponentConfiguration;
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"subclassjs":6}],4:[function(require,module,exports){
+(function (global){
 
 
+var $ = global.jQuery;
+var subclass = require('subclassjs');
+
+
+/**
+ * This is class component contenxt manager. This help to initialize or get colements.
+ */
+var ClassComponentContext = subclass(function (pt) {
+
+    pt.constructor = function (jqObj) {
+
+        this.jqObj = jqObj;
+
+    };
+
+    /**
+     * Inserts the class name, initializes as the class component and returns the coelement if exists.
+     *
+     * @param {String} className The class name
+     * @return {Object}
+     */
+    pt.init = function (className) {
+
+        this.jqObj.addClass(className);
+
+        $.cc.__manager__.initAt(className, this.jqObj);
+
+        return this.jqObj.data('__coelement:' + className); // Could be undefined
+    };
+
+    /**
+     * Gets the coelement of the given name.
+     *
+     * @param {String} coelementName The name of the coelement
+     * @return {Object}
+     */
+    pt.get = function (coelementName) {
+
+        var coelement = this.jqObj.data('__coelement:' + coelementName);
+
+        if (!coelement) {
+
+            throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName);
+
+        }
+
+        return coelement;
+
+    };
+
+    pt.getActor = function () {
+
+        var actor = this.jqObj.data('__primary_coelement');
+
+        if (!actor) {
+
+            throw new Error('no actor on the dom: ' + this.jqObj.get(0).tagName);
+
+        }
+
+        return actor;
+
+    };
+
+});
+
+module.exports = ClassComponentContext;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"subclassjs":6}],5:[function(require,module,exports){
+(function (global){
+
+
+var $ = global.jQuery;
 var subclass = require('subclassjs');
 
 /**
@@ -239,30 +354,78 @@ var ClassComponentManager = subclass(function (pt) {
 
     };
 
-
     /**
-     * Gets the class component of the given name.
+     * Initializes the class components of the given name in the given element.
      *
-     * @param {String} name The name
-     * @return {ClassComponentConfiguration}
+     * @param {String} className The class name
+     * @param {HTMLElement|String} elem The dom where class componets are initialized
+     * @return {Array<HTMLElement>} The elements which are initialized in this initialization
+     * @throw {Error}
      */
-    pt.get = function (name) {
+    pt.init = function (className, elem) {
 
-        return this.ccc[name];
+        var ccc = this.getConfiguration(className);
+
+        return $(ccc.selector(), elem).each(function () {
+
+            pt.constructor.initElemByCCC(this, ccc);
+
+        }).toArray();
 
     };
 
     /**
-     * Initializes the class components of the given name on the given dom.
+     * Initializes the class component of the give name at the given element.
      *
-     * @param {String} name The name
-     * @param {HTMLElement|String} dom The dom where class componets are initialized
-     * @return {Array<HTMLElement>} The elements which are initialized in this initialization
+     * @param {String} className The class name
+     * @param {HTMLElement} eleme The element
+     */
+    pt.initAt = function (className, elem) {
+
+        var ccc = this.getConfiguration(className);
+
+        this.constructor.initElemByCCC(elem, ccc);
+
+    };
+
+
+    /**
+     * @param {HTMLElement} elem The element
+     */
+    pt.initAll = function (elem) {
+
+        Object.keys(this.ccc).forEach(function (className) {
+
+            this.init(className, elem);
+
+        }, this);
+
+    };
+
+    /**
+     * @static
+     * @private
+     * @param {HTMLElement} elem The element
+     * @param {ClassComponentConfiguration}
+     */
+    pt.constructor.initElemByCCC = function (elem, ccc) {
+
+        ccc.markInitialized(elem);
+        ccc.applyCustomDefinition(elem);
+
+    };
+
+
+    /**
+     * Gets the configuration of the given class name.
+     *
+     * @param {String} className The class name
+     * @return {ClassComponentConfiguration}
      * @throw {Error}
      */
-    pt.init = function (name, dom) {
+    pt.getConfiguration = function (className) {
 
-        var ccc = this.ccc[name];
+        var ccc = this.ccc[className];
 
         if (ccc == null) {
 
@@ -270,15 +433,7 @@ var ClassComponentManager = subclass(function (pt) {
 
         }
 
-        var elements = $(ccc.selector(), dom).each(function () {
-
-            ccc.markInitialized(this);
-
-            ccc.applyCustomDefinition(this);
-
-        });
-
-        return elements.toArray();
+        return ccc;
 
     };
 
@@ -286,30 +441,7 @@ var ClassComponentManager = subclass(function (pt) {
 
 module.exports = ClassComponentManager;
 
-},{"subclassjs":6}],5:[function(require,module,exports){
-
-
-var subclass = require('subclassjs');
-
-/**
- * Coelement is the additional function of the dom element. A coelement is bound to the element and works together with it.
- */
-var Coelement = subclass(function (pt) {
-
-    pt.constructor = function (elem) {
-
-        this.elem = elem;
-
-        // embeds coelement in the jquery object
-        // to make it possible to reference coelement from the element.
-        this.elem.data('__coelement:' + this.constructor.coelementName, this);
-
-    };
-
-});
-
-module.exports = Coelement;
-
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"subclassjs":6}],6:[function(require,module,exports){
 /**
  * subclassjs v1.3.0
