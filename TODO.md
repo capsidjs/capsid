@@ -1,6 +1,8 @@
 # TODO
 - make special property $.fn.co
   - like $.fn.defineGetter('co', blah);
+  - bring ClassComponentContext to the repo
+- write doc of assign
 - update README.md
 
 # DONE
