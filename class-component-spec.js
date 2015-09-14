@@ -122,3 +122,48 @@ describe('$.cc', function () {
     });
 
 });
+
+describe('$.fn.cc', function () {
+
+    before(function () {
+
+        $.cc.register('spam', function (elem) {
+
+            elem.attr('is_foo', 'true');
+
+        });
+
+        $.cc.register('ham', function (elem) {
+
+            elem.attr('is_bar', 'true');
+
+        });
+
+    });
+
+    it('is a ClassComponentConfiguration', function () {
+
+        var elem = $('<div />');
+
+        expect(elem.cc).to.exist;
+        expect(elem.cc.constructor).to.be.a('function');
+        expect(elem.cc.init).to.be.a('function');
+        expect(elem.cc.get).to.be.a('function');
+
+    });
+
+    describe('init', function () {
+
+        it('inserts the given class name into the element', function () {
+
+            var elem = $('<div />');
+
+            elem.cc.init('spam');
+
+            expect(elem.hasClass('spam')).to.be.true;
+
+        });
+
+    });
+
+});

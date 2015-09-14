@@ -10,7 +10,11 @@
 
     var reSpaces = / +/;
 
+    var Actor = require('./lib/Actor');
+    var subclass = require('subclassjs');
+
     var ClassComponentManager = require('./lib/ClassComponentManager');
+    var ClassComponentContext = require('./lib/ClassComponentContext');
     var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
 
     /**
@@ -89,7 +93,7 @@
 
         DefiningClass.coelementName = className;
 
-        $.cc.register(className, function (elem) {
+        cc.register(className, function (elem) {
 
             var coelement = new DefiningClass(elem);
 
@@ -99,12 +103,38 @@
 
     };
 
+
+    // Defines the special property cc on a jquery property.
+    Object.defineProperty($.fn, 'cc', {
+
+        get: function () {
+
+            var ctx = this.data('__class_component_context__');
+
+            if (!ctx) {
+
+                ctx = new ClassComponentContext(this);
+
+                this.data('__class_component_context__', ctx);
+
+            }
+
+            return ctx;
+
+        },
+
+        enumerable: false,
+        configurable: false
+
+    });
+
     // Exports subclass.
-    cc.subclass = require('subclassjs');
+    cc.subclass = subclass;
 
     // Exports Actor.
-    cc.Actor = require('./lib/Actor');
+    cc.Actor = Actor;
 
+    // Exports the main namespace
     $.cc = cc;
 
 }(jQuery));
