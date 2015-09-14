@@ -2,7 +2,7 @@
   "name": "class-component",
   "version": "5.1.0",
   "description": "Define reusable HTML class component",
-  "main": "class-component.js",
+  "main": "dist.js",
   "scripts": {
 
     "test": "karma start karma.conf.js --single-run",
