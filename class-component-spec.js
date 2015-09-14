@@ -1,4 +1,6 @@
 
+var $ = global.jQuery = require('jquery');
+require('./class-component');
 
 describe('$.cc', function () {
     'use strict';
