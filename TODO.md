@@ -1,5 +1,7 @@
 # TODO
 - write doc of assign
+- write doc of cc
+  - init, get, getActor
 - make coverage report
 
 # DONE
