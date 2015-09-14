@@ -135,10 +135,40 @@ html
 
 When you click the above div, the page goes to href's url (https://www.google.com/ in this case) and when you mouse over it, it gets `.hover` class.
 
-## See also
 
-- [actor-system](https://github.com/kt3k/actor-system)
-  - The utility to define more complex class components easily
+## Coelement
+
+Coelement is a kind of classes which accompanies the element to modify its behaviour.
+
+```js
+var Foo = function (elem) {
+
+    this.elem = elem;
+
+};
+
+Foo.prototype.doSomething = function () {
+    // ...
+};
+
+$.assign('foo', Foo);
+```
+
+```html
+<div class="foo"></div>
+```
+
+In the above, when the page is loaded, Foo class is initialized with `div.foo` and its accompanies the div. The accompanying coelement can be obtained by calling `dom.cc.get('foo')` in this case.
+
+----
+
+Dynamic creation
+
+```js
+$('<div />').cc.init('foo');
+```
+
+`$.fn.cc.init` helps to create the class component. In the above example, `div` becomes `div.foo` and turns into `foo` class component. If the `foo` class component has coelement, then `elem.cc.init('foo')` returns coelement. In this case, you can call like `$('<div />').cc.init('foo').doSomething()`.
 
 ## Example components
 

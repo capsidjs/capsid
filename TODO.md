@@ -1,10 +1,10 @@
 # TODO
-- write doc of assign
-- write doc of cc
-  - init, get, getActor
 - make coverage report
 
 # DONE
+- write doc of assign
+- write doc of cc
+  - init, get, getActor
 - update README.md
 - make special property $.fn.co
   - like Object.defineProperty($.fn, 'co', blah);
