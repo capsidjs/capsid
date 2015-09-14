@@ -38,7 +38,7 @@
 
         if (typeof definingFunction !== 'function') {
 
-            throw new Error('`definingFunction` of a class component has to be a string');
+            throw new Error('`definingFunction` of a class component has to be a function');
 
         }
 
