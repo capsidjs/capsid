@@ -1,7 +1,10 @@
 # TODO
-- make coverage report
+- coveralls
+- Rewrite README
+- Write getting started
 
 # DONE
+- make coverage report
 - write doc of assign
 - write doc of cc
   - init, get, getActor
