@@ -41,7 +41,7 @@ In the above, `.foo` class has the special functionality of peforming `someProce
 It may be similar to [Custom Element](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/) in the basic idea but `class component` is based on html class and doesn't require any new API.
 
 
-## Interfaces
+## APIs
 
 ```js
 /**
@@ -140,6 +140,7 @@ When you click the above div, the page goes to href's url (https://www.google.co
 
 Coelement is a kind of classes which accompanies the element to modify its behaviour.
 
+js
 ```js
 var Foo = function (elem) {
 
@@ -154,6 +155,7 @@ Foo.prototype.doSomething = function () {
 $.assign('foo', Foo);
 ```
 
+html
 ```html
 <div class="foo"></div>
 ```
