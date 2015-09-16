@@ -1,0 +1,14 @@
+
+<div class="hello-message" name="John"></div>
+
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../dist.js"></script>
+<script>
+
+$.cc.register('hello-message', function (elem) {
+
+    elem.text('Hello ' + elem.attr('name'));
+
+});
+
+</script>

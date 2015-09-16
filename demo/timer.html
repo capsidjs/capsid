@@ -1,29 +1,11 @@
 
-# HelloMessage
+<div class="timer"></div>
 
-js
-```js
-$.cc.register('hello-message', function (elem) {
 
-    elem.text('Hello ' + elem.attr('name'));
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../dist.js"></script>
+<script>
 
-});
-```
-
-html
-```html
-<div class="hello-message" name="John"></div>
-```
-
-result
-```html
-<div class="hello-message hello-message-initialized" name="John">Hello John</div>
-```
-
-# Timer
-
-js
-```js
 var Timer = $.cc.subclass(function (pt) {
 
     pt.constructor = function (elem) {
@@ -58,17 +40,5 @@ var Timer = $.cc.subclass(function (pt) {
 });
 
 $.cc.assign('timer', Timer);
-```
 
-html
-```html
-<div class="timer"></div>
-```
-
-result
-```html
-<div class="timer timer-initialized">elapsed: 123</div>
-```
-
-You can stop the timer by calling `$('.timer').cc.get('timer').stop()`.
-
+</script>
