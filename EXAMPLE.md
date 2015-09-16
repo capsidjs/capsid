@@ -31,10 +31,21 @@ var Timer = $.cc.subclass(function (pt) {
     pt.constructor = function (elem) {
 
         this.elem = elem;
-
         this.secondsElapsed = 0;
 
+        this.start();
+
+    };
+
+    pt.start = function () {
+
         var that = this;
+
+        if (this.interval) {
+
+            return;
+
+        }
 
         this.interval = setInterval(function () {
 
@@ -54,6 +65,8 @@ var Timer = $.cc.subclass(function (pt) {
     pt.stop = function () {
 
         clearInterval(this.interval);
+
+        delete this.interval;
 
     };
 
