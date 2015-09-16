@@ -1,5 +1,8 @@
+# Examples
 
-# HelloMessage
+These example ideas are taken from react.js homepage.
+
+## HelloMessage
 
 js
 ```js
@@ -22,7 +25,7 @@ result
 
 [DEMO](http://kt3k.github.io/class-component/demo/hello-message.html)
 
-# Timer
+## Timer
 
 js
 ```js
