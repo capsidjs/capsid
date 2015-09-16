@@ -20,6 +20,8 @@ result
 <div class="hello-message hello-message-initialized" name="John">Hello John</div>
 ```
 
+[DEMO](http://kt3k.github.io/class-component/demo/hello-message.html)
+
 # Timer
 
 js
@@ -67,8 +69,9 @@ html
 
 result
 ```html
-<div class="timer timer-initialized">elapsed: 123</div>
+<div class="timer timer-initialized">Seconds Elapsed:123</div>
 ```
 
 You can stop the timer by calling `$('.timer').cc.get('timer').stop()`.
 
+[DEMO](http://kt3k.github.io/class-component/demo/timer.html)
