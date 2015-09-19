@@ -1,4 +1,6 @@
 # TODO
+- coverage exclude
+- coverage 100%
 - coveralls
 - Rewrite README
 - Write getting started
