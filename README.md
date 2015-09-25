@@ -1,13 +1,17 @@
 # class-component.js v5.2.0 [![Build Status](https://travis-ci.org/kt3k/class-component.svg?branch=master)](https://travis-ci.org/kt3k/class-component)
 
-> Framework to define reusable HTML class component
-
-***note*** This library depends on jQuery and is jQuery plugin
+> class-component is a jQuery plugin for defining Class based Component.
 
 
 ## How to use
 
 Through npm
+
+```sh
+npm install --save class-component
+```
+
+then
 
 ```js
 global.jQuery = require('jquery');
@@ -16,10 +20,26 @@ require('class-component');
 
 Through bower
 
+```sh
+bower install --save class-component
+```
+
+then
+
 ```html
 <script src="path/to/jquery.js"></script>
 <script src="path/to/class-component.js"></script>
 ```
+
+Through file
+
+Download dist.min.js. Then
+
+```html
+<script src="path/to/jquery.js"></script>
+<script src="path/to/class-component.js"></script>
+```
+
 
 
 ## Class Component
