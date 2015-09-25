@@ -21,6 +21,46 @@ describe('$.cc', function () {
 
     });
 
+    describe('register', function () {
+
+        it('registers a class component', function () {
+
+            $.cc.register('register-test0', function (elem) {
+
+                elem.attr('is-register-test0', 'yes');
+
+            });
+
+            var $dom = $('<div class="register-test0" />').appendTo('body');
+
+            $.cc.init();
+
+            expect($dom.attr('is-register-test0')).to.equal('yes');
+
+        });
+
+        it('throws an error when the first param is not a string', function () {
+
+            expect(function () {
+
+                $.cc.register(null, function () {});
+
+            }).to.throw(Error);
+
+        });
+
+        it('throws an error when the second param is not a function', function () {
+
+            expect(function () {
+
+                $.cc.register('register-test2', null);
+
+            }).to.throw(Error);
+
+        });
+
+    });
+
     describe('init', function () {
 
         beforeEach(function () {
@@ -64,6 +104,16 @@ describe('$.cc', function () {
 
         });
 
+        it('throws an error when the given name of class-component is not registered', function () {
+
+            expect(function () {
+
+                $.cc.init('does-not-exist');
+
+            }).to.throw(Error);
+
+        });
+
     });
 
     describe('assign', function () {
@@ -102,7 +152,7 @@ describe('$.cc', function () {
 
     });
 
-    describe('subscribe', function () {
+    describe('subclass', function () {
 
         it('is a function', function () {
 
@@ -117,6 +167,24 @@ describe('$.cc', function () {
         it('is a function', function () {
 
             expect($.cc.Actor).to.be.a('function');
+
+        });
+
+        it('throws error when more than 2 actors are set on a element', function () {
+
+            var Actor0 = $.cc.subclass($.cc.Actor, function () {});
+            var Actor1 = $.cc.subclass($.cc.Actor, function () {});
+
+            $.cc.assign('actor0', Actor0);
+            $.cc.assign('actor1', Actor1);
+
+            $('<div class="actor0 actor1" />').appendTo('body');
+
+            expect(function () {
+
+                $.cc.init();
+
+            }).to.throw(Error);
 
         });
 
@@ -227,6 +295,16 @@ describe('$.fn.cc', function () {
             $.cc.init();
 
             expect(elem.cc.getActor()).to.be.instanceof(Ham);
+
+        });
+
+        it('throws an error when no actor is available', function () {
+
+            expect(function () {
+
+                $('<div />').cc.getActor();
+
+            }).to.throw(Error);
 
         });
 
