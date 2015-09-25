@@ -33,7 +33,7 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
-      transform: [require('browserify-istanbul')({ignore: '**/node_modules/**'})]
+      transform: [require('browserify-istanbul')({ignore: ['**/node_modules/**', '**/*-spec.js']})]
     },
 
 
