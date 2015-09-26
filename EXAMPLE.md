@@ -1,6 +1,6 @@
 # Examples
 
-These example ideas are taken from react.js homepage.
+These example ideas are taken from [react.js homepage](https://facebook.github.io/react/).
 
 ## HelloMessage
 

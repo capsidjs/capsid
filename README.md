@@ -72,7 +72,7 @@ The defining function takes one paramter which is jQuery object of a dom which i
 
 #### `$.cc.assign(className, constructor)`
 
-This assigns the coelement class to the class component of the given name.
+This assigns the coelement class to the class component of the given name. See the Glossary for what a coelement is.
 
 - className `String` The class name of the component
 - constructor `Function` The constructor of the coelement of the component
@@ -141,16 +141,20 @@ A Dom Component is a group of html elements which has some special functions and
 
 ### Class Component
 
-A Class Component (or Class based Component) is a group of html elements which has some special functions and/or behaviours in addition to its default behaviours and is characterize by its `html class name`.
+A Class Component (or Class based Component) is a group of html elements which has some special functions and/or behaviours in addition to its default behaviours and is characterize by its *html class name*.
 
-`class-componenet.js` is a tool for defining class-component in this sense.
+`class-componenet.js` is a tool for defining a class component in this sense.
 
-## Coelement
+### Coelement
 
 A Coelement is a type of js classes which is meant to accompany an html element and characterize its behavior as a Dom Component.
 
 More technically a coelement class is a class which is instanciated when the accompanying class component is initialized and its instance is attached to the dom (using jQuery's data api) and can be retrieved by calling `elem.cc.get(componentName)`.
 
+## Examples!
+
+- [Simple examples](https://github.com/kt3k/class-component/EXAMPLE.md)
+- [TodoMVC](https://github.com/kt3k/class-component-todomvc)
 
 ## License
 
