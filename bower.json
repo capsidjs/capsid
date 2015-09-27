@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "main": "class-component.js",
+  "main": "dist.js",
   "version": "5.2.0",
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
