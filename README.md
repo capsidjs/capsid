@@ -1,4 +1,4 @@
-# class-component.js v5.2.0 [![Build Status](https://travis-ci.org/kt3k/class-component.svg?branch=master)](https://travis-ci.org/kt3k/class-component)
+# class-component.js v5.2.1 [![Build Status](https://travis-ci.org/kt3k/class-component.svg?branch=master)](https://travis-ci.org/kt3k/class-component)
 
 > A jQuery plugin for creating Class based Component.
 
