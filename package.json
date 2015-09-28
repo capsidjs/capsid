@@ -6,7 +6,6 @@
   "scripts": {
     "test": "karma start karma.conf.js --single-run",
     "ci": "karma start karma.conf.js --single-run --browsers PhantomJS",
-    "coverage": "karma start karma.conf.js --single-run --reporters progress,coverage",
     "coveralls": "karma start karma.conf.js --single-run --browsers PhantomJS --reporters progress,coverage,coveralls",
     "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js"
   },
