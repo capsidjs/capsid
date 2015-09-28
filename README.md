@@ -1,4 +1,6 @@
-# class-component.js v5.2.1 [![Build Status](https://travis-ci.org/kt3k/class-component.svg?branch=master)](https://travis-ci.org/kt3k/class-component) [![Coverage Status](https://coveralls.io/repos/kt3k/class-component/badge.svg?branch=master&service=github)](https://coveralls.io/github/kt3k/class-component?branch=master)
+# class-component.js v5.2.1 <img align="right" src="http://kt3k.github.io/class-component/asset/class-component.svg" />
+
+[![Build Status](https://travis-ci.org/kt3k/class-component.svg?branch=master)](https://travis-ci.org/kt3k/class-component) [![Coverage Status](https://coveralls.io/repos/kt3k/class-component/badge.svg?branch=master&service=github)](https://coveralls.io/github/kt3k/class-component?branch=master)
 
 > A jQuery plugin for creating Class based Component.
 
