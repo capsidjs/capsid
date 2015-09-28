@@ -170,6 +170,16 @@ describe('$.cc', function () {
 
         });
 
+        it('sets the first argument to elem property', function () {
+
+            var elem = $('<div />');
+
+            var actor = new $.cc.Actor(elem);
+
+            expect(actor.elem).to.equal(elem);
+
+        });
+
         it('throws error when more than 2 actors are set on a element', function () {
 
             var Actor0 = $.cc.subclass($.cc.Actor, function () {});
