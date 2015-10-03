@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
- * class-component.js v5.3.0
+ * class-component.js v5.3.1
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -12,6 +12,7 @@
     var reSpaces = / +/;
 
     var Actor = require('./lib/Actor');
+    var Coelement = require('./lib/Coelement');
     var subclass = require('subclassjs');
 
     var ClassComponentManager = require('./lib/ClassComponentManager');
@@ -141,24 +142,26 @@
     // Exports Actor.
     cc.Actor = Actor;
 
+    // Exports Actor.
+    cc.Coelement = Coelement;
+
     // Exports the main namespace
     $.cc = cc;
 
 }(jQuery));
 
-},{"./lib/Actor":2,"./lib/ClassComponentConfiguration":3,"./lib/ClassComponentContext":4,"./lib/ClassComponentManager":5,"subclassjs":6}],2:[function(require,module,exports){
-
-
+},{"./lib/Actor":2,"./lib/ClassComponentConfiguration":3,"./lib/ClassComponentContext":4,"./lib/ClassComponentManager":5,"./lib/Coelement":6,"subclassjs":7}],2:[function(require,module,exports){
 var subclass = require('subclassjs');
-
+var Coelement = require('./Coelement');
 /**
  * Actor is the primary coelement on a dom. A dom is able to have only one actor.
  */
-var Actor = subclass(function (pt) {
+var Actor = subclass(Coelement, function (pt, parent) {
+    'use strict';
 
     pt.constructor = function (elem) {
 
-        this.elem = elem;
+        parent.constructor.apply(this, arguments);
 
         if (elem.data('__primary_coelement') != null) {
 
@@ -172,10 +175,9 @@ var Actor = subclass(function (pt) {
 
 });
 
-
 module.exports = Actor;
 
-},{"subclassjs":6}],3:[function(require,module,exports){
+},{"./Coelement":6,"subclassjs":7}],3:[function(require,module,exports){
 (function (global){
 
 
@@ -248,7 +250,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
 module.exports = ClassComponentConfiguration;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"subclassjs":6}],4:[function(require,module,exports){
+},{"subclassjs":7}],4:[function(require,module,exports){
 (function (global){
 
 
@@ -321,7 +323,7 @@ var ClassComponentContext = subclass(function (pt) {
 module.exports = ClassComponentContext;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"subclassjs":6}],5:[function(require,module,exports){
+},{"subclassjs":7}],5:[function(require,module,exports){
 (function (global){
 
 
@@ -444,7 +446,23 @@ var ClassComponentManager = subclass(function (pt) {
 module.exports = ClassComponentManager;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"subclassjs":6}],6:[function(require,module,exports){
+},{"subclassjs":7}],6:[function(require,module,exports){
+
+
+/**
+ * Coelement is the dual of element (usual dom). Its instance accompanies an element and forms a Dom Component together with it.
+ *
+ * @class
+ */
+var Coelement = function (elem) {
+
+    this.elem = elem;
+
+};
+
+module.exports = Coelement;
+
+},{}],7:[function(require,module,exports){
 /**
  * subclassjs v1.3.0
  */

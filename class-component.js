@@ -1,5 +1,5 @@
 /**
- * class-component.js v5.3.1
+ * class-component.js v5.4.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
