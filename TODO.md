@@ -1,11 +1,16 @@
 # TODO
+- implement react examples (remaining 2)
+- compare to ember and angular
+- implement polymer example component
+- create slide
+- create site
+
+# DONE
+- Rewrite README
+- Write getting started
 - coverage exclude
 - coverage 100%
 - coveralls
-- Rewrite README
-- Write getting started
-
-# DONE
 - make coverage report
 - write doc of assign
 - write doc of cc
