@@ -162,13 +162,7 @@ describe('$.cc', function () {
 
     });
 
-    describe('Actor', function () {
-
-        it('is a function', function () {
-
-            expect($.cc.Actor).to.be.a('function');
-
-        });
+    describe('Coelement', function () {
 
         it('sets the first argument to elem property', function () {
 
@@ -179,6 +173,10 @@ describe('$.cc', function () {
             expect(actor.elem).to.equal(elem);
 
         });
+
+    });
+
+    describe('Actor', function () {
 
         it('throws error when more than 2 actors are set on a element', function () {
 

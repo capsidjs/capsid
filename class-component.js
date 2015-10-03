@@ -11,6 +11,7 @@
     var reSpaces = / +/;
 
     var Actor = require('./lib/Actor');
+    var Coelement = require('./lib/Coelement');
     var subclass = require('subclassjs');
 
     var ClassComponentManager = require('./lib/ClassComponentManager');
@@ -139,6 +140,9 @@
 
     // Exports Actor.
     cc.Actor = Actor;
+
+    // Exports Actor.
+    cc.Coelement = Coelement;
 
     // Exports the main namespace
     $.cc = cc;
