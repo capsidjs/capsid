@@ -4,6 +4,8 @@
 - implement polymer example component
 - create slide
 - create site
+- critic
+  - API number comparison
 
 # DONE
 - Rewrite README
