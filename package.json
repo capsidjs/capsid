@@ -1,8 +1,8 @@
 {
   "name": "class-component",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "Define reusable HTML class component",
-  "main": "dist.js",
+  "main": "class-component.js",
   "scripts": {
     "test": "karma start karma.conf.js --single-run",
     "ci": "karma start karma.conf.js --single-run --browsers PhantomJS",
