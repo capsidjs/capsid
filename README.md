@@ -155,7 +155,7 @@ More technically a coelement class is a class which is instanciated when the acc
 
 ## Examples!
 
-- [Simple examples](https://github.com/kt3k/class-component/EXAMPLE.md)
+- [Simple examples](https://github.com/kt3k/class-component/blob/master/EXAMPLE.md)
 - [TodoMVC](https://github.com/kt3k/class-component-todomvc)
 
 ## License
