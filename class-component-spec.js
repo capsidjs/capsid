@@ -292,6 +292,15 @@ describe('$.fn.cc', function () {
 
         });
 
+        it('throws an error when the elem is empty dom selectioin', function () {
+
+            expect(function () {
+
+                $('#nothing').cc.get('something');
+
+            }).to.throw();
+        });
+
     });
 
     describe('getActor', function () {
