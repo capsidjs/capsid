@@ -3,6 +3,7 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
+
 'use strict';
 
 var $ = jQuery;
@@ -14,8 +15,9 @@ var Coelement = require('./lib/Coelement');
 var subclass = require('subclassjs');
 
 var ClassComponentManager = require('./lib/ClassComponentManager');
-var ClassComponentContext = require('./lib/ClassComponentContext');
 var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
+
+require('./lib/fn.cc');
 
 /**
  * The main namespace for class component module.
@@ -108,31 +110,6 @@ cc.assign = function (className, DefiningClass) {
     });
 
 };
-
-
-// Defines the special property cc on a jquery property.
-Object.defineProperty($.fn, 'cc', {
-
-    get: function () {
-
-        var ctx = this.data('__class_component_context__');
-
-        if (!ctx) {
-
-            ctx = new ClassComponentContext(this);
-
-            this.data('__class_component_context__', ctx);
-
-        }
-
-        return ctx;
-
-    },
-
-    enumerable: false,
-    configurable: false
-
-});
 
 // Exports subclass.
 cc.subclass = subclass;
