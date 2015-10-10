@@ -63,7 +63,7 @@ cc.register = function (name, definingFunction) {
  * Initialized the all class components of the given names and returns of the promise of all initialization.
  *
  * @param {String[]|String} arguments
- * @return {HTMLElement[]}
+ * @return {Object<HTMLElement[]>}
  */
 cc.init = function (classNames, elem) {
 
@@ -81,7 +81,7 @@ cc.init = function (classNames, elem) {
 
     }
 
-    classNames.map(function (className) {
+    return classNames.map(function (className) {
 
         return cc.__manager__.init(className, elem);
 
