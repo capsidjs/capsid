@@ -4,4 +4,5 @@
   - business logic, view component, service context, application
 - No 2-way bindings
 - Conduct event propagation by using dom event propagation, no unnecessary new mechanism.
+- No templating, touch doms gently
 
