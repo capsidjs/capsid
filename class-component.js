@@ -15,7 +15,6 @@ var Coelement = require('./lib/Coelement');
 var subclass = require('subclassjs');
 
 var ClassComponentManager = require('./lib/ClassComponentManager');
-var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
 
 require('./lib/fn.cc');
 
@@ -32,7 +31,7 @@ cc.__manager__ = new ClassComponentManager();
  See README.md for details.
 
  @param {String} className The class name
- @param {Function} definition The class definition
+ @param {Function} definingFunction The class definition
  */
 cc.register = function (name, definingFunction) {
 
@@ -48,7 +47,7 @@ cc.register = function (name, definingFunction) {
 
     }
 
-    cc.__manager__.register(name, new ClassComponentConfiguration(name, definingFunction));
+    cc.__manager__.register(name, definingFunction);
 
 
     $(document).ready(function () {
