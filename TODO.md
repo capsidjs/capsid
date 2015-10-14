@@ -1,11 +1,9 @@
 # TODO
 - implement react examples (remaining 2)
-- compare to ember and angular
-- implement polymer example component
 - create slide
 - create site
-- critic
-  - API number comparison
+- change marketing slogans
+
 
 # DONE
 - Rewrite README
