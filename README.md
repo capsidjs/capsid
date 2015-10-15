@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.org/kt3k/class-component.svg?branch=master)](https://travis-ci.org/kt3k/class-component) [![Coverage Status](https://coveralls.io/repos/kt3k/class-component/badge.svg?branch=master&service=github)](https://coveralls.io/github/kt3k/class-component?branch=master)
 
-> A jQuery plugin for creating Class based Component.
+> Special html class tool
+
+class-component.js is tool for creating special html class. Special html class is a kind of html element which has special behaviours in addition to default ones and characterized by its html class.
+
+class-component.js is a jQuery plugin and exposes one static namespace and one instance property: `$.cc` and `$.fn.cc`.
 
 ## How to use
 
@@ -139,13 +143,13 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 ### Dom Component
 
-A Dom Component is a group of html elements which has some special functions and/or behaviours in addition to its default behaviours.
+A Dom Component is a group of html elements which has some special functions and/or behaviours in addition to its default ones.
 
 ### Class Component
 
-A Class Component (or Class based Component) is a group of html elements which has some special functions and/or behaviours in addition to its default behaviours and is characterize by its *html class name*.
+A Class Component (or Special html class) is a group of html elements which has some special functions and/or behaviours in addition to its default ones and is characterize by its *html class name*.
 
-`class-componenet.js` is a tool for defining a class component in this sense.
+`class-componenet.js` is a tool for creating class components in this sense.
 
 ### Coelement
 
