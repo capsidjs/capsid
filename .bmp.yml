@@ -2,6 +2,7 @@
 version: 5.4.4
 files:
   README.md: v%.%.%
+  README.ja.md: v%.%.%
   bower.json: '"version": "%.%.%"'
   package.json: '"version": "%.%.%"'
   class-component.js: v%.%.%
