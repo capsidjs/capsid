@@ -4,11 +4,11 @@
 
 > Special html class tool
 
-class-component.js is tool for creating special html class. Special html class is a kind of html element which has special behaviours in addition to default ones and characterized by its html class (like `bootstrap`'s "modal" class).
+class-component.js is tool for creating a html class which has special functionality in addition to its default dom behaviour. For example, `bootstrap`'s "modal" class is a special class and when the user put `.modal` element in a page, it automatically behaves as a *modal*. This library helps you doing things like that.
 
-class-component.js is a jQuery plugin and exposes one static namespace and one instance property: `$.cc` and `$.fn.cc`.
+class-component.js is a jQuery plugin and exposes 2 namespaces: `$.cc` and `$.fn.cc`.
 
-The size of minified version is 4.9K.
+The size of the minified version of class-component.js is now 4.9KB.
 
 ## How to use
 
