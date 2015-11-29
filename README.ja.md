@@ -159,7 +159,7 @@ todoItem.update({id: 'milk', title: 'Buy a milk'});
 $('<div />').appendTo('#main').cc.init('todo-app');
 ```
 
-`<div>` 要素が追加されて、`todo-app` クラスコンポネントとして初期化されます。
+上の例では `<div>` 要素が追加されて、`todo-app` クラスコンポネントとして初期化されます。
 
 ## Glossary
 

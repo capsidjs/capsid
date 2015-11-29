@@ -4,15 +4,15 @@
 
 > Special html class tool
 
-class-component.js is tool for creating a html class which has special functionality in addition to its default dom behaviour. For example, `bootstrap`'s "modal" class is a special class and when the user put `.modal` element in a page, it automatically behaves as a *modal*. This library helps you doing things like that.
+class-component.js is tool for creating a html class which has special functionality in addition to its default dom behaviour. For example, `bootstrap`'s "modal" class is a special class and when the user put `.modal` element in a page, it automatically behaves as a *modal*. This library helps you creating a such html class.
 
 class-component.js is a jQuery plugin and exposes 2 namespaces: `$.cc` and `$.fn.cc`.
 
 The size of the minified version of class-component.js is now 4.9KB.
 
-## How to use
+## Install
 
-### Via npm
+### Using npm
 
 ```sh
 npm install --save class-component
@@ -25,7 +25,7 @@ global.jQuery = require('jquery');
 require('class-component');
 ```
 
-### Via bower
+### Using bower
 
 ```sh
 bower install --save jquery class-component
@@ -38,7 +38,7 @@ then
 <script src="path/to/class-component.js"></script>
 ```
 
-### File
+### Using a file directly
 
 Download dist.min.js. Then
 
@@ -47,18 +47,18 @@ Download dist.min.js. Then
 <script src="path/to/class-component.js"></script>
 ```
 
+Because class-component.js is a jQuery plugin, you need to load jquery.js first.
+
 ## APIs
 
-### `$.cc` namespace
-
-or static APIs.
+### `$.cc` namespace (static namespace)
 
 #### `$.cc.register(className, func)`
 
-This registers a class component by its name and defining function.
+This registers a initializing function `func` to the class name `className`.
 
 - className `String` The name of the class component
-- func `Function` The defining function of the class component
+- func `Function` The initilizing function of the class component
 
 ```js
 $.cc.register('clear-btn', function (elem) {
@@ -76,11 +76,12 @@ $.cc.register('clear-btn', function (elem) {
 <li class="clear-btn"></li>
 ```
 
-The defining function takes one paramter which is jQuery object of a dom which it modifies. You can operate and modify on it using jQuery APIs.
+In the above script, when `.clear-btn` class element is initialized, the click handler is attached and it triggers `item-clear` event.
 
 #### `$.cc.assign(className, constructor)`
 
-This assigns the coelement class to the class component of the given name. See the Glossary for what a coelement is.
+This is similar to `$.cc.register`, but a little bit different.
+This assigns `constructor` as a constructor of the coelement of the class component of the given name `className`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(className)`.
 
 - className `String` The class name of the component
 - constructor `Function` The constructor of the coelement of the component
@@ -95,7 +96,7 @@ $.cc.assign('todo-item', TodoItem);
 
 #### `$.cc.init(className, element)`
 
-This initializes the class components of the given name inside the given element. If the element is omitted, then it does in `document.body`. If the className is omitted, then it initializes all the registered class components.
+This initializes the class components of the given name inside the given element. If the element is omitted, then it does in `document.body`. If the className is omitted, then it initializes all the registered class components. This method is useful when you want to add class components dynamically. The API automcatically prevent double initilization and therefore you don't need to care about it.
 
 - className `String` The class name of the element
 - element `HTMLElement|String` The element in which it initializes
@@ -114,9 +115,9 @@ $.cc.subclass(function (pt) {
 });
 ```
 
-### `$.fn.cc` namespace
+### `$.fn.cc` namespace (instance APIs)
 
-or instance APIs. These are available through jQuery object's `.cc` property.
+These are available through jQuery object's `.cc` property.
 
 #### `$.fn.cc.get(className)`
 
@@ -141,25 +142,25 @@ This initializes an element as a class component. It throws if the class compone
 $('<div />').appendTo('#main').cc.init('todo-app');
 ```
 
+In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
+
 ## Glossary
-
-### Dom Component
-
-A Dom Component is a group of html elements which has some special functions and/or behaviours in addition to its default ones.
 
 ### Class Component
 
-A Class Component (or Special html class) is a group of html elements which has some special functions and/or behaviours in addition to its default ones and is characterize by its *html class name*.
+A class component is a html class which has special functionality.
 
 `class-componenet.js` is a tool for creating class components in this sense.
 
 ### Coelement
 
-A Coelement is a type of js classes which is meant to accompany an html element and characterize its behavior as a Dom Component.
+(co- is a prefix for meaning the dual of something like sine and cosine, tangent and cotangent etc.)
 
-More technically a coelement class is a class which is instanciated when the accompanying class component is initialized and its instance is attached to the dom (using jQuery's data api) and can be retrieved by calling `elem.cc.get(componentName)`.
+A coelement is a JavaScript class which defines a class-component together with its dual element.
 
-## Examples!
+The coelement is accessible with `elem.cc.get(name)` and the element is accesible with `this.elem`.
+
+## Examples
 
 - [Simple examples](https://github.com/kt3k/class-component/blob/master/EXAMPLE.md)
 - [TodoMVC](https://github.com/kt3k/class-component-todomvc)
