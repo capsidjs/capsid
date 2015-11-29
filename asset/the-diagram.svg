@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="351px" height="353px" viewBox="0 0 351 353" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15855) - http://www.bohemiancoding.com/sketch -->
+    <title>the-diagram</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#5CCC7E" offset="0%"></stop>
+            <stop stop-color="#632CEE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#E0EB9D" offset="0%"></stop>
+            <stop stop-color="#BED363" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="class-component" sketch:type="MSArtboardGroup" transform="translate(-122.000000, -81.000000)">
+            <g id="the-diagram" sketch:type="MSLayerGroup" transform="translate(122.000000, 81.000000)">
+                <g id="Group" transform="translate(19.000000, 49.000000)" sketch:type="MSShapeGroup">
+                    <path d="M270.400391,40.0028802 C270.400391,17.9098995 252.490145,0 230.393942,0 L135,0 L135,270 L230.393942,270 C252.488893,270 270.400391,252.088547 270.400391,229.99712 L270.400391,40.0028802 L270.400391,40.0028802 Z" id="Rectangle-1" fill="url(#linearGradient-1)"></path>
+                    <path d="M0,40.0028802 C0,17.9098995 17.9102457,0 40.0064488,0 L135.400391,0 L135.400391,270 L40.0064488,270 C17.9114972,270 0,252.088547 0,229.99712 L0,40.0028802 L0,40.0028802 L0,40.0028802 Z" id="Rectangle-1" fill="url(#linearGradient-2)"></path>
+                    <rect id="Rectangle-2" fill="#979797" x="129" y="0" width="12" height="270"></rect>
+                    <rect id="Rectangle-1" stroke="#979797" stroke-width="12" x="0" y="0" width="270" height="270" rx="40"></rect>
+                </g>
+                <g id="Group" transform="translate(47.000000, 92.000000)" font-size="30" font-family="Cooper Std" fill="#4A4A4A" sketch:type="MSTextLayer" font-weight="686">
+                    <text id="&lt;p&gt;">
+                        <tspan x="15" y="21">&lt;p&gt;</tspan>
+                    </text>
+                    <text id="&lt;div&gt;">
+                        <tspan x="0" y="77">&lt;div&gt;</tspan>
+                    </text>
+                    <text id="&lt;h1&gt;">
+                        <tspan x="5" y="130">&lt;h1&gt;</tspan>
+                    </text>
+                    <text id="…">
+                        <tspan x="30" y="183">…</tspan>
+                    </text>
+                    <text id="{js}">
+                        <tspan x="140" y="34">{js}</tspan>
+                    </text>
+                </g>
+                <text id="element" sketch:type="MSTextLayer" font-family="Cooper Std" font-size="30" font-weight="686" fill="#4A4A4A">
+                    <tspan x="0" y="352">element</tspan>
+                </text>
+                <text id="coelement" sketch:type="MSTextLayer" font-family="Cooper Std" font-size="30" font-weight="686" fill="#4A4A4A">
+                    <tspan x="187" y="352">coelement</tspan>
+                </text>
+                <text id="+" sketch:type="MSTextLayer" font-family="Cooper Std" font-size="30" font-weight="686" fill="#4A4A4A">
+                    <tspan x="148" y="352">+</tspan>
+                </text>
+                <text id="class-component" sketch:type="MSTextLayer" font-family="Cooper Std" font-size="30" font-weight="686" fill="#4A4A4A">
+                    <tspan x="28" y="21">class-component</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
