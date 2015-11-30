@@ -148,13 +148,15 @@ In the above example, `<div>` is appended and it is initialized as `todo-app` cl
 
 ### Class Component
 
+<img align="right" width="300" src="http://kt3k.github.io/class-component/asset/the-diagram.svg" />
+
 A class component is a html class which has special functionality.
 
 `class-componenet.js` is a tool for creating class components in this sense.
 
 ### Coelement
 
-(co- is a prefix for meaning the dual of something like sine and cosine, tangent and cotangent etc.)
+(co- is a prefix for meaning the dual of something e.g. sine and cosine, tangent and cotangent etc.)
 
 A coelement is a JavaScript class which defines a class-component together with its dual element.
 

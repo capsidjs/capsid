@@ -165,6 +165,8 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 ### クラスコンポネント Class Component
 
+<img align="right" width="300" src="http://kt3k.github.io/class-component/asset/the-diagram.svg" />
+
 クラスコンポネントは特殊な振る舞いを持った html クラスです。特定のクラス名を与えることで、特定の振る舞いを持つ html クラスのことをクラスコンポネントと呼びます。class-component.js はこの意味でのクラスコンポネントを定義するためのサポートツールです。
 
 ### コエレメント Coelement (双対要素)
