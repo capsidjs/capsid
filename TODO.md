@@ -1,8 +1,9 @@
 # TODO
-- implement react examples (remaining 2)
-- create slide
-- create site
-- change marketing slogans
+- Find a good example for $.cc.assign usage.
+  - It must be a class component with the internal state.
+  - It must be enough simple
+  - It must be practical in the frontend dev context.
+    - Timer is not really a practical example, though react has it as the second example in its homepage.
 
 
 # DONE
