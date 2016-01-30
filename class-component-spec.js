@@ -198,6 +198,32 @@ describe('$.cc', function () {
 
     });
 
+    describe('Component(className)', function () {
+
+        it('works as a class decorator and registers the class as a class component of the given name', function () {
+
+            var Cls = $.cc.subclass(function (pt) {
+
+                pt.constructor = function (elem) {
+
+                    elem.attr('this-is', 'decorated-component')
+
+                };
+
+            });
+
+            $.cc.Component('decorated-component')(Cls);
+
+            var elem = $('<div />');
+
+            elem.cc.init('decorated-component');
+
+            expect(elem.attr('this-is')).to.equal('decorated-component');
+
+        });
+
+    });
+
 });
 
 describe('$.fn.cc', function () {

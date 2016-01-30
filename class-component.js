@@ -3,7 +3,6 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-
 'use strict';
 
 var $ = jQuery;
@@ -110,6 +109,37 @@ cc.assign = function (className, DefiningClass) {
 
 };
 
+/**
+ * The decorator for class assignment.
+ *
+ * @example
+ *   @Component('foo')
+ *   class Foo extends Bar {
+ *     ...
+ *   }
+ *
+ * The above is the same as:
+ *
+ * @example
+ *   class Foo extends Bar {
+ *   }
+ *
+ *   $.cc.assign('foo', Foo)
+ *
+ * @param {String} className The class name
+ * @return {Function}
+ */
+cc.Component = function (className) {
+
+    // This is the actual decorator
+    return function (Cls) {
+
+        cc.assign(className, Cls)
+
+    };
+
+};
+
 // Exports subclass.
 cc.subclass = subclass;
 
@@ -121,3 +151,5 @@ cc.Coelement = Coelement;
 
 // Exports the main namespace
 $.cc = cc;
+
+module.exports = cc;
