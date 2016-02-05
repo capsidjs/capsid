@@ -15,14 +15,14 @@ var subclass = require('subclassjs');
 
 var ClassComponentManager = require('./lib/ClassComponentManager');
 
-require('./lib/fn.cc');
-
 /**
- * Creats the module object.
+ * Initializes the module object.
  *
  * @return {Object}
  */
-var createModuleObject = function () {
+var initializeModule = function () {
+
+    require('./lib/fn.cc');
 
     /**
      * The main namespace for class component module.
@@ -163,7 +163,7 @@ var createModuleObject = function () {
 // If the cc is not set, then create one.
 if ($.cc == null) {
 
-    $.cc = createModuleObject()
+    $.cc = initializeModule()
 
 }
 
