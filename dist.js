@@ -1,130 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/**
- * class-component.js v5.4.4
- * author: Yoshiya Hinosawa ( http://github.com/kt3k )
- * license: MIT
- */
-
-'use strict';
-
-var $ = jQuery;
-
-var reSpaces = / +/;
-
-var Actor = require('./lib/Actor');
-var Coelement = require('./lib/Coelement');
-var subclass = require('subclassjs');
-
-var ClassComponentManager = require('./lib/ClassComponentManager');
-var ClassComponentConfiguration = require('./lib/ClassComponentConfiguration');
-
-require('./lib/fn.cc');
-
-/**
- * The main namespace for class component module.
- */
-var cc = {};
-
-cc.__manager__ = new ClassComponentManager();
-
-/**
- Registers a class component of the given name using the given defining function.
-
- See README.md for details.
-
- @param {String} className The class name
- @param {Function} definition The class definition
- */
-cc.register = function (name, definingFunction) {
-
-    if (typeof name !== 'string') {
-
-        throw new Error('`name` of a class component has to be a string');
-
-    }
-
-    if (typeof definingFunction !== 'function') {
-
-        throw new Error('`definingFunction` of a class component has to be a function');
-
-    }
-
-    cc.__manager__.register(name, new ClassComponentConfiguration(name, definingFunction));
-
-
-    $(document).ready(function () {
-
-        cc.__manager__.init(name);
-
-    });
-
-};
-
-
-/**
- * Initialized the all class components of the given names and returns of the promise of all initialization.
- *
- * @param {String[]|String} arguments
- * @return {HTMLElement[]}
- */
-cc.init = function (classNames, elem) {
-
-    if (classNames == null) {
-
-        cc.__manager__.initAll(elem);
-
-        return;
-
-    }
-
-    if (typeof classNames === 'string') {
-
-        classNames = classNames.split(reSpaces);
-
-    }
-
-    classNames.map(function (className) {
-
-        return cc.__manager__.init(className, elem);
-
-    });
-
-};
-
-
-/**
- * Assign a class as the accompanying coelement of the class component
- *
- * @param {String} className
- * @param {Function} DefiningClass
- */
-cc.assign = function (className, DefiningClass) {
-
-    DefiningClass.coelementName = className;
-
-    cc.register(className, function (elem) {
-
-        var coelement = new DefiningClass(elem);
-
-        elem.data('__coelement:' + DefiningClass.coelementName, coelement);
-
-    });
-
-};
-
-// Exports subclass.
-cc.subclass = subclass;
-
-// Exports Actor.
-cc.Actor = Actor;
-
-// Exports Actor.
-cc.Coelement = Coelement;
-
-// Exports the main namespace
-$.cc = cc;
-
-},{"./lib/Actor":2,"./lib/ClassComponentConfiguration":3,"./lib/ClassComponentManager":5,"./lib/Coelement":6,"./lib/fn.cc":7,"subclassjs":8}],2:[function(require,module,exports){
 'use strict';
 
 var subclass = require('subclassjs');
@@ -153,7 +27,7 @@ var Actor = subclass(Coelement, function (pt, parent) {
 
 module.exports = Actor;
 
-},{"./Coelement":6,"subclassjs":8}],3:[function(require,module,exports){
+},{"./Coelement":5,"subclassjs":7}],2:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -161,9 +35,9 @@ var $ = global.jQuery;
 var subclass = require('subclassjs');
 
 /**
- ClassComponentConfiguration is the utility class for class component initialization.
-
- @class
+ * ClassComponentConfiguration is the utility class for class component initialization.
+ *
+ * @class
  */
 var ClassComponentConfiguration = subclass(function (pt) {
 
@@ -179,8 +53,8 @@ var ClassComponentConfiguration = subclass(function (pt) {
     };
 
     /**
-     @private
-     @return {String}
+     * @private
+     * @return {String}
      */
     pt.initializedClass = function () {
 
@@ -189,9 +63,10 @@ var ClassComponentConfiguration = subclass(function (pt) {
     };
 
     /**
-     Returns the selector for uninitialized class component.
-
-     @return {String}
+     * Returns the selector for uninitialized class component.
+     *
+     * @public
+     * @return {String}
      */
     pt.selector = function () {
 
@@ -200,9 +75,10 @@ var ClassComponentConfiguration = subclass(function (pt) {
     };
 
     /**
-     Marks the given element as initialized as this class component.
-
-     @param {jQuery} elem
+     * Marks the given element as initialized as this class component.
+     *
+     * @private
+     * @param {jQuery} elem
      */
     pt.markInitialized = function (elem) {
 
@@ -211,13 +87,27 @@ var ClassComponentConfiguration = subclass(function (pt) {
     };
 
     /**
-     Applies the defining function to the element.
-
-     @param {jQuery} elem
+     * Applies the defining function to the element.
+     *
+     * @private
+     * @param {jQuery} elem
      */
     pt.applyCustomDefinition = function (elem) {
 
         this.definingFunction(elem);
+
+    };
+
+    /**
+     * Initialize the element by the configuration.
+     *
+     * @public
+     * @param {jQuery} elem The element
+     */
+    pt.initElem = function (elem) {
+
+        this.markInitialized(elem);
+        this.applyCustomDefinition(elem);
 
     };
 
@@ -226,7 +116,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
 module.exports = ClassComponentConfiguration;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"subclassjs":8}],4:[function(require,module,exports){
+},{"subclassjs":7}],3:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -257,7 +147,7 @@ var ClassComponentContext = subclass(function (pt) {
 
         $.cc.__manager__.initAt(className, this.jqObj);
 
-        return this.jqObj.data('__coelement:' + className); // Could be undefined
+        return this.jqObj.data('__coelement:' + className);
     };
 
     /**
@@ -305,12 +195,14 @@ var ClassComponentContext = subclass(function (pt) {
 module.exports = ClassComponentContext;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"subclassjs":8}],5:[function(require,module,exports){
+},{"subclassjs":7}],4:[function(require,module,exports){
 (function (global){
 'use strict';
 
 var $ = global.jQuery;
 var subclass = require('subclassjs');
+
+var ClassComponentConfiguration = require('./ClassComponentConfiguration');
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.
@@ -332,11 +224,11 @@ var ClassComponentManager = subclass(function (pt) {
      * Registers the class component configuration for the given name.
      *
      * @param {String} name The name
-     * @param {ClassComponentConfiguration} ccc The class component configuration
+     * @param {Function} ccc The class component configuration
      */
-    pt.register = function (name, ccc) {
+    pt.register = function (name, definingFunction) {
 
-        this.ccc[name] = ccc;
+        this.ccc[name] = new ClassComponentConfiguration(name, definingFunction);
 
     };
 
@@ -354,7 +246,7 @@ var ClassComponentManager = subclass(function (pt) {
 
         return $(ccc.selector(), elem).each(function () {
 
-            pt.constructor.initElemByCCC($(this), ccc);
+            ccc.initElem($(this));
 
         }).toArray();
 
@@ -370,7 +262,7 @@ var ClassComponentManager = subclass(function (pt) {
 
         var ccc = this.getConfiguration(className);
 
-        this.constructor.initElemByCCC($(elem), ccc);
+        ccc.initElem($(elem));
 
     };
 
@@ -387,20 +279,6 @@ var ClassComponentManager = subclass(function (pt) {
         }, this);
 
     };
-
-    /**
-     * @static
-     * @private
-     * @param {jQuery} elem The element
-     * @param {ClassComponentConfiguration}
-     */
-    pt.constructor.initElemByCCC = function (elem, ccc) {
-
-        ccc.markInitialized(elem);
-        ccc.applyCustomDefinition(elem);
-
-    };
-
 
     /**
      * Gets the configuration of the given class name.
@@ -428,7 +306,7 @@ var ClassComponentManager = subclass(function (pt) {
 module.exports = ClassComponentManager;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"subclassjs":8}],6:[function(require,module,exports){
+},{"./ClassComponentConfiguration":2,"subclassjs":7}],5:[function(require,module,exports){
 'use strict';
 
 /**
@@ -444,7 +322,7 @@ var Coelement = function (elem) {
 
 module.exports = Coelement;
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var ClassComponentContext = require('./ClassComponentContext');
@@ -473,7 +351,7 @@ Object.defineProperty(jQuery.fn, 'cc', {
 
 });
 
-},{"./ClassComponentContext":4}],8:[function(require,module,exports){
+},{"./ClassComponentContext":3}],7:[function(require,module,exports){
 /**
  * subclassjs v1.3.0
  */
@@ -564,4 +442,176 @@ Object.defineProperty(jQuery.fn, 'cc', {
 
 }());
 
-},{}]},{},[1]);
+},{}],8:[function(require,module,exports){
+/**
+ * class-component.js v5.5.1
+ * author: Yoshiya Hinosawa ( http://github.com/kt3k )
+ * license: MIT
+ */
+'use strict';
+
+var $ = jQuery;
+
+var reSpaces = / +/;
+
+var Actor = require('./lib/Actor');
+var Coelement = require('./lib/Coelement');
+var subclass = require('subclassjs');
+
+var ClassComponentManager = require('./lib/ClassComponentManager');
+
+require('./lib/fn.cc');
+
+/**
+ * Creats the module object.
+ *
+ * @return {Object}
+ */
+var createModuleObject = function () {
+
+    /**
+     * The main namespace for class component module.
+     */
+    var cc = {};
+
+    cc.__manager__ = new ClassComponentManager();
+
+    /**
+     Registers a class component of the given name using the given defining function.
+
+     See README.md for details.
+
+     @param {String} className The class name
+     @param {Function} definingFunction The class definition
+     */
+    cc.register = function (name, definingFunction) {
+
+        if (typeof name !== 'string') {
+
+            throw new Error('`name` of a class component has to be a string');
+
+        }
+
+        if (typeof definingFunction !== 'function') {
+
+            throw new Error('`definingFunction` of a class component has to be a function');
+
+        }
+
+        cc.__manager__.register(name, definingFunction);
+
+
+        $(document).ready(function () {
+
+            cc.__manager__.init(name);
+
+        });
+
+    };
+
+
+    /**
+     * Initialized the all class components of the given names and returns of the promise of all initialization.
+     *
+     * @param {String[]|String} arguments
+     * @return {Object<HTMLElement[]>}
+     */
+    cc.init = function (classNames, elem) {
+
+        if (classNames == null) {
+
+            cc.__manager__.initAll(elem);
+
+            return;
+
+        }
+
+        if (typeof classNames === 'string') {
+
+            classNames = classNames.split(reSpaces);
+
+        }
+
+        return classNames.map(function (className) {
+
+            return cc.__manager__.init(className, elem);
+
+        });
+
+    };
+
+
+    /**
+     * Assign a class as the accompanying coelement of the class component
+     *
+     * @param {String} className
+     * @param {Function} DefiningClass
+     */
+    cc.assign = function (className, DefiningClass) {
+
+        DefiningClass.coelementName = className;
+
+        cc.register(className, function (elem) {
+
+            var coelement = new DefiningClass(elem);
+
+            elem.data('__coelement:' + DefiningClass.coelementName, coelement);
+
+        });
+
+    };
+
+    /**
+     * The decorator for class assignment.
+     *
+     * @example
+     *   @$.cc.component('foo')
+     *   class Foo extends Bar {
+     *     ...
+     *   }
+     *
+     * The above is the same as:
+     *
+     * @example
+     *   class Foo extends Bar {
+     *   }
+     *
+     *   $.cc.assign('foo', Foo)
+     *
+     * @param {String} className The class name
+     * @return {Function}
+     */
+    cc.component = function (className) {
+
+        // This is the actual decorator
+        return function (Cls) {
+
+            cc.assign(className, Cls)
+
+        };
+
+    };
+
+    // Exports subclass.
+    cc.subclass = subclass;
+
+    // Exports Actor.
+    cc.Actor = Actor;
+
+    // Exports Actor.
+    cc.Coelement = Coelement;
+
+    return cc;
+
+};
+
+// If the cc is not set, then create one.
+if ($.cc == null) {
+
+    $.cc = createModuleObject()
+
+}
+
+module.exports = $.cc;
+
+},{"./lib/Actor":1,"./lib/ClassComponentManager":4,"./lib/Coelement":5,"./lib/fn.cc":6,"subclassjs":7}]},{},[8]);
