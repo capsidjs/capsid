@@ -444,7 +444,7 @@ Object.defineProperty(jQuery.fn, 'cc', {
 
 },{}],8:[function(require,module,exports){
 /**
- * class-component.js v5.5.1
+ * class-component.js v5.5.3
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -460,14 +460,14 @@ var subclass = require('subclassjs');
 
 var ClassComponentManager = require('./lib/ClassComponentManager');
 
-require('./lib/fn.cc');
-
 /**
- * Creats the module object.
+ * Initializes the module object.
  *
  * @return {Object}
  */
-var createModuleObject = function () {
+var initializeModule = function () {
+
+    require('./lib/fn.cc');
 
     /**
      * The main namespace for class component module.
@@ -608,7 +608,7 @@ var createModuleObject = function () {
 // If the cc is not set, then create one.
 if ($.cc == null) {
 
-    $.cc = createModuleObject()
+    $.cc = initializeModule()
 
 }
 
