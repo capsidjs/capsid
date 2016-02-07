@@ -1,4 +1,7 @@
 # TODO
+- Better error message when elem.cc.init with undefined class-component name
+  - now it just show empty string
+
 - Find a good example for $.cc.assign usage.
   - It must be a class component with the internal state.
   - It must be enough simple
