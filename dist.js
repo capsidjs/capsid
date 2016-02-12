@@ -148,6 +148,20 @@ var ClassComponentContext = subclass(function (pt) {
         $.cc.__manager__.initAt(className, this.jqObj);
 
         return this.jqObj.data('__coelement:' + className);
+
+    };
+
+    /**
+     * Initializes the element if it has registered class component names. Returns the jquery object itself.
+     *
+     * @return {jQuery}
+     */
+    pt.up = function () {
+
+        $.cc.__manager__.initAtElem(this.jqObj);
+
+        return this.jqObj;
+
     };
 
     /**
@@ -266,6 +280,29 @@ var ClassComponentManager = subclass(function (pt) {
 
     };
 
+    /**
+     * Initializes all the class component at the element.
+     *
+     * @param {HTMLElement}
+     */
+    pt.initAtElem = function (elem) {
+
+        var self = this;
+
+        var classes = $(elem).attr('class');
+
+        if (!classes) { return; }
+
+        classes.split(/ +/)
+        .map(function (className) { return self.ccc[className]; })
+        .filter(function (ccc) { return ccc; })
+        .forEach(function (ccc) {
+
+            ccc.initElem(elem);
+
+        });
+
+    };
 
     /**
      * @param {jQuery|HTMLElement|String} elem The element
@@ -293,7 +330,7 @@ var ClassComponentManager = subclass(function (pt) {
 
         if (ccc == null) {
 
-            throw new Error('Class componet "' + name + '" is not defined.');
+            throw new Error('Class componet "' + className + '" is not defined.');
 
         }
 
@@ -444,7 +481,7 @@ Object.defineProperty(jQuery.fn, 'cc', {
 
 },{}],8:[function(require,module,exports){
 /**
- * class-component.js v5.5.3
+ * class-component.js v5.6.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
