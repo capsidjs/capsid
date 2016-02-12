@@ -144,6 +144,18 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
 
+#### `$.fn.cc.up()`
+
+This initializes class component on the element. The difference from `$.fn.cc.init(c)` is that this method doesn't append any class name, but just initializes class components which the element already has.
+
+This method returns the jquery object itself.
+
+```js
+$('<div class="todo-item animation" />').cc.up()
+```
+
+Note: This method is useful when the element has multiple class component names before you get the element, or when you don't know what class names the element has.
+
 ## Glossary
 
 ### Class Component

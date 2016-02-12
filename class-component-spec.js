@@ -291,6 +291,33 @@ describe('$.fn.cc', function () {
 
     });
 
+    describe('up', function () {
+
+        it('initializes the class components which the element has the name of', function () {
+
+            var elem = $('<div class="foo bar" />').cc.up();
+
+            expect(elem.attr('is_foo')).to.equal('true')
+            expect(elem.attr('is_bar')).to.equal('true')
+
+        });
+
+        it('does nothing if it does not have the class component names', function () {
+
+            var elem = $('<div class="foo-x bar-x" />').cc.up();
+
+            expect(elem.attr('is_foo')).to.be.undefined;
+            expect(elem.attr('is_bar')).to.be.undefined;
+
+            var elem0 = $('<div class="" />').cc.up();
+
+            expect(elem0.attr('is_foo')).to.be.undefined;
+            expect(elem0.attr('is_bar')).to.be.undefined;
+
+        });
+
+    });
+
     describe('get', function () {
 
         it('gets the coelement of the given name', function () {
