@@ -198,7 +198,7 @@ describe('$.cc', function () {
 
     });
 
-    describe('Component(className)', function () {
+    describe('component(className)', function () {
 
         it('works as a class decorator and registers the class as a class component of the given name', function () {
 
@@ -212,7 +212,7 @@ describe('$.cc', function () {
 
             });
 
-            $.cc.Component('decorated-component')(Cls);
+            $.cc.component('decorated-component')(Cls);
 
             var elem = $('<div />');
 
