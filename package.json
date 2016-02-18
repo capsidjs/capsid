@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/kt3k/class-component",
   "devDependencies": {
+    "browserify": "^13.0.0",
     "browserify-istanbul": "^0.2.1",
     "chai": "^3.2.0",
     "codecov.io": "^0.1.6",
@@ -38,7 +39,8 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.3.2",
     "phantomjs": "^1.9.18",
-    "subclassjs": "^1.3.0"
+    "subclassjs": "^1.3.0",
+    "uglify-js": "^2.6.1"
   },
   "dependencies": {
     "subclassjs": "^1.3.0"
