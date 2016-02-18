@@ -1,9 +1,9 @@
-
-# bower
-/bower_components
-
 # npm
 /node_modules
+npm-debug.log
 
-# coverage report
+# coverage
 /coverage
+
+# dist
+/dist.*

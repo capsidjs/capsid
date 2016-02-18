@@ -7,7 +7,8 @@
     "test": "karma start karma.conf.js --single-run",
     "ci": "karma start karma.conf.js --single-run --browsers PhantomJS",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js"
+    "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js",
+    "prepublish": "npm run dist"
   },
   "repository": {
     "type": "git",
