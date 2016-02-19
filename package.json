@@ -4,7 +4,7 @@
   "description": "Define reusable HTML class component",
   "main": "class-component.js",
   "scripts": {
-    "test": "karma start karma.conf.js --single-run",
+    "test": "karma start karma.conf.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js",
     "prepublish": "npm run dist"
