@@ -5,7 +5,6 @@
   "main": "class-component.js",
   "scripts": {
     "test": "karma start karma.conf.js --single-run",
-    "ci": "karma start karma.conf.js --single-run --browsers PhantomJS",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js",
     "prepublish": "npm run dist"
@@ -36,9 +35,7 @@
     "karma-coverage": "^0.5.2",
     "karma-coveralls": "^1.1.2",
     "karma-mocha": "^0.2.0",
-    "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.3.2",
-    "phantomjs": "^1.9.18",
     "subclassjs": "^1.3.0",
     "uglify-js": "^2.6.1"
   },

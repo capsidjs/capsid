@@ -1,7 +1,7 @@
 language: node_js
 
 script:
-- npm run ci
+- xvfb-run npm test
 
 after_success:
 - npm run codecov
