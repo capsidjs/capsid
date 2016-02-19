@@ -1,7 +1,4 @@
 language: node_js
-
-script:
-- xvfb-run npm test
-
-after_success:
-- npm run codecov
+node_js: 0.12
+script: xvfb-run npm test
+after_success: npm run codecov
