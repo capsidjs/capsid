@@ -1,4 +1,5 @@
 language: node_js
 node_js: 0.12
+sudo: true
 script: xvfb-run npm test
 after_success: npm run codecov
