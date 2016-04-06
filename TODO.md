@@ -1,4 +1,5 @@
 # TODO
+- Include cc-event in class-component (keep separate repository)
 - Find a good example for $.cc.assign usage.
   - It must be a class component with the internal state.
   - It must be enough simple
