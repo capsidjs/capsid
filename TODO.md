@@ -5,6 +5,9 @@
   - It must be enough simple
   - It must be practical in the frontend dev context.
     - Timer is not really a practical example, though react has it as the second example in its homepage.
+- switch to semicolonless syntax
+- switch to es6
+- remove sublcass dependency
 
 
 # DONE
