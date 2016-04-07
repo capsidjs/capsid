@@ -8,6 +8,7 @@
 - switch to semicolonless syntax
 - switch to es6
 - remove sublcass dependency
+- up method should take an argument
 
 
 # DONE
