@@ -5,7 +5,7 @@
   "main": "class-component.js",
   "scripts": {
     "test": "karma start karma.conf.js",
-    "codecov": "cat coverage/*/lcov.info | codecov",
+    "codecov": "codecov",
     "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js",
     "prepublish": "npm run dist"
   },
@@ -26,7 +26,7 @@
     "browserify": "^13.0.0",
     "browserify-istanbul": "^0.2.1",
     "chai": "^3.2.0",
-    "codecov.io": "^0.1.6",
+    "codecov": "^1.0.1",
     "jquery": "^2.1.4",
     "karma": "^0.13.15",
     "karma-browserify": "^4.3.0",
