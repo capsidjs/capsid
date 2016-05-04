@@ -4,12 +4,7 @@ root = true
 indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
+indent_size = 2
 
 [*.js]
 indent_size = 4
-
-[karma.conf.js]
-indent_size = 2
-
-[package.json]
-indent_size = 2
