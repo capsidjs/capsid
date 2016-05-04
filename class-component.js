@@ -3,17 +3,17 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-'use strict';
+'use strict'
 
-var $ = jQuery;
+var $ = jQuery
 
-var reSpaces = / +/;
+var reSpaces = / +/
 
-var Actor = require('./lib/Actor');
-var Coelement = require('./lib/Coelement');
-var subclass = require('subclassjs');
+var Actor = require('./lib/Actor')
+var Coelement = require('./lib/Coelement')
+var subclass = require('subclassjs')
 
-var ClassComponentManager = require('./lib/ClassComponentManager');
+var ClassComponentManager = require('./lib/ClassComponentManager')
 
 /**
  * Initializes the module object.
@@ -22,14 +22,14 @@ var ClassComponentManager = require('./lib/ClassComponentManager');
  */
 var initializeModule = function () {
 
-    require('./lib/fn.cc');
+    require('./lib/fn.cc')
 
     /**
      * The main namespace for class component module.
      */
-    var cc = {};
+    var cc = {}
 
-    cc.__manager__ = new ClassComponentManager();
+    cc.__manager__ = new ClassComponentManager()
 
     /**
      Registers a class component of the given name using the given defining function.
@@ -43,26 +43,26 @@ var initializeModule = function () {
 
         if (typeof name !== 'string') {
 
-            throw new Error('`name` of a class component has to be a string');
+            throw new Error('`name` of a class component has to be a string')
 
         }
 
         if (typeof definingFunction !== 'function') {
 
-            throw new Error('`definingFunction` of a class component has to be a function');
+            throw new Error('`definingFunction` of a class component has to be a function')
 
         }
 
-        cc.__manager__.register(name, definingFunction);
+        cc.__manager__.register(name, definingFunction)
 
 
         $(document).ready(function () {
 
-            cc.__manager__.init(name);
+            cc.__manager__.init(name)
 
-        });
+        })
 
-    };
+    }
 
 
     /**
@@ -75,25 +75,25 @@ var initializeModule = function () {
 
         if (classNames == null) {
 
-            cc.__manager__.initAll(elem);
+            cc.__manager__.initAll(elem)
 
-            return;
+            return
 
         }
 
         if (typeof classNames === 'string') {
 
-            classNames = classNames.split(reSpaces);
+            classNames = classNames.split(reSpaces)
 
         }
 
         return classNames.map(function (className) {
 
-            return cc.__manager__.init(className, elem);
+            return cc.__manager__.init(className, elem)
 
-        });
+        })
 
-    };
+    }
 
 
     /**
@@ -104,17 +104,17 @@ var initializeModule = function () {
      */
     cc.assign = function (className, DefiningClass) {
 
-        DefiningClass.coelementName = className;
+        DefiningClass.coelementName = className
 
         cc.register(className, function (elem) {
 
-            var coelement = new DefiningClass(elem);
+            var coelement = new DefiningClass(elem)
 
-            elem.data('__coelement:' + DefiningClass.coelementName, coelement);
+            elem.data('__coelement:' + DefiningClass.coelementName, coelement)
 
-        });
+        })
 
-    };
+    }
 
     /**
      * The decorator for class assignment.
@@ -141,30 +141,30 @@ var initializeModule = function () {
         // This is the actual decorator
         return function (Cls) {
 
-            cc.assign(className, Cls);
+            cc.assign(className, Cls)
 
-        };
+        }
 
-    };
+    }
 
     // Exports subclass.
-    cc.subclass = subclass;
+    cc.subclass = subclass
 
     // Exports Actor.
-    cc.Actor = Actor;
+    cc.Actor = Actor
 
     // Exports Actor.
-    cc.Coelement = Coelement;
+    cc.Coelement = Coelement
 
-    return cc;
+    return cc
 
-};
+}
 
 // If the cc is not set, then create one.
 if ($.cc == null) {
 
-    $.cc = initializeModule();
+    $.cc = initializeModule()
 
 }
 
-module.exports = $.cc;
+module.exports = $.cc

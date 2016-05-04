@@ -56,12 +56,6 @@
     },
     "globals": {
       "jQuery": false
-    },
-    "rules": {
-      "semi": [
-        2,
-        "always"
-      ]
     }
   }
 }
