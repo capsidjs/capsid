@@ -4,7 +4,7 @@
   "description": "Define reusable HTML class component",
   "main": "class-component.js",
   "scripts": {
-    "lint": "eslint lib class-component.js class-component-spec.js",
+    "lint": "eslint lib class-component.js class-component-spec.js karma.conf.js",
     "test": "karma start karma.conf.js",
     "codecov": "codecov",
     "dist": "browserify class-component.js > dist.js ; uglifyjs dist.js -m -c > dist.min.js",
