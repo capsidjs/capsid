@@ -141,7 +141,7 @@ var initializeModule = function () {
         // This is the actual decorator
         return function (Cls) {
 
-            cc.assign(className, Cls)
+            cc.assign(className, Cls);
 
         };
 
@@ -163,7 +163,7 @@ var initializeModule = function () {
 // If the cc is not set, then create one.
 if ($.cc == null) {
 
-    $.cc = initializeModule()
+    $.cc = initializeModule();
 
 }
 

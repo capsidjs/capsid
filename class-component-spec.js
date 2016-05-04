@@ -1,5 +1,7 @@
 
 var $ = global.jQuery = require('jquery');
+var expect = require('chai').expect;
+
 require('./class-component');
 
 describe('$.cc', function () {
@@ -206,7 +208,7 @@ describe('$.cc', function () {
 
                 pt.constructor = function (elem) {
 
-                    elem.attr('this-is', 'decorated-component')
+                    elem.attr('this-is', 'decorated-component');
 
                 };
 
@@ -231,7 +233,7 @@ describe('$.fn.cc', function () {
 
     var Spam = $.cc.subclass(function (pt) {
 
-        pt.construtor = function () {
+        pt.construtor = function (elem) {
 
             elem.attr('is_ham', 'true');
 
@@ -297,8 +299,8 @@ describe('$.fn.cc', function () {
 
             var elem = $('<div class="foo bar" />').cc.up();
 
-            expect(elem.attr('is_foo')).to.equal('true')
-            expect(elem.attr('is_bar')).to.equal('true')
+            expect(elem.attr('is_foo')).to.equal('true');
+            expect(elem.attr('is_bar')).to.equal('true');
 
         });
 
