@@ -9,11 +9,11 @@ var $ = jQuery
 
 var reSpaces = / +/
 
-var Actor = require('./lib/Actor')
-var Coelement = require('./lib/Coelement')
+var Actor = require('./actor')
+var Coelement = require('./coelement')
 var subclass = require('subclassjs')
 
-var ClassComponentManager = require('./lib/ClassComponentManager')
+var ClassComponentManager = require('./class-component-manager')
 
 /**
  * Initializes the module object.
@@ -22,7 +22,7 @@ var ClassComponentManager = require('./lib/ClassComponentManager')
  */
 var initializeModule = function () {
 
-    require('./lib/fn.cc')
+    require('./fn.cc')
 
     /**
      * The main namespace for class component module.
