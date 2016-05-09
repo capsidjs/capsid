@@ -3,7 +3,7 @@
 var $ = global.jQuery
 var subclass = require('subclassjs')
 
-var ClassComponentConfiguration = require('./ClassComponentConfiguration')
+var ClassComponentConfiguration = require('./class-component-configuration')
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.

@@ -1,8 +1,9 @@
 
 var $ = global.jQuery = require('jquery')
 var expect = require('chai').expect
+const ClassComponentContext = require('./src/class-component-context')
 
-require('./class-component')
+require('./src/class-component')
 
 describe('$.cc', function () {
     'use strict'
@@ -256,7 +257,7 @@ describe('$.fn.cc', function () {
         var elem = $('<div />')
 
         expect(elem.cc).to.exist
-        expect(elem.cc).to.be.instanceof(require('./lib/ClassComponentContext'))
+        expect(elem.cc).to.be.instanceof(ClassComponentContext)
 
     })
 

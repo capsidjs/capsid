@@ -1,7 +1,7 @@
 'use strict'
 
 var subclass = require('subclassjs')
-var Coelement = require('./Coelement')
+var Coelement = require('./coelement')
 
 /**
  * Actor is the primary coelement on a dom. A dom is able to have only one actor.
