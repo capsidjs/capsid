@@ -295,6 +295,15 @@ describe('$.fn.cc', function () {
 
     describe('up', function () {
 
+        it('initializes the class compenents of the given names', function () {
+
+            var elem = $('<div/>').cc.up('foo bar')
+
+            expect(elem.attr('is_foo')).to.equal('true')
+            expect(elem.attr('is_bar')).to.equal('true')
+
+        })
+
         it('initializes the class components which the element has the name of', function () {
 
             var elem = $('<div class="foo bar" />').cc.up()
