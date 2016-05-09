@@ -133,9 +133,11 @@ todoItem.update({id: 'milk', title: 'Buy a milk'});
 
 #### `$.fn.cc.init(className)`
 
-This initializes an element as a class component. It throws if the class component of the given name is not registered.
+This initializes an element as a class component of the given name. It throws an error if the class component of the given name isn't available.
 
-- className `String` The class name of the component
+This returns the instance of class-component class, not a dom element itself. If you want to get the dom element (jquery wrapped), use `$.fn.cc.up(classNames)`
+
+- @param {string} className - The class name of the component
 
 ```js
 // Creates `todo-app` in #main
@@ -144,17 +146,41 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
 
-#### `$.fn.cc.up()`
+#### `$.fn.cc.up(classNames)`
 
-This initializes class component on the element. The difference from `$.fn.cc.init(c)` is that this method doesn't append any class name, but just initializes class components which the element already has.
-
-This method returns the jquery object itself.
+This initializes the class compenents of the given names on the element and returns the element itself (jquery-wrapped).
 
 ```js
-$('<div class="todo-item animation" />').cc.up()
+$('<div />').cc.up('timer modal').appendTo('body')
 ```
 
-Note: This method is useful when the element has multiple class component names before you get the element, or when you don't know what class names the element has.
+The above example creates a `div` element and initializes it as `timer` and `modal` class components. And finally append it to the body.
+
+
+
+#### `$.fn.cc.up()`
+
+This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
+
+Example:
+
+```js
+$('<div class="timer modal"/>').cc.up().appendTo('body')
+```
+
+The above example is the same as the previous one.
+
+Example:
+
+```js
+var div = $('<div/>')
+
+classes.forEach(cls => div.addClass(cls))
+
+div.cc.up().appendTo('body')
+```
+
+The above example creates a `div` element and initializes all the classes in `classes` variable on in.
 
 ## Glossary
 
