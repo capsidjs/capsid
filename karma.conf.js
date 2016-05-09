@@ -1,13 +1,13 @@
 module.exports = function (config) {
     config.set({
         frameworks: ['browserify', 'mocha'],
-        files: ['class-component-spec.js'],
-        preprocessors: {'class-component-spec.js': 'browserify'},
+        files: ['spec/*.js'],
+        preprocessors: {'spec/*.js': 'browserify'},
         browserify: {
             debug: true,
             transform: [require('browserify-istanbul')({
                 instrumenter: require('isparta'),
-                ignore: ['**/node_modules/**', '**/*-spec.js']
+                ignore: ['**/node_modules/**', '**/spec/**']
             }), 'babelify']
         },
         reporters: ['progress', 'coverage'],
