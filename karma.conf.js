@@ -5,7 +5,10 @@ module.exports = function (config) {
         preprocessors: {'class-component-spec.js': 'browserify'},
         browserify: {
             debug: true,
-            transform: [require('browserify-istanbul')({ignore: ['**/node_modules/**', '**/*-spec.js']})]
+            transform: [require('browserify-istanbul')({
+                instrumenter: require('isparta'),
+                ignore: ['**/node_modules/**', '**/*-spec.js']
+            }), 'babelify']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {type: 'lcov'},
