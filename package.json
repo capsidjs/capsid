@@ -5,7 +5,7 @@
   "main": "lib/class-component.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
-    "lint": "eslint src spec karma.conf.js",
+    "lint": "eslint .",
     "test": "karma start karma.conf.js",
     "codecov": "codecov",
     "dist:lib": "babel src -d lib",
