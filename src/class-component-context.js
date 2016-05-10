@@ -1,15 +1,11 @@
-'use strict'
-
-var $ = global.jQuery
-var subclass = require('subclassjs')
-
+const $ = global.jQuery
 
 /**
  * This is class component contenxt manager. This help to initialize or get colements.
  */
-var ClassComponentContext = subclass(function (pt) {
+export default class ClassComponentContext {
 
-    pt.constructor = function (jqObj) {
+    constructor(jqObj) {
 
         this.jqObj = jqObj
 
@@ -21,7 +17,7 @@ var ClassComponentContext = subclass(function (pt) {
      * @param {String} className The class name
      * @return {Object}
      */
-    pt.init = function (className) {
+    init(className) {
 
         this.jqObj.addClass(className)
 
@@ -37,15 +33,15 @@ var ClassComponentContext = subclass(function (pt) {
      * @param {string} [classNames] The class name.
      * @return {jQuery}
      */
-    pt.up = function (classNames) {
+    up(classNames) {
 
         if (classNames != null) {
 
-            classNames.split(/\s+/).forEach(function (className) {
+            classNames.split(/\s+/).forEach(className => {
 
                 $.cc.__manager__.initAt(className, this.jqObj)
 
-            }, this)
+            })
 
         } else {
 
@@ -64,9 +60,9 @@ var ClassComponentContext = subclass(function (pt) {
      * @param {String} coelementName The name of the coelement
      * @return {Object}
      */
-    pt.get = function (coelementName) {
+    get(coelementName) {
 
-        var coelement = this.jqObj.data('__coelement:' + coelementName)
+        const coelement = this.jqObj.data('__coelement:' + coelementName)
 
         if (coelement) {
 
@@ -87,9 +83,9 @@ var ClassComponentContext = subclass(function (pt) {
     /**
      * Gets the actor class. Actor class is the special Coelement which is labeled as `actor`. A dom has only one actor Coelement.
      */
-    pt.getActor = function () {
+    getActor() {
 
-        var actor = this.jqObj.data('__primary_coelement')
+        const actor = this.jqObj.data('__primary_coelement')
 
         if (!actor) {
 
@@ -101,6 +97,4 @@ var ClassComponentContext = subclass(function (pt) {
 
     }
 
-})
-
-module.exports = ClassComponentContext
+}

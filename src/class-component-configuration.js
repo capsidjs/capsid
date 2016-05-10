@@ -1,19 +1,13 @@
-'use strict'
-
-var subclass = require('subclassjs')
-
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
- *
- * @class
  */
-var ClassComponentConfiguration = subclass(function (pt) {
+export default class ClassComponentConfiguration {
 
     /**
      * @param {String} className The class name
      * @param {Function} definingFunction The defining function
      */
-    pt.constructor = function (className, definingFunction) {
+    constructor(className, definingFunction) {
 
         this.className = className
         this.definingFunction = definingFunction
@@ -24,7 +18,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
      * @private
      * @return {String}
      */
-    pt.initializedClass = function () {
+    initializedClass() {
 
         return this.className + '-initialized'
 
@@ -36,7 +30,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
      * @public
      * @return {String}
      */
-    pt.selector = function () {
+    selector() {
 
         return '.' + this.className + ':not(.' + this.initializedClass() + ')'
 
@@ -48,7 +42,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
      * @private
      * @param {jQuery} elem
      */
-    pt.markInitialized = function (elem) {
+    markInitialized(elem) {
 
         elem.addClass(this.initializedClass())
 
@@ -60,7 +54,7 @@ var ClassComponentConfiguration = subclass(function (pt) {
      * @private
      * @param {jQuery} elem
      */
-    pt.applyCustomDefinition = function (elem) {
+    applyCustomDefinition(elem) {
 
         this.definingFunction(elem)
 
@@ -72,13 +66,11 @@ var ClassComponentConfiguration = subclass(function (pt) {
      * @public
      * @param {jQuery} elem The element
      */
-    pt.initElem = function (elem) {
+    initElem(elem) {
 
         this.markInitialized(elem)
         this.applyCustomDefinition(elem)
 
     }
 
-})
-
-module.exports = ClassComponentConfiguration
+}

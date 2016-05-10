@@ -7,7 +7,9 @@
     "lint": "eslint src spec karma.conf.js",
     "test": "karma start karma.conf.js",
     "codecov": "codecov",
-    "dist": "browserify src/class-component.js > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
+    "dist:lib": "babel src -d lib",
+    "dist:dist": "browserify src/class-component.js > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
+    "dist": "npm-run-all -p dist:*",
     "prepublish": "npm run dist"
   },
   "repository": {

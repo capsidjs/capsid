@@ -1,16 +1,13 @@
-'use strict'
-
-var subclass = require('subclassjs')
-var Coelement = require('./coelement')
+import Coelement from './coelement'
 
 /**
  * Actor is the primary coelement on a dom. A dom is able to have only one actor.
  */
-var Actor = subclass(Coelement, function (pt, parent) {
+export default class Actor extends Coelement {
 
-    pt.constructor = function (elem) {
+    constructor(elem) {
 
-        parent.constructor.apply(this, arguments)
+        super(elem)
 
         if (elem.data('__primary_coelement') != null) {
 
@@ -22,6 +19,4 @@ var Actor = subclass(Coelement, function (pt, parent) {
 
     }
 
-})
-
-module.exports = Actor
+}
