@@ -5,4 +5,4 @@ files:
   README.ja.md: v%.%.%
   bower.json: '"version": "%.%.%"'
   package.json: '"version": "%.%.%"'
-  class-component.js: v%.%.%
+  src/class-component.js: v%.%.%
