@@ -9,7 +9,6 @@ const reSpaces = / +/
 
 import Actor from './actor'
 import Coelement from './coelement'
-import subclass from 'subclassjs'
 
 import ClassComponentManager from './class-component-manager'
 
@@ -131,9 +130,6 @@ function initializeModule() {
      * @return {Function}
      */
     cc.component = className => Cls => cc.assign(className, Cls)
-
-    // Exports subclass.
-    cc.subclass = subclass
 
     // Exports Actor.
     cc.Actor = Actor

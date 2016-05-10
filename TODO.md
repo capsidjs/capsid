@@ -1,6 +1,4 @@
 # TODO
-- switch to es6
-- remove sublcass dependency
 - Include cc-event in class-component (keep separate repository)
 - Find a good example for $.cc.assign usage.
   - It must be a class component with the internal state.
@@ -9,6 +7,8 @@
     - Timer is not really a practical example, though react has it as the second example in its homepage.
 
 # DONE
+- remove sublcass dependency
+- switch to es6
 - up method should take an argument
 - switch to semicolonless style
 - Better error message when elem.cc.init with undefined class-component name
