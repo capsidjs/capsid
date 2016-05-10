@@ -2,7 +2,7 @@
   "name": "class-component",
   "version": "5.7.2",
   "description": "Define reusable HTML class component",
-  "main": "class-component.js",
+  "main": "lib/class-component.js",
   "scripts": {
     "lint": "eslint src spec karma.conf.js",
     "test": "karma start karma.conf.js",
