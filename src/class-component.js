@@ -118,13 +118,7 @@ function initializeModule() {
      *     ...
      *   }
      *
-     * The above is the same as:
-     *
-     * @example
-     *   class Foo extends Bar {
-     *   }
-     *
-     *   $.cc.assign('foo', Foo)
+     * The above is the same as `$.cc.assign('foo', Foo)`
      *
      * @param {String} className The class name
      * @return {Function}
