@@ -155,16 +155,6 @@ describe('$.cc', () => {
 
     })
 
-    describe('subclass', () => {
-
-        it('is a function', () => {
-
-            expect($.cc.subclass).to.be.a('function')
-
-        })
-
-    })
-
     describe('Coelement', () => {
 
         it('sets the first argument to elem property', () => {
@@ -183,8 +173,8 @@ describe('$.cc', () => {
 
         it('throws error when more than 2 actors are set on a element', () => {
 
-            const Actor0 = $.cc.subclass($.cc.Actor, () => {})
-            const Actor1 = $.cc.subclass($.cc.Actor, () => {})
+            class Actor0 extends $.cc.Actor {}
+            class Actor1 extends $.cc.Actor {}
 
             $.cc.assign('actor0', Actor0)
             $.cc.assign('actor1', Actor1)
