@@ -87,7 +87,15 @@ This assigns `constructor` as a constructor of the coelement of the class compon
 - constructor `Function` The constructor of the coelement of the component
 
 ```js
-$.cc.assign('todo-item', TodoItem);
+class TodoItem {
+  constructor(elem) {
+    super(elem)
+  }
+
+  // ...other behaviours...
+}
+
+$.cc.assign('todo-item', TodoItem)
 ```
 
 ```html
@@ -100,20 +108,6 @@ This initializes the class components of the given name inside the given element
 
 - className `String` The class name of the element
 - element `HTMLElement|String` The element in which it initializes
-
-#### `$.cc.subclass(parent, func)`
-
-This is an utility to define and extend js classes. See details at [subclass repository](https://github.com/kt3k/subclass).
-
-```js
-$.cc.subclass(function (pt) {
-
-    pt.constructor = function () { /* ... */ };
-
-    pt.method = function () { /* ... */ };
-
-});
-```
 
 ### `$.fn.cc` namespace (instance APIs)
 
