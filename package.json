@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "version": "5.7.2",
+  "version": "5.7.3",
   "description": "Define reusable HTML class component",
   "main": "lib/class-component.js",
   "scripts": {
@@ -48,6 +48,7 @@
     "karma-coveralls": "^1.1.2",
     "karma-mocha": "^1.0.1",
     "mocha": "^2.3.2",
+    "npm-run-all": "^1.8.0",
     "uglify-js": "^2.6.1",
     "watchify": "^3.7.0"
   },
