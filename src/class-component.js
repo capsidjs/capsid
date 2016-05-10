@@ -3,31 +3,29 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-'use strict'
+const $ = jQuery
 
-var $ = jQuery
+const reSpaces = / +/
 
-var reSpaces = / +/
+import Actor from './actor'
+import Coelement from './coelement'
+import subclass from 'subclassjs'
 
-var Actor = require('./actor')
-var Coelement = require('./coelement')
-var subclass = require('subclassjs')
-
-var ClassComponentManager = require('./class-component-manager')
+import ClassComponentManager from './class-component-manager'
 
 /**
  * Initializes the module object.
  *
  * @return {Object}
  */
-var initializeModule = function () {
+function initializeModule() {
 
     require('./fn.cc')
 
     /**
      * The main namespace for class component module.
      */
-    var cc = {}
+    const cc = {}
 
     cc.__manager__ = new ClassComponentManager()
 
@@ -39,7 +37,7 @@ var initializeModule = function () {
      @param {String} className The class name
      @param {Function} definingFunction The class definition
      */
-    cc.register = function (name, definingFunction) {
+    cc.register = (name, definingFunction) => {
 
         if (typeof name !== 'string') {
 
@@ -56,7 +54,7 @@ var initializeModule = function () {
         cc.__manager__.register(name, definingFunction)
 
 
-        $(document).ready(function () {
+        $(document).ready(() => {
 
             cc.__manager__.init(name)
 
@@ -71,7 +69,7 @@ var initializeModule = function () {
      * @param {String[]|String} arguments
      * @return {Object<HTMLElement[]>}
      */
-    cc.init = function (classNames, elem) {
+    cc.init = (classNames, elem) => {
 
         if (classNames == null) {
 
@@ -87,11 +85,7 @@ var initializeModule = function () {
 
         }
 
-        return classNames.map(function (className) {
-
-            return cc.__manager__.init(className, elem)
-
-        })
+        return classNames.map(className => cc.__manager__.init(className, elem))
 
     }
 
@@ -102,13 +96,13 @@ var initializeModule = function () {
      * @param {String} className
      * @param {Function} DefiningClass
      */
-    cc.assign = function (className, DefiningClass) {
+    cc.assign = (className, DefiningClass) => {
 
         DefiningClass.coelementName = className
 
-        cc.register(className, function (elem) {
+        cc.register(className, elem => {
 
-            var coelement = new DefiningClass(elem)
+            const coelement = new DefiningClass(elem)
 
             elem.data('__coelement:' + DefiningClass.coelementName, coelement)
 
@@ -136,16 +130,7 @@ var initializeModule = function () {
      * @param {String} className The class name
      * @return {Function}
      */
-    cc.component = function (className) {
-
-        // This is the actual decorator
-        return function (Cls) {
-
-            cc.assign(className, Cls)
-
-        }
-
-    }
+    cc.component = className => Cls => cc.assign(className, Cls)
 
     // Exports subclass.
     cc.subclass = subclass

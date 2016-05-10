@@ -6,4 +6,4 @@ npm-debug.log
 /coverage
 
 # dist
-/dist.*
+/lib

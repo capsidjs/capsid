@@ -1,18 +1,15 @@
 'use strict'
 
-var $ = global.jQuery
-var subclass = require('subclassjs')
+const $ = global.jQuery
 
-var ClassComponentConfiguration = require('./class-component-configuration')
+import ClassComponentConfiguration from './class-component-configuration'
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.
- *
- * @class
  */
-var ClassComponentManager = subclass(function (pt) {
+export default class ClassComponentManager {
 
-    pt.constructor = function () {
+    constructor() {
 
         /**
          * @property {Object<ClassComponentConfiguration>} ccc
@@ -27,7 +24,7 @@ var ClassComponentManager = subclass(function (pt) {
      * @param {String} name The name
      * @param {Function} ccc The class component configuration
      */
-    pt.register = function (name, definingFunction) {
+    register(name, definingFunction) {
 
         this.ccc[name] = new ClassComponentConfiguration(name, definingFunction)
 
@@ -41,9 +38,9 @@ var ClassComponentManager = subclass(function (pt) {
      * @return {Array<HTMLElement>} The elements which are initialized in this initialization
      * @throw {Error}
      */
-    pt.init = function (className, elem) {
+    init(className, elem) {
 
-        var ccc = this.getConfiguration(className)
+        const ccc = this.getConfiguration(className)
 
         return $(ccc.selector(), elem).each(function () {
 
@@ -59,9 +56,9 @@ var ClassComponentManager = subclass(function (pt) {
      * @param {String} className The class name
      * @param {jQuery|HTMLElement|String} elem The element
      */
-    pt.initAt = function (className, elem) {
+    initAt(className, elem) {
 
-        var ccc = this.getConfiguration(className)
+        const ccc = this.getConfiguration(className)
 
         ccc.initElem($(elem))
 
@@ -72,35 +69,29 @@ var ClassComponentManager = subclass(function (pt) {
      *
      * @param {HTMLElement}
      */
-    pt.initAllAtElem = function (elem) {
+    initAllAtElem(elem) {
 
-        var self = this
-
-        var classes = $(elem).attr('class')
+        const classes = $(elem).attr('class')
 
         if (!classes) { return }
 
-        classes.split(/ +/)
-        .map(function (className) { return self.ccc[className] })
-        .filter(function (ccc) { return ccc })
-        .forEach(function (ccc) {
-
-            ccc.initElem(elem)
-
-        })
+        classes.split(/\s+/)
+        .map(className => this.ccc[className])
+        .filter(ccc => ccc)
+        .forEach(ccc => ccc.initElem(elem))
 
     }
 
     /**
      * @param {jQuery|HTMLElement|String} elem The element
      */
-    pt.initAll = function (elem) {
+    initAll(elem) {
 
-        Object.keys(this.ccc).forEach(function (className) {
+        Object.keys(this.ccc).forEach(className => {
 
             this.init(className, elem)
 
-        }, this)
+        })
 
     }
 
@@ -111,9 +102,9 @@ var ClassComponentManager = subclass(function (pt) {
      * @return {ClassComponentConfiguration}
      * @throw {Error}
      */
-    pt.getConfiguration = function (className) {
+    getConfiguration(className) {
 
-        var ccc = this.ccc[className]
+        const ccc = this.ccc[className]
 
         if (ccc == null) {
 
@@ -125,6 +116,4 @@ var ClassComponentManager = subclass(function (pt) {
 
     }
 
-})
-
-module.exports = ClassComponentManager
+}

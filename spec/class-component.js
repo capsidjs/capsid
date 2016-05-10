@@ -3,7 +3,7 @@ global.jQuery = $
 import {expect} from 'chai'
 
 require('../src/class-component')
-const ClassComponentContext = require('../src/class-component-context')
+const ClassComponentContext = require('../src/class-component-context').default
 
 describe('$.cc', () => {
     'use strict'
