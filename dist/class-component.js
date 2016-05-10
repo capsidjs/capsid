@@ -445,7 +445,7 @@ var _classComponentManager2 = _interopRequireDefault(_classComponentManager);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * class-component.js v5.7.3
+ * class-component.js v5.7.6
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
