@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "version": "5.7.7",
+  "version": "5.7.8",
   "description": "Define reusable HTML class component",
   "main": "lib/class-component.js",
   "scripts": {
