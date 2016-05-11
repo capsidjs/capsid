@@ -68,8 +68,5 @@
     "presets": [
       "es2015"
     ]
-  },
-  "dependencies": {
-    "subclassjs": "^1.3.0"
   }
 }
