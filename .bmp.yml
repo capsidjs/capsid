@@ -1,5 +1,5 @@
 ---
-version: 5.7.6
+version: 5.7.7
 files:
   README.md: v%.%.%
   README.ja.md: v%.%.%
