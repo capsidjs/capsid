@@ -131,6 +131,9 @@ function initializeModule() {
     // Exports Actor.
     cc.Coelement = Coelement
 
+    // Exports subclass
+    cc.subclass = require('subclassjs')
+
     return cc
 
 }
