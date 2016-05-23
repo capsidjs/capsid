@@ -6,6 +6,20 @@
   - It must be practical in the frontend dev context.
     - Timer is not really a practical example, though react has it as the second example in its homepage.
 
+## v7
+
+- fn.cc.up() ---> fn.cc()
+- fn.cc.up('class names') ---> fn.cc('class names')
+- fn.cc.init('classname') ---> fn.cc.init('classname')
+- @trigger('classname.started', 'classname.ended') method() {...}
+- $.cc('classname', Component)
+- @$.cc('classname') class Component {...}
+- Component.prototype.get
+- Component.prototype.trigger
+- Component.prototype.on
+- Component.prototype.off
+- include dom-gen as a part
+
 # DONE
 - remove sublcass dependency
 - switch to es6
