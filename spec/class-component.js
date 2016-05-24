@@ -161,31 +161,9 @@ describe('$.cc', () => {
 
             const elem = $('<div />')
 
-            const actor = new $.cc.Actor(elem)
+            const actor = new $.cc.Coelement(elem)
 
             expect(actor.elem).to.equal(elem)
-
-        })
-
-    })
-
-    describe('Actor', () => {
-
-        it('throws error when more than 2 actors are set on a element', () => {
-
-            class Actor0 extends $.cc.Actor {}
-            class Actor1 extends $.cc.Actor {}
-
-            $.cc.assign('actor0', Actor0)
-            $.cc.assign('actor1', Actor1)
-
-            $('<div class="actor0 actor1" />').appendTo('body')
-
-            expect(() => {
-
-                $.cc.init()
-
-            }).to.throw(Error)
 
         })
 
@@ -226,19 +204,15 @@ describe('$.fn.cc', () => {
 
         construtor(elem) {
 
-            elem.attr('is_ham', 'true')
+            elem.attr('is_spam', 'true')
 
         }
 
     }
 
-    class Ham extends $.cc.Actor {}
-
     before(() => {
 
         $.cc.assign('spam', Spam)
-
-        $.cc.assign('ham', Ham)
 
     })
 
@@ -354,30 +328,6 @@ describe('$.fn.cc', () => {
                 $('#nothing').cc.get('something')
 
             }).to.throw()
-        })
-
-    })
-
-    describe('getActor', () => {
-
-        it('gets the actor', () => {
-
-            const elem = $('<div class="ham" />').appendTo('body')
-
-            $.cc.init()
-
-            expect(elem.cc.getActor()).to.be.instanceof(Ham)
-
-        })
-
-        it('throws an error when no actor is available', () => {
-
-            expect(() => {
-
-                $('<div />').cc.getActor()
-
-            }).to.throw(Error)
-
         })
 
     })

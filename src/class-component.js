@@ -7,7 +7,6 @@ const $ = jQuery
 
 const reSpaces = / +/
 
-import Actor from './actor'
 import Coelement from './coelement'
 
 import ClassComponentManager from './class-component-manager'
@@ -124,9 +123,6 @@ function initializeModule() {
      * @return {Function}
      */
     cc.component = className => Cls => cc.assign(className, Cls)
-
-    // Exports Actor.
-    cc.Actor = Actor
 
     // Exports Actor.
     cc.Coelement = Coelement
