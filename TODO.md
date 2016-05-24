@@ -9,8 +9,6 @@
 ## v7
 
 - @trigger('classname.started', 'classname.ended') method() {...}
-- $.cc('classname', Component)
-- @$.cc('classname') class Component {...}
 - Component.prototype.get
 - Component.prototype.trigger
 - Component.prototype.on
@@ -22,6 +20,7 @@
 
 # DONE
 ## v7
+- $.cc('classname', Component)
 - fn.cc.up() ---> fn.cc()
 - fn.cc.up('class names') ---> fn.cc('class names')
 - fn.cc.init('classname') ---> fn.cc.init('classname')
