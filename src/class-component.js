@@ -22,19 +22,19 @@ function initializeModule() {
     /**
      * The main namespace for class component module.
      */
-    const cc = {}
+    const cc = (className, Constructor) => {
+        cc.__register(className, Constructor)
+    }
 
     cc.__manager__ = new ClassComponentManager()
 
     /**
-     Registers a class component of the given name using the given defining function.
-
-     See README.md for details.
-
-     @param {String} className The class name
-     @param {Function} definingFunction The class definition
+     * Registers a class component of the given name using the given defining function.
+     *
+     * @param {String} className The class name
+     * @param {Function} Constructor The class definition
      */
-    cc.register = (name, definingFunction) => {
+    cc.__register = (name, Constructor) => {
 
         if (typeof name !== 'string') {
 
@@ -42,13 +42,13 @@ function initializeModule() {
 
         }
 
-        if (typeof definingFunction !== 'function') {
+        if (typeof Constructor !== 'function') {
 
-            throw new Error('`definingFunction` of a class component has to be a function')
+            throw new Error('`Constructor` of a class component has to be a function')
 
         }
 
-        cc.__manager__.register(name, definingFunction)
+        cc.__manager__.register(name, Constructor)
 
 
         $(document).ready(() => {
@@ -86,27 +86,6 @@ function initializeModule() {
 
     }
 
-
-    /**
-     * Assign a class as the accompanying coelement of the class component
-     *
-     * @param {String} className
-     * @param {Function} DefiningClass
-     */
-    cc.assign = (className, DefiningClass) => {
-
-        DefiningClass.coelementName = className
-
-        cc.register(className, elem => {
-
-            const coelement = new DefiningClass(elem)
-
-            elem.data('__coelement:' + DefiningClass.coelementName, coelement)
-
-        })
-
-    }
-
     /**
      * The decorator for class assignment.
      *
@@ -121,7 +100,7 @@ function initializeModule() {
      * @param {String} className The class name
      * @return {Function}
      */
-    cc.component = className => Cls => cc.assign(className, Cls)
+    cc.component = className => Cls => cc.__register(className, Cls)
 
     // Exports Actor.
     cc.Coelement = Coelement

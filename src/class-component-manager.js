@@ -22,11 +22,13 @@ class ClassComponentManager {
      * Registers the class component configuration for the given name.
      *
      * @param {String} name The name
-     * @param {Function} ccc The class component configuration
+     * @param {Function} Constructor The constructor of the class component
      */
-    register(name, definingFunction) {
+    register(name, Constructor) {
 
-        this.ccc[name] = new ClassComponentConfiguration(name, definingFunction)
+        Constructor.coelementName = name
+
+        this.ccc[name] = new ClassComponentConfiguration(name, Constructor)
 
     }
 

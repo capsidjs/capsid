@@ -9,13 +9,13 @@ describe('$.cc', () => {
 
     before(() => {
 
-        $.cc.register('foo', elem => {
+        $.cc('foo', elem => {
 
             elem.attr('is_foo', 'true')
 
         })
 
-        $.cc.register('bar', elem => {
+        $.cc('bar', elem => {
 
             elem.attr('is_bar', 'true')
 
@@ -23,29 +23,11 @@ describe('$.cc', () => {
 
     })
 
-    describe('register', () => {
-
-        it('registers a class component', () => {
-
-            $.cc.register('register-test0', elem => {
-
-                elem.attr('is-register-test0', 'yes')
-
-            })
-
-            const elem = $('<div class="register-test0" />').appendTo('body')
-
-            $.cc.init()
-
-            expect(elem.attr('is-register-test0')).to.equal('yes')
-
-        })
-
         it('throws an error when the first param is not a string', () => {
 
             expect(() => {
 
-                $.cc.register(null, () => {})
+                $.cc(null, () => {})
 
             }).to.throw(Error)
 
@@ -55,13 +37,11 @@ describe('$.cc', () => {
 
             expect(() => {
 
-                $.cc.register('register-test2', null)
+                $.cc('register-test2', null)
 
             }).to.throw(Error)
 
         })
-
-    })
 
     describe('init', () => {
 
@@ -118,39 +98,35 @@ describe('$.cc', () => {
 
     })
 
-    describe('assign', () => {
+    it('registers a class component of the given name', () => {
 
-        it('registers a class component of the given name', () => {
+        $.cc('assign-test0', class Class0 {})
 
-            $.cc.assign('assign-test0', class Class0 {})
+        expect($.cc.__manager__.ccc['assign-test0']).to.be.exist
 
-            expect($.cc.__manager__.ccc['assign-test0']).to.be.exist
+    })
 
-        })
+    it('sets coelementName property to the given construtor', () => {
 
-        it('sets coelementName property to the given construtor', () => {
+        class Class0 {}
 
-            class Class0 {}
+        $.cc('assgin-test1', Class0)
 
-            $.cc.assign('assgin-test1', Class0)
+        expect(Class0.coelementName).to.equal('assgin-test1')
 
-            expect(Class0.coelementName).to.equal('assgin-test1')
+    })
 
-        })
+    it('sets __coelement:class-name data property when the class component is initialized', () => {
 
-        it('sets __coelement:class-name data property when the class component is initialized', () => {
+        class Class1 {}
 
-            class Class1 {}
+        $.cc('assign-test2', Class1)
 
-            $.cc.assign('assign-test2', Class1)
+        const elem = $('<div class="assign-test2" />').appendTo('body')
 
-            const elem = $('<div class="assign-test2" />').appendTo('body')
+        $.cc.init('assign-test2', 'body')
 
-            $.cc.init('assign-test2', 'body')
-
-            expect(elem.data('__coelement:assign-test2')).to.be.instanceof(Class1)
-
-        })
+        expect(elem.data('__coelement:assign-test2')).to.be.instanceof(Class1)
 
     })
 
@@ -211,7 +187,7 @@ describe('$.fn.cc', () => {
 
     before(() => {
 
-        $.cc.assign('spam', Spam)
+        $.cc('spam', Spam)
 
     })
 
