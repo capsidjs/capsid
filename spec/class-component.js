@@ -1,9 +1,9 @@
-import $ from 'jquery'
+const $ = require('jquery')
 global.jQuery = $
-import {expect} from 'chai'
+const {expect} = require('chai')
 
 require('../src/class-component')
-const ClassComponentContext = require('../src/class-component-context').default
+const ClassComponentContext = require('../src/class-component-context')
 
 describe('$.cc', () => {
     'use strict'

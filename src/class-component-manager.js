@@ -2,12 +2,12 @@
 
 const $ = global.jQuery
 
-import ClassComponentConfiguration from './class-component-configuration'
+const ClassComponentConfiguration = require('./class-component-configuration')
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.
  */
-export default class ClassComponentManager {
+class ClassComponentManager {
 
     constructor() {
 
@@ -117,3 +117,5 @@ export default class ClassComponentManager {
     }
 
 }
+
+module.exports = ClassComponentManager

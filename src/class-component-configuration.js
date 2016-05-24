@@ -1,7 +1,7 @@
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  */
-export default class ClassComponentConfiguration {
+class ClassComponentConfiguration {
 
     /**
      * @param {String} className The class name
@@ -74,3 +74,5 @@ export default class ClassComponentConfiguration {
     }
 
 }
+
+module.exports = ClassComponentConfiguration

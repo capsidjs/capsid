@@ -1,6 +1,6 @@
 'use strict'
 
-import ClassComponentContext from './class-component-context'
+const ClassComponentContext = require('./class-component-context')
 
 // Defines the special property cc on a jquery property.
 Object.defineProperty(jQuery.fn, 'cc', {

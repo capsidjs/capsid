@@ -7,9 +7,8 @@ const $ = jQuery
 
 const reSpaces = / +/
 
-import Coelement from './coelement'
-
-import ClassComponentManager from './class-component-manager'
+const Coelement = require('./coelement')
+const ClassComponentManager = require('./class-component-manager')
 
 /**
  * Initializes the module object.

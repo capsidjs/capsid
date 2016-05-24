@@ -3,7 +3,7 @@ const $ = global.jQuery
 /**
  * This is class component contenxt manager. This help to initialize or get colements.
  */
-export default class ClassComponentContext {
+class ClassComponentContext {
 
     constructor(jqObj) {
 
@@ -98,3 +98,5 @@ export default class ClassComponentContext {
     }
 
 }
+
+module.exports = ClassComponentContext
