@@ -3,7 +3,6 @@ global.jQuery = $
 const {expect} = require('chai')
 
 require('../src/class-component')
-const ClassComponentContext = require('../src/class-component-context')
 
 describe('$.cc', () => {
     'use strict'
@@ -216,13 +215,10 @@ describe('$.fn.cc', () => {
 
     })
 
-    it('is a ClassComponentConfiguration', () => {
-
+    it('is a function', () => {
         const elem = $('<div />')
 
-        expect(elem.cc).to.exist
-        expect(elem.cc).to.be.instanceof(ClassComponentContext)
-
+        expect(elem.cc).to.be.a('function')
     })
 
     describe('init', () => {
@@ -258,39 +254,35 @@ describe('$.fn.cc', () => {
 
     })
 
-    describe('up', () => {
+    it('initializes the class compenents of the given names', () => {
 
-        it('initializes the class compenents of the given names', () => {
+        const elem = $('<div/>').cc('foo bar')
 
-            const elem = $('<div/>').cc.up('foo bar')
+        expect(elem.attr('is_foo')).to.equal('true')
+        expect(elem.attr('is_bar')).to.equal('true')
 
-            expect(elem.attr('is_foo')).to.equal('true')
-            expect(elem.attr('is_bar')).to.equal('true')
+    })
 
-        })
+    it('initializes the class components which the element has the name of', () => {
 
-        it('initializes the class components which the element has the name of', () => {
+        const elem = $('<div class="foo bar" />').cc()
 
-            const elem = $('<div class="foo bar" />').cc.up()
+        expect(elem.attr('is_foo')).to.equal('true')
+        expect(elem.attr('is_bar')).to.equal('true')
 
-            expect(elem.attr('is_foo')).to.equal('true')
-            expect(elem.attr('is_bar')).to.equal('true')
+    })
 
-        })
+    it('does nothing if it does not have the class component names', () => {
 
-        it('does nothing if it does not have the class component names', () => {
+        const elem = $('<div class="foo-x bar-x" />').cc()
 
-            const elem = $('<div class="foo-x bar-x" />').cc.up()
+        expect(elem.attr('is_foo')).to.be.undefined
+        expect(elem.attr('is_bar')).to.be.undefined
 
-            expect(elem.attr('is_foo')).to.be.undefined
-            expect(elem.attr('is_bar')).to.be.undefined
+        const elem0 = $('<div class="" />').cc()
 
-            const elem0 = $('<div class="" />').cc.up()
-
-            expect(elem0.attr('is_foo')).to.be.undefined
-            expect(elem0.attr('is_bar')).to.be.undefined
-
-        })
+        expect(elem0.attr('is_foo')).to.be.undefined
+        expect(elem0.attr('is_bar')).to.be.undefined
 
     })
 

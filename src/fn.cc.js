@@ -2,22 +2,27 @@
 
 const ClassComponentContext = require('./class-component-context')
 
+const CLASS_COMPONENT_DATA_KEY = '__class_component_data__'
+
 // Defines the special property cc on a jquery property.
 Object.defineProperty(jQuery.fn, 'cc', {
 
-    get: function () {
+    get() {
 
-        let ctx = this.data('__class_component_context__')
+        if (!this.data(CLASS_COMPONENT_DATA_KEY)) {
 
-        if (!ctx) {
+            const ctx = new ClassComponentContext(this)
 
-            ctx = new ClassComponentContext(this)
+            const cc = classNames => ctx.up(classNames)
 
-            this.data('__class_component_context__', ctx)
+            cc.get = className => ctx.get(className)
+            cc.init = className => ctx.init(className)
+
+            this.data(CLASS_COMPONENT_DATA_KEY, cc)
 
         }
 
-        return ctx
+        return this.data(CLASS_COMPONENT_DATA_KEY)
 
     },
 

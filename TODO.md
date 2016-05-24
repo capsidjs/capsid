@@ -8,9 +8,6 @@
 
 ## v7
 
-- fn.cc.up() ---> fn.cc()
-- fn.cc.up('class names') ---> fn.cc('class names')
-- fn.cc.init('classname') ---> fn.cc.init('classname')
 - @trigger('classname.started', 'classname.ended') method() {...}
 - $.cc('classname', Component)
 - @$.cc('classname') class Component {...}
@@ -24,6 +21,11 @@
 - switch to 2 space indent
 
 # DONE
+## v7
+- fn.cc.up() ---> fn.cc()
+- fn.cc.up('class names') ---> fn.cc('class names')
+- fn.cc.init('classname') ---> fn.cc.init('classname')
+## <= v6
 - remove sublcass dependency
 - switch to es6
 - up method should take an argument
