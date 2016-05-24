@@ -19,6 +19,9 @@
 - Component.prototype.on
 - Component.prototype.off
 - include dom-gen as a part
+- inject this.elem from outside of the constructor
+- Include cc-event in class-component (unify the repository)
+- switch to 2 space indent
 
 # DONE
 - remove sublcass dependency
