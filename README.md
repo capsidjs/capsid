@@ -51,40 +51,15 @@ Because class-component.js is a jQuery plugin, you need to load jquery.js first.
 
 ## APIs
 
-### `$.cc` namespace (static namespace)
+### `$.cc` namespace
 
-#### `$.cc.register(className, func)`
+#### `$.cc(className, Constructor)`
 
-This registers a initializing function `func` to the class name `className`.
+- @param {string} className The class name of the component
+- @param {Function} Constructor The constructor of the coelement of the component
 
-- className `String` The name of the class component
-- func `Function` The initilizing function of the class component
+This registers `Constructor` as the constructor of the coelement of the class component of the given name `className`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(className)`.
 
-```js
-$.cc.register('clear-btn', function (elem) {
-
-    elem.on('click', function () {
-
-        elem.trigger('item-clear');
-
-    });
-
-});
-```
-
-```html
-<li class="clear-btn"></li>
-```
-
-In the above script, when `.clear-btn` class element is initialized, the click handler is attached and it triggers `item-clear` event.
-
-#### `$.cc.assign(className, constructor)`
-
-This is similar to `$.cc.register`, but a little bit different.
-This assigns `constructor` as a constructor of the coelement of the class component of the given name `className`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(className)`.
-
-- className `String` The class name of the component
-- constructor `Function` The constructor of the coelement of the component
 
 ```js
 class TodoItem {
@@ -95,29 +70,29 @@ class TodoItem {
   // ...other behaviours...
 }
 
-$.cc.assign('todo-item', TodoItem)
+$.cc('todo-item', TodoItem)
 ```
 
 ```html
 <li class="todo-item"></li>
 ```
 
-#### `$.cc.init(className, element)`
+#### `$.cc.init(className, [range])`
+
+- @param {string} className The class name to intialize
+- @param {HTMLElement|string} range The range to initialize
 
 This initializes the class components of the given name inside the given element. If the element is omitted, then it does in `document.body`. If the className is omitted, then it initializes all the registered class components. This method is useful when you want to add class components dynamically. The API automcatically prevent double initilization and therefore you don't need to care about it.
 
-- className `String` The class name of the element
-- element `HTMLElement|String` The element in which it initializes
-
-### `$.fn.cc` namespace (instance APIs)
+### `$.fn.cc` namespace
 
 These are available through jQuery object's `.cc` property.
 
 #### `$.fn.cc.get(className)`
 
-This gets the coelement of the component of the given name if exists. It throws if none.
+- @param {string} className The class name of the component
 
-- className `String` The class name of the component
+This gets the coelement of the component of the given name if exists. It throws if none.
 
 ```js
 var todoItem = elem.cc.get('todo-item');
@@ -140,26 +115,26 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
 
-#### `$.fn.cc.up(classNames)`
+#### `$.fn.cc(classNames)`
+
+- @param {string} classNames The class names to initialize
 
 This initializes the class compenents of the given names on the element and returns the element itself (jquery-wrapped).
 
 ```js
-$('<div />').cc.up('timer modal').appendTo('body')
+$('<div />').cc('timer modal').appendTo('body')
 ```
 
 The above example creates a `div` element and initializes it as `timer` and `modal` class components. And finally append it to the body.
 
-
-
-#### `$.fn.cc.up()`
+#### `$.fn.cc()`
 
 This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
 
 Example:
 
 ```js
-$('<div class="timer modal"/>').cc.up().appendTo('body')
+$('<div class="timer modal"/>').cc().appendTo('body')
 ```
 
 The above example is the same as the previous one.
@@ -171,7 +146,7 @@ var div = $('<div/>')
 
 classes.forEach(cls => div.addClass(cls))
 
-div.cc.up().appendTo('body')
+div.cc().appendTo('body')
 ```
 
 The above example creates a `div` element and initializes all the classes in `classes` variable on in.
