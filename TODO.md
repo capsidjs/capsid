@@ -13,7 +13,6 @@
 - Component.prototype.trigger
 - Component.prototype.on
 - Component.prototype.off
-- Include cc-event in class-component (unify the repository)
 - switch to 2 space indent
 
 ## => v8
@@ -21,6 +20,7 @@
 
 # DONE
 ## v7
+- Include cc-event in class-component (unify the repository)
 - $.cc('classname', Component)
 - fn.cc.up() ---> fn.cc()
 - fn.cc.up('class names') ---> fn.cc('class names')

@@ -102,11 +102,29 @@ describe('$.cc', () => {
 
         const elem = $('<div class="elem-test" />').appendTo('body')
 
-        $.cc.init('elem-test', 'body')
+        $.cc.init('elem-test')
 
         const coelem = elem.cc.get('elem-test')
 
         expect(coelem.elem[0]).to.equal(elem[0])
+    })
+
+    it('binds event handlers if the event decorators are present', done => {
+        class Class3 {
+            handler() {
+                done()
+            }
+        }
+
+        $.cc.event('click', '.inner')(Class3.prototype, 'handler')
+
+        $.cc('elem-test3', Class3)
+
+        const elem = $('<div class="elem-test3"><span class="inner"></span></div>').appendTo('body')
+
+        $.cc.init('elem-test3')
+
+        elem.find('.inner').trigger('click')
     })
 
     describe('Coelement', () => {

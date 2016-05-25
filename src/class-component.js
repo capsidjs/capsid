@@ -9,6 +9,7 @@ const reSpaces = / +/
 
 const Coelement = require('./coelement')
 const ClassComponentManager = require('./class-component-manager')
+const event = require('./cc-event')
 
 /**
  * Initializes the module object.
@@ -104,6 +105,9 @@ function initializeModule() {
 
     // Exports Actor.
     cc.Coelement = Coelement
+
+    // Exports event decorator
+    cc.event = event
 
     return cc
 

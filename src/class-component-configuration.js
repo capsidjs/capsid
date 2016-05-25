@@ -44,11 +44,48 @@ class ClassComponentConfiguration {
      * @param {jQuery} elem
      */
     applyCustomDefinition(elem) {
+        this.getAllListenerInfo().forEach(listenerInfo => {
+            elem.on(listenerInfo.event, listenerInfo.selector, function () {
+                listenerInfo.handler.apply(coelement, arguments)
+            })
+        })
+
         const coelement = new this.Constructor(elem)
 
         coelement.elem = elem // Injects elem at this.elem
 
         elem.data('__coelement:' + this.className, coelement)
+    }
+
+    /**
+     * Gets the list of the event-decorated handlers.
+     * @private
+     * @return {Function[]}
+     */
+    getHandlers() {
+        const prototype = this.Constructor.prototype
+
+        return Object.getOwnPropertyNames(prototype)
+            .map(key => prototype[key])
+            .filter(ClassComponentConfiguration.isHandler)
+    }
+
+    /**
+     * Gets all the listener info of the coelement.
+     * @return {ListenerInfo[]}
+     */
+    getAllListenerInfo() {
+        return [].concat.apply([], this.getHandlers().map(handler => handler.__events__))
+    }
+
+
+    /**
+     * Returns true when the given property is an event handler.
+     * @param {object} property The property
+     * @return {boolean}
+     */
+    static isHandler(property) {
+        return typeof property === 'function' && property.__events__ != null
     }
 
     /**
