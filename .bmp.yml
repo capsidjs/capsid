@@ -1,5 +1,6 @@
 ---
-version: 6.0.0
+version: 7.0.0-alpha
+commit: Bump to version v%.%.%
 files:
   README.md: v%.%.%
   README.ja.md: v%.%.%
