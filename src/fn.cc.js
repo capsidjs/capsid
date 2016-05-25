@@ -8,22 +8,22 @@ const CLASS_COMPONENT_DATA_KEY = '__class_component_data__'
 Object.defineProperty(jQuery.fn, 'cc', {
 
     get() {
+        let cc = this.data(CLASS_COMPONENT_DATA_KEY)
 
-        if (!this.data(CLASS_COMPONENT_DATA_KEY)) {
-
-            const ctx = new ClassComponentContext(this)
-
-            const cc = classNames => ctx.up(classNames)
-
-            cc.get = className => ctx.get(className)
-            cc.init = className => ctx.init(className)
-
-            this.data(CLASS_COMPONENT_DATA_KEY, cc)
-
+        if (cc) {
+            return cc
         }
 
-        return this.data(CLASS_COMPONENT_DATA_KEY)
+        const ctx = new ClassComponentContext(this)
 
+        cc = classNames => ctx.up(classNames)
+
+        cc.get = className => ctx.get(className)
+        cc.init = className => ctx.init(className)
+
+        this.data(CLASS_COMPONENT_DATA_KEY, cc)
+
+        return cc
     },
 
     enumerable: false,
