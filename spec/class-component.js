@@ -154,6 +154,77 @@ describe('$.cc', () => {
             expect(elem.attr('this-is')).to.equal('decorated-component')
         })
     })
+
+    describe('trigger(start, end, error)', () => {
+        it('prepends the trigger of the start event to the method', done => {
+            class Class4 {
+                method() {
+                }
+            }
+
+            $.cc.trigger('class4-start')(Class4.prototype, 'method')
+
+            $.cc('class4', Class4)
+
+            const elem = $('<div />').cc('class4').appendTo('body')
+
+            $('body').on('class4-start', () => done())
+
+            elem.cc.get('class4').method()
+        })
+
+        it('appends the trigger of the end event to the method', done => {
+            class Class5 {
+                method() {
+                    return new Promise(resolve => setTimeout(resolve, 200))
+                }
+            }
+
+            $.cc.trigger(null, 'class5-ended')(Class5.prototype, 'method')
+
+            $.cc('class5', Class5)
+
+            const elem = $('<div />').cc('class5').appendTo('body')
+
+            let flag = false
+
+            setTimeout(() => { flag = true }, 100)
+            setTimeout(() => { flag = false }, 300)
+
+            $('body').on('class5-ended', () => {
+                expect(flag).to.be.true
+                done()
+            })
+
+            elem.cc.get('class5').method()
+        })
+
+        it('appends the trigger of the error event to the method', done => {
+            class Class6 {
+                method() {
+                    return new Promise((resolve, reject) => setTimeout(() => reject(new Error()), 200))
+                }
+            }
+
+            $.cc.trigger(null, null, 'class6-error')(Class6.prototype, 'method')
+
+            $.cc('class6', Class6)
+
+            const elem = $('<div />').cc('class6').appendTo('body')
+
+            let flag = false
+
+            setTimeout(() => { flag = true }, 100)
+            setTimeout(() => { flag = false }, 300)
+
+            $('body').on('class6-error', () => {
+                expect(flag).to.be.true
+                done()
+            })
+
+            elem.cc.get('class6').method()
+        })
+    })
 })
 
 describe('$.fn.cc', () => {

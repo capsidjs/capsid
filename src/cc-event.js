@@ -15,4 +15,35 @@ const event = (event, selector) => (prototype, name) => {
     method.__events__.push(new ListenerInfo(event, selector, method))
 }
 
-module.exports = event
+/**
+ * The decorator to prepend and append event trigger.
+ * @param {string} start The event name when the method started
+ * @param {string} end The event name when the method finished
+ * @param {string} error the event name when the method errored
+ */
+const trigger = (start, end, error) => (prototype, name) => {
+    const method = prototype[name]
+
+    prototype[name] = function () {
+        if (start != null) {
+            this.elem.trigger(start)
+        }
+
+        const result = method.apply(this, arguments)
+
+        const promise = Promise.resolve(result)
+
+        if (end != null) {
+            promise.then(() => this.elem.trigger(end))
+        }
+
+        if (error != null) {
+            promise.catch(() => this.elem.trigger(error))
+        }
+
+        return result
+    }
+}
+
+exports.event = event
+exports.trigger = trigger

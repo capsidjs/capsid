@@ -9,7 +9,8 @@ const reSpaces = / +/
 
 const Coelement = require('./coelement')
 const ClassComponentManager = require('./class-component-manager')
-const event = require('./cc-event')
+const event = require('./cc-event').event
+const trigger = require('./cc-event').trigger
 
 /**
  * Initializes the module object.
@@ -108,6 +109,9 @@ function initializeModule() {
 
     // Exports event decorator
     cc.event = event
+
+    // Exports trigger decorator
+    cc.trigger = trigger
 
     return cc
 

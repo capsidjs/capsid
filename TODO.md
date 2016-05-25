@@ -1,5 +1,4 @@
 # TODO
-- Include cc-event in class-component (keep separate repository)
 - Find a good example for $.cc.assign usage.
   - It must be a class component with the internal state.
   - It must be enough simple
@@ -8,7 +7,6 @@
 
 ## v7
 
-- @trigger('classname.started', 'classname.ended') method() {...}
 - Component.prototype.get
 - Component.prototype.trigger
 - Component.prototype.on
@@ -20,6 +18,8 @@
 
 # DONE
 ## v7
+- Include cc-event in class-component (keep separate repository)
+- @trigger('classname.started', 'classname.ended') method() {...}
 - Include cc-event in class-component (unify the repository)
 - $.cc('classname', Component)
 - fn.cc.up() ---> fn.cc()
