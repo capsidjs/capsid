@@ -1,5 +1,4 @@
 # TODO
-- Include cc-event in class-component (keep separate repository)
 - Find a good example for $.cc.assign usage.
   - It must be a class component with the internal state.
   - It must be enough simple
@@ -8,22 +7,25 @@
 
 ## v7
 
-- fn.cc.up() ---> fn.cc()
-- fn.cc.up('class names') ---> fn.cc('class names')
-- fn.cc.init('classname') ---> fn.cc.init('classname')
-- @trigger('classname.started', 'classname.ended') method() {...}
-- $.cc('classname', Component)
-- @$.cc('classname') class Component {...}
 - Component.prototype.get
 - Component.prototype.trigger
 - Component.prototype.on
 - Component.prototype.off
-- include dom-gen as a part
-- inject this.elem from outside of the constructor
-- Include cc-event in class-component (unify the repository)
 - switch to 2 space indent
 
+## => v8
+- include dom-gen as a part
+
 # DONE
+## v7
+- Include cc-event in class-component (keep separate repository)
+- @trigger('classname.started', 'classname.ended') method() {...}
+- Include cc-event in class-component (unify the repository)
+- $.cc('classname', Component)
+- fn.cc.up() ---> fn.cc()
+- fn.cc.up('class names') ---> fn.cc('class names')
+- fn.cc.init('classname') ---> fn.cc.init('classname')
+## <= v6
 - remove sublcass dependency
 - switch to es6
 - up method should take an argument

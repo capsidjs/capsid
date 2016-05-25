@@ -3,7 +3,7 @@ const $ = global.jQuery
 /**
  * This is class component contenxt manager. This help to initialize or get colements.
  */
-export default class ClassComponentContext {
+class ClassComponentContext {
 
     constructor(jqObj) {
 
@@ -79,22 +79,6 @@ export default class ClassComponentContext {
         throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName)
 
     }
-
-    /**
-     * Gets the actor class. Actor class is the special Coelement which is labeled as `actor`. A dom has only one actor Coelement.
-     */
-    getActor() {
-
-        const actor = this.jqObj.data('__primary_coelement')
-
-        if (!actor) {
-
-            throw new Error('no actor on the dom: ' + this.jqObj.get(0).tagName)
-
-        }
-
-        return actor
-
-    }
-
 }
+
+module.exports = ClassComponentContext

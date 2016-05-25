@@ -1,24 +1,29 @@
 'use strict'
 
-import ClassComponentContext from './class-component-context'
+const ClassComponentContext = require('./class-component-context')
+
+const CLASS_COMPONENT_DATA_KEY = '__class_component_data__'
 
 // Defines the special property cc on a jquery property.
 Object.defineProperty(jQuery.fn, 'cc', {
 
-    get: function () {
+    get() {
+        let cc = this.data(CLASS_COMPONENT_DATA_KEY)
 
-        let ctx = this.data('__class_component_context__')
-
-        if (!ctx) {
-
-            ctx = new ClassComponentContext(this)
-
-            this.data('__class_component_context__', ctx)
-
+        if (cc) {
+            return cc
         }
 
-        return ctx
+        const ctx = new ClassComponentContext(this)
 
+        cc = classNames => ctx.up(classNames)
+
+        cc.get = className => ctx.get(className)
+        cc.init = className => ctx.init(className)
+
+        this.data(CLASS_COMPONENT_DATA_KEY, cc)
+
+        return cc
     },
 
     enumerable: false,
