@@ -95,6 +95,20 @@ describe('$.cc', () => {
         expect(elem.data('__coelement:assign-test2')).to.be.instanceof(Class1)
     })
 
+    it('sets coelement.elem as the base jquery element', () => {
+        class Class2 {}
+
+        $.cc('elem-test', Class2)
+
+        const elem = $('<div class="elem-test" />').appendTo('body')
+
+        $.cc.init('elem-test', 'body')
+
+        const coelem = elem.cc.get('elem-test')
+
+        expect(coelem.elem[0]).to.equal(elem[0])
+    })
+
     describe('Coelement', () => {
         it('sets the first argument to elem property', () => {
             const elem = $('<div />')

@@ -44,7 +44,11 @@ class ClassComponentConfiguration {
      * @param {jQuery} elem
      */
     applyCustomDefinition(elem) {
-        elem.data('__coelement:' + this.className, new this.Constructor(elem))
+        const coelement = new this.Constructor(elem)
+
+        coelement.elem = elem // Injects elem at this.elem
+
+        elem.data('__coelement:' + this.className, coelement)
     }
 
     /**
