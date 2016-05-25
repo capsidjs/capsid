@@ -5,80 +5,80 @@ const $ = global.jQuery
  */
 class ClassComponentContext {
 
-    constructor(jqObj) {
+  constructor(jqObj) {
 
-        this.jqObj = jqObj
+    this.jqObj = jqObj
 
-    }
+  }
 
-    /**
-     * Inserts the class name, initializes as the class component and returns the coelement if exists.
-     *
-     * @param {String} className The class name
-     * @return {Object}
-     */
-    init(className) {
+  /**
+   * Inserts the class name, initializes as the class component and returns the coelement if exists.
+   *
+   * @param {String} className The class name
+   * @return {Object}
+   */
+  init(className) {
 
-        this.jqObj.addClass(className)
+    this.jqObj.addClass(className)
+
+    $.cc.__manager__.initAt(className, this.jqObj)
+
+    return this.jqObj.data('__coelement:' + className)
+
+  }
+
+  /**
+   * Initializes the element if it has registered class component names. Returns the jquery object itself.
+   *
+   * @param {string} [classNames] The class name.
+   * @return {jQuery}
+   */
+  up(classNames) {
+
+    if (classNames != null) {
+
+      classNames.split(/\s+/).forEach(className => {
 
         $.cc.__manager__.initAt(className, this.jqObj)
 
-        return this.jqObj.data('__coelement:' + className)
+      })
+
+    } else {
+
+      // Initializes anything it already has.
+      $.cc.__manager__.initAllAtElem(this.jqObj)
 
     }
 
-    /**
-     * Initializes the element if it has registered class component names. Returns the jquery object itself.
-     *
-     * @param {string} [classNames] The class name.
-     * @return {jQuery}
-     */
-    up(classNames) {
+    return this.jqObj
 
-        if (classNames != null) {
+  }
 
-            classNames.split(/\s+/).forEach(className => {
+  /**
+   * Gets the coelement of the given name.
+   *
+   * @param {String} coelementName The name of the coelement
+   * @return {Object}
+   */
+  get(coelementName) {
 
-                $.cc.__manager__.initAt(className, this.jqObj)
+    const coelement = this.jqObj.data('__coelement:' + coelementName)
 
-            })
+    if (coelement) {
 
-        } else {
-
-            // Initializes anything it already has.
-            $.cc.__manager__.initAllAtElem(this.jqObj)
-
-        }
-
-        return this.jqObj
+      return coelement
 
     }
 
-    /**
-     * Gets the coelement of the given name.
-     *
-     * @param {String} coelementName The name of the coelement
-     * @return {Object}
-     */
-    get(coelementName) {
+    if (this.jqObj.length === 0) {
 
-        const coelement = this.jqObj.data('__coelement:' + coelementName)
-
-        if (coelement) {
-
-            return coelement
-
-        }
-
-        if (this.jqObj.length === 0) {
-
-            throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection')
-
-        }
-
-        throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName)
+      throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection')
 
     }
+
+    throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName)
+
+  }
 }
 
 module.exports = ClassComponentContext

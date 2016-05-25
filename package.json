@@ -63,6 +63,9 @@
     },
     "globals": {
       "jQuery": false
+    },
+    "rules": {
+      "indent": [2, 2]
     }
   },
   "babel": {

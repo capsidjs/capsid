@@ -3,11 +3,11 @@
  */
 class Coelement {
 
-    constructor(elem) {
+  constructor(elem) {
 
-        this.elem = elem
+    this.elem = elem
 
-    }
+  }
 
 }
 

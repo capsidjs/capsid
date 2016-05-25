@@ -11,13 +11,13 @@
 - Component.prototype.trigger
 - Component.prototype.on
 - Component.prototype.off
-- switch to 2 space indent
 
 ## => v8
 - include dom-gen as a part
 
 # DONE
 ## v7
+- switch to 2 space indent
 - Include cc-event in class-component (keep separate repository)
 - @trigger('classname.started', 'classname.ended') method() {...}
 - Include cc-event in class-component (unify the repository)
