@@ -12,6 +12,19 @@ class ListenerInfo {
     this.selector = selector
     this.handler = handler
   }
+
+  /**
+   * Binds the listener to the given element with the given coelement.
+   * @param {jQuery} elem The jquery element
+   * @param {object} coelem The coelement which is bound to the element
+   */
+  bindTo(elem, coelem) {
+    const handler = this.handler
+
+    elem.on(this.event, this.selector, function () {
+      handler.apply(coelem, arguments)
+    })
+  }
 }
 
 module.exports = ListenerInfo

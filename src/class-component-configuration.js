@@ -47,19 +47,15 @@ class ClassComponentConfiguration {
    * @param {jQuery} elem
    */
   applyCustomDefinition(elem) {
-    const coelement = new this.ProxyConstructor()
+    const coelem = new this.ProxyConstructor()
 
-    coelement.elem = elem // Injects elem at this.elem
+    coelem.elem = elem // Injects elem at this.elem
 
-    this.getAllListenerInfo().forEach(listenerInfo => {
-      elem.on(listenerInfo.event, listenerInfo.selector, function () {
-        listenerInfo.handler.apply(coelement, arguments)
-      })
-    })
+    this.getAllListenerInfo().forEach(listenerInfo => listenerInfo.bindTo(elem, coelem))
 
-    this.Constructor.call(coelement, elem) // Simulates the constructor call
+    this.Constructor.call(coelem, elem) // Simulates the constructor call
 
-    elem.data('__coelement:' + this.className, coelement)
+    elem.data('__coelement:' + this.className, coelem)
   }
 
   /**
