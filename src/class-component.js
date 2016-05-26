@@ -1,5 +1,5 @@
 /**
- * class-component.js v7.0.0-alpha
+ * class-component.js v7.0.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
