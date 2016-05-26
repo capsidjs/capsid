@@ -1,22 +1,15 @@
 # TODO
-- Find a good example for $.cc.assign usage.
-  - It must be a class component with the internal state.
-  - It must be enough simple
-  - It must be practical in the frontend dev context.
-    - Timer is not really a practical example, though react has it as the second example in its homepage.
-
-## v7
-
-- Component.prototype.get
-- Component.prototype.trigger
-- Component.prototype.on
-- Component.prototype.off
+- Reorganize the README.md
+- Separate test file
 
 ## => v8
 - include dom-gen as a part
 
 # DONE
 ## v7
+- Coelement.prototype.trigger
+- Coelement.prototype.on
+- Coelement.prototype.off
 - switch to 2 space indent
 - Include cc-event in class-component (keep separate repository)
 - @trigger('classname.started', 'classname.ended') method() {...}
