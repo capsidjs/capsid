@@ -9,6 +9,9 @@ class ClassComponentConfiguration {
   constructor(className, Constructor) {
     this.className = className
     this.Constructor = Constructor
+
+    this.ProxyConstructor = function () {}
+    this.ProxyConstructor.prototype = Constructor.prototype
   }
 
   /**
@@ -44,15 +47,17 @@ class ClassComponentConfiguration {
    * @param {jQuery} elem
    */
   applyCustomDefinition(elem) {
+    const coelement = new this.ProxyConstructor()
+
+    coelement.elem = elem // Injects elem at this.elem
+
     this.getAllListenerInfo().forEach(listenerInfo => {
       elem.on(listenerInfo.event, listenerInfo.selector, function () {
         listenerInfo.handler.apply(coelement, arguments)
       })
     })
 
-    const coelement = new this.Constructor(elem)
-
-    coelement.elem = elem // Injects elem at this.elem
+    this.Constructor.call(coelement, elem) // Simulates the constructor call
 
     elem.data('__coelement:' + this.className, coelement)
   }
