@@ -2,52 +2,102 @@
 
 [![Circle CI](https://circleci.com/gh/kt3k/class-component.svg?style=svg)](https://circleci.com/gh/kt3k/class-component) [![codecov.io](https://codecov.io/github/kt3k/class-component/coverage.svg?branch=master)](https://codecov.io/github/kt3k/class-component?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
-> Special html class tool
+> Yet another view framework
 
-class-component.js is tool for creating a html class which has special functionality in addition to its default dom behaviour. For example, `bootstrap`'s "modal" class is a special class and when the user put `.modal` element in a page, it automatically behaves as a *modal*. This library helps you creating a such html class.
+class-component.js is tool for appending **some special functions** to certain **html classes**. See below for details.
 
-class-component.js is a jQuery plugin and exposes 2 namespaces: `$.cc` and `$.fn.cc`.
+# Feature
 
-The size of the minified version of class-component.js is now 4.9KB.
+- It is a **view framework**.
+- It is a **jQuery plugin**.
+- Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
+- **no virtual dom** ***hassle***
+  - being **friendly with jQuery**
+- **small number of APIs**
+  - now it has **5** methods, **2** decorators and **1** class.
+- **no scripts in html**
+  - every logic is in `.js`
+- **no alt js** required
+- **no alt html** required
+- **7.4KB** minified.
 
-## Install
+# The timer
 
-### Using npm
+The timer example in `$.cc`:
 
-```sh
-npm install --save class-component
+timer.js:
+
+```js
+class Timer {
+  constructor() {
+    this.secondsElapsed = 0
+    this.start()
+  }
+
+  /**
+   * Starts the timer.
+   */
+  start() {
+    if (this.interval) return
+
+    this.interval = setInterval(() => {
+      this.tick()
+    }, 1000)
+  }
+
+  /**
+   * Ticks the timer.
+   */
+  tick() {
+    this.secondsElapsed++
+    this.elem.text('Seconds Elapsed:' + this.secondsElapsed)
+  }
+
+  /**
+   * Stops the timer.
+   */
+  stop() {
+    clearInterval(this.interval)
+    delete this.interval
+  }
+}
+
+$.cc('timer', Timer)
 ```
 
-then
+timer.html:
+
+```html
+<span class="timer"></span>
+
+<script src="path/to/jquery.js"></script>
+<script src="path/to/$.cc.js"></script>
+<script src="path/to/timer.js"></script>
+```
+
+# Install
+
+## Via npm
+
+    npm install --save class-component
+
+then do this:
 
 ```js
 global.jQuery = require('jquery');
 require('class-component');
 ```
 
-### Using bower
+## Via file
 
-```sh
-bower install --save jquery class-component
-```
-
-then
+Download dist.min.js. Then:
 
 ```html
 <script src="path/to/jquery.js"></script>
 <script src="path/to/class-component.js"></script>
 ```
 
-### Using a file directly
-
-Download dist.min.js. Then
-
-```html
-<script src="path/to/jquery.js"></script>
-<script src="path/to/class-component.js"></script>
-```
-
-Because class-component.js is a jQuery plugin, you need to load jquery.js first.
+***Note***: You need to load jquery.js first.
 
 ## APIs
 

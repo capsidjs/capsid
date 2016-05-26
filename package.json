@@ -1,7 +1,7 @@
 {
   "name": "class-component",
   "version": "7.0.0-alpha",
-  "description": "Define reusable HTML class component",
+  "description": "Yet another view framework",
   "main": "lib/class-component.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
