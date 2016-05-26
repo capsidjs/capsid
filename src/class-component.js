@@ -21,23 +21,15 @@ function initializeModule() {
 
   require('./fn.cc')
 
+  const __manager__ = new ClassComponentManager()
+
   /**
    * The main namespace for class component module.
-   */
-  const cc = (className, Constructor) => {
-    cc.__register(className, Constructor)
-  }
-
-  cc.__manager__ = new ClassComponentManager()
-
-  /**
    * Registers a class component of the given name using the given defining function.
-   *
-   * @param {String} className The class name
+   * @param {String} name The class name
    * @param {Function} Constructor The class definition
    */
-  cc.__register = (name, Constructor) => {
-
+  const cc = (name, Constructor) => {
     if (typeof name !== 'string') {
 
       throw new Error('`name` of a class component has to be a string')
@@ -50,12 +42,12 @@ function initializeModule() {
 
     }
 
-    cc.__manager__.register(name, Constructor)
+    __manager__.register(name, Constructor)
 
 
     $(document).ready(() => {
 
-      cc.__manager__.init(name)
+      __manager__.init(name)
 
     })
 
@@ -72,7 +64,7 @@ function initializeModule() {
 
     if (classNames == null) {
 
-      cc.__manager__.initAll(elem)
+      __manager__.initAll(elem)
 
       return
 
@@ -84,7 +76,7 @@ function initializeModule() {
 
     }
 
-    return classNames.map(className => cc.__manager__.init(className, elem))
+    return classNames.map(className => __manager__.init(className, elem))
 
   }
 
@@ -102,7 +94,10 @@ function initializeModule() {
    * @param {String} className The class name
    * @return {Function}
    */
-  cc.component = className => Cls => cc.__register(className, Cls)
+  cc.component = className => Cls => cc(className, Cls)
+
+  // Exports __manager__
+  cc.__manager__ = __manager__
 
   // Exports Actor.
   cc.Coelement = Coelement
