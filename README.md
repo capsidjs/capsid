@@ -4,7 +4,7 @@
 
 > Yet another view framework
 
-class-component.js is tool for appending **some special functions** to certain **html classes**. See below for details.
+class-component.js is tool for appending **some special functions** to **html classes**. See below for details.
 
 # Feature
 
@@ -14,7 +14,7 @@ class-component.js is tool for appending **some special functions** to certain *
 - **no virtual dom** ***hassle***
   - being **friendly with jQuery**
 - **small number of APIs**
-  - now it has **5** methods, **2** decorators and **1** class.
+  - now it has **5** methods, **3** decorators and **1** class.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
 - **6.8KB** minified.
@@ -67,10 +67,6 @@ timer.html:
 
 ```html
 <span class="timer"></span>
-
-<script src="path/to/jquery.js"></script>
-<script src="path/to/$.cc.js"></script>
-<script src="path/to/timer.js"></script>
 ```
 
 # Install
@@ -99,6 +95,20 @@ Download dist.min.js. Then:
 
 # APIs
 
+There are 5 APIs.
+
+- `$.cc`
+  - Registers class-component.
+- `$.cc.init`
+  - Initializes class-component on the range.
+- `$.fn.cc`
+  - Initializes the element as class-component.
+- `$.fn.cc.get`
+  - Gets the coelement of the element.
+- `$.fn.cc.init`
+  - Initializes the element as a class-component.
+
+
 ## `$.cc` namespace
 
 ### `$.cc(className, Constructor)`
@@ -108,14 +118,12 @@ Download dist.min.js. Then:
 
 This registers `Constructor` as the constructor of the coelement of the class component of the given name `className`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(className)`.
 
+Example:
+
 
 ```js
 class TodoItem {
-  constructor(elem) {
-    super(elem)
-  }
-
-  // ...other behaviours...
+  // ...behaviours...
 }
 
 $.cc('todo-item', TodoItem)
@@ -130,11 +138,50 @@ $.cc('todo-item', TodoItem)
 - @param {string} className The class name to intialize
 - @param {HTMLElement|string} range The range to initialize
 
-This initializes the class components of the given name inside the given element. If the element is omitted, then it does in `document.body`. If the className is omitted, then it initializes all the registered class components. This method is useful when you want to add class components dynamically. The API automcatically prevent double initilization and therefore you don't need to care about it.
+This initializes the class components of the given name in the given range. If the range is omitted, it initializes them in the entire page. If the className is omitted, then it initializes all the registered class components.
+
+This method is useful when you want to add class components dynamically.
 
 ## `$.fn.cc` namespace
 
-These are available through jQuery object's `.cc` property.
+These APIs are available via jQuery object's `.cc` property like `$('<div />').cc('timer')` or `$('#main').cc.get('app')`.
+
+### `$.fn.cc(classNames)`
+
+- @param {string} classNames The class names to initialize
+- @return {jQuery}
+
+This initializes the class-compenents of the given names on the element and returns the element itself.
+
+```js
+$('<div />').cc('timer modal').appendTo('body')
+```
+
+The above example creates a `div` element, initializes it as `timer` and `modal` class components, and appends it to the body.
+
+### `$.fn.cc()`
+
+This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
+
+Example:
+
+```js
+$('<div class="timer modal"/>').cc().appendTo('body')
+```
+
+The above example is the same as the previous one.
+
+Example:
+
+```js
+var div = $('<div/>')
+
+classes.forEach(cls => div.addClass(cls))
+
+div.cc().appendTo('body')
+```
+
+The above example creates a `div` element and initializes all the classes in `classes` variable on in.
 
 ### `$.fn.cc.get(className)`
 
@@ -163,41 +210,101 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
 
-### `$.fn.cc(classNames)`
+# Decorators
 
-- @param {string} classNames The class names to initialize
+There are 3 decorators.
 
-This initializes the class compenents of the given names on the element and returns the element itself (jquery-wrapped).
+- $.cc.component
+- $.cc.event
+- $.cc.trigger
 
-```js
-$('<div />').cc('timer modal').appendTo('body')
-```
+## `$.cc.component(className)`
 
-The above example creates a `div` element and initializes it as `timer` and `modal` class components. And finally append it to the body.
+$.cc.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
 
-### `$.fn.cc()`
-
-This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
-
-Example:
+This is a shorthand of `$.cc('component', Component)`.
 
 ```js
-$('<div class="timer modal"/>').cc().appendTo('body')
+const {component} = $.cc
+
+@component('timer')
+class Timer {
+  ...definitions...
+}
 ```
 
-The above example is the same as the previous one.
+The above registers `Timer` class as `timer` component.
 
-Example:
+## `$.cc.event(eventName)`
+
+$.cc.event is method decorator. With this decorator, you can register the method as the event handler of the element.
 
 ```js
-var div = $('<div/>')
+const {event} = $.cc
 
-classes.forEach(cls => div.addClass(cls))
+class Btn {
 
-div.cc().appendTo('body')
+  @event('click')
+  onClick(e) {
+    ...definitions...
+  }
+}
+
+$.cc('btn', Btn)
 ```
 
-The above example creates a `div` element and initializes all the classes in `classes` variable on in.
+The above binds `onClick` method to its element's 'click' event automatically.
+
+The above is equivalent of:
+
+```js
+class Btn {
+  constructor(elem) {
+    elem.on('click', e => {
+      this.onClick(e)
+    })
+  }
+
+  onClick(e) {
+    ...definitions...
+  }
+}
+
+$.cc('btn', Btn)
+```
+
+## `$.cc.trigger(startEvent)`
+
+`$.cc.trigger(startEvent)` is a method decorator. This decorator add triggering of the given event at the start of the method.
+
+```js
+const {trigger} = $.cc
+
+class Manager {
+  @trigger('manager.started')
+  start() {
+    ...definitions...
+  }
+}
+
+$.cc('manager', Manager)
+```
+
+The above `start` method automatically triggers `manager.started` event at the begining of the method process.
+
+The above is equivalent of:
+
+```js
+class Manager {
+
+  start() {
+    this.elem.trigger('manager.started')
+    ...definitions...
+  }
+}
+
+$.cc('manager', Manager)
+```
 
 # Glossary
 
@@ -205,17 +312,20 @@ The above example creates a `div` element and initializes all the classes in `cl
 
 <img align="right" width="300" src="http://kt3k.github.io/class-component/asset/the-diagram.svg" />
 
-A class component is a html class which has special functionality.
+A class component is a html class which has special function.
 
-`class-componenet.js` is a tool for creating class components in this sense.
+A class component consists of the element (html dom element) and coelement (accompanying custom object).
+
+The element in a class component is an usual html dom. The coelement accompanies to the element and adds special functions to it.
 
 ## Coelement
 
+A coelement is a JavaScript class which supports the element to give it special functions.
+A coelement defines a class-component together with its dual element.
+
+The coelement is accessible with `elem.cc.get(name)` and the element is accesible with `coelem.elem`.
+
 (co- is a prefix for meaning the dual of something e.g. sine and cosine, tangent and cotangent etc.)
-
-A coelement is a JavaScript class which defines a class-component together with its dual element.
-
-The coelement is accessible with `elem.cc.get(name)` and the element is accesible with `this.elem`.
 
 # Examples
 
