@@ -8,14 +8,11 @@ const ClassComponentConfiguration = require('./class-component-configuration')
  * ClassComponentManger handles the registration and initialization of the class compoents.
  */
 class ClassComponentManager {
-
   constructor() {
-
     /**
      * @property {Object<ClassComponentConfiguration>} ccc
      */
     this.ccc = {}
-
   }
 
   /**
@@ -25,11 +22,9 @@ class ClassComponentManager {
    * @param {Function} Constructor The constructor of the class component
    */
   register(name, Constructor) {
-
     Constructor.coelementName = name
 
     this.ccc[name] = new ClassComponentConfiguration(name, Constructor)
-
   }
 
   /**
@@ -41,7 +36,6 @@ class ClassComponentManager {
    * @throw {Error}
    */
   init(className, elem) {
-
     const ccc = this.getConfiguration(className)
 
     return $(ccc.selector(), elem).each(function () {
@@ -49,21 +43,15 @@ class ClassComponentManager {
       ccc.initElem($(this))
 
     }).toArray()
-
   }
 
   /**
    * Initializes the class component of the give name at the given element.
-   *
    * @param {String} className The class name
    * @param {jQuery|HTMLElement|String} elem The element
    */
   initAt(className, elem) {
-
-    const ccc = this.getConfiguration(className)
-
-    ccc.initElem($(elem))
-
+    this.getConfiguration(className).initElem($(elem))
   }
 
   /**
@@ -72,7 +60,6 @@ class ClassComponentManager {
    * @param {HTMLElement}
    */
   initAllAtElem(elem) {
-
     const classes = $(elem).attr('class')
 
     if (!classes) {
@@ -83,20 +70,15 @@ class ClassComponentManager {
       .map(className => this.ccc[className])
       .filter(ccc => ccc)
       .forEach(ccc => ccc.initElem(elem))
-
   }
 
   /**
    * @param {jQuery|HTMLElement|String} elem The element
    */
   initAll(elem) {
-
     Object.keys(this.ccc).forEach(className => {
-
       this.init(className, elem)
-
     })
-
   }
 
   /**
@@ -107,19 +89,14 @@ class ClassComponentManager {
    * @throw {Error}
    */
   getConfiguration(className) {
-
     const ccc = this.ccc[className]
 
     if (ccc == null) {
-
       throw new Error('Class componet "' + className + '" is not defined.')
-
     }
 
     return ccc
-
   }
-
 }
 
 module.exports = ClassComponentManager

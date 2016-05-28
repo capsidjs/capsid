@@ -6,9 +6,7 @@ const $ = global.jQuery
 class ClassComponentContext {
 
   constructor(jqObj) {
-
     this.jqObj = jqObj
-
   }
 
   /**
@@ -18,13 +16,9 @@ class ClassComponentContext {
    * @return {Object}
    */
   init(className) {
+    this.up(className)
 
-    this.jqObj.addClass(className)
-
-    $.cc.__manager__.initAt(className, this.jqObj)
-
-    return this.jqObj.data('__coelement:' + className)
-
+    return this.get(className)
   }
 
   /**
@@ -34,24 +28,18 @@ class ClassComponentContext {
    * @return {jQuery}
    */
   up(classNames) {
-
     if (classNames != null) {
-
       classNames.split(/\s+/).forEach(className => {
+        this.jqObj.addClass(className) // adds the class name
 
-        $.cc.__manager__.initAt(className, this.jqObj)
-
+        $.cc.__manager__.initAt(className, this.jqObj) // init as the class-component
       })
-
     } else {
-
       // Initializes anything it already has.
       $.cc.__manager__.initAllAtElem(this.jqObj)
-
     }
 
     return this.jqObj
-
   }
 
   /**
@@ -61,23 +49,17 @@ class ClassComponentContext {
    * @return {Object}
    */
   get(coelementName) {
-
     const coelement = this.jqObj.data('__coelement:' + coelementName)
 
     if (coelement) {
-
       return coelement
-
     }
 
     if (this.jqObj.length === 0) {
-
       throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection')
-
     }
 
     throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName)
-
   }
 }
 

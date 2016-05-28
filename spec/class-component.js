@@ -260,6 +260,13 @@ describe('$.fn.cc', () => {
     expect(elem.attr('is_bar')).to.equal('true')
   })
 
+  it('adds the given class names to the element', () => {
+    const elem = $('<div/>').cc('foo bar')
+
+    expect(elem.hasClass('foo')).to.be.true
+    expect(elem.hasClass('bar')).to.be.true
+  })
+
   it('initializes the class components which the element has the name of', () => {
     const elem = $('<div class="foo bar" />').cc()
 
