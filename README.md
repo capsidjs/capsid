@@ -17,7 +17,7 @@ class-component.js is tool for appending **some special functions** to certain *
   - now it has **5** methods, **2** decorators and **1** class.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
-- **6.9KB** minified.
+- **6.8KB** minified.
 
 # The timer
 
@@ -97,11 +97,11 @@ Download dist.min.js. Then:
 
 ***Note***: You need to load jquery.js first.
 
-## APIs
+# APIs
 
-### `$.cc` namespace
+## `$.cc` namespace
 
-#### `$.cc(className, Constructor)`
+### `$.cc(className, Constructor)`
 
 - @param {string} className The class name of the component
 - @param {Function} Constructor The constructor of the coelement of the component
@@ -125,18 +125,18 @@ $.cc('todo-item', TodoItem)
 <li class="todo-item"></li>
 ```
 
-#### `$.cc.init(className, [range])`
+### `$.cc.init(className, [range])`
 
 - @param {string} className The class name to intialize
 - @param {HTMLElement|string} range The range to initialize
 
 This initializes the class components of the given name inside the given element. If the element is omitted, then it does in `document.body`. If the className is omitted, then it initializes all the registered class components. This method is useful when you want to add class components dynamically. The API automcatically prevent double initilization and therefore you don't need to care about it.
 
-### `$.fn.cc` namespace
+## `$.fn.cc` namespace
 
 These are available through jQuery object's `.cc` property.
 
-#### `$.fn.cc.get(className)`
+### `$.fn.cc.get(className)`
 
 - @param {string} className The class name of the component
 
@@ -148,7 +148,7 @@ var todoItem = elem.cc.get('todo-item');
 todoItem.update({id: 'milk', title: 'Buy a milk'});
 ```
 
-#### `$.fn.cc.init(className)`
+### `$.fn.cc.init(className)`
 
 This initializes an element as a class component of the given name. It throws an error if the class component of the given name isn't available.
 
@@ -163,7 +163,7 @@ $('<div />').appendTo('#main').cc.init('todo-app');
 
 In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
 
-#### `$.fn.cc(classNames)`
+### `$.fn.cc(classNames)`
 
 - @param {string} classNames The class names to initialize
 
@@ -175,7 +175,7 @@ $('<div />').cc('timer modal').appendTo('body')
 
 The above example creates a `div` element and initializes it as `timer` and `modal` class components. And finally append it to the body.
 
-#### `$.fn.cc()`
+### `$.fn.cc()`
 
 This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
 
@@ -199,9 +199,9 @@ div.cc().appendTo('body')
 
 The above example creates a `div` element and initializes all the classes in `classes` variable on in.
 
-## Glossary
+# Glossary
 
-### Class Component
+## Class Component
 
 <img align="right" width="300" src="http://kt3k.github.io/class-component/asset/the-diagram.svg" />
 
@@ -209,7 +209,7 @@ A class component is a html class which has special functionality.
 
 `class-componenet.js` is a tool for creating class components in this sense.
 
-### Coelement
+## Coelement
 
 (co- is a prefix for meaning the dual of something e.g. sine and cosine, tangent and cotangent etc.)
 
@@ -217,11 +217,11 @@ A coelement is a JavaScript class which defines a class-component together with 
 
 The coelement is accessible with `elem.cc.get(name)` and the element is accesible with `this.elem`.
 
-## Examples
+# Examples
 
 - [Simple examples](https://github.com/kt3k/class-component/blob/master/EXAMPLE.md)
 - [TodoMVC](https://github.com/kt3k/class-component-todomvc)
 
-## License
+# License
 
 MIT
