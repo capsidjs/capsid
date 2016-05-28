@@ -3,56 +3,45 @@
 
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
-<script src="../dist.js"></script>
+<script src="../dist/class-component.js"></script>
 <script>
 
-var Timer = $.cc.subclass(function (pt) {
+class Timer {
 
-    pt.constructor = function (elem) {
+  constructor() {
 
-        this.elem = elem;
+    this.secondsElapsed = 0;
 
-        this.secondsElapsed = 0;
+    this.start();
 
-        this.start();
+  }
 
-    };
+  start() {
 
-    pt.start = function () {
+    if (this.interval) return
 
-        var that = this;
+    this.interval = setInterval(() => {
 
-        if (this.interval) {
+      this.tick();
 
-            return;
+    }, 1000);
 
-        }
+  }
 
-        this.interval = setInterval(function () {
+  tick() {
 
-            that.tick();
+    this.secondsElapsed++;
+    this.elem.text('Seconds Elapsed:' + this.secondsElapsed);
 
-        }, 1000);
+  }
 
-    };
+  stop() {
+    clearInterval(this.interval);
 
-    pt.tick = function () {
+    delete this.interval;
+  }
+}
 
-        this.secondsElapsed ++;
-        this.elem.text('Seconds Elapsed:' + this.secondsElapsed);
-
-    };
-
-    pt.stop = function () {
-
-        clearInterval(this.interval);
-
-        delete this.interval;
-
-    };
-
-});
-
-$.cc.assign('timer', Timer);
+$.cc('timer', Timer);
 
 </script>
