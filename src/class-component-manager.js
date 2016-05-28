@@ -67,9 +67,8 @@ class ClassComponentManager {
     }
 
     classes.split(/\s+/)
-      .map(className => this.ccc[className])
-      .filter(ccc => ccc)
-      .forEach(ccc => ccc.initElem(elem))
+      .filter(className => this.ccc[className])
+      .forEach(className => this.initAt(className, elem))
   }
 
   /**

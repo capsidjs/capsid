@@ -9,15 +9,7 @@ class ClassComponentConfiguration {
   constructor(className, Constructor) {
     this.className = className
     this.Constructor = Constructor
-  }
-
-  /**
-   * Gets the initialized class name.
-   * @private
-   * @return {String}
-   */
-  initializedClass() {
-    return this.className + '-initialized'
+    this.initClass = this.className + '-initialized'
   }
 
   /**
@@ -26,7 +18,11 @@ class ClassComponentConfiguration {
    * @return {String}
    */
   selector() {
-    return '.' + this.className + ':not(.' + this.initializedClass() + ')'
+    return '.' + this.className + ':not(.' + this.initClass + ')'
+  }
+
+  isInitialized(elem) {
+    return elem.hasClass(this.initClass)
   }
 
   /**
@@ -35,7 +31,7 @@ class ClassComponentConfiguration {
    * @param {jQuery} elem
    */
   markInitialized(elem) {
-    elem.addClass(this.initializedClass())
+    elem.addClass(this.initClass)
   }
 
   /**
@@ -90,6 +86,10 @@ class ClassComponentConfiguration {
    * @param {jQuery} elem The element
    */
   initElem(elem) {
+    if (this.isInitialized(elem)) {
+      return
+    }
+
     this.markInitialized(elem)
     this.applyCustomDefinition(elem)
   }
