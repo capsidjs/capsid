@@ -15,11 +15,9 @@ class-component.js is tool for appending **some special functions** to certain *
   - being **friendly with jQuery**
 - **small number of APIs**
   - now it has **5** methods, **2** decorators and **1** class.
-- **no scripts in html**
-  - every logic is in `.js`
-- **no alt js** required
-- **no alt html** required
-- **7.4KB** minified.
+- Does **not** introduce **any new language**
+  - It uses plain javascript and html.
+- **6.9KB** minified.
 
 # The timer
 
