@@ -111,6 +111,22 @@ describe('$.cc', () => {
     expect(coelem.elem[0]).to.equal(elem[0])
   })
 
+  it('does not set coelement.elem if __cc_init__ is overriden', () => {
+    class ClassCcInit {
+      __cc_init__(elem) {
+        this.el = elem
+      }
+    }
+
+    $.cc('cc-init-test', ClassCcInit)
+
+    const elem = $('<div/>').cc('cc-init-test')
+    const coelem = elem.cc.get('cc-init-test')
+
+    expect(coelem.elem).to.be.undefined
+    expect(coelem.el[0]).to.equal(elem[0])
+  })
+
   it('binds event handlers if the event decorators are present', done => {
     class Class3 {
       handler() {
@@ -238,8 +254,9 @@ describe('$.cc', () => {
 
 describe('$.fn.cc', () => {
   class Spam {
-    construtor(elem) {
+    constructor(elem) {
       elem.attr('is_spam', 'true')
+      elem.toggleClass('spam-toggle-test')
     }
   }
 
@@ -265,6 +282,16 @@ describe('$.fn.cc', () => {
 
     expect(elem.hasClass('foo')).to.be.true
     expect(elem.hasClass('bar')).to.be.true
+  })
+
+  it('does not initialize twice', () => {
+    const elem = $('<div/>').cc('spam')
+
+    expect(elem.hasClass('spam-toggle-test')).to.be.true
+
+    elem.cc('spam')
+
+    expect(elem.hasClass('spam-toggle-test')).to.be.true
   })
 
   it('initializes the class components which the element has the name of', () => {
