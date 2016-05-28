@@ -1,3 +1,7 @@
+function __cc_init__(elem) {
+  this.elem = elem
+}
+
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  */
@@ -42,7 +46,11 @@ class ClassComponentConfiguration {
   applyCustomDefinition(elem) {
     const coelem = new this.Constructor(elem)
 
-    coelem.elem = elem
+    if (typeof coelem.__cc_init__ === 'function') {
+      coelem.__cc_init__(elem)
+    } else {
+      __cc_init__.call(coelem, elem)
+    }
 
     this.getAllListenerInfo().forEach(listenerInfo => listenerInfo.bindTo(elem, coelem))
 
@@ -64,6 +72,7 @@ class ClassComponentConfiguration {
 
   /**
    * Gets all the listener info of the coelement.
+   * @private
    * @return {ListenerInfo[]}
    */
   getAllListenerInfo() {
@@ -73,6 +82,7 @@ class ClassComponentConfiguration {
 
   /**
    * Returns true when the given property is an event handler.
+   * @private
    * @param {object} property The property
    * @return {boolean}
    */
