@@ -69,6 +69,54 @@ timer.html:
 <span class="timer"></span>
 ```
 
+## Register your class-component
+
+You can register the class-component of the given name by the following:
+
+```js
+$.cc('component-name', ComponentClass)
+```
+
+By the above call, dom elements which have `class="component-name"` are automatically initialized by ComponentClass.
+
+## What happens when a class-component is *initialized*
+
+The followings are exact steps when the class components are initialized.
+
+```js
+const coelem = new ComponentClass(elem) // The constructor is called with the element.
+
+if (typeof coelem.__cc_init__ === 'function') {
+  coelem.__cc_init__(elem) // If coelement has __cc_init__ method, then it's called.
+} else {
+  coelem.elem = elem // If it doesn't, then coelem.elem is assigned to elem.
+}
+
+elem.on([givenEvent], [givenSelector], [givenHandler]) // See `event` decorator section for details.
+
+elem.addClass(componentName + '-initialized') // The element is marked `initialized`.
+
+elem.data('__coelement:' + componentName, coelem) // The coelement is stored in the element.
+```
+
+where `elem` is jquery element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
+
+## `this.elem`
+
+After the constructor is called, this.elem is automatically set to jquery dom element by the framework. This behaviour can be overriden by defining the method `__cc_init__`. If your Coelement class has the `__cc_init__` method, then it's called instead.
+
+```js
+class MyComponent {
+  __cc_init__(el) {
+    this.el = el
+  }
+}
+
+$.cc('my-component', MyComponent)
+```
+
+With the above example, the jquery element is stored in `this.el` instead of `this.elem`.
+
 # Install
 
 ## Via npm
