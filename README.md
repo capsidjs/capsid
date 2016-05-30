@@ -1,4 +1,4 @@
-# class-component.js v7.0.0 <img align="right" src="http://kt3k.github.io/class-component/asset/class-component.svg" />
+# class-component.js v8.0.0 <img align="right" src="http://kt3k.github.io/class-component/asset/class-component.svg" />
 
 [![Circle CI](https://circleci.com/gh/kt3k/class-component.svg?style=svg)](https://circleci.com/gh/kt3k/class-component) [![codecov.io](https://codecov.io/github/kt3k/class-component/coverage.svg?branch=master)](https://codecov.io/github/kt3k/class-component?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
@@ -14,10 +14,10 @@ class-component.js is tool for appending **some special functions** to **html cl
 - **no virtual dom** ***hassle***
   - being **friendly with jQuery**
 - **small number of APIs**
-  - now it has **5** methods, **3** decorators and **1** class.
+  - now it has **5** methods and **3** decorators.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
-- **6.8KB** minified.
+- **6.6KB** minified.
 
 # The timer
 
