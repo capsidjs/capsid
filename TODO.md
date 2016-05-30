@@ -1,6 +1,5 @@
 # TODO
-- Reorganize the README.md
-- Separate test file
+- Create document site
 
 ## => v8
 - include dom-gen as a part
