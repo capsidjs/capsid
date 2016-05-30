@@ -7,10 +7,8 @@ const $ = jQuery
 
 const reSpaces = / +/
 
-const Coelement = require('./coelement')
 const ClassComponentManager = require('./class-component-manager')
-const event = require('./cc-event').event
-const trigger = require('./cc-event').trigger
+const ccEvent = require('./cc-event')
 
 /**
  * Initializes the module object.
@@ -99,14 +97,11 @@ function initializeModule() {
   // Exports __manager__
   cc.__manager__ = __manager__
 
-  // Exports Actor.
-  cc.Coelement = Coelement
-
   // Exports event decorator
-  cc.event = event
+  cc.event = ccEvent.event
 
   // Exports trigger decorator
-  cc.trigger = trigger
+  cc.trigger = ccEvent.trigger
 
   return cc
 

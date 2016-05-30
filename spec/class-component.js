@@ -145,16 +145,6 @@ describe('$.cc', () => {
     elem.find('.inner').trigger('click')
   })
 
-  describe('Coelement', () => {
-    it('sets the first argument to elem property', () => {
-      const elem = $('<div />')
-
-      const actor = new $.cc.Coelement(elem)
-
-      expect(actor.elem).to.equal(elem)
-    })
-  })
-
   describe('component(className)', () => {
     it('works as a class decorator and registers the class as a class component of the given name', () => {
       class Cls {
