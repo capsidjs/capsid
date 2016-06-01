@@ -1,4 +1,4 @@
-function __cc_init__(elem) {
+function __cc_init__(elem) { // eslint-disable-line
   this.elem = elem
 }
 

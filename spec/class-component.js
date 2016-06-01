@@ -108,7 +108,7 @@ describe('$.cc', () => {
 
   it('does not set coelement.elem if __cc_init__ is overriden', () => {
     class ClassCcInit {
-      __cc_init__(elem) {
+      __cc_init__(elem) { // eslint-disable-line
         this.el = elem
       }
     }
