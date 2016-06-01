@@ -8,7 +8,7 @@ const $ = jQuery
 const reSpaces = / +/
 
 const ClassComponentManager = require('./class-component-manager')
-const ccEvent = require('./cc-event')
+const decorators = require('./decorators')
 
 /**
  * Initializes the module object.
@@ -98,20 +98,17 @@ function initializeModule() {
   cc.__manager__ = __manager__
 
   // Exports event decorator
-  cc.event = ccEvent.event
+  cc.event = decorators.event
 
   // Exports trigger decorator
-  cc.trigger = ccEvent.trigger
+  cc.trigger = decorators.trigger
 
   return cc
-
 }
 
 // If the cc is not set, then create one.
 if ($.cc == null) {
-
   $.cc = initializeModule()
-
 }
 
 module.exports = $.cc

@@ -7,8 +7,8 @@ const ListenerInfo = require('./listener-info')
  * @param {object} prototype The prototype of the coelement class
  * @param {string} name The name of the method
  */
-const event = (event, selector) => (prototype, name) => {
-  const method = prototype[name]
+const event = (event, selector) => (target, key, descriptor) => {
+  const method = descriptor.value
 
   method.__events__ = method.__events__ || []
 
@@ -21,10 +21,10 @@ const event = (event, selector) => (prototype, name) => {
  * @param {string} end The event name when the method finished
  * @param {string} error the event name when the method errored
  */
-const trigger = (start, end, error) => (prototype, name) => {
-  const method = prototype[name]
+const trigger = (start, end, error) => (target, key, descriptor) => {
+  const method = descriptor.value
 
-  prototype[name] = function () {
+  const decorated = function () {
     if (start != null) {
       this.elem.trigger(start)
     }
@@ -43,6 +43,8 @@ const trigger = (start, end, error) => (prototype, name) => {
 
     return result
   }
+
+  descriptor.value = decorated
 }
 
 exports.event = event
