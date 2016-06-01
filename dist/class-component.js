@@ -1,74 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var ListenerInfo = require('./listener-info');
-
-/**
- * The decorator for registering event listener info to the method.
- * @param {string} event The event name
- * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
- * @param {object} prototype The prototype of the coelement class
- * @param {string} name The name of the method
- */
-var event = function event(_event, selector) {
-  return function (prototype, name) {
-    var method = prototype[name];
-
-    method.__events__ = method.__events__ || [];
-
-    method.__events__.push(new ListenerInfo(_event, selector, method));
-  };
-};
-
-/**
- * The decorator to prepend and append event trigger.
- * @param {string} start The event name when the method started
- * @param {string} end The event name when the method finished
- * @param {string} error the event name when the method errored
- */
-var trigger = function trigger(start, end, error) {
-  return function (prototype, name) {
-    var method = prototype[name];
-
-    prototype[name] = function () {
-      var _this = this;
-
-      if (start != null) {
-        this.elem.trigger(start);
-      }
-
-      var result = method.apply(this, arguments);
-
-      var promise = Promise.resolve(result);
-
-      if (end != null) {
-        promise.then(function () {
-          return _this.elem.trigger(end);
-        });
-      }
-
-      if (error != null) {
-        promise.catch(function () {
-          return _this.elem.trigger(error);
-        });
-      }
-
-      return result;
-    };
-  };
-};
-
-exports.event = event;
-exports.trigger = trigger;
-
-},{"./listener-info":7}],2:[function(require,module,exports){
-'use strict';
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function __cc_init__(elem) {
+  // eslint-disable-line
   this.elem = elem;
 }
 
@@ -210,7 +148,7 @@ var ClassComponentConfiguration = function () {
 
 module.exports = ClassComponentConfiguration;
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -303,7 +241,7 @@ var ClassComponentContext = function () {
 module.exports = ClassComponentContext;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -442,11 +380,11 @@ var ClassComponentManager = function () {
 module.exports = ClassComponentManager;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./class-component-configuration":2}],5:[function(require,module,exports){
+},{"./class-component-configuration":1}],4:[function(require,module,exports){
 'use strict';
 
 /**
- * class-component.js v8.0.0
+ * class-component.js v8.1.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -455,7 +393,7 @@ var $ = jQuery;
 var reSpaces = / +/;
 
 var ClassComponentManager = require('./class-component-manager');
-var ccEvent = require('./cc-event');
+var decorators = require('./decorators');
 
 /**
  * Initializes the module object.
@@ -542,23 +480,87 @@ function initializeModule() {
   cc.__manager__ = __manager__;
 
   // Exports event decorator
-  cc.event = ccEvent.event;
+  cc.event = decorators.event;
 
   // Exports trigger decorator
-  cc.trigger = ccEvent.trigger;
+  cc.trigger = decorators.trigger;
 
   return cc;
 }
 
 // If the cc is not set, then create one.
 if ($.cc == null) {
-
   $.cc = initializeModule();
 }
 
 module.exports = $.cc;
 
-},{"./cc-event":1,"./class-component-manager":4,"./fn.cc":6}],6:[function(require,module,exports){
+},{"./class-component-manager":3,"./decorators":5,"./fn.cc":6}],5:[function(require,module,exports){
+'use strict';
+
+var ListenerInfo = require('./listener-info');
+
+/**
+ * The decorator for registering event listener info to the method.
+ * @param {string} event The event name
+ * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
+ * @param {object} prototype The prototype of the coelement class
+ * @param {string} name The name of the method
+ */
+var event = function event(_event, selector) {
+  return function (target, key, descriptor) {
+    var method = descriptor.value;
+
+    method.__events__ = method.__events__ || [];
+
+    method.__events__.push(new ListenerInfo(_event, selector, method));
+  };
+};
+
+/**
+ * The decorator to prepend and append event trigger.
+ * @param {string} start The event name when the method started
+ * @param {string} end The event name when the method finished
+ * @param {string} error the event name when the method errored
+ */
+var trigger = function trigger(start, end, error) {
+  return function (target, key, descriptor) {
+    var method = descriptor.value;
+
+    var decorated = function decorated() {
+      var _this = this;
+
+      if (start != null) {
+        this.elem.trigger(start);
+      }
+
+      var result = method.apply(this, arguments);
+
+      var promise = Promise.resolve(result);
+
+      if (end != null) {
+        promise.then(function () {
+          return _this.elem.trigger(end);
+        });
+      }
+
+      if (error != null) {
+        promise.catch(function () {
+          return _this.elem.trigger(error);
+        });
+      }
+
+      return result;
+    };
+
+    descriptor.value = decorated;
+  };
+};
+
+exports.event = event;
+exports.trigger = trigger;
+
+},{"./listener-info":7}],6:[function(require,module,exports){
 'use strict';
 
 var ClassComponentContext = require('./class-component-context');
@@ -598,7 +600,7 @@ Object.defineProperty(jQuery.fn, 'cc', {
 
 });
 
-},{"./class-component-context":3}],7:[function(require,module,exports){
+},{"./class-component-context":2}],7:[function(require,module,exports){
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -647,4 +649,4 @@ var ListenerInfo = function () {
 
 module.exports = ListenerInfo;
 
-},{}]},{},[5]);
+},{}]},{},[4]);

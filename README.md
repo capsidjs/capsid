@@ -1,4 +1,4 @@
-# class-component.js v8.0.0 <img align="right" src="http://kt3k.github.io/class-component/asset/class-component.svg" />
+# class-component.js v8.1.0 <img align="right" src="http://kt3k.github.io/class-component/asset/class-component.svg" />
 
 [![Circle CI](https://circleci.com/gh/kt3k/class-component.svg?style=svg)](https://circleci.com/gh/kt3k/class-component) [![codecov.io](https://codecov.io/github/kt3k/class-component/coverage.svg?branch=master)](https://codecov.io/github/kt3k/class-component?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
