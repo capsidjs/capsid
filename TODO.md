@@ -1,14 +1,16 @@
 # TODO
 - Create document site
 
-## => v8
+## v9
+- decorator @trigger('').first
+- decorator @trigger('').last
+- decorator @on(event).at(selector)
+
+## >= v10
 - include dom-gen as a part
 
 # DONE
 ## v7
-- Coelement.prototype.trigger
-- Coelement.prototype.on
-- Coelement.prototype.off
 - switch to 2 space indent
 - Include cc-event in class-component (keep separate repository)
 - @trigger('classname.started', 'classname.ended') method() {...}
