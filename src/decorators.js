@@ -16,6 +16,33 @@ const event = (event, selector) => (target, key, descriptor) => {
 }
 
 /**
+ * The decorator for registering event listener info to the method.
+ * @param {string} event The event name
+ * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
+ * @param {object} prototype The prototype of the coelement class
+ * @param {string} name The name of the method
+ */
+const on = (event) => {
+  var onDecorator = (target, key, descriptor) => {
+    const method = descriptor.value
+
+    method.__events__ = method.__events__ || []
+
+    method.__events__.push(new ListenerInfo(event, undefined, method))
+  }
+
+  onDecorator.at = (selector) => (target, key, descriptor) => {
+    const method = descriptor.value
+
+    method.__events__ = method.__events__ || []
+
+    method.__events__.push(new ListenerInfo(event, selector, method))
+  }
+
+  return onDecorator
+}
+
+/**
  * The decorator to prepend and append event trigger.
  * @param {string} start The event name when the method started
  * @param {string} end The event name when the method finished
