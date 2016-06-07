@@ -1,15 +1,6 @@
 const ListenerInfo = require('./listener-info')
 
-/**
- * The decorator for registering event listener info to the method.
- * @param {string} event The event name
- * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
- * @param {object} prototype The prototype of the coelement class
- * @param {string} name The name of the method
- */
-const event = (event, selector) => (target, key, descriptor) => {
-  const method = descriptor.value
-
+const registerListenerInfo = (method, event, selector) => {
   method.__events__ = method.__events__ || []
 
   method.__events__.push(new ListenerInfo(event, selector, method))
@@ -17,26 +8,30 @@ const event = (event, selector) => (target, key, descriptor) => {
 
 /**
  * The decorator for registering event listener info to the method.
+ * @deprecated in favour of `@on`
  * @param {string} event The event name
  * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
- * @param {object} prototype The prototype of the coelement class
- * @param {string} name The name of the method
+ */
+const event = (event, selector) => (target, key, descriptor) => {
+  registerListenerInfo(descriptor.value, event, selector)
+}
+
+/**
+ * The decorator for registering event listener info to the method.
+ * @param {string} event The event name
  */
 const on = (event) => {
-  var onDecorator = (target, key, descriptor) => {
-    const method = descriptor.value
-
-    method.__events__ = method.__events__ || []
-
-    method.__events__.push(new ListenerInfo(event, undefined, method))
+  const onDecorator = (target, key, descriptor) => {
+    registerListenerInfo(descriptor.value, event)
   }
 
+  /**
+   * The decorator for registering event listener info to the method.
+   * @param {string} event The event name
+   * @param {string} selector The selector for listening.
+   */
   onDecorator.at = (selector) => (target, key, descriptor) => {
-    const method = descriptor.value
-
-    method.__events__ = method.__events__ || []
-
-    method.__events__.push(new ListenerInfo(event, selector, method))
+    registerListenerInfo(descriptor.value, event, selector)
   }
 
   return onDecorator
@@ -44,6 +39,7 @@ const on = (event) => {
 
 /**
  * The decorator to prepend and append event trigger.
+ * @deprecated in favour of `@emit`
  * @param {string} start The event name when the method started
  * @param {string} end The event name when the method finished
  * @param {string} error the event name when the method errored
@@ -74,5 +70,78 @@ const trigger = (start, end, error) => (target, key, descriptor) => {
   descriptor.value = decorated
 }
 
+/**
+ * `@emit(event)` decorator.
+ * This decorator adds the event emission at the beginning of the method.
+ * @param {string} event The event name
+ */
+const emit = (event) => {
+  const emitDecorator = (target, key, descriptor) => {
+    const method = descriptor.value
+
+    descriptor.value = function () {
+      this.elem.trigger(event)
+
+      method.apply(this, arguments)
+    }
+  }
+
+  /**
+   * `@emit(event).first` decorator. This is the same as emit()
+   * @param {string} event The event name
+   */
+  emitDecorator.first = emitDecorator
+
+  /**
+   * `@emit(event).last` decorator.
+   * This adds the emission of the event at the end of the method.
+   * @param {string} event The event name
+   */
+  emitDecorator.last = (target, key, descriptor) => {
+    const method = descriptor.value
+
+    descriptor.value = function () {
+      const result = method.apply(this, arguments)
+
+      Promise.resolve(result).then(x => {
+        this.elem.trigger(event, x)
+      })
+
+      return result
+    }
+  }
+
+  /**
+   * `@emit(event).on.error` decorator.
+   * This add the emission of the event when the method errored.
+   * @param {string} event The event name
+   */
+  const error = (target, key, descriptor) => {
+    const method = descriptor.value
+
+    descriptor.value = function () {
+      try {
+        const result = method.apply(this, arguments)
+      } catch (e) {
+        this.elem.trigger(event, e)
+
+        throw e
+      }
+
+      Promise.resolve(result).catch(err => {
+        this.elem.trigger(event, e)
+      })
+
+      return result
+    }
+  }
+
+  emitDecorator.on = {error}
+
+  return emitDecorator
+}
+
+exports.on = on
 exports.event = event
 exports.trigger = trigger
+exports.emit = emit

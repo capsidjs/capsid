@@ -29,15 +29,11 @@ function initializeModule() {
    */
   const cc = (name, Constructor) => {
     if (typeof name !== 'string') {
-
       throw new Error('`name` of a class component has to be a string')
-
     }
 
     if (typeof Constructor !== 'function') {
-
       throw new Error('`Constructor` of a class component has to be a function')
-
     }
 
     __manager__.register(name, Constructor)
@@ -97,10 +93,10 @@ function initializeModule() {
   // Exports __manager__
   cc.__manager__ = __manager__
 
-  // Exports event decorator
+  // Exports decorators
+  cc.on = decorators.on
+  cc.emit = decorators.emit
   cc.event = decorators.event
-
-  // Exports trigger decorator
   cc.trigger = decorators.trigger
 
   return cc

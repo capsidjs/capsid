@@ -1,3 +1,3 @@
 const $ = require('jquery')
-global.jQuery = $
+global.$ = global.jQuery = $
 require('../src/class-component')
