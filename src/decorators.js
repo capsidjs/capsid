@@ -120,8 +120,9 @@ const emit = (event) => {
     const method = descriptor.value
 
     descriptor.value = function () {
+      let result
       try {
-        const result = method.apply(this, arguments)
+        result = method.apply(this, arguments)
       } catch (e) {
         this.elem.trigger(event, e)
 

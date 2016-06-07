@@ -64,13 +64,116 @@ describe('@on(event).at(selector)', () => {
   })
 })
 
-describe('@emit(event)', () => {})
+describe('@emit(event)', () => {
+  it('makes the method emits the event', done => {
+    class EmitTest0 {
+      foo() {}
+    }
+    $.cc('emit-test0', EmitTest0)
+    callDecorator($.cc.emit('event-foo'), EmitTest0, 'foo')
 
-describe('@emit(event).first', () => {})
+    div().on('event-foo', () => done()).cc.init('emit-test0').foo()
+  })
+})
 
-describe('@emit(event).last', () => {})
+describe('@emit(event).first', () => {
+  it('makes the method emits the event', done => {
+    class EmitFirstTest0 {
+      foo() {}
+    }
+    $.cc('emit-first-test0', EmitFirstTest0)
+    callDecorator($.cc.emit('event-foo').first, EmitFirstTest0, 'foo')
 
-describe('@emit(event).on.error', () => {})
+    div().on('event-foo', () => done()).cc.init('emit-first-test0').foo()
+  })
+})
+
+describe('@emit(event).last', () => {
+  it('makes the method emit the event with the returned value', done => {
+    class EmitLastTest0 {
+      foo() {
+        return 321
+      }
+    }
+    $.cc('emit-last-test0', EmitLastTest0)
+    callDecorator($.cc.emit('event-foo').last, EmitLastTest0, 'foo')
+
+    div().on('event-foo', (e, param) => {
+      expect(param).to.equal(321)
+
+      done()
+    }).cc.init('emit-last-test0').foo()
+  })
+
+  it('makes the method emit the event with the resolved value after the promise resolved', done => {
+    let promiseResolved = false
+
+    class EmitLastTest1 {
+      foo() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            promiseResolved = true
+            resolve(123)
+          }, 100)
+        })
+      }
+    }
+    $.cc('emit-last-test1', EmitLastTest1)
+    callDecorator($.cc.emit('event-foo').last, EmitLastTest1, 'foo')
+
+    div().on('event-foo', (e, param) => {
+      expect(promiseResolved).to.be.true
+      expect(param).to.equal(123)
+
+      done()
+    }).cc.init('emit-last-test1').foo()
+  })
+})
+
+describe('@emit(event).on.error', () => {
+  it('makes the method emit the event with the error as the parameter when the method throws', done => {
+    class EmitOnErrorTest0 {
+      foo() {
+        throw new Error('abc')
+      }
+    }
+    $.cc('emit-on-error-test0', EmitOnErrorTest0)
+    callDecorator($.cc.emit('event-foo').on.error, EmitOnErrorTest0, 'foo')
+
+    div().on('event-foo', (e, err) => {
+      expect(err).to.be.instanceof(Error)
+      expect(err.message).to.equal('abc')
+
+      done()
+    }).cc.init('emit-on-error-test0').foo()
+  })
+
+  it('makes the method emit the event with the error as the parameter when the method returns rejected promise', () => {
+    let promiseRejected = true
+
+    class EmitOnErrorTest1 {
+      foo() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            promiseRejected = true
+
+            reject(new Error('abc'))
+          }, 100)
+        })
+      }
+    }
+    $.cc('emit-on-error-test1', EmitOnErrorTest1)
+    callDecorator($.cc.emit('event-foo').on.error, EmitOnErrorTest1, 'foo')
+
+    div().on('event-foo', (e, err) => {
+      expect(err).to.be.instanceof(Error)
+      expect(err.message).to.equal('abc')
+      expect(promiseRejected).to.be.true
+
+      done()
+    }).cc.init('emit-on-error-test1').foo()
+  })
+})
 
 describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
