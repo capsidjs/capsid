@@ -2,8 +2,9 @@
 - Create document site
 
 ## v9
-- decorator @trigger('').first
-- decorator @trigger('').last
+- decorator @trigger('event').first
+- decorator @trigger('event').last
+- decorator @trigger('event').on.error
 - decorator @on(event).at(selector)
 
 ## >= v10
