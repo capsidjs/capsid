@@ -384,7 +384,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v8.1.0
+ * class-component.js v9.0.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -414,12 +414,10 @@ function initializeModule() {
    */
   var cc = function cc(name, Constructor) {
     if (typeof name !== 'string') {
-
       throw new Error('`name` of a class component has to be a string');
     }
 
     if (typeof Constructor !== 'function') {
-
       throw new Error('`Constructor` of a class component has to be a function');
     }
 
@@ -479,10 +477,10 @@ function initializeModule() {
   // Exports __manager__
   cc.__manager__ = __manager__;
 
-  // Exports event decorator
+  // Exports decorators
+  cc.on = decorators.on;
+  cc.emit = decorators.emit;
   cc.event = decorators.event;
-
-  // Exports trigger decorator
   cc.trigger = decorators.trigger;
 
   return cc;
@@ -500,25 +498,50 @@ module.exports = $.cc;
 
 var ListenerInfo = require('./listener-info');
 
+var registerListenerInfo = function registerListenerInfo(method, event, selector) {
+  method.__events__ = method.__events__ || [];
+
+  method.__events__.push(new ListenerInfo(event, selector, method));
+};
+
 /**
  * The decorator for registering event listener info to the method.
+ * @deprecated in favour of `@on`
  * @param {string} event The event name
  * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
- * @param {object} prototype The prototype of the coelement class
- * @param {string} name The name of the method
  */
 var event = function event(_event, selector) {
   return function (target, key, descriptor) {
-    var method = descriptor.value;
-
-    method.__events__ = method.__events__ || [];
-
-    method.__events__.push(new ListenerInfo(_event, selector, method));
+    registerListenerInfo(descriptor.value, _event, selector);
   };
 };
 
 /**
+ * The decorator for registering event listener info to the method.
+ * @param {string} event The event name
+ */
+var on = function on(event) {
+  var onDecorator = function onDecorator(target, key, descriptor) {
+    registerListenerInfo(descriptor.value, event);
+  };
+
+  /**
+   * The decorator for registering event listener info to the method.
+   * @param {string} event The event name
+   * @param {string} selector The selector for listening.
+   */
+  onDecorator.at = function (selector) {
+    return function (target, key, descriptor) {
+      registerListenerInfo(descriptor.value, event, selector);
+    };
+  };
+
+  return onDecorator;
+};
+
+/**
  * The decorator to prepend and append event trigger.
+ * @deprecated in favour of `@emit`
  * @param {string} start The event name when the method started
  * @param {string} end The event name when the method finished
  * @param {string} error the event name when the method errored
@@ -557,8 +580,86 @@ var trigger = function trigger(start, end, error) {
   };
 };
 
+/**
+ * `@emit(event)` decorator.
+ * This decorator adds the event emission at the beginning of the method.
+ * @param {string} event The event name
+ */
+var emit = function emit(event) {
+  var emitDecorator = function emitDecorator(target, key, descriptor) {
+    var method = descriptor.value;
+
+    descriptor.value = function () {
+      this.elem.trigger(event);
+
+      method.apply(this, arguments);
+    };
+  };
+
+  /**
+   * `@emit(event).first` decorator. This is the same as emit()
+   * @param {string} event The event name
+   */
+  emitDecorator.first = emitDecorator;
+
+  /**
+   * `@emit(event).last` decorator.
+   * This adds the emission of the event at the end of the method.
+   * @param {string} event The event name
+   */
+  emitDecorator.last = function (target, key, descriptor) {
+    var method = descriptor.value;
+
+    descriptor.value = function () {
+      var _this2 = this;
+
+      var result = method.apply(this, arguments);
+
+      Promise.resolve(result).then(function (x) {
+        _this2.elem.trigger(event, x);
+      });
+
+      return result;
+    };
+  };
+
+  /**
+   * `@emit(event).on.error` decorator.
+   * This add the emission of the event when the method errored.
+   * @param {string} event The event name
+   */
+  var error = function error(target, key, descriptor) {
+    var method = descriptor.value;
+
+    descriptor.value = function () {
+      var _this3 = this;
+
+      var result = void 0;
+      try {
+        result = method.apply(this, arguments);
+      } catch (e) {
+        this.elem.trigger(event, e);
+
+        throw e;
+      }
+
+      Promise.resolve(result).catch(function (err) {
+        _this3.elem.trigger(event, e);
+      });
+
+      return result;
+    };
+  };
+
+  emitDecorator.on = { error: error };
+
+  return emitDecorator;
+};
+
+exports.on = on;
 exports.event = event;
 exports.trigger = trigger;
+exports.emit = emit;
 
 },{"./listener-info":7}],6:[function(require,module,exports){
 'use strict';

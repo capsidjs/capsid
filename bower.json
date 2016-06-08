@@ -1,7 +1,7 @@
 {
   "name": "class-component",
   "main": "dist/class-component.js",
-  "version": "8.1.0",
+  "version": "9.0.0",
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
