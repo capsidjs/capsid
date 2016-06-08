@@ -14,7 +14,7 @@ class-component.js is tool for appending **some special functions** to **html cl
 - **no virtual dom** ***hassle***
   - being **friendly with jQuery**
 - **small number of APIs**
-  - now it has **5** methods and **3** decorators.
+  - now it has **5** methods and **6** decorators.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
 - **7.3KB** minified.
@@ -260,11 +260,14 @@ In the above example, `<div>` is appended and it is initialized as `todo-app` cl
 
 # Decorators
 
-There are 3 decorators.
+There are 6 decorators.
 
-- $.cc.component
-- $.cc.event
-- $.cc.trigger
+- `$.cc.component()`
+- `$.cc.on()`
+- `$.cc.on().at()`
+- `$.cc.emit()`
+- `$.cc.emit().last`
+- `$.cc.emit().on.error`
 
 ## `$.cc.component(className)`
 
@@ -283,16 +286,16 @@ class Timer {
 
 The above registers `Timer` class as `timer` component.
 
-## `$.cc.event(eventName)`
+## `$.cc.on(eventName)`
 
-$.cc.event is method decorator. With this decorator, you can register the method as the event handler of the element.
+`$.cc.on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
 ```js
-const {event} = $.cc
+const {on} = $.cc
 
 class Btn {
 
-  @event('click')
+  @on('click')
   onClick(e) {
     ...definitions...
   }
@@ -321,15 +324,36 @@ class Btn {
 $.cc('btn', Btn)
 ```
 
-## `$.cc.trigger(startEvent)`
+## `$.cc.on(eventName).at(selector)`
 
-`$.cc.trigger(startEvent)` is a method decorator. This decorator add triggering of the given event at the start of the method.
+`$.cc.on(eventName).at(selector)` is a method decorator. It's similar to `$.cc.on`, but it only handles the event from `selector` in the component.
 
 ```js
-const {trigger} = $.cc
+const {on} = $.cc
+
+class Btn {
+
+  @on('click').at('.btn')
+  onBtnClick(e) {
+    ...definitions...
+  }
+}
+
+$.cc('btn', Btn)
+```
+
+In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
+
+## `$.cc.emit(startEvent)`
+## `$.cc.emit(startEvent).first`
+
+`$.cc.emit()` (or `$.cc.emit().first`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method.
+
+```js
+const {emit} = $.cc
 
 class Manager {
-  @trigger('manager.started')
+  @emit('manager.started')
   start() {
     ...definitions...
   }
@@ -353,6 +377,63 @@ class Manager {
 
 $.cc('manager', Manager)
 ```
+
+## `$.cc.emit(eventName).last`
+
+`$.cc.emit(eventName).last` is similar to `$.cc.emit().first`, but it triggers the event at the last of the method.
+
+```js
+const {emit} = $.cc
+
+class Manager {
+  @emit('manager.ended').last
+  start() {
+    ...definitions...
+  }
+}
+
+$.cc('manager', Manager)
+```
+
+In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as the second arguments of the event handler.
+
+If the method returns a promise, then the event is triggered after the promise is resolved.
+
+```js
+const {emit} = $.cc
+
+class Manager {
+  @emit('manager.ended').last
+  start() {
+    ...definitions...
+
+    return promise
+  }
+}
+
+$.cc('manager', Manager)
+```
+
+In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as the second argument of the event handler.
+
+## `$.cc.emit(eventName).on.error`
+
+`$.cc.emit(eventName).on.error` is similar to other `emit` decorators, but it triggers the event when the method errors.
+
+```js
+const {emit} = $.cc
+
+class Manager {
+  @emit('manager.error').on.error
+  start() {
+    ...definitions...
+  }
+}
+
+$.cc('manager', Manager)
+```
+
+In the above example, `manager.error` is triggered when the method throws or the method returns rejected promise. The second argument of the event handler is the thrown error or rejected value.
 
 # Glossary
 
