@@ -103,9 +103,12 @@ const emit = (event) => {
     descriptor.value = function () {
       const result = method.apply(this, arguments)
 
-      Promise.resolve(result).then(x => {
-        this.elem.trigger(event, x)
-      })
+      if (typeof result.then === 'function') {
+        Promise.resolve(result).then(x => this.elem.trigger(event, x))
+      } else {
+        this.elem.trigger(event, result)
+      }
+
 
       return result
     }
