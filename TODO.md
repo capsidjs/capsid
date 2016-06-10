@@ -1,16 +1,17 @@
 # TODO
 - Create document site
-
-## v9
-- decorator @trigger('event').first
-- decorator @trigger('event').last
-- decorator @trigger('event').on.error
-- decorator @on(event).at(selector)
+- remove @event
+- remove @trigger
 
 ## >= v10
 - include dom-gen as a part
 
 # DONE
+## v9
+- decorator @trigger('event').first
+- decorator @trigger('event').last
+- decorator @trigger('event').on.error
+- decorator @on(event).at(selector)
 ## v7
 - switch to 2 space indent
 - Include cc-event in class-component (keep separate repository)
