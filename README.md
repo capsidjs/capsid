@@ -4,7 +4,7 @@
 
 > Yet another view framework
 
-class-component.js is tool for appending **some special functions** to **html classes**. See below for details.
+class-component.js is tool for adding **special functions** to **html classes**. See below for details.
 
 # Feature
 
@@ -36,11 +36,7 @@ class Timer {
    * Starts the timer.
    */
   start() {
-    if (this.interval) return
-
-    this.interval = setInterval(() => {
-      this.tick()
-    }, 1000)
+    this.interval = setInterval(() => this.tick(), 1000)
   }
 
   /**
@@ -56,7 +52,6 @@ class Timer {
    */
   stop() {
     clearInterval(this.interval)
-    delete this.interval
   }
 }
 
@@ -68,6 +63,8 @@ timer.html:
 ```html
 <span class="timer"></span>
 ```
+
+See [the working demo](https://kt3k.github.io/class-component/demo/timer.html).
 
 ## Register your class-component
 

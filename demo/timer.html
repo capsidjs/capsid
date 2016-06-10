@@ -1,47 +1,27 @@
 
+
 <div class="timer"></div>
 
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../dist/class-component.js"></script>
 <script>
-
 class Timer {
-
   constructor() {
-
-    this.secondsElapsed = 0;
-
-    this.start();
-
+    this.secondsElapsed = 0
+    this.start()
   }
-
   start() {
-
-    if (this.interval) return
-
-    this.interval = setInterval(() => {
-
-      this.tick();
-
-    }, 1000);
-
+    this.interval = setInterval(() => this.tick(), 1000)
   }
-
   tick() {
-
-    this.secondsElapsed++;
-    this.elem.text('Seconds Elapsed:' + this.secondsElapsed);
-
+    this.secondsElapsed++
+    this.elem.text('Seconds Elapsed:' + this.secondsElapsed)
   }
-
   stop() {
     clearInterval(this.interval);
-
-    delete this.interval;
   }
 }
 
 $.cc('timer', Timer);
-
 </script>
