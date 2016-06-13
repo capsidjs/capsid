@@ -1,7 +1,8 @@
 # TODO
-- Create document site
-- remove @event
-- remove @trigger
+- doc: Create document site
+- chore: remove @event
+- chore: remove @trigger
+- doc: write about testing cc
 
 ## >= v10
 - include dom-gen as a part
