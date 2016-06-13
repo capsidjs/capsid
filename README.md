@@ -76,8 +76,12 @@ where:
 
 - `element` is the usual dom element wrapped by jquery.
   - e.g. `$('.timer')` in *the timer* example.
-- `coelement` is js class which defines the behaviour of the special functions of the class-component.
+- `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
   - e.g. `class Timer {...}` in *the timer* example.
+
+What class-component.js is responsible for is the following transition from the usual dom to a `class-component`.
+
+![diagram-2](http://kt3k.github.io/class-component/asset/diagram-2.svg)
 
 ## Register your class-component
 
@@ -87,11 +91,11 @@ You can register the class-component of the given name by the following:
 $.cc('component-name', ComponentClass)
 ```
 
-By the above call, dom elements which have `class="component-name"` are automatically initialized by ComponentClass.
+By the above call, dom elements which have `class="component-name"` are automatically initialized with ComponentClass.
 
 ## What happens when a class-component is *initialized*
 
-The followings are exact steps when the class components are initialized.
+The followings are exact steps when a class-component is initialized.
 
 ```js
 const coelem = new ComponentClass(elem) // The constructor is called with the element.
