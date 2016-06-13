@@ -449,32 +449,17 @@ $.cc('manager', Manager)
 
 In the above example, `manager.error` is triggered when the method throws or the method returns rejected promise. The second argument of the event handler is the thrown error or rejected value.
 
-# Glossary
-
-## Class Component
-
-<img align="right" width="300" src="http://kt3k.github.io/class-component/asset/the-diagram.svg" />
-
-A class component is a html class which has special function.
-
-A class component consists of the element (html dom element) and coelement (accompanying custom object).
-
-The element in a class component is an usual html dom. The coelement accompanies to the element and adds special functions to it.
-
-## Coelement
-
-A coelement is a JavaScript class which supports the element to give it special functions.
-A coelement defines a class-component together with its dual element.
-
-The coelement is accessible with `elem.cc.get(name)` and the element is accesible with `coelem.elem`.
-
-(co- is a prefix for meaning the dual of something e.g. sine and cosine, tangent and cotangent etc.)
-
 # Examples
 
-- [Simple examples](https://github.com/kt3k/class-component/blob/master/EXAMPLE.md)
 - [TodoMVC](https://github.com/kt3k/class-component-todomvc)
+- [multiflip](https://github.com/kt3k/multiflip)
+- [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
+- [puncher](https://github.com/kt3k/puncher)
+- [event-hub](https://github.com/kt3k/event-hub)
 
 # License
 
 MIT
+
+# History
+- 2016-06-09   v9.1.1   Fix bug of `@emit().last` decorator.
