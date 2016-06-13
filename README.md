@@ -12,7 +12,7 @@ class-component.js is tool for adding **special functions** to **html classes**.
 - It is a **jQuery plugin**.
 - Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
 - **no virtual dom** ***hassle***
-  - being **friendly with jQuery**
+  - being **friendly with real dom and jQuery**
 - **small number of APIs**
   - now it has **5** methods and **6** decorators.
 - Does **not** introduce **any new language**
@@ -65,6 +65,19 @@ timer.html:
 ```
 
 See [the working demo](https://kt3k.github.io/class-component/demo/timer.html).
+
+# The concept
+
+A `class-component` is basically `element` + `coelement` like the following diagram:
+
+![diagram-1](http://kt3k.github.io/class-component/asset/diagram-1.svg)
+
+where:
+
+- `element` is the usual dom element wrapped by jquery.
+  - e.g. `$('.timer')` in *the timer* example.
+- `coelement` is js class which defines the behaviour of the special functions of the class-component.
+  - e.g. `class Timer {...}` in *the timer* example.
 
 ## Register your class-component
 
