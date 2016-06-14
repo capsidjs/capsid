@@ -133,7 +133,7 @@ const emit = (event) => {
       }
 
       Promise.resolve(result).catch(err => {
-        this.elem.trigger(event, e)
+        this.elem.trigger(event, err)
       })
 
       return result
