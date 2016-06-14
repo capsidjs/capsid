@@ -361,7 +361,7 @@ In the above example, `onBtnClick` method listens to the click event of the `.bt
 ## `$.cc.emit(startEvent)`
 ## `$.cc.emit(startEvent).first`
 
-`$.cc.emit()` (or `$.cc.emit().first`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method.
+`$.cc.emit()` (or `$.cc.emit().first`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
 
 ```js
 const {emit} = $.cc
@@ -384,7 +384,7 @@ The above is equivalent of:
 class Manager {
 
   start() {
-    this.elem.trigger('manager.started')
+    this.elem.trigger('manager.started', arguments)
     ...definitions...
   }
 }
