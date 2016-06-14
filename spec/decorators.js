@@ -148,7 +148,7 @@ describe('@emit(event).on.error', () => {
     }).cc.init('emit-on-error-test0').foo()
   })
 
-  it('makes the method emit the event with the error as the parameter when the method returns rejected promise', () => {
+  it('makes the method emit the event with the error as the parameter when the method returns rejected promise', done => {
     let promiseRejected = true
 
     class EmitOnErrorTest1 {
