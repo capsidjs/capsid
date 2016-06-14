@@ -384,7 +384,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v9.1.2
+ * class-component.js v9.2.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -590,7 +590,7 @@ var emit = function emit(event) {
     var method = descriptor.value;
 
     descriptor.value = function () {
-      this.elem.trigger(event);
+      this.elem.trigger(event, arguments);
 
       method.apply(this, arguments);
     };
