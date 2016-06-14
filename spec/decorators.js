@@ -65,14 +65,20 @@ describe('@on(event).at(selector)', () => {
 })
 
 describe('@emit(event)', () => {
-  it('makes the method emits the event', done => {
+  it('makes the method emits the event with the arguments of the method', done => {
     class EmitTest0 {
       foo() {}
     }
     $.cc('emit-test0', EmitTest0)
     callDecorator($.cc.emit('event-foo'), EmitTest0, 'foo')
 
-    div().on('event-foo', () => done()).cc.init('emit-test0').foo()
+    div().on('event-foo', (e, a, b, c) => {
+      expect(a).to.equal(1)
+      expect(b).to.equal(2)
+      expect(c).to.equal(3)
+
+      done()
+    }).cc.init('emit-test0').foo(1, 2, 3)
   })
 })
 

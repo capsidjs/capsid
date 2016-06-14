@@ -80,7 +80,7 @@ const emit = (event) => {
     const method = descriptor.value
 
     descriptor.value = function () {
-      this.elem.trigger(event)
+      this.elem.trigger(event, arguments)
 
       method.apply(this, arguments)
     }
