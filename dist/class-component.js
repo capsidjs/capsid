@@ -384,7 +384,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v9.1.1
+ * class-component.js v9.1.2
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -648,7 +648,7 @@ var emit = function emit(event) {
       }
 
       Promise.resolve(result).catch(function (err) {
-        _this3.elem.trigger(event, e);
+        _this3.elem.trigger(event, err);
       });
 
       return result;
