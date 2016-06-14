@@ -77,14 +77,10 @@ describe('@emit(event)', () => {
 })
 
 describe('@emit(event).first', () => {
-  it('makes the method emits the event', done => {
-    class EmitFirstTest0 {
-      foo() {}
-    }
-    $.cc('emit-first-test0', EmitFirstTest0)
-    callDecorator($.cc.emit('event-foo').first, EmitFirstTest0, 'foo')
+  it('is the same as @emit(event)', () => {
+    const emit = $.cc.emit('event-foo')
 
-    div().on('event-foo', () => done()).cc.init('emit-first-test0').foo()
+    expect(emit.first).to.equal(emit)
   })
 })
 
