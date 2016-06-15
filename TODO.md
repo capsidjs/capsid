@@ -3,6 +3,7 @@
 - chore: remove @event
 - chore: remove @trigger
 - doc: write about testing cc
+- chore: list supported user projects
 
 ## >= v10
 - include dom-gen as a part
