@@ -449,13 +449,14 @@ $.cc('manager', Manager)
 
 In the above example, `manager.error` is triggered when the method throws or the method returns rejected promise. The second argument of the event handler is the thrown error or rejected value.
 
-# Examples
+# Projects which users class-component.js
 
 - [TodoMVC](https://github.com/kt3k/class-component-todomvc)
 - [multiflip](https://github.com/kt3k/multiflip)
 - [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
 - [puncher](https://github.com/kt3k/puncher)
 - [event-hub](https://github.com/kt3k/event-hub)
+- [spn](https://github.com/kt3k/spn)
 
 # License
 
