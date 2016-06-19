@@ -380,7 +380,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v9.2.1
+ * class-component.js v9.2.3
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
