@@ -1,5 +1,5 @@
 {
-  "lint": {
-    "engine": "eslint"
-  }
+  "ignore": [
+    "**/dist/**"
+  ]
 }
