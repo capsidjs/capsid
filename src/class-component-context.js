@@ -4,18 +4,19 @@ const $ = global.jQuery
  * This is class component contenxt manager. This help to initialize or get colements.
  */
 class ClassComponentContext {
-
-  constructor(jqObj) {
+  /**
+   * @param {jQuery} jqObj jQuery object of a dom selection
+   */
+  constructor (jqObj) {
     this.jqObj = jqObj
   }
 
   /**
    * Inserts the class name, initializes as the class component and returns the coelement if exists.
-   *
    * @param {String} className The class name
    * @return {Object}
    */
-  init(className) {
+  init (className) {
     this.up(className)
 
     return this.get(className)
@@ -23,11 +24,10 @@ class ClassComponentContext {
 
   /**
    * Initializes the element if it has registered class component names. Returns the jquery object itself.
-   *
    * @param {string} [classNames] The class name.
    * @return {jQuery}
    */
-  up(classNames) {
+  up (classNames) {
     if (classNames != null) {
       classNames.split(/\s+/).forEach(className => {
         this.jqObj.addClass(className) // adds the class name
@@ -44,11 +44,10 @@ class ClassComponentContext {
 
   /**
    * Gets the coelement of the given name.
-   *
    * @param {String} coelementName The name of the coelement
    * @return {Object}
    */
-  get(coelementName) {
+  get (coelementName) {
     const coelement = this.jqObj.data('__coelement:' + coelementName)
 
     if (coelement) {

@@ -7,7 +7,7 @@ const CLASS_COMPONENT_DATA_KEY = '__class_component_data__'
 // Defines the special property cc on a jquery property.
 Object.defineProperty(jQuery.fn, 'cc', {
 
-  get() {
+  get () {
     let cc = this.data(CLASS_COMPONENT_DATA_KEY)
 
     if (cc) {
