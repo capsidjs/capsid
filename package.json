@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "version": "9.2.0",
+  "version": "9.2.1",
   "description": "Yet another view framework",
   "main": "lib/class-component.js",
   "scripts": {

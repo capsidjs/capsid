@@ -163,6 +163,10 @@ var $ = global.jQuery;
  */
 
 var ClassComponentContext = function () {
+  /**
+   * @param {jQuery} jqObj jQuery object of a dom selection
+   */
+
   function ClassComponentContext(jqObj) {
     _classCallCheck(this, ClassComponentContext);
 
@@ -171,7 +175,6 @@ var ClassComponentContext = function () {
 
   /**
    * Inserts the class name, initializes as the class component and returns the coelement if exists.
-   *
    * @param {String} className The class name
    * @return {Object}
    */
@@ -187,7 +190,6 @@ var ClassComponentContext = function () {
 
     /**
      * Initializes the element if it has registered class component names. Returns the jquery object itself.
-     *
      * @param {string} [classNames] The class name.
      * @return {jQuery}
      */
@@ -213,7 +215,6 @@ var ClassComponentContext = function () {
 
     /**
      * Gets the coelement of the given name.
-     *
      * @param {String} coelementName The name of the coelement
      * @return {Object}
      */
@@ -269,7 +270,6 @@ var ClassComponentManager = function () {
 
   /**
    * Registers the class component configuration for the given name.
-   *
    * @param {String} name The name
    * @param {Function} Constructor The constructor of the class component
    */
@@ -285,7 +285,6 @@ var ClassComponentManager = function () {
 
     /**
      * Initializes the class components of the given name in the given element.
-     *
      * @param {String} className The class name
      * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
      * @return {Array<HTMLElement>} The elements which are initialized in this initialization
@@ -298,7 +297,6 @@ var ClassComponentManager = function () {
       var ccc = this.getConfiguration(className);
 
       return $(ccc.selector(), elem).each(function () {
-
         ccc.initElem($(this));
       }).toArray();
     }
@@ -317,7 +315,6 @@ var ClassComponentManager = function () {
 
     /**
      * Initializes all the class component at the element.
-     *
      * @param {HTMLElement}
      */
 
@@ -355,7 +352,6 @@ var ClassComponentManager = function () {
 
     /**
      * Gets the configuration of the given class name.
-     *
      * @param {String} className The class name
      * @return {ClassComponentConfiguration}
      * @throw {Error}
@@ -384,7 +380,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v9.2.0
+ * class-component.js v9.2.1
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -401,7 +397,6 @@ var decorators = require('./decorators');
  * @return {Object}
  */
 function initializeModule() {
-
   require('./fn.cc');
 
   var __manager__ = new ClassComponentManager();
@@ -424,7 +419,6 @@ function initializeModule() {
     __manager__.register(name, Constructor);
 
     $(document).ready(function () {
-
       __manager__.init(name);
     });
   };
@@ -436,16 +430,13 @@ function initializeModule() {
    * @return {Object<HTMLElement[]>}
    */
   cc.init = function (classNames, elem) {
-
     if (classNames == null) {
-
       __manager__.initAll(elem);
 
       return;
     }
 
     if (typeof classNames === 'string') {
-
       classNames = classNames.split(reSpaces);
     }
 
