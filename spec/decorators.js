@@ -1,5 +1,5 @@
-const {expect} = require('chai')
 const {div} = require('dom-gen')
+const assert = require('power-assert')
 const $ = jQuery
 
 /**
@@ -73,9 +73,9 @@ describe('@emit(event)', () => {
     callDecorator($.cc.emit('event-foo'), EmitTest0, 'foo')
 
     div().on('event-foo', (e, a, b, c) => {
-      expect(a).to.equal(1)
-      expect(b).to.equal(2)
-      expect(c).to.equal(3)
+      assert(a === 1)
+      assert(b === 2)
+      assert(c === 3)
 
       done()
     }).cc.init('emit-test0').foo(1, 2, 3)
@@ -86,7 +86,7 @@ describe('@emit(event).first', () => {
   it('is the same as @emit(event)', () => {
     const emit = $.cc.emit('event-foo')
 
-    expect(emit.first).to.equal(emit)
+    assert(emit.first === emit)
   })
 })
 
@@ -101,7 +101,7 @@ describe('@emit(event).last', () => {
     callDecorator($.cc.emit('event-foo').last, EmitLastTest0, 'foo')
 
     div().on('event-foo', (e, param) => {
-      expect(param).to.equal(321)
+      assert(param === 321)
 
       done()
     }).cc.init('emit-last-test0').foo()
@@ -124,8 +124,8 @@ describe('@emit(event).last', () => {
     callDecorator($.cc.emit('event-foo').last, EmitLastTest1, 'foo')
 
     div().on('event-foo', (e, param) => {
-      expect(promiseResolved).to.be.true
-      expect(param).to.equal(123)
+      assert(promiseResolved)
+      assert(param === 123)
 
       done()
     }).cc.init('emit-last-test1').foo()
@@ -143,8 +143,8 @@ describe('@emit(event).on.error', () => {
     callDecorator($.cc.emit('event-foo').on.error, EmitOnErrorTest0, 'foo')
 
     div().on('event-foo', (e, err) => {
-      expect(err).to.be.instanceof(Error)
-      expect(err.message).to.equal('abc')
+      assert(err instanceof Error)
+      assert(err.message === 'abc')
 
       done()
     }).cc.init('emit-on-error-test0').foo()
@@ -168,9 +168,9 @@ describe('@emit(event).on.error', () => {
     callDecorator($.cc.emit('event-foo').on.error, EmitOnErrorTest1, 'foo')
 
     div().on('event-foo', (e, err) => {
-      expect(err).to.be.instanceof(Error)
-      expect(err.message).to.equal('abc')
-      expect(promiseRejected).to.be.true
+      assert(err instanceof Error)
+      assert(err.message === 'abc')
+      assert(promiseRejected)
 
       done()
     }).cc.init('emit-on-error-test1').foo()
@@ -191,7 +191,7 @@ describe('@component(className)', () => {
 
     elem.cc.init('decorated-component')
 
-    expect(elem.attr('this-is')).to.equal('decorated-component')
+    assert(elem.attr('this-is') === 'decorated-component')
   })
 })
 
@@ -235,7 +235,7 @@ describe('@trigger(start, end, error)', () => {
     }, 300)
 
     $('body').on('class5-ended', () => {
-      expect(flag).to.be.true
+      assert(flag)
       done()
     })
 
@@ -265,7 +265,7 @@ describe('@trigger(start, end, error)', () => {
     }, 300)
 
     $('body').on('class6-error', () => {
-      expect(flag).to.be.true
+      assert(flag)
       done()
     })
 

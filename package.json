@@ -28,11 +28,11 @@
   "homepage": "https://github.com/kt3k/class-component",
   "devDependencies": {
     "babel-cli": "^6.8.0",
+    "babel-plugin-espower": "^2.2.0",
     "babel-preset-es2015": "^6.6.0",
     "babelify": "^7.3.0",
     "browserify": "^13.0.0",
     "browserify-istanbul": "^2.0.0",
-    "chai": "^3.2.0",
     "codecov": "^1.0.1",
     "dom-gen": "^2.1.0",
     "eslint": "^2.9.0",
@@ -51,6 +51,7 @@
     "karma-mocha": "^1.0.1",
     "mocha": "^2.3.2",
     "npm-run-all": "^2.0.0",
+    "power-assert": "^1.4.1",
     "rimraf": "^2.5.2",
     "uglify-js": "^2.6.1",
     "watchify": "^3.7.0"
@@ -74,6 +75,9 @@
   "babel": {
     "presets": [
       "es2015"
+    ],
+    "plugins": [
+      "espower"
     ]
   }
 }
