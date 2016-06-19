@@ -8,7 +8,7 @@ const ClassComponentConfiguration = require('./class-component-configuration')
  * ClassComponentManger handles the registration and initialization of the class compoents.
  */
 class ClassComponentManager {
-  constructor() {
+  constructor () {
     /**
      * @property {Object<ClassComponentConfiguration>} ccc
      */
@@ -17,11 +17,10 @@ class ClassComponentManager {
 
   /**
    * Registers the class component configuration for the given name.
-   *
    * @param {String} name The name
    * @param {Function} Constructor The constructor of the class component
    */
-  register(name, Constructor) {
+  register (name, Constructor) {
     Constructor.coelementName = name
 
     this.ccc[name] = new ClassComponentConfiguration(name, Constructor)
@@ -29,19 +28,16 @@ class ClassComponentManager {
 
   /**
    * Initializes the class components of the given name in the given element.
-   *
    * @param {String} className The class name
    * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
    * @return {Array<HTMLElement>} The elements which are initialized in this initialization
    * @throw {Error}
    */
-  init(className, elem) {
+  init (className, elem) {
     const ccc = this.getConfiguration(className)
 
     return $(ccc.selector(), elem).each(function () {
-
       ccc.initElem($(this))
-
     }).toArray()
   }
 
@@ -50,16 +46,15 @@ class ClassComponentManager {
    * @param {String} className The class name
    * @param {jQuery|HTMLElement|String} elem The element
    */
-  initAt(className, elem) {
+  initAt (className, elem) {
     this.getConfiguration(className).initElem($(elem))
   }
 
   /**
    * Initializes all the class component at the element.
-   *
    * @param {HTMLElement}
    */
-  initAllAtElem(elem) {
+  initAllAtElem (elem) {
     const classes = $(elem).attr('class')
 
     if (!classes) {
@@ -74,7 +69,7 @@ class ClassComponentManager {
   /**
    * @param {jQuery|HTMLElement|String} elem The element
    */
-  initAll(elem) {
+  initAll (elem) {
     Object.keys(this.ccc).forEach(className => {
       this.init(className, elem)
     })
@@ -82,12 +77,11 @@ class ClassComponentManager {
 
   /**
    * Gets the configuration of the given class name.
-   *
    * @param {String} className The class name
    * @return {ClassComponentConfiguration}
    * @throw {Error}
    */
-  getConfiguration(className) {
+  getConfiguration (className) {
     const ccc = this.ccc[className]
 
     if (ccc == null) {

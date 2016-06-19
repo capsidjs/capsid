@@ -15,8 +15,7 @@ const decorators = require('./decorators')
  *
  * @return {Object}
  */
-function initializeModule() {
-
+function initializeModule () {
   require('./fn.cc')
 
   const __manager__ = new ClassComponentManager()
@@ -38,15 +37,8 @@ function initializeModule() {
 
     __manager__.register(name, Constructor)
 
-
-    $(document).ready(() => {
-
-      __manager__.init(name)
-
-    })
-
+    $(document).ready(() => { __manager__.init(name) })
   }
-
 
   /**
    * Initialized the all class components of the given names and returns of the promise of all initialization.
@@ -55,23 +47,17 @@ function initializeModule() {
    * @return {Object<HTMLElement[]>}
    */
   cc.init = (classNames, elem) => {
-
     if (classNames == null) {
-
       __manager__.initAll(elem)
 
       return
-
     }
 
     if (typeof classNames === 'string') {
-
       classNames = classNames.split(reSpaces)
-
     }
 
     return classNames.map(className => __manager__.init(className, elem))
-
   }
 
   /**

@@ -109,7 +109,6 @@ const emit = (event) => {
         this.elem.trigger(event, result)
       }
 
-
       return result
     }
   }

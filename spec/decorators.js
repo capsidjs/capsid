@@ -7,17 +7,16 @@ const $ = jQuery
  * @param {Function} cls The class
  * @param {string} key The key of the method to decorate
  */
-function callDecorator(decorator, cls, key) {
+function callDecorator (decorator, cls, key) {
   const descriptor = Object.getOwnPropertyDescriptor(cls.prototype, key)
   const result = decorator(cls.prototype, key, descriptor)
   Object.defineProperty(cls.prototype, key, result || descriptor)
 }
 
 describe('@event(event, selector)', () => {
-
   it('binds event handlers if the event decorators are present', done => {
     class Class3 {
-      handler() {
+      handler () {
         done()
       }
     }
@@ -32,13 +31,12 @@ describe('@event(event, selector)', () => {
 
     elem.find('.inner').trigger('click')
   })
-
 })
 
 describe('@on(event)', () => {
   it('registers the method as the event listener of the given event name', done => {
     class OnTest0 {
-      handler() { done() }
+      handler () { done() }
     }
     $.cc('on-test0', OnTest0)
     callDecorator($.cc.on('click'), OnTest0, 'handler')
@@ -50,8 +48,8 @@ describe('@on(event)', () => {
 describe('@on(event).at(selector)', () => {
   it('registers the method as the event listener of the given event name and selector', done => {
     class OnAtTest0 {
-      foo() { done() }
-      bar() { done(new Error('bar should not be called')) }
+      foo () { done() }
+      bar () { done(new Error('bar should not be called')) }
     }
     $.cc('on-at-test0', OnAtTest0)
     callDecorator($.cc.on('foo-event').at('.inner'), OnAtTest0, 'foo')
@@ -67,7 +65,7 @@ describe('@on(event).at(selector)', () => {
 describe('@emit(event)', () => {
   it('makes the method emits the event with the arguments of the method', done => {
     class EmitTest0 {
-      foo() {}
+      foo () {}
     }
     $.cc('emit-test0', EmitTest0)
     callDecorator($.cc.emit('event-foo'), EmitTest0, 'foo')
@@ -93,7 +91,7 @@ describe('@emit(event).first', () => {
 describe('@emit(event).last', () => {
   it('makes the method emit the event with the returned value', done => {
     class EmitLastTest0 {
-      foo() {
+      foo () {
         return 321
       }
     }
@@ -111,7 +109,7 @@ describe('@emit(event).last', () => {
     let promiseResolved = false
 
     class EmitLastTest1 {
-      foo() {
+      foo () {
         return new Promise(resolve => {
           setTimeout(() => {
             promiseResolved = true
@@ -135,7 +133,7 @@ describe('@emit(event).last', () => {
 describe('@emit(event).on.error', () => {
   it('makes the method emit the event with the error as the parameter when the method throws', done => {
     class EmitOnErrorTest0 {
-      foo() {
+      foo () {
         throw new Error('abc')
       }
     }
@@ -154,7 +152,7 @@ describe('@emit(event).on.error', () => {
     let promiseRejected = true
 
     class EmitOnErrorTest1 {
-      foo() {
+      foo () {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             promiseRejected = true
@@ -180,7 +178,7 @@ describe('@emit(event).on.error', () => {
 describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     class Cls {
-      constructor(elem) {
+      constructor (elem) {
         elem.attr('this-is', 'decorated-component')
       }
     }
@@ -198,7 +196,7 @@ describe('@component(className)', () => {
 describe('@trigger(start, end, error)', () => {
   it('prepends the trigger of the start event to the method', done => {
     class Class4 {
-      method() {}
+      method () {}
     }
 
     callDecorator($.cc.trigger('class4-start'), Class4, 'method')
@@ -214,7 +212,7 @@ describe('@trigger(start, end, error)', () => {
 
   it('appends the trigger of the end event to the method', done => {
     class Class5 {
-      method() {
+      method () {
         return new Promise(resolve => setTimeout(resolve, 200))
       }
     }
@@ -244,7 +242,7 @@ describe('@trigger(start, end, error)', () => {
 
   it('appends the trigger of the error event to the method', done => {
     class Class6 {
-      method() {
+      method () {
         return new Promise((resolve, reject) => setTimeout(() => reject(new Error()), 200))
       }
     }

@@ -125,7 +125,7 @@ describe('$.cc', () => {
 
 describe('$.fn.cc', () => {
   class Spam {
-    constructor(elem) {
+    constructor (elem) {
       elem.attr('is_spam', 'true')
       elem.toggleClass('spam-toggle-test')
     }

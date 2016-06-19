@@ -7,7 +7,7 @@ class ListenerInfo {
    * @param {string} selector The selector to bind the listener
    * @param {Function} handler The handler for the event
    */
-  constructor(event, selector, handler) {
+  constructor (event, selector, handler) {
     this.event = event
     this.selector = selector
     this.handler = handler
@@ -18,7 +18,7 @@ class ListenerInfo {
    * @param {jQuery} elem The jquery element
    * @param {object} coelem The coelement which is bound to the element
    */
-  bindTo(elem, coelem) {
+  bindTo (elem, coelem) {
     const handler = this.handler
 
     elem.on(this.event, this.selector, function () {

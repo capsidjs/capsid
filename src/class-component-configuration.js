@@ -1,4 +1,4 @@
-function __cc_init__(elem) { // eslint-disable-line
+function __cc_init__ (elem) { // eslint-disable-line
   this.elem = elem
 }
 
@@ -10,7 +10,7 @@ class ClassComponentConfiguration {
    * @param {String} className The class name
    * @param {Function} Constructor The constructor of the coelement of the class component
    */
-  constructor(className, Constructor) {
+  constructor (className, Constructor) {
     this.className = className
     this.Constructor = Constructor
     this.initClass = this.className + '-initialized'
@@ -21,11 +21,11 @@ class ClassComponentConfiguration {
    * @public
    * @return {String}
    */
-  selector() {
+  selector () {
     return '.' + this.className + ':not(.' + this.initClass + ')'
   }
 
-  isInitialized(elem) {
+  isInitialized (elem) {
     return elem.hasClass(this.initClass)
   }
 
@@ -34,7 +34,7 @@ class ClassComponentConfiguration {
    * @private
    * @param {jQuery} elem
    */
-  markInitialized(elem) {
+  markInitialized (elem) {
     elem.addClass(this.initClass)
   }
 
@@ -43,7 +43,7 @@ class ClassComponentConfiguration {
    * @private
    * @param {jQuery} elem
    */
-  applyCustomDefinition(elem) {
+  applyCustomDefinition (elem) {
     const coelem = new this.Constructor(elem)
 
     if (typeof coelem.__cc_init__ === 'function') {
@@ -62,7 +62,7 @@ class ClassComponentConfiguration {
    * @private
    * @return {Function[]}
    */
-  getHandlers() {
+  getHandlers () {
     const prototype = this.Constructor.prototype
 
     return Object.getOwnPropertyNames(prototype)
@@ -75,10 +75,9 @@ class ClassComponentConfiguration {
    * @private
    * @return {ListenerInfo[]}
    */
-  getAllListenerInfo() {
+  getAllListenerInfo () {
     return [].concat.apply([], this.getHandlers().map(handler => handler.__events__))
   }
-
 
   /**
    * Returns true when the given property is an event handler.
@@ -86,7 +85,7 @@ class ClassComponentConfiguration {
    * @param {object} property The property
    * @return {boolean}
    */
-  static isHandler(property) {
+  static isHandler (property) {
     return typeof property === 'function' && property.__events__ != null
   }
 
@@ -95,7 +94,7 @@ class ClassComponentConfiguration {
    * @public
    * @param {jQuery} elem The element
    */
-  initElem(elem) {
+  initElem (elem) {
     if (this.isInitialized(elem)) {
       return
     }
