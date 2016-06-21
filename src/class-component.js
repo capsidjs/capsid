@@ -82,8 +82,6 @@ function initializeModule () {
   // Exports decorators
   cc.on = decorators.on
   cc.emit = decorators.emit
-  cc.event = decorators.event
-  cc.trigger = decorators.trigger
 
   return cc
 }

@@ -1,14 +1,14 @@
 # TODO
 - doc: Create document site
-- chore: remove @event
-- chore: remove @trigger
 - doc: write about testing cc
-- chore: list supported user projects
 
 ## >= v10
 - include dom-gen as a part
 
 # DONE
+- chore: remove @event
+- chore: remove @trigger
+- chore: list supported user projects
 ## v9
 - decorator @trigger('event').first
 - decorator @trigger('event').last
