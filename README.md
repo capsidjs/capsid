@@ -460,6 +460,7 @@ In the above example, `manager.error` is triggered when the method throws or the
 - [puncher](https://github.com/kt3k/puncher)
 - [event-hub](https://github.com/kt3k/event-hub)
 - [spn](https://github.com/kt3k/spn)
+- [view-todo](https://github.com/kt3k/view-todo)
 
 # License
 
