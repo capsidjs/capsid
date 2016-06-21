@@ -1,5 +1,5 @@
 ---
-version: 9.2.3
+version: 10.0.0
 commit: 'chore(version): :arrow_heading_up: bump to v%.%.%'
 files:
   README.md: v%.%.%

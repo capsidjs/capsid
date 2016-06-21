@@ -466,5 +466,5 @@ In the above example, `manager.error` is triggered when the method throws or the
 MIT
 
 # History
-- 2016-06-19   v9.2.3   Refactoring.
+- 2016-06-19   v10.0.0   Refactoring.
 - 2016-06-09   v9.2.0   Fix bug of `@emit().last` decorator.
