@@ -13,26 +13,6 @@ function callDecorator (decorator, cls, key) {
   Object.defineProperty(cls.prototype, key, result || descriptor)
 }
 
-describe('@event(event, selector)', () => {
-  it('binds event handlers if the event decorators are present', done => {
-    class Class3 {
-      handler () {
-        done()
-      }
-    }
-
-    callDecorator($.cc.event('click', '.inner'), Class3, 'handler')
-
-    $.cc('elem-test3', Class3)
-
-    const elem = $('<div class="elem-test3"><span class="inner"></span></div>').appendTo('body')
-
-    $.cc.init('elem-test3')
-
-    elem.find('.inner').trigger('click')
-  })
-})
-
 describe('@on(event)', () => {
   it('registers the method as the event listener of the given event name', done => {
     class OnTest0 {
@@ -190,83 +170,5 @@ describe('@component(className)', () => {
     elem.cc.init('decorated-component')
 
     assert(elem.attr('this-is') === 'decorated-component')
-  })
-})
-
-describe('@trigger(start, end, error)', () => {
-  it('prepends the trigger of the start event to the method', done => {
-    class Class4 {
-      method () {}
-    }
-
-    callDecorator($.cc.trigger('class4-start'), Class4, 'method')
-
-    $.cc('class4', Class4)
-
-    const elem = $('<div />').cc('class4').appendTo('body')
-
-    $('body').on('class4-start', () => done())
-
-    elem.cc.get('class4').method()
-  })
-
-  it('appends the trigger of the end event to the method', done => {
-    class Class5 {
-      method () {
-        return new Promise(resolve => setTimeout(resolve, 200))
-      }
-    }
-
-    callDecorator($.cc.trigger(null, 'class5-ended'), Class5, 'method')
-
-    $.cc('class5', Class5)
-
-    const elem = $('<div />').cc('class5').appendTo('body')
-
-    let flag = false
-
-    setTimeout(() => {
-      flag = true
-    }, 100)
-    setTimeout(() => {
-      flag = false
-    }, 300)
-
-    $('body').on('class5-ended', () => {
-      assert(flag)
-      done()
-    })
-
-    elem.cc.get('class5').method()
-  })
-
-  it('appends the trigger of the error event to the method', done => {
-    class Class6 {
-      method () {
-        return new Promise((resolve, reject) => setTimeout(() => reject(new Error()), 200))
-      }
-    }
-
-    callDecorator($.cc.trigger(null, null, 'class6-error'), Class6, 'method')
-
-    $.cc('class6', Class6)
-
-    const elem = $('<div />').cc('class6').appendTo('body')
-
-    let flag = false
-
-    setTimeout(() => {
-      flag = true
-    }, 100)
-    setTimeout(() => {
-      flag = false
-    }, 300)
-
-    $('body').on('class6-error', () => {
-      assert(flag)
-      done()
-    })
-
-    elem.cc.get('class6').method()
   })
 })

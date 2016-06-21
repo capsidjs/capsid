@@ -8,16 +8,6 @@ const registerListenerInfo = (method, event, selector) => {
 
 /**
  * The decorator for registering event listener info to the method.
- * @deprecated in favour of `@on`
- * @param {string} event The event name
- * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
- */
-const event = (event, selector) => (target, key, descriptor) => {
-  registerListenerInfo(descriptor.value, event, selector)
-}
-
-/**
- * The decorator for registering event listener info to the method.
  * @param {string} event The event name
  */
 const on = (event) => {
@@ -35,39 +25,6 @@ const on = (event) => {
   }
 
   return onDecorator
-}
-
-/**
- * The decorator to prepend and append event trigger.
- * @deprecated in favour of `@emit`
- * @param {string} start The event name when the method started
- * @param {string} end The event name when the method finished
- * @param {string} error the event name when the method errored
- */
-const trigger = (start, end, error) => (target, key, descriptor) => {
-  const method = descriptor.value
-
-  const decorated = function () {
-    if (start != null) {
-      this.elem.trigger(start)
-    }
-
-    const result = method.apply(this, arguments)
-
-    const promise = Promise.resolve(result)
-
-    if (end != null) {
-      promise.then(() => this.elem.trigger(end))
-    }
-
-    if (error != null) {
-      promise.catch(() => this.elem.trigger(error))
-    }
-
-    return result
-  }
-
-  descriptor.value = decorated
 }
 
 /**
@@ -145,6 +102,4 @@ const emit = (event) => {
 }
 
 exports.on = on
-exports.event = event
-exports.trigger = trigger
 exports.emit = emit
