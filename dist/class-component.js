@@ -380,7 +380,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v9.2.3
+ * class-component.js v10.0.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -471,8 +471,6 @@ function initializeModule() {
   // Exports decorators
   cc.on = decorators.on;
   cc.emit = decorators.emit;
-  cc.event = decorators.event;
-  cc.trigger = decorators.trigger;
 
   return cc;
 }
@@ -497,18 +495,6 @@ var registerListenerInfo = function registerListenerInfo(method, event, selector
 
 /**
  * The decorator for registering event listener info to the method.
- * @deprecated in favour of `@on`
- * @param {string} event The event name
- * @param {string} selector The selector for listening. When null is passed, the listener listens on the root element of the component.
- */
-var event = function event(_event, selector) {
-  return function (target, key, descriptor) {
-    registerListenerInfo(descriptor.value, _event, selector);
-  };
-};
-
-/**
- * The decorator for registering event listener info to the method.
  * @param {string} event The event name
  */
 var on = function on(event) {
@@ -528,47 +514,6 @@ var on = function on(event) {
   };
 
   return onDecorator;
-};
-
-/**
- * The decorator to prepend and append event trigger.
- * @deprecated in favour of `@emit`
- * @param {string} start The event name when the method started
- * @param {string} end The event name when the method finished
- * @param {string} error the event name when the method errored
- */
-var trigger = function trigger(start, end, error) {
-  return function (target, key, descriptor) {
-    var method = descriptor.value;
-
-    var decorated = function decorated() {
-      var _this = this;
-
-      if (start != null) {
-        this.elem.trigger(start);
-      }
-
-      var result = method.apply(this, arguments);
-
-      var promise = Promise.resolve(result);
-
-      if (end != null) {
-        promise.then(function () {
-          return _this.elem.trigger(end);
-        });
-      }
-
-      if (error != null) {
-        promise.catch(function () {
-          return _this.elem.trigger(error);
-        });
-      }
-
-      return result;
-    };
-
-    descriptor.value = decorated;
-  };
 };
 
 /**
@@ -602,13 +547,13 @@ var emit = function emit(event) {
     var method = descriptor.value;
 
     descriptor.value = function () {
-      var _this2 = this;
+      var _this = this;
 
       var result = method.apply(this, arguments);
 
       if (result != null && typeof result.then === 'function') {
         Promise.resolve(result).then(function (x) {
-          return _this2.elem.trigger(event, x);
+          return _this.elem.trigger(event, x);
         });
       } else {
         this.elem.trigger(event, result);
@@ -627,7 +572,7 @@ var emit = function emit(event) {
     var method = descriptor.value;
 
     descriptor.value = function () {
-      var _this3 = this;
+      var _this2 = this;
 
       var result = void 0;
       try {
@@ -639,7 +584,7 @@ var emit = function emit(event) {
       }
 
       Promise.resolve(result).catch(function (err) {
-        _this3.elem.trigger(event, err);
+        _this2.elem.trigger(event, err);
       });
 
       return result;
@@ -652,8 +597,6 @@ var emit = function emit(event) {
 };
 
 exports.on = on;
-exports.event = event;
-exports.trigger = trigger;
 exports.emit = emit;
 
 },{"./listener-info":7}],6:[function(require,module,exports){
