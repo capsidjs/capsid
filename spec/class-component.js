@@ -5,18 +5,24 @@ describe('$.cc', () => {
   'use strict'
 
   before(() => {
-    $.cc('foo', elem => {
-      elem.attr('is_foo', 'true')
-    })
+    class Foo {
+      constructor (elem) {
+        elem.attr('is_foo', 'true')
+      }
+    }
+    $.cc('foo', Foo)
 
-    $.cc('bar', elem => {
-      elem.attr('is_bar', 'true')
-    })
+    class Bar {
+      constructor (elem) {
+        elem.attr('is_bar', 'true')
+      }
+    }
+    $.cc('bar', Bar)
   })
 
   it('throws an error when the first param is not a string', () => {
     assert.throws(() => {
-      $.cc(null, () => {})
+      $.cc(null, class A {})
     }, Error)
   })
 
@@ -24,46 +30,6 @@ describe('$.cc', () => {
     assert.throws(() => {
       $.cc('register-test2', null)
     }, Error)
-  })
-
-  describe('init', () => {
-    beforeEach(() => {
-      $('body').empty()
-    })
-
-    it('initializes the class component of the given name', () => {
-      const foo = $('<div class="foo" />').appendTo(document.body)
-
-      $.cc.init('foo')
-
-      assert(foo.attr('is_foo') === 'true')
-    })
-
-    it('initializes multiple class components', () => {
-      const foo = $('<div class="foo" />').appendTo('body')
-      const bar = $('<div class="bar" />').appendTo('body')
-
-      $.cc.init(['foo', 'bar'])
-
-      assert(foo.attr('is_foo') === 'true')
-      assert(bar.attr('is_bar') === 'true')
-    })
-
-    it('initializes multiple class componet by class names separated by whitespaces', () => {
-      const foo = $('<div class="foo" />').appendTo('body')
-      const bar = $('<div class="bar" />').appendTo('body')
-
-      $.cc.init('foo bar')
-
-      assert(foo.attr('is_foo') === 'true')
-      assert(bar.attr('is_bar') === 'true')
-    })
-
-    it('throws an error when the given name of class-component is not registered', () => {
-      assert.throws(() => {
-        $.cc.init('does-not-exist')
-      }, Error)
-    })
   })
 
   it('registers a class component of the given name', () => {
@@ -120,6 +86,46 @@ describe('$.cc', () => {
 
     assert(coelem.elem === undefined)
     assert(coelem.el[0] === elem[0])
+  })
+
+  describe('init', () => {
+    beforeEach(() => {
+      $('body').empty()
+    })
+
+    it('initializes the class component of the given name', () => {
+      const foo = $('<div class="foo" />').appendTo(document.body)
+
+      $.cc.init('foo')
+
+      assert(foo.attr('is_foo') === 'true')
+    })
+
+    it('initializes multiple class components', () => {
+      const foo = $('<div class="foo" />').appendTo('body')
+      const bar = $('<div class="bar" />').appendTo('body')
+
+      $.cc.init(['foo', 'bar'])
+
+      assert(foo.attr('is_foo') === 'true')
+      assert(bar.attr('is_bar') === 'true')
+    })
+
+    it('initializes multiple class componet by class names separated by whitespaces', () => {
+      const foo = $('<div class="foo" />').appendTo('body')
+      const bar = $('<div class="bar" />').appendTo('body')
+
+      $.cc.init('foo bar')
+
+      assert(foo.attr('is_foo') === 'true')
+      assert(bar.attr('is_bar') === 'true')
+    })
+
+    it('throws an error when the given name of class-component is not registered', () => {
+      assert.throws(() => {
+        $.cc.init('does-not-exist')
+      }, Error)
+    })
   })
 })
 
