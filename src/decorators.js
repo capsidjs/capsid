@@ -10,7 +10,7 @@ const registerListenerInfo = (method, event, selector) => {
  * The decorator for registering event listener info to the method.
  * @param {string} event The event name
  */
-const on = (event) => {
+const on = event => {
   const onDecorator = (target, key, descriptor) => {
     registerListenerInfo(descriptor.value, event)
   }
@@ -20,7 +20,7 @@ const on = (event) => {
    * @param {string} event The event name
    * @param {string} selector The selector for listening.
    */
-  onDecorator.at = (selector) => (target, key, descriptor) => {
+  onDecorator.at = selector => (target, key, descriptor) => {
     registerListenerInfo(descriptor.value, event, selector)
   }
 
@@ -32,7 +32,7 @@ const on = (event) => {
  * This decorator adds the event emission at the beginning of the method.
  * @param {string} event The event name
  */
-const emit = (event) => {
+const emit = event => {
   const emitDecorator = (target, key, descriptor) => {
     const method = descriptor.value
 
