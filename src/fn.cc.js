@@ -4,7 +4,7 @@ const ClassComponentContext = require('./class-component-context')
 
 const CLASS_COMPONENT_DATA_KEY = '__class_component_data__'
 
-// Defines the special property cc on a jquery property.
+// Defines the special property cc on the jquery prototype.
 Object.defineProperty(jQuery.fn, 'cc', {
 
   get () {
