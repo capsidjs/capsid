@@ -1,7 +1,3 @@
-function __cc_init__ (elem) { // eslint-disable-line
-  this.elem = elem
-}
-
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  */
@@ -49,7 +45,7 @@ class ClassComponentConfiguration {
     if (typeof coelem.__cc_init__ === 'function') {
       coelem.__cc_init__(elem)
     } else {
-      __cc_init__.call(coelem, elem)
+      coelem.elem = elem
     }
 
     this.getAllListenerInfo().forEach(listenerInfo => listenerInfo.bindTo(elem, coelem))
