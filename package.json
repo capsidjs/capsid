@@ -42,7 +42,7 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.3",
     "jquery": "^3.0.0",
-    "karma": "^0.13.15",
+    "karma": "^1.0.0",
     "karma-browserify": "^5.0.4",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
