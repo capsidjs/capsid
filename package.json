@@ -47,7 +47,7 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
     "karma-coveralls": "^1.1.2",
-    "karma-mocha": "^1.0.1",
+    "karma-mocha": "^1.1.0",
     "mocha": "^2.3.2",
     "npm-run-all": "^2.0.0",
     "power-assert": "^1.4.1",
