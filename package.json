@@ -35,7 +35,7 @@
     "browserify-istanbul": "^2.0.0",
     "codecov": "^1.0.1",
     "dom-gen": "^2.1.0",
-    "eslint": "^2.9.0",
+    "eslint": "^3.0.1",
     "eslint-config-standard": "^5.3.0",
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-standard": "^2.0.0",
