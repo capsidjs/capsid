@@ -524,9 +524,11 @@ And this prints `processing long name component`.
 
 `@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the job.
 
-# Projects which users class-component.js
+# The user projects
 
-- [TodoMVC](https://github.com/kt3k/class-component-todomvc)
+The projects which uses class-component.js.
+
+- [class-component-todomvc](https://github.com/kt3k/class-component-todomvc)
 - [multiflip](https://github.com/kt3k/multiflip)
 - [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
 - [puncher](https://github.com/kt3k/puncher)
