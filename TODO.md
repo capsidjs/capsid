@@ -6,6 +6,7 @@
 - include dom-gen as a part
 
 # DONE
+- @autowired decorator
 - chore: remove @event
 - chore: remove @trigger
 - chore: list supported user projects

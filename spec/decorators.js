@@ -172,3 +172,59 @@ describe('@component(className)', () => {
     assert(elem.attr('this-is') === 'decorated-component')
   })
 })
+
+describe('@wire', () => {
+  it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
+    class Cls0 {
+      get ['wire-test0-1'] () {}
+    }
+    class Cls1 {
+    }
+    $.cc('wire-test0', Cls0)
+    $.cc('wire-test0-1', Cls1)
+
+    callDecorator($.cc.wire, Cls0, 'wire-test0-1')
+
+    const elem = $('<div />').append($('<div />').cc('wire-test0-1'))
+
+    const wireTest0 = elem.cc.init('wire-test0')
+
+    assert(wireTest0['wire-test0-1'] instanceof Cls1)
+  })
+
+  it('can access to the class component at the same dom as decorated method\'s class', () => {
+    class Cls0 {
+      get ['wire-test2-1'] () {}
+    }
+    class Cls1 {
+    }
+    $.cc('wire-test2', Cls0)
+    $.cc('wire-test2-1', Cls1)
+
+    callDecorator($.cc.wire, Cls0, 'wire-test2-1')
+
+    const wireTest0 = $('<div />').cc('wire-test2-1').cc.init('wire-test2')
+
+    assert(wireTest0['wire-test2-1'] instanceof Cls1)
+  })
+})
+
+describe('@wire(name, selector)', () => {
+  it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
+    class Cls0 {
+      get test () {}
+    }
+    class Cls1 {
+    }
+    $.cc('wire-test1', Cls0)
+    $.cc('wire-test1-1', Cls1)
+
+    callDecorator($.cc.wire('wire-test1-1', '.foo'), Cls0, 'test')
+
+    const elem = $('<div />').append($('<div class="foo" />').cc('wire-test1-1'))
+
+    const wireTest1 = elem.cc.init('wire-test1')
+
+    assert(wireTest1.test instanceof Cls1)
+  })
+})

@@ -82,6 +82,7 @@ function initializeModule () {
   // Exports decorators
   cc.on = decorators.on
   cc.emit = decorators.emit
+  cc.wire = decorators.wire
 
   return cc
 }

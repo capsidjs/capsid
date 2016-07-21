@@ -101,5 +101,42 @@ const emit = event => {
   return emitDecorator
 }
 
+/**
+ * Replaces the getter with the function which accesses the class-component of the given name.
+ * @param {string} name The class component name
+ * @param {string} [selector] The selector to access class component dom. Optional. Default is '.[name]'.
+ * @param {object} target The prototype of the target class
+ * @param {string} key The name of the property
+ * @param {object} descriptor The property descriptor
+ */
+const wireByNameAndSelector = (name, selector) => (target, key, descriptor) => {
+  selector = selector || '.' + name
+
+  descriptor.get = function () {
+    const matched = this.elem.filter(selector).add(selector, this.elem)
+
+    if (matched.length > 1) {
+      console.warn(`There are ${matched.length} matches for the given wired getter selector: ${selector}`)
+    }
+
+    return matched.cc.get(name)
+  }
+}
+
+/**
+ * Wires the class component of the name of the key to the property of the same name.
+ */
+const wire = (target, key, descriptor) => {
+  if (typeof descriptor !== 'object') {
+    const name = target
+    const selector = key
+
+    return wireByNameAndSelector(name, selector)
+  }
+
+  wireByNameAndSelector(key)(target, key, descriptor)
+}
+
 exports.on = on
 exports.emit = emit
+exports.wire = wire
