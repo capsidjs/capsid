@@ -17,10 +17,10 @@ class-component.js is tool for adding **special functions** to **html classes**.
 - **no virtual dom** ***hassle***
   - being **friendly with real dom and jQuery**
 - **small number of APIs**
-  - now it has **5** methods and **6** decorators.
+  - now it has **5** methods and **8** decorators.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
-- **7.0KB** minified.
+- **7.4KB** minified.
 
 # The timer
 
@@ -277,16 +277,18 @@ In the above example, `<div>` is appended and it is initialized as `todo-app` cl
 
 # Decorators
 
-There are 6 decorators.
+There are 8 decorators.
 
-- `$.cc.component()`
-- `$.cc.on()`
-- `$.cc.on().at()`
-- `$.cc.emit()`
-- `$.cc.emit().last`
-- `$.cc.emit().on.error`
+- `@component()`
+- `@on()`
+- `@on().at()`
+- `@emit()`
+- `@emit().last`
+- `@emit().on.error`
+- `@wire`
+- `@wire()`
 
-## `$.cc.component(className)`
+## `@component(className)`
 
 $.cc.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
 
@@ -303,7 +305,7 @@ class Timer {
 
 The above registers `Timer` class as `timer` component.
 
-## `$.cc.on(eventName)`
+## `@on(eventName)`
 
 `$.cc.on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
@@ -341,7 +343,7 @@ class Btn {
 $.cc('btn', Btn)
 ```
 
-## `$.cc.on(eventName).at(selector)`
+## `@on(eventName).at(selector)`
 
 `$.cc.on(eventName).at(selector)` is a method decorator. It's similar to `$.cc.on`, but it only handles the event from `selector` in the component.
 
@@ -361,8 +363,8 @@ $.cc('btn', Btn)
 
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
 
-## `$.cc.emit(startEvent)`
-## `$.cc.emit(startEvent).first`
+## `@emit(startEvent)`
+## `@emit(startEvent).first`
 
 `$.cc.emit()` (or `$.cc.emit().first`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
 
@@ -395,7 +397,7 @@ class Manager {
 $.cc('manager', Manager)
 ```
 
-## `$.cc.emit(eventName).last`
+## `@emit(eventName).last`
 
 `$.cc.emit(eventName).last` is similar to `$.cc.emit().first`, but it triggers the event at the last of the method.
 
@@ -433,7 +435,7 @@ $.cc('manager', Manager)
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as the second argument of the event handler.
 
-## `$.cc.emit(eventName).on.error`
+## `@emit(eventName).on.error`
 
 `$.cc.emit(eventName).on.error` is similar to other `emit` decorators, but it triggers the event when the method errors.
 
@@ -451,6 +453,76 @@ $.cc('manager', Manager)
 ```
 
 In the above example, `manager.error` is triggered when the method throws or the method returns rejected promise. The second argument of the event handler is the thrown error or rejected value.
+
+## `@wire`
+
+`@wire` is a getter decorator. If a getter is decorated by this, it returns the class component of the name of the decorated method.
+
+```js
+const {wire} = $.cc
+
+@component('foo')
+class Foo {
+  @wire get bar () {}
+
+  processBar () {
+    this.bar.process()
+  }
+}
+
+@component('bar')
+class Bar {
+  process () {
+    console.log('processing bar!')
+  }
+}
+
+$('body').append('<div class="foo"><div class="bar"></div></div>')
+```
+
+In the above situation, the getter `bar` of Foo class is wired to `bar` component inside the foo component. Technically accessing `bar` property almost equals to the call of `this.elem.find('.bar').cc.get('bar')`. With the above settings you can call the following:
+
+```js
+$('.foo').cc.get('foo').processBar()
+```
+
+And the above prints `processing bar!`.
+
+## `@wire(className)`
+
+This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
+
+```js
+const {wire} = $.cc
+
+@component('foo')
+class Foo {
+  @wire('long-name-component') get it () {}
+
+  processIt () {
+    this.it.process()
+  }
+}
+
+@component('long-name-component')
+class LongNameComponent {
+  process () {
+    console.log('processing long name component!')
+  }
+}
+
+$('body').append('<div class="foo"><div class="long-name-component"></div></div>')
+```
+
+With the above settings, you can call the following:
+
+```js
+$('.foo').cc.get('foo').processIt()
+```
+
+And this prints `processing long name component`.
+
+`@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the job.
 
 # Projects which users class-component.js
 

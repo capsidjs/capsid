@@ -62,8 +62,9 @@ class ClassComponentConfiguration {
     const prototype = this.Constructor.prototype
 
     return Object.getOwnPropertyNames(prototype)
-      .map(key => prototype[key])
+      .map(key => Object.getOwnPropertyDescriptor(prototype, key))
       .filter(ClassComponentConfiguration.isHandler)
+      .map(descriptor => descriptor.value)
   }
 
   /**
@@ -78,11 +79,11 @@ class ClassComponentConfiguration {
   /**
    * Returns true when the given property is an event handler.
    * @private
-   * @param {object} property The property
+   * @param {object} descriptor The property descriptor
    * @return {boolean}
    */
-  static isHandler (property) {
-    return typeof property === 'function' && property.__events__ != null
+  static isHandler (descriptor) {
+    return descriptor != null && typeof descriptor.value === 'function' && descriptor.value.__events__ != null
   }
 
   /**
