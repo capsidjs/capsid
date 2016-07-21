@@ -5,11 +5,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function __cc_init__(elem) {
-  // eslint-disable-line
-  this.elem = elem;
-}
-
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  */
@@ -72,7 +67,7 @@ var ClassComponentConfiguration = function () {
       if (typeof coelem.__cc_init__ === 'function') {
         coelem.__cc_init__(elem);
       } else {
-        __cc_init__.call(coelem, elem);
+        coelem.elem = elem;
       }
 
       this.getAllListenerInfo().forEach(function (listenerInfo) {
@@ -94,8 +89,10 @@ var ClassComponentConfiguration = function () {
       var prototype = this.Constructor.prototype;
 
       return Object.getOwnPropertyNames(prototype).map(function (key) {
-        return prototype[key];
-      }).filter(ClassComponentConfiguration.isHandler);
+        return Object.getOwnPropertyDescriptor(prototype, key);
+      }).filter(ClassComponentConfiguration.isHandler).map(function (descriptor) {
+        return descriptor.value;
+      });
     }
 
     /**
@@ -115,7 +112,7 @@ var ClassComponentConfiguration = function () {
     /**
      * Returns true when the given property is an event handler.
      * @private
-     * @param {object} property The property
+     * @param {object} descriptor The property descriptor
      * @return {boolean}
      */
 
@@ -138,8 +135,8 @@ var ClassComponentConfiguration = function () {
     }
   }], [{
     key: 'isHandler',
-    value: function isHandler(property) {
-      return typeof property === 'function' && property.__events__ != null;
+    value: function isHandler(descriptor) {
+      return descriptor != null && typeof descriptor.value === 'function' && descriptor.value.__events__ != null;
     }
   }]);
 
@@ -380,7 +377,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v10.0.0
+ * class-component.js v10.1.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -471,6 +468,7 @@ function initializeModule() {
   // Exports decorators
   cc.on = decorators.on;
   cc.emit = decorators.emit;
+  cc.wire = decorators.wire;
 
   return cc;
 }
@@ -484,6 +482,8 @@ module.exports = $.cc;
 
 },{"./class-component-manager":3,"./decorators":5,"./fn.cc":6}],5:[function(require,module,exports){
 'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var ListenerInfo = require('./listener-info');
 
@@ -596,8 +596,47 @@ var emit = function emit(event) {
   return emitDecorator;
 };
 
+/**
+ * Replaces the getter with the function which accesses the class-component of the given name.
+ * @param {string} name The class component name
+ * @param {string} [selector] The selector to access class component dom. Optional. Default is '.[name]'.
+ * @param {object} target The prototype of the target class
+ * @param {string} key The name of the property
+ * @param {object} descriptor The property descriptor
+ */
+var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
+  return function (target, key, descriptor) {
+    selector = selector || '.' + name;
+
+    descriptor.get = function () {
+      var matched = this.elem.filter(selector).add(selector, this.elem);
+
+      if (matched.length > 1) {
+        console.warn('There are ' + matched.length + ' matches for the given wired getter selector: ' + selector);
+      }
+
+      return matched.cc.get(name);
+    };
+  };
+};
+
+/**
+ * Wires the class component of the name of the key to the property of the same name.
+ */
+var wire = function wire(target, key, descriptor) {
+  if ((typeof descriptor === 'undefined' ? 'undefined' : _typeof(descriptor)) !== 'object') {
+    var name = target;
+    var selector = key;
+
+    return wireByNameAndSelector(name, selector);
+  }
+
+  wireByNameAndSelector(key)(target, key, descriptor);
+};
+
 exports.on = on;
 exports.emit = emit;
+exports.wire = wire;
 
 },{"./listener-info":7}],6:[function(require,module,exports){
 'use strict';
@@ -606,7 +645,7 @@ var ClassComponentContext = require('./class-component-context');
 
 var CLASS_COMPONENT_DATA_KEY = '__class_component_data__';
 
-// Defines the special property cc on a jquery property.
+// Defines the special property cc on the jquery prototype.
 Object.defineProperty(jQuery.fn, 'cc', {
   get: function get() {
     var cc = this.data(CLASS_COMPONENT_DATA_KEY);

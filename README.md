@@ -539,5 +539,5 @@ And this prints `processing long name component`.
 MIT
 
 # History
-- 2016-06-19   v10.0.0   Refactoring.
+- 2016-06-19   v10.1.0   Refactoring.
 - 2016-06-09   v9.2.0   Fix bug of `@emit().last` decorator.
