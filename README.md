@@ -14,8 +14,8 @@ class-component.js is tool for adding **special functions** to **html classes**.
 - It is a **view framework**.
 - It is a **jQuery plugin**.
 - Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
-- **no virtual dom** ***hassle***
-  - being **friendly with real dom and jQuery**
+- **no virtual dom**
+- **friendly with real dom** (and jQuery)
 - **small number of APIs**
   - now it has **5** methods and **8** decorators.
 - Does **not** introduce **any new language**
