@@ -1,6 +1,7 @@
 # TODO
 - doc: Create document site
-- doc: write about testing cc
+- doc: testing of cc component
+- chore: switch instrumenter to babel-plugin-istanbul
 
 ## >= v10
 - include dom-gen as a part
