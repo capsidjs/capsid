@@ -155,6 +155,16 @@ describe('@emit(event).on.error', () => {
   })
 })
 
+describe('@component', () => {
+  it('registers the component with the kebab cased component name', () => {
+    class FooBarBaz {}
+
+    $.cc.component(FooBarBaz)
+
+    assert($('<div />').cc.init('foo-bar-baz') instanceof FooBarBaz)
+  })
+})
+
 describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     class Cls {

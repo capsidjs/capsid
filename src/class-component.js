@@ -8,6 +8,7 @@ const $ = jQuery
 const reSpaces = / +/
 
 const ClassComponentManager = require('./class-component-manager')
+const camelToKebab = require('./camel-to-kebab')
 const decorators = require('./decorators')
 
 /**
@@ -61,20 +62,17 @@ function initializeModule () {
   }
 
   /**
-   * The decorator for class assignment.
-   *
-   * @example
-   *   @$.cc.component('foo')
-   *   class Foo extends Bar {
-   *     ...
-   *   }
-   *
-   * The above is the same as `$.cc.assign('foo', Foo)`
-   *
-   * @param {String} className The class name
-   * @return {Function}
+   * The decorator for class component registration.
+   * @param {String|Function} name The class name or the implementation class itself
+   * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
    */
-  cc.component = className => Cls => cc(className, Cls)
+  cc.component = name => {
+    if (typeof name === 'function') {
+      cc(camelToKebab(name.name), name)
+    }
+
+    return Cls => cc(name, Cls)
+  }
 
   // Exports __manager__
   cc.__manager__ = __manager__
