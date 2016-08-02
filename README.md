@@ -5,13 +5,13 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
-> Yet another view framework
+> A presenter framework
 
-class-component.js is tool for adding **special functions** to **html classes**. See below for details.
+class-component.js is tool for adding **special functions** to **html classes** and works as Presenter in MVP design pattern. See below for details.
 
 # Feature
 
-- It is a **view framework**.
+- It is a **presenter framework**.
 - It is a **jQuery plugin**.
 - Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
 - **no virtual dom**
@@ -524,6 +524,15 @@ And this prints `processing long name component`.
 
 `@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the job.
 
+# License
+
+MIT
+
+# History
+- 2016-07-21   v10.1.0   Added @wire decorator.
+- 2016-06-19   v10.0.0   Removed deprecated decorators `@event` and `@trigger`, use `@on` and `@emit` instead.
+- 2016-06-09   v9.2.0    Fixed bug of `@emit().last` decorator.
+
 # The user projects
 
 The projects which uses class-component.js.
@@ -536,11 +545,16 @@ The projects which uses class-component.js.
 - [spn](https://github.com/kt3k/spn)
 - [view-todo](https://github.com/kt3k/view-todo)
 
-# License
+# Q&A
 
-MIT
+## Why 'coelement'
 
-# History
-- 2016-07-21   v10.1.0   Added @wire decorator.
-- 2016-06-19   v10.0.0   Removed deprecated decorators `@event` and `@trigger`, use `@on` and `@emit` instead.
-- 2016-06-09   v9.2.0    Fixed bug of `@emit().last` decorator.
+`co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` or `cohomology` to `homology`. Coelement is the other aspect of `element` and they work together in the 1-to-1 relationship and in the same lifecycle. They are bound together closely.
+
+## No template support?
+
+This library deliberately doesn't support templates. A coelement starts existing after (or at the same time) the corresponding element does appear and they work together in the same lifecycle on a page. So creating dom is completely different task from what class-component.js provides.
+
+## Any recommended UI design pattern?
+
+class-component.js encourages the use of (layered) MVP architecture. Element (dom instance) works as the Passive View. Coelement works as the Presenter. Dom event bubbling works as upward communication between presenters. (`@on` and `@emit` decorators help it.) Coelements' methods works as downward messaging between presenters. (`@wire` decorator helps addressing child components.)

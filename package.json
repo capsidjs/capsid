@@ -1,7 +1,7 @@
 {
   "name": "class-component",
   "version": "10.1.0",
-  "description": "Yet another view framework",
+  "description": "A presenter framework",
   "main": "lib/class-component.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
