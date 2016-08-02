@@ -20,7 +20,7 @@ class-component.js is tool for adding **special functions** to **html classes** 
   - now it has **5** methods and **8** decorators.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
-- **7.4KB** minified.
+- **7.8KB** minified.
 
 # The timer
 
@@ -279,6 +279,7 @@ In the above example, `<div>` is appended and it is initialized as `todo-app` cl
 
 There are 8 decorators.
 
+- `@component`
 - `@component()`
 - `@on()`
 - `@on().at()`
@@ -304,6 +305,20 @@ class Timer {
 ```
 
 The above registers `Timer` class as `timer` component.
+
+## `@component`
+
+$.cc.component is similar to the above. This decorator registers the js class as the class component of the same name. If the js class is in `CamelCase`, then the component name is made `kebab-cased`.
+
+```js
+const {component} = $.cc
+
+@component
+class Timer {} // This registers Timer class as `timer` component
+
+@component
+class FooBar {} // This registers FooBar class as `foo-bar` component
+```
 
 ## `@on(eventName)`
 
