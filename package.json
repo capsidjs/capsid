@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "version": "10.1.0",
+  "version": "10.2.0",
   "description": "A presenter framework",
   "main": "lib/class-component.js",
   "scripts": {
