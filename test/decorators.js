@@ -1,6 +1,7 @@
 const {div} = require('dom-gen')
 const assert = require('power-assert')
 const $ = jQuery
+const {wire} = $.cc
 
 /**
  * @param {Function} decorator The decorator
@@ -183,8 +184,8 @@ describe('@component(className)', () => {
   })
 })
 
-describe('@wire', () => {
-  it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
+describe('@wire\'d getter', () => {
+  it('replaces the decorated getter and returns the instance of class-component of the getter name', () => {
     class Cls0 {
       get ['wire-test0-1'] () {}
     }
@@ -193,7 +194,7 @@ describe('@wire', () => {
     $.cc('wire-test0', Cls0)
     $.cc('wire-test0-1', Cls1)
 
-    callDecorator($.cc.wire, Cls0, 'wire-test0-1')
+    callDecorator(wire, Cls0, 'wire-test0-1')
 
     const elem = $('<div />').append($('<div />').cc('wire-test0-1'))
 
@@ -202,7 +203,25 @@ describe('@wire', () => {
     assert(wireTest0['wire-test0-1'] instanceof Cls1)
   })
 
-  it('can access to the class component at the same dom as decorated method\'s class', () => {
+  it('returns the instance of class-component of the kebab-cased name of the getter name when the getter is in camelCase', () => {
+    class Cls0 {
+      get wireTest3Child () {}
+    }
+    class Cls1 {
+    }
+    $.cc('wire-test3', Cls0)
+    $.cc('wire-test3-child', Cls1)
+
+    callDecorator(wire, Cls0, 'wireTest3Child')
+
+    const elem = $('<div />').append($('<div />').cc('wire-test3-child'))
+
+    const wireTest3 = elem.cc.init('wire-test3')
+
+    assert(wireTest3.wireTest3Child instanceof Cls1)
+  })
+
+  it('can get the class component in the same dom as decorated method\'s class', () => {
     class Cls0 {
       get ['wire-test2-1'] () {}
     }
@@ -211,7 +230,7 @@ describe('@wire', () => {
     $.cc('wire-test2', Cls0)
     $.cc('wire-test2-1', Cls1)
 
-    callDecorator($.cc.wire, Cls0, 'wire-test2-1')
+    callDecorator(wire, Cls0, 'wire-test2-1')
 
     const wireTest0 = $('<div />').cc('wire-test2-1').cc.init('wire-test2')
 
@@ -219,7 +238,7 @@ describe('@wire', () => {
   })
 })
 
-describe('@wire(name, selector)', () => {
+describe('@wire(name, selector)\'d getter', () => {
   it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
     class Cls0 {
       get test () {}
@@ -229,7 +248,7 @@ describe('@wire(name, selector)', () => {
     $.cc('wire-test1', Cls0)
     $.cc('wire-test1-1', Cls1)
 
-    callDecorator($.cc.wire('wire-test1-1', '.foo'), Cls0, 'test')
+    callDecorator(wire('wire-test1-1', '.foo'), Cls0, 'test')
 
     const elem = $('<div />').append($('<div class="foo" />').cc('wire-test1-1'))
 

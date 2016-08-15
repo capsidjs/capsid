@@ -1,4 +1,5 @@
 const ListenerInfo = require('./listener-info')
+const camelToKebab = require('./camel-to-kebab')
 
 const registerListenerInfo = (method, event, selector) => {
   method.__events__ = method.__events__ || []
@@ -134,7 +135,7 @@ const wire = (target, key, descriptor) => {
     return wireByNameAndSelector(name, selector)
   }
 
-  wireByNameAndSelector(key)(target, key, descriptor)
+  wireByNameAndSelector(camelToKebab(key))(target, key, descriptor)
 }
 
 exports.on = on
