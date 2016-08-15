@@ -1,6 +1,15 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+module.exports = function (camelString) {
+  return camelString.replace(/[A-Z]/g, function (c) {
+    return '-' + c.toLowerCase();
+  }).replace(/^-/, '');
+};
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -145,7 +154,7 @@ var ClassComponentConfiguration = function () {
 
 module.exports = ClassComponentConfiguration;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -239,7 +248,7 @@ var ClassComponentContext = function () {
 module.exports = ClassComponentContext;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -373,11 +382,11 @@ var ClassComponentManager = function () {
 module.exports = ClassComponentManager;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./class-component-configuration":1}],4:[function(require,module,exports){
+},{"./class-component-configuration":2}],5:[function(require,module,exports){
 'use strict';
 
 /**
- * class-component.js v10.1.0
+ * class-component.js v10.2.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -386,6 +395,7 @@ var $ = jQuery;
 var reSpaces = / +/;
 
 var ClassComponentManager = require('./class-component-manager');
+var camelToKebab = require('./camel-to-kebab');
 var decorators = require('./decorators');
 
 /**
@@ -443,22 +453,17 @@ function initializeModule() {
   };
 
   /**
-   * The decorator for class assignment.
-   *
-   * @example
-   *   @$.cc.component('foo')
-   *   class Foo extends Bar {
-   *     ...
-   *   }
-   *
-   * The above is the same as `$.cc.assign('foo', Foo)`
-   *
-   * @param {String} className The class name
-   * @return {Function}
+   * The decorator for class component registration.
+   * @param {String|Function} name The class name or the implementation class itself
+   * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
    */
-  cc.component = function (className) {
+  cc.component = function (name) {
+    if (typeof name === 'function') {
+      cc(camelToKebab(name.name), name);
+    }
+
     return function (Cls) {
-      return cc(className, Cls);
+      return cc(name, Cls);
     };
   };
 
@@ -480,7 +485,7 @@ if ($.cc == null) {
 
 module.exports = $.cc;
 
-},{"./class-component-manager":3,"./decorators":5,"./fn.cc":6}],5:[function(require,module,exports){
+},{"./camel-to-kebab":1,"./class-component-manager":4,"./decorators":6,"./fn.cc":7}],6:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -638,7 +643,7 @@ exports.on = on;
 exports.emit = emit;
 exports.wire = wire;
 
-},{"./listener-info":7}],6:[function(require,module,exports){
+},{"./listener-info":8}],7:[function(require,module,exports){
 'use strict';
 
 var ClassComponentContext = require('./class-component-context');
@@ -678,7 +683,7 @@ Object.defineProperty(jQuery.fn, 'cc', {
 
 });
 
-},{"./class-component-context":2}],7:[function(require,module,exports){
+},{"./class-component-context":3}],8:[function(require,module,exports){
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -727,4 +732,4 @@ var ListenerInfo = function () {
 
 module.exports = ListenerInfo;
 
-},{}]},{},[4]);
+},{}]},{},[5]);
