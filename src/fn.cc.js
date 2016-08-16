@@ -1,12 +1,9 @@
-'use strict'
-
 const ClassComponentContext = require('./class-component-context')
 
 const CLASS_COMPONENT_DATA_KEY = '__class_component_data__'
 
 // Defines the special property cc on the jquery prototype.
 Object.defineProperty(jQuery.fn, 'cc', {
-
   get () {
     let cc = this.data(CLASS_COMPONENT_DATA_KEY)
 
@@ -24,9 +21,5 @@ Object.defineProperty(jQuery.fn, 'cc', {
     this.data(CLASS_COMPONENT_DATA_KEY, cc)
 
     return cc
-  },
-
-  enumerable: false,
-  configurable: false
-
+  }
 })

@@ -1,5 +1,3 @@
-'use strict'
-
 const $ = global.jQuery
 
 const ClassComponentConfiguration = require('./class-component-configuration')
@@ -55,7 +53,7 @@ class ClassComponentManager {
    * @param {HTMLElement}
    */
   initAllAtElem (elem) {
-    const classes = $(elem).attr('class')
+    const classes = $(elem)[0].className
 
     if (!classes) {
       return
