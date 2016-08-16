@@ -199,41 +199,32 @@ module.exports = ClassComponentContext;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
-(function (global){
 'use strict';
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var $ = global.jQuery;
+var $ = jQuery;
 
 var ClassComponentConfiguration = require('./class-component-configuration');
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.
  */
-
-var ClassComponentManager = function () {
-  function ClassComponentManager() {
-    _classCallCheck(this, ClassComponentManager);
-
-    /**
-     * @property {Object<ClassComponentConfiguration>} ccc
-     */
-    this.ccc = {};
-  }
+module.exports = {
+  /**
+   * @property {Object<ClassComponentConfiguration>} ccc
+   */
+  ccc: {},
 
   /**
    * Registers the class component configuration for the given name.
    * @param {String} name The name
    * @param {Function} Constructor The constructor of the class component
    */
-
-
-  ClassComponentManager.prototype.register = function register(name, Constructor) {
+  register: function register(name, Constructor) {
     Constructor.coelementName = name;
 
     this.ccc[name] = new ClassComponentConfiguration(name, Constructor);
-  };
+  },
+
 
   /**
    * Initializes the class components of the given name in the given element.
@@ -242,61 +233,55 @@ var ClassComponentManager = function () {
    * @return {Array<HTMLElement>} The elements which are initialized in this initialization
    * @throw {Error}
    */
-
-
-  ClassComponentManager.prototype.init = function init(className, elem) {
+  init: function init(className, elem) {
     var ccc = this.getConfiguration(className);
 
     return $(ccc.selector(), elem).each(function () {
       ccc.initElem($(this));
     }).toArray();
-  };
+  },
+
 
   /**
    * Initializes the class component of the give name at the given element.
    * @param {String} className The class name
    * @param {jQuery|HTMLElement|String} elem The element
    */
-
-
-  ClassComponentManager.prototype.initAt = function initAt(className, elem) {
+  initAt: function initAt(className, elem) {
     this.getConfiguration(className).initElem($(elem));
-  };
+  },
+
 
   /**
    * Initializes all the class component at the element.
-   * @param {HTMLElement}
+   * @param {jQuery} elem jQuery selection of doms
    */
-
-
-  ClassComponentManager.prototype.initAllAtElem = function initAllAtElem(elem) {
+  initAllAtElem: function initAllAtElem(elem) {
     var _this = this;
 
-    var classes = $(elem).attr('class');
+    var classes = elem[0].className;
 
-    if (!classes) {
-      return;
+    if (classes) {
+      classes.split(/\s+/).filter(function (className) {
+        return _this.ccc[className];
+      }).forEach(function (className) {
+        return _this.initAt(className, elem);
+      });
     }
+  },
 
-    classes.split(/\s+/).filter(function (className) {
-      return _this.ccc[className];
-    }).forEach(function (className) {
-      return _this.initAt(className, elem);
-    });
-  };
 
   /**
    * @param {jQuery|HTMLElement|String} elem The element
    */
-
-
-  ClassComponentManager.prototype.initAll = function initAll(elem) {
+  initAll: function initAll(elem) {
     var _this2 = this;
 
     Object.keys(this.ccc).forEach(function (className) {
       _this2.init(className, elem);
     });
-  };
+  },
+
 
   /**
    * Gets the configuration of the given class name.
@@ -304,29 +289,21 @@ var ClassComponentManager = function () {
    * @return {ClassComponentConfiguration}
    * @throw {Error}
    */
-
-
-  ClassComponentManager.prototype.getConfiguration = function getConfiguration(className) {
+  getConfiguration: function getConfiguration(className) {
     var ccc = this.ccc[className];
 
-    if (ccc == null) {
-      throw new Error('Class componet "' + className + '" is not defined.');
+    if (ccc) {
+      return ccc;
     }
+    throw new Error('Class componet "' + className + '" is not defined.');
+  }
+};
 
-    return ccc;
-  };
-
-  return ClassComponentManager;
-}();
-
-module.exports = ClassComponentManager;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./class-component-configuration":2}],5:[function(require,module,exports){
 'use strict';
 
 /**
- * class-component.js v10.4.0
+ * class-component.js v10.4.1
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -334,7 +311,6 @@ var $ = jQuery;
 
 var reSpaces = / +/;
 
-var ClassComponentManager = require('./class-component-manager');
 var camelToKebab = require('./camel-to-kebab');
 var decorators = require('./decorators');
 
@@ -346,7 +322,7 @@ var decorators = require('./decorators');
 function initializeModule() {
   require('./fn.cc');
 
-  var __manager__ = new ClassComponentManager();
+  var __manager__ = require('./class-component-manager');
 
   /**
    * The main namespace for class component module.
@@ -399,6 +375,7 @@ function initializeModule() {
    */
   cc.component = function (name) {
     if (typeof name === 'function') {
+      // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
       cc(camelToKebab(name.name), name);
     }
 
@@ -622,12 +599,7 @@ Object.defineProperty(jQuery.fn, 'cc', {
     this.data(CLASS_COMPONENT_DATA_KEY, cc);
 
     return cc;
-  },
-
-
-  enumerable: false,
-  configurable: false
-
+  }
 });
 
 },{"./class-component-context":3}],8:[function(require,module,exports){
