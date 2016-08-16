@@ -503,6 +503,8 @@ $('.foo').cc.get('foo').processBar()
 
 And the above prints `processing bar!`.
 
+When the decorated getter name is in `CamelCase`, then it's replaced by the `kebab-cased` version. For example, the expression `@wire get primaryButton` wires to `primary-button` component, not to `primaryButton` component. If you need to wire it to `primaryButton` component, then use the one below.
+
 ## `@wire(className)`
 
 This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
