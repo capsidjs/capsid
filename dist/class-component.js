@@ -386,7 +386,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v10.2.0
+ * class-component.js v10.3.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -491,6 +491,7 @@ module.exports = $.cc;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var ListenerInfo = require('./listener-info');
+var camelToKebab = require('./camel-to-kebab');
 
 var registerListenerInfo = function registerListenerInfo(method, event, selector) {
   method.__events__ = method.__events__ || [];
@@ -636,14 +637,14 @@ var wire = function wire(target, key, descriptor) {
     return wireByNameAndSelector(name, selector);
   }
 
-  wireByNameAndSelector(key)(target, key, descriptor);
+  wireByNameAndSelector(camelToKebab(key))(target, key, descriptor);
 };
 
 exports.on = on;
 exports.emit = emit;
 exports.wire = wire;
 
-},{"./listener-info":8}],7:[function(require,module,exports){
+},{"./camel-to-kebab":1,"./listener-info":8}],7:[function(require,module,exports){
 'use strict';
 
 var ClassComponentContext = require('./class-component-context');
