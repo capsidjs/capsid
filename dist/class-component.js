@@ -10,8 +10,6 @@ module.exports = function (camelString) {
 },{}],2:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -39,115 +37,74 @@ var ClassComponentConfiguration = function () {
    */
 
 
-  _createClass(ClassComponentConfiguration, [{
-    key: 'selector',
-    value: function selector() {
-      return '.' + this.className + ':not(.' + this.initClass + ')';
-    }
-  }, {
-    key: 'isInitialized',
-    value: function isInitialized(elem) {
-      return elem.hasClass(this.initClass);
-    }
+  ClassComponentConfiguration.prototype.selector = function selector() {
+    return '.' + this.className + ':not(.' + this.initClass + ')';
+  };
 
-    /**
-     * Marks the given element as initialized as this class component.
-     * @private
-     * @param {jQuery} elem
-     */
+  ClassComponentConfiguration.prototype.isInitialized = function isInitialized(elem) {
+    return elem.hasClass(this.initClass);
+  };
 
-  }, {
-    key: 'markInitialized',
-    value: function markInitialized(elem) {
-      elem.addClass(this.initClass);
-    }
+  /**
+   * Marks the given element as initialized as this class component.
+   * @private
+   * @param {jQuery} elem
+   */
 
-    /**
-     * Applies the defining function to the element.
-     * @private
-     * @param {jQuery} elem
-     */
 
-  }, {
-    key: 'applyCustomDefinition',
-    value: function applyCustomDefinition(elem) {
-      var coelem = new this.Constructor(elem);
+  ClassComponentConfiguration.prototype.markInitialized = function markInitialized(elem) {
+    elem.addClass(this.initClass);
+  };
 
-      if (typeof coelem.__cc_init__ === 'function') {
-        coelem.__cc_init__(elem);
-      } else {
-        coelem.elem = elem;
-      }
+  /**
+   * Applies the defining function to the element.
+   * @private
+   * @param {jQuery} elem
+   */
 
-      this.getAllListenerInfo().forEach(function (listenerInfo) {
-        return listenerInfo.bindTo(elem, coelem);
-      });
 
-      elem.data('__coelement:' + this.className, coelem);
+  ClassComponentConfiguration.prototype.applyCustomDefinition = function applyCustomDefinition(elem) {
+    var coelem = new this.Constructor(elem);
+
+    if (typeof coelem.__cc_init__ === 'function') {
+      coelem.__cc_init__(elem);
+    } else {
+      coelem.elem = elem;
     }
 
-    /**
-     * Gets the list of the event-decorated handlers.
-     * @private
-     * @return {Function[]}
-     */
+    this.getAllListenerInfo().forEach(function (listenerInfo) {
+      return listenerInfo.bindTo(elem, coelem);
+    });
 
-  }, {
-    key: 'getHandlers',
-    value: function getHandlers() {
-      var prototype = this.Constructor.prototype;
+    elem.data('__coelement:' + this.className, coelem);
+  };
 
-      return Object.getOwnPropertyNames(prototype).map(function (key) {
-        return Object.getOwnPropertyDescriptor(prototype, key);
-      }).filter(ClassComponentConfiguration.isHandler).map(function (descriptor) {
-        return descriptor.value;
-      });
+  /**
+   * Gets all the listener info of the coelement.
+   * @private
+   * @return {ListenerInfo[]}
+   */
+
+
+  ClassComponentConfiguration.prototype.getAllListenerInfo = function getAllListenerInfo() {
+    return this.Constructor.__events__ || [];
+  };
+
+  /**
+   * Initialize the element by the configuration.
+   * @public
+   * @param {jQuery} elem The element
+   */
+
+
+  ClassComponentConfiguration.prototype.initElem = function initElem(elem) {
+    if (this.isInitialized(elem)) {
+      return;
     }
 
-    /**
-     * Gets all the listener info of the coelement.
-     * @private
-     * @return {ListenerInfo[]}
-     */
-
-  }, {
-    key: 'getAllListenerInfo',
-    value: function getAllListenerInfo() {
-      return [].concat.apply([], this.getHandlers().map(function (handler) {
-        return handler.__events__;
-      }));
-    }
-
-    /**
-     * Returns true when the given property is an event handler.
-     * @private
-     * @param {object} descriptor The property descriptor
-     * @return {boolean}
-     */
-
-  }, {
-    key: 'initElem',
-
-
-    /**
-     * Initialize the element by the configuration.
-     * @public
-     * @param {jQuery} elem The element
-     */
-    value: function initElem(elem) {
-      if (this.isInitialized(elem)) {
-        return;
-      }
-
-      this.markInitialized(elem);
-      this.applyCustomDefinition(elem);
-    }
-  }], [{
-    key: 'isHandler',
-    value: function isHandler(descriptor) {
-      return descriptor != null && typeof descriptor.value === 'function' && descriptor.value.__events__ != null;
-    }
-  }]);
+    this.markInitialized(elem);
+    this.applyCustomDefinition(elem);
+  };
 
   return ClassComponentConfiguration;
 }();
@@ -157,8 +114,6 @@ module.exports = ClassComponentConfiguration;
 },{}],3:[function(require,module,exports){
 (function (global){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -186,61 +141,56 @@ var ClassComponentContext = function () {
    */
 
 
-  _createClass(ClassComponentContext, [{
-    key: 'init',
-    value: function init(className) {
-      this.up(className);
+  ClassComponentContext.prototype.init = function init(className) {
+    this.up(className);
 
-      return this.get(className);
-    }
+    return this.get(className);
+  };
 
-    /**
-     * Initializes the element if it has registered class component names. Returns the jquery object itself.
-     * @param {string} [classNames] The class name.
-     * @return {jQuery}
-     */
+  /**
+   * Initializes the element if it has registered class component names. Returns the jquery object itself.
+   * @param {string} [classNames] The class name.
+   * @return {jQuery}
+   */
 
-  }, {
-    key: 'up',
-    value: function up(classNames) {
-      var _this = this;
 
-      if (classNames != null) {
-        classNames.split(/\s+/).forEach(function (className) {
-          _this.jqObj.addClass(className); // adds the class name
+  ClassComponentContext.prototype.up = function up(classNames) {
+    var _this = this;
 
-          $.cc.__manager__.initAt(className, _this.jqObj); // init as the class-component
-        });
-      } else {
-          // Initializes anything it already has.
-          $.cc.__manager__.initAllAtElem(this.jqObj);
-        }
+    if (classNames != null) {
+      classNames.split(/\s+/).forEach(function (className) {
+        _this.jqObj.addClass(className); // adds the class name
 
-      return this.jqObj;
-    }
-
-    /**
-     * Gets the coelement of the given name.
-     * @param {String} coelementName The name of the coelement
-     * @return {Object}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(coelementName) {
-      var coelement = this.jqObj.data('__coelement:' + coelementName);
-
-      if (coelement) {
-        return coelement;
+        $.cc.__manager__.initAt(className, _this.jqObj); // init as the class-component
+      });
+    } else {
+        // Initializes anything it already has.
+        $.cc.__manager__.initAllAtElem(this.jqObj);
       }
 
-      if (this.jqObj.length === 0) {
-        throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection');
-      }
+    return this.jqObj;
+  };
 
-      throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName);
+  /**
+   * Gets the coelement of the given name.
+   * @param {String} coelementName The name of the coelement
+   * @return {Object}
+   */
+
+
+  ClassComponentContext.prototype.get = function get(coelementName) {
+    var coelement = this.jqObj.data('__coelement:' + coelementName);
+
+    if (coelement) {
+      return coelement;
     }
-  }]);
+
+    if (this.jqObj.length === 0) {
+      throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection');
+    }
+
+    throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName);
+  };
 
   return ClassComponentContext;
 }();
@@ -251,8 +201,6 @@ module.exports = ClassComponentContext;
 },{}],4:[function(require,module,exports){
 (function (global){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -281,100 +229,92 @@ var ClassComponentManager = function () {
    */
 
 
-  _createClass(ClassComponentManager, [{
-    key: 'register',
-    value: function register(name, Constructor) {
-      Constructor.coelementName = name;
+  ClassComponentManager.prototype.register = function register(name, Constructor) {
+    Constructor.coelementName = name;
 
-      this.ccc[name] = new ClassComponentConfiguration(name, Constructor);
+    this.ccc[name] = new ClassComponentConfiguration(name, Constructor);
+  };
+
+  /**
+   * Initializes the class components of the given name in the given element.
+   * @param {String} className The class name
+   * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
+   * @return {Array<HTMLElement>} The elements which are initialized in this initialization
+   * @throw {Error}
+   */
+
+
+  ClassComponentManager.prototype.init = function init(className, elem) {
+    var ccc = this.getConfiguration(className);
+
+    return $(ccc.selector(), elem).each(function () {
+      ccc.initElem($(this));
+    }).toArray();
+  };
+
+  /**
+   * Initializes the class component of the give name at the given element.
+   * @param {String} className The class name
+   * @param {jQuery|HTMLElement|String} elem The element
+   */
+
+
+  ClassComponentManager.prototype.initAt = function initAt(className, elem) {
+    this.getConfiguration(className).initElem($(elem));
+  };
+
+  /**
+   * Initializes all the class component at the element.
+   * @param {HTMLElement}
+   */
+
+
+  ClassComponentManager.prototype.initAllAtElem = function initAllAtElem(elem) {
+    var _this = this;
+
+    var classes = $(elem).attr('class');
+
+    if (!classes) {
+      return;
     }
 
-    /**
-     * Initializes the class components of the given name in the given element.
-     * @param {String} className The class name
-     * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
-     * @return {Array<HTMLElement>} The elements which are initialized in this initialization
-     * @throw {Error}
-     */
+    classes.split(/\s+/).filter(function (className) {
+      return _this.ccc[className];
+    }).forEach(function (className) {
+      return _this.initAt(className, elem);
+    });
+  };
 
-  }, {
-    key: 'init',
-    value: function init(className, elem) {
-      var ccc = this.getConfiguration(className);
+  /**
+   * @param {jQuery|HTMLElement|String} elem The element
+   */
 
-      return $(ccc.selector(), elem).each(function () {
-        ccc.initElem($(this));
-      }).toArray();
+
+  ClassComponentManager.prototype.initAll = function initAll(elem) {
+    var _this2 = this;
+
+    Object.keys(this.ccc).forEach(function (className) {
+      _this2.init(className, elem);
+    });
+  };
+
+  /**
+   * Gets the configuration of the given class name.
+   * @param {String} className The class name
+   * @return {ClassComponentConfiguration}
+   * @throw {Error}
+   */
+
+
+  ClassComponentManager.prototype.getConfiguration = function getConfiguration(className) {
+    var ccc = this.ccc[className];
+
+    if (ccc == null) {
+      throw new Error('Class componet "' + className + '" is not defined.');
     }
 
-    /**
-     * Initializes the class component of the give name at the given element.
-     * @param {String} className The class name
-     * @param {jQuery|HTMLElement|String} elem The element
-     */
-
-  }, {
-    key: 'initAt',
-    value: function initAt(className, elem) {
-      this.getConfiguration(className).initElem($(elem));
-    }
-
-    /**
-     * Initializes all the class component at the element.
-     * @param {HTMLElement}
-     */
-
-  }, {
-    key: 'initAllAtElem',
-    value: function initAllAtElem(elem) {
-      var _this = this;
-
-      var classes = $(elem).attr('class');
-
-      if (!classes) {
-        return;
-      }
-
-      classes.split(/\s+/).filter(function (className) {
-        return _this.ccc[className];
-      }).forEach(function (className) {
-        return _this.initAt(className, elem);
-      });
-    }
-
-    /**
-     * @param {jQuery|HTMLElement|String} elem The element
-     */
-
-  }, {
-    key: 'initAll',
-    value: function initAll(elem) {
-      var _this2 = this;
-
-      Object.keys(this.ccc).forEach(function (className) {
-        _this2.init(className, elem);
-      });
-    }
-
-    /**
-     * Gets the configuration of the given class name.
-     * @param {String} className The class name
-     * @return {ClassComponentConfiguration}
-     * @throw {Error}
-     */
-
-  }, {
-    key: 'getConfiguration',
-    value: function getConfiguration(className) {
-      var ccc = this.ccc[className];
-
-      if (ccc == null) {
-        throw new Error('Class componet "' + className + '" is not defined.');
-      }
-
-      return ccc;
-    }
-  }]);
+    return ccc;
+  };
 
   return ClassComponentManager;
 }();
@@ -386,7 +326,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v10.3.0
+ * class-component.js v10.3.1
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
@@ -493,10 +433,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var ListenerInfo = require('./listener-info');
 var camelToKebab = require('./camel-to-kebab');
 
-var registerListenerInfo = function registerListenerInfo(method, event, selector) {
-  method.__events__ = method.__events__ || [];
+/**
+ * @param {Function} constructor The constructor
+ * @param {string} key The key of handler method
+ * @param {string} event The event name
+ * @param {string} selector The selector
+ */
+var registerListenerInfo = function registerListenerInfo(constructor, key, event, selector) {
+  constructor.__events__ = constructor.__events__ || [];
 
-  method.__events__.push(new ListenerInfo(event, selector, method));
+  constructor.__events__.push(new ListenerInfo(event, selector, key));
 };
 
 /**
@@ -505,7 +451,7 @@ var registerListenerInfo = function registerListenerInfo(method, event, selector
  */
 var on = function on(event) {
   var onDecorator = function onDecorator(target, key, descriptor) {
-    registerListenerInfo(descriptor.value, event);
+    registerListenerInfo(target.constructor, key, event);
   };
 
   /**
@@ -515,7 +461,7 @@ var on = function on(event) {
    */
   onDecorator.at = function (selector) {
     return function (target, key, descriptor) {
-      registerListenerInfo(descriptor.value, event, selector);
+      registerListenerInfo(target.constructor, key, event, selector);
     };
   };
 
@@ -687,8 +633,6 @@ Object.defineProperty(jQuery.fn, 'cc', {
 },{"./class-component-context":3}],8:[function(require,module,exports){
 "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -699,15 +643,15 @@ var ListenerInfo = function () {
   /**
    * @param {string} event The event name to bind
    * @param {string} selector The selector to bind the listener
-   * @param {Function} handler The handler for the event
+   * @param {string} key The handler name
    */
 
-  function ListenerInfo(event, selector, handler) {
+  function ListenerInfo(event, selector, key) {
     _classCallCheck(this, ListenerInfo);
 
     this.event = event;
     this.selector = selector;
-    this.handler = handler;
+    this.key = key;
   }
 
   /**
@@ -717,16 +661,13 @@ var ListenerInfo = function () {
    */
 
 
-  _createClass(ListenerInfo, [{
-    key: "bindTo",
-    value: function bindTo(elem, coelem) {
-      var handler = this.handler;
+  ListenerInfo.prototype.bindTo = function bindTo(elem, coelem) {
+    var key = this.key;
 
-      elem.on(this.event, this.selector, function () {
-        handler.apply(coelem, arguments);
-      });
-    }
-  }]);
+    elem.on(this.event, this.selector, function () {
+      coelem[key].apply(coelem, arguments);
+    });
+  };
 
   return ListenerInfo;
 }();
