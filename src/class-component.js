@@ -7,7 +7,6 @@ const $ = jQuery
 
 const reSpaces = / +/
 
-const ClassComponentManager = require('./class-component-manager')
 const camelToKebab = require('./camel-to-kebab')
 const decorators = require('./decorators')
 
@@ -19,7 +18,7 @@ const decorators = require('./decorators')
 function initializeModule () {
   require('./fn.cc')
 
-  const __manager__ = new ClassComponentManager()
+  const __manager__ = require('./class-component-manager')
 
   /**
    * The main namespace for class component module.
@@ -68,6 +67,7 @@ function initializeModule () {
    */
   cc.component = name => {
     if (typeof name === 'function') {
+      // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
       cc(camelToKebab(name.name), name)
     }
 

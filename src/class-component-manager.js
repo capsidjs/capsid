@@ -1,17 +1,15 @@
-const $ = global.jQuery
+const $ = jQuery
 
 const ClassComponentConfiguration = require('./class-component-configuration')
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.
  */
-class ClassComponentManager {
-  constructor () {
-    /**
-     * @property {Object<ClassComponentConfiguration>} ccc
-     */
-    this.ccc = {}
-  }
+module.exports = {
+  /**
+   * @property {Object<ClassComponentConfiguration>} ccc
+   */
+  ccc: {},
 
   /**
    * Registers the class component configuration for the given name.
@@ -22,7 +20,7 @@ class ClassComponentManager {
     Constructor.coelementName = name
 
     this.ccc[name] = new ClassComponentConfiguration(name, Constructor)
-  }
+  },
 
   /**
    * Initializes the class components of the given name in the given element.
@@ -37,7 +35,7 @@ class ClassComponentManager {
     return $(ccc.selector(), elem).each(function () {
       ccc.initElem($(this))
     }).toArray()
-  }
+  },
 
   /**
    * Initializes the class component of the give name at the given element.
@@ -46,23 +44,21 @@ class ClassComponentManager {
    */
   initAt (className, elem) {
     this.getConfiguration(className).initElem($(elem))
-  }
+  },
 
   /**
    * Initializes all the class component at the element.
-   * @param {HTMLElement}
+   * @param {jQuery} elem jQuery selection of doms
    */
   initAllAtElem (elem) {
-    const classes = $(elem)[0].className
+    const classes = elem[0].className
 
-    if (!classes) {
-      return
+    if (classes) {
+      classes.split(/\s+/)
+        .filter(className => this.ccc[className])
+        .forEach(className => this.initAt(className, elem))
     }
-
-    classes.split(/\s+/)
-      .filter(className => this.ccc[className])
-      .forEach(className => this.initAt(className, elem))
-  }
+  },
 
   /**
    * @param {jQuery|HTMLElement|String} elem The element
@@ -71,7 +67,7 @@ class ClassComponentManager {
     Object.keys(this.ccc).forEach(className => {
       this.init(className, elem)
     })
-  }
+  },
 
   /**
    * Gets the configuration of the given class name.
@@ -82,12 +78,9 @@ class ClassComponentManager {
   getConfiguration (className) {
     const ccc = this.ccc[className]
 
-    if (ccc == null) {
-      throw new Error('Class componet "' + className + '" is not defined.')
+    if (ccc) {
+      return ccc
     }
-
-    return ccc
+    throw new Error('Class componet "' + className + '" is not defined.')
   }
 }
-
-module.exports = ClassComponentManager
