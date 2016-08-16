@@ -546,7 +546,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
-- 2016-07-21   v10.3.0   Added @wire decorator.
+- 2016-07-21   v10.3.1   Added @wire decorator.
 - 2016-06-19   v10.0.0   Removed deprecated decorators `@event` and `@trigger`, use `@on` and `@emit` instead.
 - 2016-06-09   v9.2.0    Fixed bug of `@emit().last` decorator.
 
