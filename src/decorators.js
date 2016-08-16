@@ -1,10 +1,16 @@
 const ListenerInfo = require('./listener-info')
 const camelToKebab = require('./camel-to-kebab')
 
-const registerListenerInfo = (method, event, selector) => {
-  method.__events__ = method.__events__ || []
+/**
+ * @param {Function} constructor The constructor
+ * @param {string} key The key of handler method
+ * @param {string} event The event name
+ * @param {string} selector The selector
+ */
+const registerListenerInfo = (constructor, key, event, selector) => {
+  constructor.__events__ = constructor.__events__ || []
 
-  method.__events__.push(new ListenerInfo(event, selector, method))
+  constructor.__events__.push(new ListenerInfo(event, selector, key))
 }
 
 /**
@@ -13,7 +19,7 @@ const registerListenerInfo = (method, event, selector) => {
  */
 const on = event => {
   const onDecorator = (target, key, descriptor) => {
-    registerListenerInfo(descriptor.value, event)
+    registerListenerInfo(target.constructor, key, event)
   }
 
   /**
@@ -22,7 +28,7 @@ const on = event => {
    * @param {string} selector The selector for listening.
    */
   onDecorator.at = selector => (target, key, descriptor) => {
-    registerListenerInfo(descriptor.value, event, selector)
+    registerListenerInfo(target.constructor, key, event, selector)
   }
 
   return onDecorator

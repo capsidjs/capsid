@@ -54,36 +54,12 @@ class ClassComponentConfiguration {
   }
 
   /**
-   * Gets the list of the event-decorated handlers.
-   * @private
-   * @return {Function[]}
-   */
-  getHandlers () {
-    const prototype = this.Constructor.prototype
-
-    return Object.getOwnPropertyNames(prototype)
-      .map(key => Object.getOwnPropertyDescriptor(prototype, key))
-      .filter(ClassComponentConfiguration.isHandler)
-      .map(descriptor => descriptor.value)
-  }
-
-  /**
    * Gets all the listener info of the coelement.
    * @private
    * @return {ListenerInfo[]}
    */
   getAllListenerInfo () {
-    return [].concat.apply([], this.getHandlers().map(handler => handler.__events__))
-  }
-
-  /**
-   * Returns true when the given property is an event handler.
-   * @private
-   * @param {object} descriptor The property descriptor
-   * @return {boolean}
-   */
-  static isHandler (descriptor) {
-    return descriptor != null && typeof descriptor.value === 'function' && descriptor.value.__events__ != null
+    return this.Constructor.__events__ || []
   }
 
   /**

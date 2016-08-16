@@ -5,12 +5,12 @@ class ListenerInfo {
   /**
    * @param {string} event The event name to bind
    * @param {string} selector The selector to bind the listener
-   * @param {Function} handler The handler for the event
+   * @param {string} key The handler name
    */
-  constructor (event, selector, handler) {
+  constructor (event, selector, key) {
     this.event = event
     this.selector = selector
-    this.handler = handler
+    this.key = key
   }
 
   /**
@@ -19,10 +19,10 @@ class ListenerInfo {
    * @param {object} coelem The coelement which is bound to the element
    */
   bindTo (elem, coelem) {
-    const handler = this.handler
+    const key = this.key
 
     elem.on(this.event, this.selector, function () {
-      handler.apply(coelem, arguments)
+      coelem[key].apply(coelem, arguments)
     })
   }
 }
