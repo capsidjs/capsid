@@ -546,6 +546,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-08-16   v10.4.0   Switch to babel-preset-es2015-loose.
 - 2016-08-16   v10.3.0   Modify bare @wire decorator.
 - 2016-08-02   v10.2.0   Added bare @component decorator.
 - 2016-07-21   v10.1.0   Added @wire decorator.

@@ -326,7 +326,7 @@ module.exports = ClassComponentManager;
 'use strict';
 
 /**
- * class-component.js v10.3.1
+ * class-component.js v10.4.0
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
