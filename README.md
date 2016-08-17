@@ -283,9 +283,8 @@ There are 8 decorators.
 - `@component()`
 - `@on()`
 - `@on().at()`
-- `@emit()`
+- `@emit()` (`@emit().first`)
 - `@emit().last`
-- `@emit().on.error`
 - `@wire`
 - `@wire()`
 
@@ -449,25 +448,6 @@ $.cc('manager', Manager)
 ```
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as the second argument of the event handler.
-
-## `@emit(eventName).on.error`
-
-`$.cc.emit(eventName).on.error` is similar to other `emit` decorators, but it triggers the event when the method errors.
-
-```js
-const {emit} = $.cc
-
-class Manager {
-  @emit('manager.error').on.error
-  start() {
-    ...definitions...
-  }
-}
-
-$.cc('manager', Manager)
-```
-
-In the above example, `manager.error` is triggered when the method throws or the method returns rejected promise. The second argument of the event handler is the thrown error or rejected value.
 
 ## `@wire`
 
