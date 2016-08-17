@@ -4,11 +4,11 @@ const $ = jQuery
  * This is class component contenxt manager class. This help to initialize and get colements.
  * @param {jQuery} jqObj jQuery object of a dom selection
  */
-module.exports = function (jqObj) {
+const ClassComponentContext = module.exports = function (jqObj) {
   this.jqObj = jqObj
 }
 
-const prototype = module.exports.prototype
+const prototype = ClassComponentContext.prototype
 
 /**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.

@@ -11,7 +11,7 @@ const decorators = require('./decorators')
  * @param {jquery} $ The static jquery object
  * @return {Object}
  */
-function initializeModule ($) {
+module.exports = ($ => {
   if ($.cc) {
     return $.cc
   }
@@ -37,7 +37,7 @@ function initializeModule ($) {
 
     __manager__.register(name, Constructor)
 
-    $(document).ready(() => { __manager__.init(name) })
+    $(() => { __manager__.init(name) })
   }
 
   /**
@@ -83,6 +83,4 @@ function initializeModule ($) {
   cc.wire = decorators.wire
 
   return cc
-}
-
-module.exports = initializeModule(jQuery)
+})(jQuery)

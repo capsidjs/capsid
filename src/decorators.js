@@ -15,7 +15,7 @@ const registerListenerInfo = (constructor, key, event, selector) => {
  * @param {string} event The event name
  */
 exports.on = event => {
-  const onDecorator = (target, key, descriptor) => {
+  const onDecorator = (target, key) => {
     registerListenerInfo(target.constructor, key, event)
   }
 
@@ -24,7 +24,7 @@ exports.on = event => {
    * @param {string} event The event name
    * @param {string} selector The selector for listening.
    */
-  onDecorator.at = selector => (target, key, descriptor) => {
+  onDecorator.at = selector => (target, key) => {
     registerListenerInfo(target.constructor, key, event, selector)
   }
 
@@ -64,7 +64,7 @@ exports.emit = event => {
     descriptor.value = function () {
       const result = method.apply(this, arguments)
 
-      if (result != null && typeof result.then === 'function') {
+      if (result && result.then) {
         Promise.resolve(result).then(x => this.elem.trigger(event, x))
       } else {
         this.elem.trigger(event, result)
@@ -91,7 +91,7 @@ const wireByNameAndSelector = (name, selector) => (target, key, descriptor) => {
   descriptor.get = function () {
     const matched = this.elem.filter(selector).add(selector, this.elem)
 
-    if (matched.length > 1) {
+    if (matched[1]) { // meaning matched.length > 1
       console.warn(`There are ${matched.length} matches for the given wired getter selector: ${selector}`)
     }
 

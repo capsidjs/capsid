@@ -3,14 +3,14 @@
  * @param {String} className The class name
  * @param {Function} Constructor The constructor of the coelement of the class component
  */
-module.exports = function (className, Constructor) {
+const ClassComponentConfiguration = module.exports = function (className, Constructor) {
   this.className = className
   this.Constructor = Constructor
   this.initClass = className + '-initialized'
   this.selector = '.' + className + ':not(.' + this.initClass + ')'
 }
 
-const prototype = module.exports.prototype
+const prototype = ClassComponentConfiguration.prototype
 
 /**
  * Applies the defining function to the element.

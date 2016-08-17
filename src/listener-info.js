@@ -4,7 +4,7 @@
  * @param {string} selector The selector to bind the listener
  * @param {string} key The handler name
  */
-module.exports = function (event, selector, key) {
+const ListenerInfo = module.exports = function (event, selector, key) {
   this.event = event
   this.selector = selector
   this.key = key
@@ -15,7 +15,7 @@ module.exports = function (event, selector, key) {
  * @param {jQuery} elem The jquery element
  * @param {object} coelem The coelement which is bound to the element
  */
-module.exports.prototype.bindTo = function (elem, coelem) {
+ListenerInfo.prototype.bindTo = function (elem, coelem) {
   const key = this.key
 
   elem.on(this.event, this.selector, function () {
