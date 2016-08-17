@@ -32,7 +32,7 @@ module.exports = {
   init (className, elem) {
     const ccc = this.getConfiguration(className)
 
-    return $(ccc.selector(), elem).each(function () {
+    return $(ccc.selector, elem).each(function () {
       ccc.initElem($(this))
     }).toArray()
   },

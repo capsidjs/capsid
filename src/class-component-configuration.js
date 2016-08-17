@@ -6,19 +6,11 @@
 module.exports = function (className, Constructor) {
   this.className = className
   this.Constructor = Constructor
-  this.initClass = this.className + '-initialized'
+  this.initClass = className + '-initialized'
+  this.selector = '.' + className + ':not(.' + this.initClass + ')'
 }
 
 const prototype = module.exports.prototype
-
-/**
- * Returns the selector for uninitialized class component.
- * @public
- * @return {String}
- */
-prototype.selector = function () {
-  return '.' + this.className + ':not(.' + this.initClass + ')'
-}
 
 /**
  * Applies the defining function to the element.
