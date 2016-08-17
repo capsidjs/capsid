@@ -111,51 +111,6 @@ describe('@emit(event).last', () => {
   })
 })
 
-describe('@emit(event).on.error', () => {
-  it('makes the method emit the event with the error as the parameter when the method throws', done => {
-    class EmitOnErrorTest0 {
-      foo () {
-        throw new Error('abc')
-      }
-    }
-    $.cc('emit-on-error-test0', EmitOnErrorTest0)
-    callDecorator($.cc.emit('event-foo').on.error, EmitOnErrorTest0, 'foo')
-
-    div().on('event-foo', (e, err) => {
-      assert(err instanceof Error)
-      assert(err.message === 'abc')
-
-      done()
-    }).cc.init('emit-on-error-test0').foo()
-  })
-
-  it('makes the method emit the event with the error as the parameter when the method returns rejected promise', done => {
-    let promiseRejected = true
-
-    class EmitOnErrorTest1 {
-      foo () {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            promiseRejected = true
-
-            reject(new Error('abc'))
-          }, 100)
-        })
-      }
-    }
-    $.cc('emit-on-error-test1', EmitOnErrorTest1)
-    callDecorator($.cc.emit('event-foo').on.error, EmitOnErrorTest1, 'foo')
-
-    div().on('event-foo', (e, err) => {
-      assert(err instanceof Error)
-      assert(err.message === 'abc')
-      assert(promiseRejected)
-
-      done()
-    }).cc.init('emit-on-error-test1').foo()
-  })
-})
-
 describe('@component', () => {
   it('registers the component with the kebab cased component name', () => {
     class FooBarBaz {}
