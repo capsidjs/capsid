@@ -3,17 +3,19 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-const $ = jQuery
-
-const camelToKebab = require('./camel-to-kebab')
 const decorators = require('./decorators')
 
 /**
  * Initializes the module object.
  *
+ * @param {jquery} $ The static jquery object
  * @return {Object}
  */
-function initializeModule () {
+function initializeModule ($) {
+  if ($.cc) {
+    return $.cc
+  }
+
   require('./fn.cc')
 
   const __manager__ = require('./class-component-manager')
@@ -24,7 +26,7 @@ function initializeModule () {
    * @param {String} name The class name
    * @param {Function} Constructor The class definition
    */
-  const cc = (name, Constructor) => {
+  const cc = $.cc = (name, Constructor) => {
     if (typeof name !== 'string') {
       throw new Error('`name` of a class component has to be a string')
     }
@@ -66,7 +68,7 @@ function initializeModule () {
   cc.component = name => {
     if (typeof name === 'function') {
       // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-      cc(camelToKebab(name.name), name)
+      cc(require('./camel-to-kebab')(name.name), name)
     }
 
     return Cls => cc(name, Cls)
@@ -83,9 +85,4 @@ function initializeModule () {
   return cc
 }
 
-// If the cc is not set, then create one.
-if ($.cc == null) {
-  $.cc = initializeModule()
-}
-
-module.exports = $.cc
+module.exports = initializeModule(jQuery)

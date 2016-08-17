@@ -1,5 +1,4 @@
 const ListenerInfo = require('./listener-info')
-const camelToKebab = require('./camel-to-kebab')
 
 /**
  * @param {Function} constructor The constructor
@@ -8,16 +7,14 @@ const camelToKebab = require('./camel-to-kebab')
  * @param {string} selector The selector
  */
 const registerListenerInfo = (constructor, key, event, selector) => {
-  constructor.__events__ = constructor.__events__ || []
-
-  constructor.__events__.push(new ListenerInfo(event, selector, key))
+  (constructor.__events__ = constructor.__events__ || []).push(new ListenerInfo(event, selector, key))
 }
 
 /**
  * The decorator for registering event listener info to the method.
  * @param {string} event The event name
  */
-const on = event => {
+exports.on = event => {
   const onDecorator = (target, key, descriptor) => {
     registerListenerInfo(target.constructor, key, event)
   }
@@ -39,7 +36,7 @@ const on = event => {
  * This decorator adds the event emission at the beginning of the method.
  * @param {string} event The event name
  */
-const emit = event => {
+exports.emit = event => {
   const emitDecorator = (target, key, descriptor) => {
     const method = descriptor.value
 
@@ -105,17 +102,12 @@ const wireByNameAndSelector = (name, selector) => (target, key, descriptor) => {
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-const wire = (target, key, descriptor) => {
-  if (typeof descriptor !== 'object') {
-    const name = target
-    const selector = key
-
-    return wireByNameAndSelector(name, selector)
+exports.wire = (target, key, descriptor) => {
+  if (!descriptor) {
+    // If the descriptor is not given, then suppose this is called as @wire(componentName, selector) and therefore
+    // we need to return the following expression (it works as another decorator).
+    return wireByNameAndSelector(target, key)
   }
 
-  wireByNameAndSelector(camelToKebab(key))(target, key, descriptor)
+  wireByNameAndSelector(require('./camel-to-kebab')(key))(target, key, descriptor)
 }
-
-exports.on = on
-exports.emit = emit
-exports.wire = wire
