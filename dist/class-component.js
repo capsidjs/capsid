@@ -67,10 +67,9 @@ prototype.initElem = function (elem) {
 };
 
 },{}],3:[function(require,module,exports){
-(function (global){
 'use strict';
 
-var $ = global.jQuery;
+var $ = jQuery;
 
 /**
  * This is class component contenxt manager class. This help to initialize and get colements.
@@ -83,36 +82,26 @@ module.exports = function (jqObj) {
 var prototype = module.exports.prototype;
 
 /**
- * Inserts the class name, initializes as the class component and returns the coelement if exists.
- * @param {String} className The class name
- * @return {Object}
- */
-prototype.init = function (className) {
-  this.up(className);
-
-  return this.get(className);
-};
-
-/**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.
  * @param {string} [classNames] The class name.
  * @return {jQuery}
  */
 prototype.up = function (classNames) {
-  var _this = this;
+  var __manager__ = $.cc.__manager__;
+  var jqObj = this.jqObj;
 
-  if (classNames != null) {
+  if (classNames) {
     classNames.split(/\s+/).forEach(function (className) {
-      _this.jqObj.addClass(className); // adds the class name
+      jqObj.addClass(className); // adds the class name
 
-      $.cc.__manager__.initAt(className, _this.jqObj); // init as the class-component
+      __manager__.initAt(className, jqObj); // init as the class-component
     });
   } else {
       // Initializes anything it already has.
-      $.cc.__manager__.initAllAtElem(this.jqObj);
+      __manager__.initAllAtElem(jqObj);
     }
 
-  return this.jqObj;
+  return jqObj;
 };
 
 /**
@@ -121,20 +110,20 @@ prototype.up = function (classNames) {
  * @return {Object}
  */
 prototype.get = function (coelementName) {
-  var coelement = this.jqObj.data('__coelement:' + coelementName);
+  var jqObj = this.jqObj;
+  var coelement = jqObj.data('__coelement:' + coelementName);
 
   if (coelement) {
     return coelement;
   }
 
-  if (this.jqObj.length === 0) {
-    throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection');
+  if (jqObj[0]) {
+    throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + jqObj[0].tagName);
   }
 
-  throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName);
+  throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection');
 };
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -427,36 +416,6 @@ var emit = function emit(event) {
     };
   };
 
-  /**
-   * `@emit(event).on.error` decorator.
-   * This add the emission of the event when the method errored.
-   * @param {string} event The event name
-   */
-  var error = function error(target, key, descriptor) {
-    var method = descriptor.value;
-
-    descriptor.value = function () {
-      var _this2 = this;
-
-      var result = void 0;
-      try {
-        result = method.apply(this, arguments);
-      } catch (e) {
-        this.elem.trigger(event, e);
-
-        throw e;
-      }
-
-      Promise.resolve(result).catch(function (err) {
-        _this2.elem.trigger(event, err);
-      });
-
-      return result;
-    };
-  };
-
-  emitDecorator.on = { error: error };
-
   return emitDecorator;
 };
 
@@ -528,7 +487,8 @@ Object.defineProperty(jQuery.fn, 'cc', {
           return ctx.get(className);
         };
         cc.init = function (className) {
-          return ctx.init(className);
+          cc(className);
+          return cc.get(className);
         };
 
         _this.data(CLASS_COMPONENT_DATA_KEY, cc);
