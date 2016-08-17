@@ -7,18 +7,16 @@ Object.defineProperty(jQuery.fn, 'cc', {
   get () {
     let cc = this.data(CLASS_COMPONENT_DATA_KEY)
 
-    if (cc) {
-      return cc
+    if (!cc) {
+      const ctx = new ClassComponentContext(this)
+
+      cc = classNames => ctx.up(classNames)
+
+      cc.get = className => ctx.get(className)
+      cc.init = className => ctx.init(className)
+
+      this.data(CLASS_COMPONENT_DATA_KEY, cc)
     }
-
-    const ctx = new ClassComponentContext(this)
-
-    cc = classNames => ctx.up(classNames)
-
-    cc.get = className => ctx.get(className)
-    cc.init = className => ctx.init(className)
-
-    this.data(CLASS_COMPONENT_DATA_KEY, cc)
 
     return cc
   }

@@ -5,8 +5,6 @@
  */
 const $ = jQuery
 
-const reSpaces = / +/
-
 const camelToKebab = require('./camel-to-kebab')
 const decorators = require('./decorators')
 
@@ -54,7 +52,7 @@ function initializeModule () {
     }
 
     if (typeof classNames === 'string') {
-      classNames = classNames.split(reSpaces)
+      classNames = classNames.split(/ +/)
     }
 
     return classNames.map(className => __manager__.init(className, elem))
