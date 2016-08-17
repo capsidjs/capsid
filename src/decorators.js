@@ -77,34 +77,6 @@ const emit = event => {
     }
   }
 
-  /**
-   * `@emit(event).on.error` decorator.
-   * This add the emission of the event when the method errored.
-   * @param {string} event The event name
-   */
-  const error = (target, key, descriptor) => {
-    const method = descriptor.value
-
-    descriptor.value = function () {
-      let result
-      try {
-        result = method.apply(this, arguments)
-      } catch (e) {
-        this.elem.trigger(event, e)
-
-        throw e
-      }
-
-      Promise.resolve(result).catch(err => {
-        this.elem.trigger(event, err)
-      })
-
-      return result
-    }
-  }
-
-  emitDecorator.on = {error}
-
   return emitDecorator
 }
 
