@@ -13,7 +13,10 @@ Object.defineProperty(jQuery.fn, 'cc', {
       cc = classNames => ctx.up(classNames)
 
       cc.get = className => ctx.get(className)
-      cc.init = className => ctx.init(className)
+      cc.init = className => {
+        cc(className)
+        return cc.get(className)
+      }
 
       this.data(CLASS_COMPONENT_DATA_KEY, cc)
     }

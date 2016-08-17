@@ -1,4 +1,4 @@
-const $ = global.jQuery
+const $ = jQuery
 
 /**
  * This is class component contenxt manager class. This help to initialize and get colements.
@@ -11,34 +11,26 @@ module.exports = function (jqObj) {
 const prototype = module.exports.prototype
 
 /**
- * Inserts the class name, initializes as the class component and returns the coelement if exists.
- * @param {String} className The class name
- * @return {Object}
- */
-prototype.init = function (className) {
-  this.up(className)
-
-  return this.get(className)
-}
-
-/**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.
  * @param {string} [classNames] The class name.
  * @return {jQuery}
  */
 prototype.up = function (classNames) {
-  if (classNames != null) {
-    classNames.split(/\s+/).forEach(className => {
-      this.jqObj.addClass(className) // adds the class name
+  const __manager__ = $.cc.__manager__
+  const jqObj = this.jqObj
 
-      $.cc.__manager__.initAt(className, this.jqObj) // init as the class-component
+  if (classNames) {
+    classNames.split(/\s+/).forEach(className => {
+      jqObj.addClass(className) // adds the class name
+
+      __manager__.initAt(className, jqObj) // init as the class-component
     })
   } else {
     // Initializes anything it already has.
-    $.cc.__manager__.initAllAtElem(this.jqObj)
+    __manager__.initAllAtElem(jqObj)
   }
 
-  return this.jqObj
+  return jqObj
 }
 
 /**
@@ -47,15 +39,16 @@ prototype.up = function (classNames) {
  * @return {Object}
  */
 prototype.get = function (coelementName) {
-  const coelement = this.jqObj.data('__coelement:' + coelementName)
+  const jqObj = this.jqObj
+  const coelement = jqObj.data('__coelement:' + coelementName)
 
   if (coelement) {
     return coelement
   }
 
-  if (this.jqObj.length === 0) {
-    throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection')
+  if (jqObj[0]) {
+    throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + jqObj[0].tagName)
   }
 
-  throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + this.jqObj.get(0).tagName)
+  throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection')
 }
