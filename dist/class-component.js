@@ -233,17 +233,19 @@ module.exports = {
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-var $ = jQuery;
-
-var camelToKebab = require('./camel-to-kebab');
 var decorators = require('./decorators');
 
 /**
  * Initializes the module object.
  *
+ * @param {jquery} $ The static jquery object
  * @return {Object}
  */
-function initializeModule() {
+function initializeModule($) {
+  if ($.cc) {
+    return $.cc;
+  }
+
   require('./fn.cc');
 
   var __manager__ = require('./class-component-manager');
@@ -254,7 +256,7 @@ function initializeModule() {
    * @param {String} name The class name
    * @param {Function} Constructor The class definition
    */
-  var cc = function cc(name, Constructor) {
+  var cc = $.cc = function (name, Constructor) {
     if (typeof name !== 'string') {
       throw new Error('`name` of a class component has to be a string');
     }
@@ -300,7 +302,7 @@ function initializeModule() {
   cc.component = function (name) {
     if (typeof name === 'function') {
       // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-      cc(camelToKebab(name.name), name);
+      cc(require('./camel-to-kebab')(name.name), name);
     }
 
     return function (Cls) {
@@ -319,20 +321,12 @@ function initializeModule() {
   return cc;
 }
 
-// If the cc is not set, then create one.
-if ($.cc == null) {
-  $.cc = initializeModule();
-}
-
-module.exports = $.cc;
+module.exports = initializeModule(jQuery);
 
 },{"./camel-to-kebab":1,"./class-component-manager":4,"./decorators":6,"./fn.cc":7}],6:[function(require,module,exports){
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 var ListenerInfo = require('./listener-info');
-var camelToKebab = require('./camel-to-kebab');
 
 /**
  * @param {Function} constructor The constructor
@@ -341,16 +335,14 @@ var camelToKebab = require('./camel-to-kebab');
  * @param {string} selector The selector
  */
 var registerListenerInfo = function registerListenerInfo(constructor, key, event, selector) {
-  constructor.__events__ = constructor.__events__ || [];
-
-  constructor.__events__.push(new ListenerInfo(event, selector, key));
+  (constructor.__events__ = constructor.__events__ || []).push(new ListenerInfo(event, selector, key));
 };
 
 /**
  * The decorator for registering event listener info to the method.
  * @param {string} event The event name
  */
-var on = function on(event) {
+exports.on = function (event) {
   var onDecorator = function onDecorator(target, key, descriptor) {
     registerListenerInfo(target.constructor, key, event);
   };
@@ -374,7 +366,7 @@ var on = function on(event) {
  * This decorator adds the event emission at the beginning of the method.
  * @param {string} event The event name
  */
-var emit = function emit(event) {
+exports.emit = function (event) {
   var emitDecorator = function emitDecorator(target, key, descriptor) {
     var method = descriptor.value;
 
@@ -446,20 +438,15 @@ var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-var wire = function wire(target, key, descriptor) {
-  if ((typeof descriptor === 'undefined' ? 'undefined' : _typeof(descriptor)) !== 'object') {
-    var name = target;
-    var selector = key;
-
-    return wireByNameAndSelector(name, selector);
+exports.wire = function (target, key, descriptor) {
+  if (!descriptor) {
+    // If the descriptor is not given, then suppose this is called as @wire(componentName, selector) and therefore
+    // we need to return the following expression (it works as another decorator).
+    return wireByNameAndSelector(target, key);
   }
 
-  wireByNameAndSelector(camelToKebab(key))(target, key, descriptor);
+  wireByNameAndSelector(require('./camel-to-kebab')(key))(target, key, descriptor);
 };
-
-exports.on = on;
-exports.emit = emit;
-exports.wire = wire;
 
 },{"./camel-to-kebab":1,"./listener-info":8}],7:[function(require,module,exports){
 'use strict';
