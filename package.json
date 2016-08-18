@@ -2,7 +2,7 @@
   "name": "class-component",
   "version": "10.4.1",
   "description": "A presenter framework",
-  "main": "lib/class-component.js",
+  "main": "dist/class-component.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
     "lint": "eslint src spec karma.*",
@@ -10,7 +10,7 @@
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
     "dist:lib": "babel src -d lib",
-    "dist:dist": "browserify src/class-component.js -t babelify > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
+    "dist:dist": "rollup -i src/class-component.js -f iife | babel --presets es2015 > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
     "dist": "npm-run-all -p dist:*",
     "prepublish": "npm run clean && npm run dist"
   },
@@ -32,8 +32,10 @@
     "babel-plugin-espower": "^2.2.0",
     "babel-plugin-istanbul": "^2.0.0",
     "babel-preset-es2015-loose": "^7.0.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
     "babelify": "^7.3.0",
     "browserify": "^13.0.0",
+    "chai": "^3.5.0",
     "codecov": "^1.0.1",
     "dom-gen": "^2.1.0",
     "eslint": "^3.2.2",
@@ -48,10 +50,15 @@
     "karma-coveralls": "^1.1.2",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.0.1",
+    "karma-rollup-preprocessor": "^2.0.2",
     "mocha": "^3.0.0",
     "npm-run-all": "^3.0.0",
     "power-assert": "^1.4.1",
     "rimraf": "^2.5.2",
+    "rollup": "^0.34.10",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-commonjs": "^3.3.1",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "uglify-js": "^2.6.1",
     "watchify": "^3.7.0"
   },
@@ -66,11 +73,6 @@
     }
   },
   "babel": {
-    "presets": [
-      "es2015-loose"
-    ],
-    "plugins": [
-      "espower"
-    ]
+    "presets": ["es2015-rollup"]
   }
 }

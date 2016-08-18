@@ -4,7 +4,7 @@
  * @param {string} selector The selector to bind the listener
  * @param {string} key The handler name
  */
-const ListenerInfo = module.exports = function (event, selector, key) {
+export default function ListenerInfo (event, selector, key) {
   this.event = event
   this.selector = selector
   this.key = key

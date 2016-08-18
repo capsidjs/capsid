@@ -3,7 +3,7 @@
  * @param {String} className The class name
  * @param {Function} Constructor The constructor of the coelement of the class component
  */
-const ClassComponentConfiguration = module.exports = function (className, Constructor) {
+export default function ClassComponentConfiguration (className, Constructor) {
   this.className = className
   this.Constructor = Constructor
   this.initClass = className + '-initialized'

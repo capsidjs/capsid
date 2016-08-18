@@ -3,22 +3,21 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-const decorators = require('./decorators')
+import {on, emit, wire} from './decorators'
+import camelToKebab from './camel-to-kebab'
+import __manager__ from './class-component-manager'
+import defineFnCc from './fn.cc'
 
 /**
  * Initializes the module object.
- *
  * @param {jquery} $ The static jquery object
- * @return {Object}
  */
-module.exports = ($ => {
+void ($ => {
   if ($.cc) {
     return $.cc
   }
 
-  require('./fn.cc')
-
-  const __manager__ = require('./class-component-manager')
+  defineFnCc($)
 
   /**
    * The main namespace for class component module.
@@ -68,7 +67,7 @@ module.exports = ($ => {
   cc.component = name => {
     if (typeof name === 'function') {
       // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-      cc(require('./camel-to-kebab')(name.name), name)
+      cc(camelToKebab(name.name), name)
     }
 
     return Cls => cc(name, Cls)
@@ -78,9 +77,9 @@ module.exports = ($ => {
   cc.__manager__ = __manager__
 
   // Exports decorators
-  cc.on = decorators.on
-  cc.emit = decorators.emit
-  cc.wire = decorators.wire
+  cc.on = on
+  cc.emit = emit
+  cc.wire = wire
 
   return cc
 })(jQuery)

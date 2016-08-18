@@ -4,7 +4,7 @@ const $ = jQuery
  * This is class component contenxt manager class. This help to initialize and get colements.
  * @param {jQuery} jqObj jQuery object of a dom selection
  */
-const ClassComponentContext = module.exports = function (jqObj) {
+export default function ClassComponentContext (jqObj) {
   this.jqObj = jqObj
 }
 

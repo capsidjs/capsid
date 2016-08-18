@@ -1,4 +1,4 @@
-const camelToKebab = require('../src/camel-to-kebab')
+const camelToKebab = require('../src/camel-to-kebab').default
 
 const assert = require('power-assert')
 

@@ -1,11 +1,11 @@
 const $ = jQuery
 
-const ClassComponentConfiguration = require('./class-component-configuration')
+import ClassComponentConfiguration from './class-component-configuration'
 
 /**
  * ClassComponentManger handles the registration and initialization of the class compoents.
  */
-module.exports = {
+export default {
   /**
    * @property {Object<ClassComponentConfiguration>} ccc
    */
