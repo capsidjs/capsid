@@ -6,21 +6,32 @@ import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
  * @param {Function} Constructor The constructor of the coelement of the class component
  */
 export default function ClassComponentConfiguration (className, Constructor) {
-  this.className = className
+  this.name = className
   this.Constructor = Constructor
-  const initClass = this.initClass = className + '-initialized'
+  Constructor.coelementName = className
+  const initClass = className + '-initialized'
   this.selector = '.' + className + ':not(.' + initClass + ')'
+
+  /**
+   * Initialize the element by the configuration.
+   * @public
+   * @param {jQuery} elem The element
+   */
+  this.initElem = elem => {
+    if (!elem.hasClass(initClass)) {
+      initializeClassComponent(elem.addClass(initClass), className, Constructor)
+    }
+  }
 }
 
-const prototype = ClassComponentConfiguration.prototype
-
 /**
- * Applies the defining function to the element.
- * @private
- * @param {jQuery} elem
+ * Initializes the class component
+ * @param {jQuery} elem The element
+ * @param {string} name The component name
+ * @param {Function} Constructor The constructor of coelement
  */
-prototype.applyCustomDefinition = function (elem) {
-  const coelem = new this.Constructor(elem)
+const initializeClassComponent = (elem, name, Constructor) => {
+  const coelem = new Constructor(elem)
 
   if ($.isFunction(coelem.__cc_init__)) {
     coelem.__cc_init__(elem)
@@ -28,11 +39,11 @@ prototype.applyCustomDefinition = function (elem) {
     coelem.elem = elem
   }
 
-  this.getAllListenerInfo().forEach(listenerInfo => {
+  getAllListenerInfo(Constructor).forEach(listenerInfo => {
     listenerInfo.bindTo(elem, coelem)
   })
 
-  elem.data(COELEMENT_DATA_KEY_PREFIX + this.className, coelem)
+  elem.data(COELEMENT_DATA_KEY_PREFIX + name, coelem)
 }
 
 /**
@@ -40,17 +51,5 @@ prototype.applyCustomDefinition = function (elem) {
  * @private
  * @return {ListenerInfo[]}
  */
-prototype.getAllListenerInfo = function () {
-  return this.Constructor.__events__ || []
-}
+const getAllListenerInfo = Constructor => Constructor.__events__ || []
 
-/**
- * Initialize the element by the configuration.
- * @public
- * @param {jQuery} elem The element
- */
-prototype.initElem = function (elem) {
-  if (!elem.hasClass(this.initClass)) {
-    this.applyCustomDefinition(elem.addClass(this.initClass))
-  }
-}

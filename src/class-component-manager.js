@@ -27,8 +27,6 @@ function getConfiguration (className) {
  * @param {Function} Constructor The constructor of the class component
  */
 export function register (name, Constructor) {
-  Constructor.coelementName = name
-
   ccc[name] = new ClassComponentConfiguration(name, Constructor)
 }
 
