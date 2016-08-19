@@ -1,5 +1,6 @@
-import {initAt, initAllAtElem} from './class-component-manager'
-import {COELEMENT_DATA_KEY_PREFIX, reSpaces} from './const'
+import {initAt, initAllAtElem} from './class-component-manager.js'
+import {COELEMENT_DATA_KEY_PREFIX, reSpaces} from './const.js'
+import assert from './assert.js'
 
 /**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.
@@ -31,9 +32,6 @@ export function componentGet (elem, coelementName) {
     return coelement
   }
 
-  if (elem[0]) {
-    throw new Error('no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName)
-  }
-
-  throw new Error('coelement "' + coelementName + '" unavailable at empty dom selection')
+  assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection')
+  assert(0, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName)
 }

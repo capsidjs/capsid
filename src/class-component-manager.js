@@ -1,6 +1,7 @@
 import $ from './jquery.js'
 import {reSpaces} from './const.js'
 import ClassComponentConfiguration from './class-component-configuration.js'
+import assert from './assert.js'
 
 /**
  * @property {Object<ClassComponentConfiguration>} ccc
@@ -14,11 +15,9 @@ export const ccc = {}
  * @throw {Error}
  */
 function getConfiguration (className) {
-  if (ccc[className]) {
-    return ccc[className]
-  }
+  assert(ccc[className], 'Class componet "' + className + '" is not defined.')
 
-  throw new Error('Class componet "' + className + '" is not defined.')
+  return ccc[className]
 }
 
 /**

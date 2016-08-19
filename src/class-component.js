@@ -7,6 +7,7 @@ import {on, emit, wire} from './decorators.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register, init, initAll, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
+import assert from './assert.js'
 import $ from './jquery.js'
 import {reSpaces} from './const.js'
 
@@ -27,13 +28,8 @@ if (!$.cc) {
    * @param {Function} Constructor The class definition
    */
   cc = $.cc = (name, Constructor) => {
-    if (typeof name !== 'string') {
-      throw new Error('`name` of a class component has to be a string')
-    }
-
-    if (!isFunction(Constructor)) {
-      throw new Error('`Constructor` of a class component has to be a function')
-    }
+    assert(typeof name === 'string', '`name` of a class component has to be a string')
+    assert(isFunction(Constructor), '`Constructor` of a class component has to be a function')
 
     register(name, Constructor)
 
