@@ -1,4 +1,5 @@
 import {initAt, initAllAtElem} from './class-component-manager'
+import {COELEMENT_DATA_KEY_PREFIX} from './const'
 
 /**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.
@@ -24,7 +25,7 @@ export function componentInit (elem, classNames) {
  * @return {Object}
  */
 export function componentGet (elem, coelementName) {
-  const coelement = elem.data('__coelement:' + coelementName)
+  const coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName)
 
   if (coelement) {
     return coelement

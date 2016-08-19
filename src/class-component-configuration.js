@@ -1,4 +1,5 @@
-import $ from './jquery'
+import $ from './jquery.js'
+import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  * @param {String} className The class name
@@ -31,7 +32,7 @@ prototype.applyCustomDefinition = function (elem) {
     listenerInfo.bindTo(elem, coelem)
   })
 
-  elem.data('__coelement:' + this.className, coelem)
+  elem.data(COELEMENT_DATA_KEY_PREFIX + this.className, coelem)
 }
 
 /**
