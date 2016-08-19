@@ -7,8 +7,8 @@ import $ from './jquery'
 export default function ClassComponentConfiguration (className, Constructor) {
   this.className = className
   this.Constructor = Constructor
-  this.initClass = className + '-initialized'
-  this.selector = '.' + className + ':not(.' + this.initClass + ')'
+  const initClass = this.initClass = className + '-initialized'
+  this.selector = '.' + className + ':not(.' + initClass + ')'
 }
 
 const prototype = ClassComponentConfiguration.prototype
@@ -27,7 +27,9 @@ prototype.applyCustomDefinition = function (elem) {
     coelem.elem = elem
   }
 
-  this.getAllListenerInfo().forEach(listenerInfo => listenerInfo.bindTo(elem, coelem))
+  this.getAllListenerInfo().forEach(listenerInfo => {
+    listenerInfo.bindTo(elem, coelem)
+  })
 
   elem.data('__coelement:' + this.className, coelem)
 }
@@ -48,7 +50,6 @@ prototype.getAllListenerInfo = function () {
  */
 prototype.initElem = function (elem) {
   if (!elem.hasClass(this.initClass)) {
-    elem.addClass(this.initClass)
-    this.applyCustomDefinition(elem)
+    this.applyCustomDefinition(elem.addClass(this.initClass))
   }
 }

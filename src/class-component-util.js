@@ -9,9 +9,7 @@ import {initAt, initAllAtElem} from './class-component-manager'
 export function componentInit (elem, classNames) {
   if (classNames) {
     classNames.split(/\s+/).forEach(className => {
-      elem.addClass(className) // adds the class name
-
-      initAt(className, elem) // init as the class-component
+      initAt(className, elem.addClass(className)) // init as the class-component
     })
   } else {
     // Initializes anything it already has.

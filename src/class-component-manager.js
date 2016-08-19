@@ -66,7 +66,9 @@ export function initAllAtElem (elem) {
   if (classes) {
     classes.split(/\s+/)
       .filter(className => ccc[className])
-      .forEach(className => initAt(className, elem))
+      .forEach(className => {
+        initAt(className, elem)
+      })
   }
 }
 
@@ -74,5 +76,7 @@ export function initAllAtElem (elem) {
  * @param {jQuery|HTMLElement|String} elem The element
  */
 export function initAll (elem) {
-  Object.keys(ccc).forEach(className => init(className, elem))
+  Object.keys(ccc).forEach(className => {
+    init(className, elem)
+  })
 }
