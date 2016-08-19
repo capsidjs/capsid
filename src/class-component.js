@@ -13,11 +13,10 @@ import {reSpaces} from './const.js'
 
 const {isFunction} = $
 
-let cc
+let cc = $.cc
 
 // Initializes the module object.
-if (!$.cc) {
-
+if (!cc) {
 
   defineFnCc($)
 
