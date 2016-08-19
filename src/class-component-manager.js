@@ -1,6 +1,6 @@
-import $ from './jquery'
-
-import ClassComponentConfiguration from './class-component-configuration'
+import $ from './jquery.js'
+import {reSpaces} from './const.js'
+import ClassComponentConfiguration from './class-component-configuration.js'
 
 /**
  * @property {Object<ClassComponentConfiguration>} ccc
@@ -62,7 +62,7 @@ export function initAllAtElem (elem) {
   const classes = elem[0].className
 
   if (classes) {
-    classes.split(/\s+/)
+    classes.split(reSpaces)
       .forEach(className => {
         if (ccc[className]) {
           initAt(className, elem)

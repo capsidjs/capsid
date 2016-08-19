@@ -8,6 +8,7 @@ import camelToKebab from './camel-to-kebab.js'
 import {register, init, initAll, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
 import $ from './jquery.js'
+import {reSpaces} from './const.js'
 
 const {isFunction} = $
 
@@ -53,7 +54,7 @@ if (!$.cc) {
     }
 
     if (typeof classNames === 'string') {
-      classNames = classNames.split(/ +/)
+      classNames = classNames.split(reSpaces)
     }
 
     return classNames.map(className => init(className, elem))

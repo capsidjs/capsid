@@ -1,5 +1,5 @@
 import {initAt, initAllAtElem} from './class-component-manager'
-import {COELEMENT_DATA_KEY_PREFIX} from './const'
+import {COELEMENT_DATA_KEY_PREFIX, reSpaces} from './const'
 
 /**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.
@@ -9,7 +9,7 @@ import {COELEMENT_DATA_KEY_PREFIX} from './const'
  */
 export function componentInit (elem, classNames) {
   if (classNames) {
-    classNames.split(/\s+/).forEach(className => {
+    classNames.split(reSpaces).forEach(className => {
       initAt(className, elem.addClass(className)) // init as the class-component
     })
   } else {
