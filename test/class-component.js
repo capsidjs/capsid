@@ -35,7 +35,7 @@ describe('$.cc', () => {
   it('registers a class component of the given name', () => {
     $.cc('assign-test0', class Class0 {})
 
-    assert($.cc.__manager__.ccc['assign-test0'] != null)
+    assert($.cc.__ccc__['assign-test0'] != null)
   })
 
   it('sets coelementName property to the given construtor', () => {

@@ -1,4 +1,4 @@
-const $ = jQuery
+import {initAt, initAllAtElem} from './class-component-manager'
 
 /**
  * This is class component contenxt manager class. This help to initialize and get colements.
@@ -16,18 +16,17 @@ const prototype = ClassComponentContext.prototype
  * @return {jQuery}
  */
 prototype.up = function (classNames) {
-  const __manager__ = $.cc.__manager__
   const jqObj = this.jqObj
 
   if (classNames) {
     classNames.split(/\s+/).forEach(className => {
       jqObj.addClass(className) // adds the class name
 
-      __manager__.initAt(className, jqObj) // init as the class-component
+      initAt(className, jqObj) // init as the class-component
     })
   } else {
     // Initializes anything it already has.
-    __manager__.initAllAtElem(jqObj)
+    initAllAtElem(jqObj)
   }
 
   return jqObj

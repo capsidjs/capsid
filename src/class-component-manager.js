@@ -5,7 +5,7 @@ import ClassComponentConfiguration from './class-component-configuration'
 /**
  * @property {Object<ClassComponentConfiguration>} ccc
  */
-const ccc = {}
+export const ccc = {}
 
 /**
  * Gets the configuration of the given class name.
@@ -26,7 +26,7 @@ function getConfiguration (className) {
  * @param {String} name The name
  * @param {Function} Constructor The constructor of the class component
  */
-function register (name, Constructor) {
+export function register (name, Constructor) {
   Constructor.coelementName = name
 
   ccc[name] = new ClassComponentConfiguration(name, Constructor)
@@ -39,7 +39,7 @@ function register (name, Constructor) {
  * @return {Array<HTMLElement>} The elements which are initialized in this initialization
  * @throw {Error}
  */
-function init (className, elem) {
+export function init (className, elem) {
   const conf = getConfiguration(className)
 
   return $(conf.selector, elem).each(function () {
@@ -52,7 +52,7 @@ function init (className, elem) {
  * @param {String} className The class name
  * @param {jQuery|HTMLElement|String} elem The element
  */
-function initAt (className, elem) {
+export function initAt (className, elem) {
   getConfiguration(className).initElem($(elem))
 }
 
@@ -60,7 +60,7 @@ function initAt (className, elem) {
  * Initializes all the class component at the element.
  * @param {jQuery} elem jQuery selection of doms
  */
-function initAllAtElem (elem) {
+export function initAllAtElem (elem) {
   const classes = elem[0].className
 
   if (classes) {
@@ -73,12 +73,6 @@ function initAllAtElem (elem) {
 /**
  * @param {jQuery|HTMLElement|String} elem The element
  */
-function initAll (elem) {
+export function initAll (elem) {
   Object.keys(ccc).forEach(className => init(className, elem))
 }
-
-/**
- * ClassComponentManger handles the registration and initialization of the class compoents.
- */
-export default {ccc, register, init, initAt, initAllAtElem, initAll}
-

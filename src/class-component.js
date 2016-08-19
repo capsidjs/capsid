@@ -5,7 +5,7 @@
  */
 import {on, emit, wire} from './decorators'
 import camelToKebab from './camel-to-kebab'
-import __manager__ from './class-component-manager'
+import {register, init, initAll, ccc} from './class-component-manager'
 import defineFnCc from './fn.cc'
 
 /**
@@ -34,9 +34,9 @@ void ($ => {
       throw new Error('`Constructor` of a class component has to be a function')
     }
 
-    __manager__.register(name, Constructor)
+    register(name, Constructor)
 
-    $(() => { __manager__.init(name) })
+    $(() => { init(name) })
   }
 
   /**
@@ -47,7 +47,7 @@ void ($ => {
    */
   cc.init = (classNames, elem) => {
     if (classNames == null) {
-      __manager__.initAll(elem)
+      initAll(elem)
 
       return
     }
@@ -56,7 +56,7 @@ void ($ => {
       classNames = classNames.split(/ +/)
     }
 
-    return classNames.map(className => __manager__.init(className, elem))
+    return classNames.map(className => init(className, elem))
   }
 
   /**
@@ -73,8 +73,8 @@ void ($ => {
     return Cls => cc(name, Cls)
   }
 
-  // Exports __manager__
-  cc.__manager__ = __manager__
+  // Expose __ccc__
+  cc.__ccc__ = ccc
 
   // Exports decorators
   cc.on = on
