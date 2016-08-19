@@ -1,4 +1,4 @@
-const $ = jQuery
+import $ from './jquery'
 
 import ClassComponentConfiguration from './class-component-configuration'
 

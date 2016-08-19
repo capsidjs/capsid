@@ -7,17 +7,15 @@ import {on, emit, wire} from './decorators.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register, init, initAll, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
+import $ from './jquery.js'
 
-/**
- * Initializes the module object.
- * @param {jquery} $ The static jquery object
- */
-~($ => {
-  if ($.cc) {
-    return
-  }
+const {isFunction} = $
 
-  const {isFunction} = $
+let cc
+
+// Initializes the module object.
+if (!$.cc) {
+
 
   defineFnCc($)
 
@@ -27,7 +25,7 @@ import defineFnCc from './fn.cc.js'
    * @param {String} name The class name
    * @param {Function} Constructor The class definition
    */
-  const cc = $.cc = (name, Constructor) => {
+  cc = $.cc = (name, Constructor) => {
     if (typeof name !== 'string') {
       throw new Error('`name` of a class component has to be a string')
     }
@@ -82,4 +80,4 @@ import defineFnCc from './fn.cc.js'
   cc.on = on
   cc.emit = emit
   cc.wire = wire
-})(jQuery)
+}

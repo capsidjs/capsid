@@ -1,4 +1,4 @@
-const $ = jQuery
+import $ from './jquery'
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  * @param {String} className The class name
