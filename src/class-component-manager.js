@@ -26,7 +26,12 @@ function getConfiguration (className) {
  * @param {Function} Constructor The constructor of the class component
  */
 export function register (name, Constructor) {
+  assert(typeof name === 'string', '`name` of a class component has to be a string')
+  assert($.isFunction(Constructor), '`Constructor` of a class component has to be a function')
+
   ccc[name] = new ClassComponentConfiguration(name, Constructor)
+
+  $(() => { init(name) })
 }
 
 /**
