@@ -8,7 +8,6 @@ import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
 export default function ClassComponentConfiguration (className, Constructor) {
   this.name = className
   this.Constructor = Constructor
-  Constructor.coelementName = className
   const initClass = className + '-initialized'
   this.selector = '.' + className + ':not(.' + initClass + ')'
 

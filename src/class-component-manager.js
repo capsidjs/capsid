@@ -63,9 +63,10 @@ export function initAllAtElem (elem) {
 
   if (classes) {
     classes.split(/\s+/)
-      .filter(className => ccc[className])
       .forEach(className => {
-        initAt(className, elem)
+        if (ccc[className]) {
+          initAt(className, elem)
+        }
       })
   }
 }

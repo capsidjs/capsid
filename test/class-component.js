@@ -38,14 +38,6 @@ describe('$.cc', () => {
     assert($.cc.__ccc__['assign-test0'] != null)
   })
 
-  it('sets coelementName property to the given construtor', () => {
-    class Class0 {}
-
-    $.cc('assgin-test1', Class0)
-
-    assert(Class0.coelementName === 'assgin-test1')
-  })
-
   it('sets __coelement:class-name data property when the class component is initialized', () => {
     class Class1 {}
 
