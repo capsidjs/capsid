@@ -26,12 +26,11 @@ export function componentInit (elem, classNames) {
  * @return {Object}
  */
 export function componentGet (elem, coelementName) {
+  assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection')
+
   const coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName)
 
-  if (coelement) {
-    return coelement
-  }
+  assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName)
 
-  assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection')
-  assert(0, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName)
+  return coelement
 }
