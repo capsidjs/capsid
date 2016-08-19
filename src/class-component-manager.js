@@ -3,84 +3,82 @@ const $ = jQuery
 import ClassComponentConfiguration from './class-component-configuration'
 
 /**
- * ClassComponentManger handles the registration and initialization of the class compoents.
+ * @property {Object<ClassComponentConfiguration>} ccc
  */
-export default {
-  /**
-   * @property {Object<ClassComponentConfiguration>} ccc
-   */
-  ccc: {},
+const ccc = {}
 
-  /**
-   * Registers the class component configuration for the given name.
-   * @param {String} name The name
-   * @param {Function} Constructor The constructor of the class component
-   */
-  register (name, Constructor) {
-    Constructor.coelementName = name
+/**
+ * Gets the configuration of the given class name.
+ * @param {String} className The class name
+ * @return {ClassComponentConfiguration}
+ * @throw {Error}
+ */
+function getConfiguration (className) {
+  if (ccc[className]) {
+    return ccc[className]
+  }
 
-    this.ccc[name] = new ClassComponentConfiguration(name, Constructor)
-  },
+  throw new Error('Class componet "' + className + '" is not defined.')
+}
 
-  /**
-   * Initializes the class components of the given name in the given element.
-   * @param {String} className The class name
-   * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
-   * @return {Array<HTMLElement>} The elements which are initialized in this initialization
-   * @throw {Error}
-   */
-  init (className, elem) {
-    const ccc = this.getConfiguration(className)
+/**
+ * Registers the class component configuration for the given name.
+ * @param {String} name The name
+ * @param {Function} Constructor The constructor of the class component
+ */
+function register (name, Constructor) {
+  Constructor.coelementName = name
 
-    return $(ccc.selector, elem).each(function () {
-      ccc.initElem($(this))
-    }).toArray()
-  },
+  ccc[name] = new ClassComponentConfiguration(name, Constructor)
+}
 
-  /**
-   * Initializes the class component of the give name at the given element.
-   * @param {String} className The class name
-   * @param {jQuery|HTMLElement|String} elem The element
-   */
-  initAt (className, elem) {
-    this.getConfiguration(className).initElem($(elem))
-  },
+/**
+ * Initializes the class components of the given name in the given element.
+ * @param {String} className The class name
+ * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
+ * @return {Array<HTMLElement>} The elements which are initialized in this initialization
+ * @throw {Error}
+ */
+function init (className, elem) {
+  const conf = getConfiguration(className)
 
-  /**
-   * Initializes all the class component at the element.
-   * @param {jQuery} elem jQuery selection of doms
-   */
-  initAllAtElem (elem) {
-    const classes = elem[0].className
+  return $(conf.selector, elem).each(function () {
+    conf.initElem($(this))
+  }).toArray()
+}
 
-    if (classes) {
-      classes.split(/\s+/)
-        .filter(className => this.ccc[className])
-        .forEach(className => this.initAt(className, elem))
-    }
-  },
+/**
+ * Initializes the class component of the give name at the given element.
+ * @param {String} className The class name
+ * @param {jQuery|HTMLElement|String} elem The element
+ */
+function initAt (className, elem) {
+  getConfiguration(className).initElem($(elem))
+}
 
-  /**
-   * @param {jQuery|HTMLElement|String} elem The element
-   */
-  initAll (elem) {
-    Object.keys(this.ccc).forEach(className => {
-      this.init(className, elem)
-    })
-  },
+/**
+ * Initializes all the class component at the element.
+ * @param {jQuery} elem jQuery selection of doms
+ */
+function initAllAtElem (elem) {
+  const classes = elem[0].className
 
-  /**
-   * Gets the configuration of the given class name.
-   * @param {String} className The class name
-   * @return {ClassComponentConfiguration}
-   * @throw {Error}
-   */
-  getConfiguration (className) {
-    const ccc = this.ccc[className]
-
-    if (ccc) {
-      return ccc
-    }
-    throw new Error('Class componet "' + className + '" is not defined.')
+  if (classes) {
+    classes.split(/\s+/)
+      .filter(className => ccc[className])
+      .forEach(className => initAt(className, elem))
   }
 }
+
+/**
+ * @param {jQuery|HTMLElement|String} elem The element
+ */
+function initAll (elem) {
+  Object.keys(ccc).forEach(className => init(className, elem))
+}
+
+/**
+ * ClassComponentManger handles the registration and initialization of the class compoents.
+ */
+export default {ccc, register, init, initAt, initAllAtElem, initAll}
+

@@ -14,7 +14,7 @@ import defineFnCc from './fn.cc'
  */
 void ($ => {
   if ($.cc) {
-    return $.cc
+    return
   }
 
   defineFnCc($)
@@ -80,6 +80,4 @@ void ($ => {
   cc.on = on
   cc.emit = emit
   cc.wire = wire
-
-  return cc
 })(jQuery)
