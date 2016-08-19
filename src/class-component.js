@@ -24,7 +24,7 @@ if (!$.cc) {
    * @return {Object<HTMLElement[]>}
    */
   cc.init = (classNames, elem) => {
-    if (classNames == null) {
+    if (!classNames) {
       initAll(elem)
 
       return
@@ -48,7 +48,9 @@ if (!$.cc) {
       cc(camelToKebab(name.name), name)
     }
 
-    return Cls => cc(name, Cls)
+    return Cls => {
+      cc(name, Cls)
+    }
   }
 
   // Expose __ccc__
