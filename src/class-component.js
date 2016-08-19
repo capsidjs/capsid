@@ -3,19 +3,21 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-import {on, emit, wire} from './decorators'
-import camelToKebab from './camel-to-kebab'
-import {register, init, initAll, ccc} from './class-component-manager'
-import defineFnCc from './fn.cc'
+import {on, emit, wire} from './decorators.js'
+import camelToKebab from './camel-to-kebab.js'
+import {register, init, initAll, ccc} from './class-component-manager.js'
+import defineFnCc from './fn.cc.js'
 
 /**
  * Initializes the module object.
  * @param {jquery} $ The static jquery object
  */
-void ($ => {
+~($ => {
   if ($.cc) {
     return
   }
+
+  const {isFunction} = $
 
   defineFnCc($)
 
@@ -30,7 +32,7 @@ void ($ => {
       throw new Error('`name` of a class component has to be a string')
     }
 
-    if (typeof Constructor !== 'function') {
+    if (!isFunction(Constructor)) {
       throw new Error('`Constructor` of a class component has to be a function')
     }
 
@@ -65,7 +67,7 @@ void ($ => {
    * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
    */
   cc.component = name => {
-    if (typeof name === 'function') {
+    if (isFunction(name)) {
       // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
       cc(camelToKebab(name.name), name)
     }

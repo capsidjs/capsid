@@ -1,3 +1,4 @@
+const $ = jQuery
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  * @param {String} className The class name
@@ -20,7 +21,7 @@ const prototype = ClassComponentConfiguration.prototype
 prototype.applyCustomDefinition = function (elem) {
   const coelem = new this.Constructor(elem)
 
-  if (typeof coelem.__cc_init__ === 'function') {
+  if ($.isFunction(coelem.__cc_init__)) {
     coelem.__cc_init__(elem)
   } else {
     coelem.elem = elem

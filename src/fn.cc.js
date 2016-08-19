@@ -13,10 +13,7 @@ export default $ => Object.defineProperty($.fn, 'cc', {
       cc = classNames => ctx.up(classNames)
 
       cc.get = className => ctx.get(className)
-      cc.init = className => {
-        cc(className)
-        return cc.get(className)
-      }
+      cc.init = className => cc(className).cc.get(className)
 
       this.data(CLASS_COMPONENT_DATA_KEY, cc)
     }
