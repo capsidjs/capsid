@@ -1,4 +1,4 @@
-import {KEY_EVENT_LISTENERS} from './const'
+import {KEY_EVENT_LISTENERS, constructor} from './const'
 
 /**
  * The event listener's information model.
@@ -19,15 +19,13 @@ export default function ListenerInfo (event, selector, key) {
   }
 }
 
-const constructor = 'constructor'
-
 /**
  * Gets the listers from the prototype.
  * @param {object} prototype The prototype object
+ * @param {ListenerInfo[]} listeners The dummy parameter, don't use
  * @return {ListenerInfo[]}
  */
-export const getListeners = prototype => {
-  let listeners
+export const getListeners = (prototype, listeners) => {
   do {
     listeners = prototype[constructor] && prototype[constructor][KEY_EVENT_LISTENERS]
   } while (!listeners && (prototype = Object.getPrototypeOf(prototype)))
