@@ -1,7 +1,8 @@
-import ListenerInfo from './listener-info.js'
+import ListenerInfo, {getListeners} from './listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc} from './class-component-manager.js'
 import {isFunction} from './jquery.js'
+import {KEY_EVENT_LISTENERS} from './const'
 
 /**
  * @param {Function} constructor The constructor
@@ -9,8 +10,8 @@ import {isFunction} from './jquery.js'
  * @param {string} event The event name
  * @param {string} selector The selector
  */
-const registerListenerInfo = (constructor, key, event, selector) => {
-  (constructor.__events__ = constructor.__events__ || []).push(new ListenerInfo(event, selector, key))
+const registerListenerInfo = (prototype, key, event, selector) => {
+  prototype.constructor[KEY_EVENT_LISTENERS] = getListeners(prototype).concat(new ListenerInfo(event, selector, key))
 }
 
 /**
@@ -19,7 +20,7 @@ const registerListenerInfo = (constructor, key, event, selector) => {
  */
 cc.on = event => {
   const onDecorator = (target, key) => {
-    registerListenerInfo(target.constructor, key, event)
+    registerListenerInfo(target, key, event)
   }
 
   /**
@@ -28,7 +29,7 @@ cc.on = event => {
    * @param {string} selector The selector for listening.
    */
   onDecorator.at = selector => (target, key) => {
-    registerListenerInfo(target.constructor, key, event, selector)
+    registerListenerInfo(target, key, event, selector)
   }
 
   return onDecorator

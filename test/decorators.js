@@ -24,6 +24,27 @@ describe('@on(event)', () => {
 
     div().cc('on-test0').trigger('click')
   })
+
+  it('registers the method as the event listener for children classes', done => {
+    class OnTest1 {
+      handler () { done() }
+    }
+    function OnTest1Child () {}
+    OnTest1Child.prototype = new OnTest1()
+    OnTest1Child.prototype.constructor = OnTest1Child
+    function OnTest1ChildChild () {
+    }
+    OnTest1ChildChild.prototype = new OnTest1Child()
+    OnTest1ChildChild.prototype.constructor = OnTest1ChildChild
+    OnTest1ChildChild.prototype.bar = function () {}
+
+    callDecorator(on('click'), OnTest1, 'handler')
+    callDecorator(on('bar'), OnTest1ChildChild, 'bar')
+
+    $.cc('on-test1-child-child', OnTest1ChildChild)
+
+    div().cc('on-test1-child-child').trigger('click')
+  })
 })
 
 describe('@on(event).at(selector)', () => {
