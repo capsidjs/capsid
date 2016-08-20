@@ -1,5 +1,4 @@
 import $, {isFunction} from './jquery.js'
-import {reSpaces} from './const.js'
 import ClassComponentConfiguration from './class-component-configuration.js'
 import assert from './assert.js'
 

@@ -1,6 +1,7 @@
 import {isFunction} from './jquery.js'
 import {getListeners} from './listener-info.js'
-import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
+import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
+
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
  * @param {String} className The class name
@@ -16,32 +17,21 @@ export default function ClassComponentConfiguration (className, Constructor) {
    * Initialize the element by the configuration.
    * @public
    * @param {jQuery} elem The element
+   * @param {object} coelem The dummy parameter, don't use
    */
-  this.initElem = elem => {
+  this.initElem = (elem, coelem) => {
     if (!elem.hasClass(initClass)) {
-      initializeClassComponent(elem.addClass(initClass), className, Constructor)
+      elem.addClass(initClass).data(COELEMENT_DATA_KEY_PREFIX + className, coelem = new Constructor(elem))
+
+      if (isFunction(coelem.__cc_init__)) {
+        coelem.__cc_init__(elem)
+      } else {
+        coelem.elem = elem
+      }
+
+      getListeners(Constructor.prototype).forEach(listenerInfo => {
+        listenerInfo.bindTo(elem, coelem)
+      })
     }
   }
-}
-
-/**
- * Initializes the class component
- * @param {jQuery} elem The element
- * @param {string} name The component name
- * @param {Function} Constructor The constructor of coelement
- */
-const initializeClassComponent = (elem, name, Constructor) => {
-  const coelem = new Constructor(elem)
-
-  if (isFunction(coelem.__cc_init__)) {
-    coelem.__cc_init__(elem)
-  } else {
-    coelem.elem = elem
-  }
-
-  getListeners(Constructor.prototype).forEach(listenerInfo => {
-    listenerInfo.bindTo(elem, coelem)
-  })
-
-  elem.data(COELEMENT_DATA_KEY_PREFIX + name, coelem)
 }
