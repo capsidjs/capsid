@@ -1,4 +1,4 @@
-import {initAt, initAllAtElem} from './class-component-manager.js'
+import {ccc, initAt} from './class-component-manager.js'
 import {COELEMENT_DATA_KEY_PREFIX, reSpaces} from './const.js'
 import assert from './assert.js'
 
@@ -9,14 +9,15 @@ import assert from './assert.js'
  * @return {jQuery}
  */
 export function componentInit (elem, classNames) {
-  if (classNames) {
-    classNames.split(reSpaces).forEach(className => {
-      initAt(className, elem.addClass(className)) // init as the class-component
-    })
-  } else {
-    // Initializes anything it already has.
-    initAllAtElem(elem)
+  if (typeof classNames !== 'string') {
+    classNames = elem[0].className
   }
+
+  classNames.split(reSpaces).forEach(className => {
+    if (ccc[className]) {
+      initAt(className, elem)
+    }
+  })
 }
 
 /**

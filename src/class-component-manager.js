@@ -55,22 +55,5 @@ export function init (className, elem) {
  * @param {jQuery|HTMLElement|String} elem The element
  */
 export function initAt (className, elem) {
-  getConfiguration(className).initElem($(elem))
-}
-
-/**
- * Initializes all the class component at the element.
- * @param {jQuery} elem jQuery selection of doms
- */
-export function initAllAtElem (elem) {
-  const classes = elem[0].className
-
-  if (classes) {
-    classes.split(reSpaces)
-      .forEach(className => {
-        if (ccc[className]) {
-          initAt(className, elem)
-        }
-      })
-  }
+  getConfiguration(className).initElem($(elem).addClass(className))
 }
