@@ -93,16 +93,6 @@ describe('$.cc', () => {
       assert(foo.attr('is_foo') === 'true')
     })
 
-    it('initializes multiple class components', () => {
-      const foo = $('<div class="foo" />').appendTo('body')
-      const bar = $('<div class="bar" />').appendTo('body')
-
-      $.cc.init(['foo', 'bar'])
-
-      assert(foo.attr('is_foo') === 'true')
-      assert(bar.attr('is_bar') === 'true')
-    })
-
     it('initializes multiple class componet by class names separated by whitespaces', () => {
       const foo = $('<div class="foo" />').appendTo('body')
       const bar = $('<div class="bar" />').appendTo('body')

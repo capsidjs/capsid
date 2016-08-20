@@ -18,21 +18,17 @@ if (!$.cc) {
   /**
    * Initializes the all class components of the given names and returns the array of initialized components.
    *
-   * @param {String[]|String} arguments
+   * @param {String} classNames
    * @return {Object<HTMLElement[]>}
    */
   cc.init = (classNames, elem) => {
-    if (!classNames) {
+    if (typeof classNames !== 'string') {
       initAll(elem)
 
       return
     }
 
-    if (typeof classNames === 'string') {
-      classNames = classNames.split(reSpaces)
-    }
-
-    return classNames.map(className => init(className, elem))
+    return classNames.split(reSpaces).map(className => init(className, elem))
   }
 
   // Expose __ccc__
