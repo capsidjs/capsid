@@ -3,36 +3,43 @@
 (function () {
   'use strict';
 
+  var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
+  var KEY_EVENT_LISTENERS = '__cc_listeners__';
+  var CLASS_COMPONENT_DATA_KEY = '__cc_data__';
+  var constructor = 'constructor';
+  var OBJECT = Object;
+
   /**
    * The event listener's information model.
    * @param {string} event The event name to bind
    * @param {string} selector The selector to bind the listener
    * @param {string} key The handler name
    */
-
   function ListenerInfo(event, selector, key) {
-    this.event = event;
-    this.selector = selector;
-    this.key = key;
+    /**
+     * Binds the listener to the given element with the given coelement.
+     * @param {jQuery} elem The jquery element
+     * @param {object} coelem The coelement which is bound to the element
+     */
+    this.bindTo = function (elem, coelem) {
+      elem.on(event, selector, function () {
+        coelem[key].apply(coelem, arguments);
+      });
+    };
   }
 
   /**
-   * Binds the listener to the given element with the given coelement.
-   * @param {jQuery} elem The jquery element
-   * @param {object} coelem The coelement which is bound to the element
+   * Gets the listers from the prototype.
+   * @param {object} prototype The prototype object
+   * @param {ListenerInfo[]} listeners The dummy parameter, don't use
+   * @return {ListenerInfo[]}
    */
-  ListenerInfo.prototype.bindTo = function (elem, coelem) {
-    var key = this.key;
+  var getListeners = function getListeners(prototype, listeners) {
+    do {
+      listeners = prototype[constructor] && prototype[constructor][KEY_EVENT_LISTENERS];
+    } while (!listeners && (prototype = OBJECT.getPrototypeOf(prototype)));
 
-    elem.on(this.event, this.selector, function () {
-      coelem[key].apply(coelem, arguments);
-    });
-  };
-
-  var camelToKebab = function camelToKebab(camelString) {
-    return camelString.replace(/[A-Z]/g, function (c) {
-      return '-' + c.toLowerCase();
-    }).replace(/^-/, '');
+    return listeners || [];
   };
 
   /**
@@ -41,17 +48,113 @@
    * @param {string} event The event name
    * @param {string} selector The selector
    */
-  var registerListenerInfo = function registerListenerInfo(constructor, key, event, selector) {
-    (constructor.__events__ = constructor.__events__ || []).push(new ListenerInfo(event, selector, key));
+  var registerListenerInfo = function registerListenerInfo(prototype, key, event, selector) {
+    prototype[constructor][KEY_EVENT_LISTENERS] = getListeners(prototype).concat(new ListenerInfo(event, selector, key));
   };
+
+  var camelToKebab = function camelToKebab(camelString) {
+    return camelString.replace(/[A-Z]/g, function (c) {
+      return '-' + c.toLowerCase();
+    }).replace(/^-/, '');
+  };
+
+  var $ = jQuery;
+  var isFunction = $.isFunction;
+
+  /**
+   * ClassComponentConfiguration is the utility class for class component initialization.
+   * @param {String} className The class name
+   * @param {Function} Constructor The constructor of the coelement of the class component
+   */
+  function ClassComponentConfiguration(className, Constructor) {
+    this.Constructor = Constructor;
+    var initClass = className + '-initialized';
+    this.selector = '.' + className + ':not(.' + initClass + ')';
+
+    /**
+     * Initialize the element by the configuration.
+     * @public
+     * @param {jQuery} elem The element
+     * @param {object} coelem The dummy parameter, don't use
+     */
+    this.initElem = function (elem, coelem) {
+      if (!elem.hasClass(initClass)) {
+        elem.addClass(initClass).data(COELEMENT_DATA_KEY_PREFIX + className, coelem = new Constructor(elem));
+
+        if (isFunction(coelem.__cc_init__)) {
+          coelem.__cc_init__(elem);
+        } else {
+          coelem.elem = elem;
+        }
+
+        getListeners(Constructor.prototype).forEach(function (listenerInfo) {
+          listenerInfo.bindTo(elem, coelem);
+        });
+      }
+    };
+  }
+
+  function assert(assertion, message) {
+    if (!assertion) {
+      throw new Error(message);
+    }
+  }
+
+  /**
+   * @property {Object<ClassComponentConfiguration>} ccc
+   */
+  var ccc = {};
+
+  /**
+   * Gets the configuration of the given class name.
+   * @param {String} className The class name
+   * @return {ClassComponentConfiguration}
+   * @throw {Error}
+   */
+  function getConfiguration(className) {
+    assert(ccc[className], 'Class componet "' + className + '" is not defined.');
+
+    return ccc[className];
+  }
+
+  /**
+   * Registers the class component configuration for the given name.
+   * @param {String} name The name
+   * @param {Function} Constructor The constructor of the class component
+   */
+  function register(name, Constructor) {
+    assert(typeof name === 'string', '`name` of a class component has to be a string');
+    assert(isFunction(Constructor), '`Constructor` of a class component has to be a function');
+
+    ccc[name] = new ClassComponentConfiguration(name, Constructor);
+
+    $(function () {
+      init(name);
+    });
+  }
+
+  /**
+   * Initializes the class components of the given name in the given element.
+   * @param {String} classNames The class names
+   * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
+   * @return {Array<HTMLElement>} The elements which are initialized in this initialization
+   * @throw {Error}
+   */
+  function init(classNames, elem) {
+    (typeof classNames === 'string' ? classNames.split(/\s+/) : OBJECT.keys(ccc)).map(getConfiguration).forEach(function (conf) {
+      $(conf.selector, elem).each(function () {
+        conf.initElem($(this));
+      });
+    });
+  }
 
   /**
    * The decorator for registering event listener info to the method.
    * @param {string} event The event name
    */
-  var on = function on(event) {
+  register.on = function (event) {
     var onDecorator = function onDecorator(target, key) {
-      registerListenerInfo(target.constructor, key, event);
+      registerListenerInfo(target, key, event);
     };
 
     /**
@@ -61,7 +164,7 @@
      */
     onDecorator.at = function (selector) {
       return function (target, key) {
-        registerListenerInfo(target.constructor, key, event, selector);
+        registerListenerInfo(target, key, event, selector);
       };
     };
 
@@ -73,14 +176,14 @@
    * This decorator adds the event emission at the beginning of the method.
    * @param {string} event The event name
    */
-  var emit = function emit(event) {
+  register.emit = function (event) {
     var emitDecorator = function emitDecorator(target, key, descriptor) {
       var method = descriptor.value;
 
       descriptor.value = function () {
         this.elem.trigger(event, arguments);
 
-        method.apply(this, arguments);
+        return method.apply(this, arguments);
       };
     };
 
@@ -146,7 +249,7 @@
   /**
    * Wires the class component of the name of the key to the property of the same name.
    */
-  var wire = function wire(target, key, descriptor) {
+  register.wire = function (target, key, descriptor) {
     if (!descriptor) {
       // If the descriptor is not given, then suppose this is called as @wire(componentName, selector) and therefore
       // we need to return the following expression (it works as another decorator).
@@ -156,205 +259,61 @@
     wireByNameAndSelector(camelToKebab(key))(target, key, descriptor);
   };
 
-  var $ = jQuery;
-
-  var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
-  var reSpaces = /\s+/;
-
   /**
-   * ClassComponentConfiguration is the utility class for class component initialization.
-   * @param {String} className The class name
-   * @param {Function} Constructor The constructor of the coelement of the class component
+   * The decorator for class component registration.
+   * @param {String|Function} name The class name or the implementation class itself
+   * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
    */
-  function ClassComponentConfiguration(className, Constructor) {
-    this.name = className;
-    this.Constructor = Constructor;
-    var initClass = className + '-initialized';
-    this.selector = '.' + className + ':not(.' + initClass + ')';
-
-    /**
-     * Initialize the element by the configuration.
-     * @public
-     * @param {jQuery} elem The element
-     */
-    this.initElem = function (elem) {
-      if (!elem.hasClass(initClass)) {
-        initializeClassComponent(elem.addClass(initClass), className, Constructor);
-      }
-    };
-  }
-
-  /**
-   * Initializes the class component
-   * @param {jQuery} elem The element
-   * @param {string} name The component name
-   * @param {Function} Constructor The constructor of coelement
-   */
-  var initializeClassComponent = function initializeClassComponent(elem, name, Constructor) {
-    var coelem = new Constructor(elem);
-
-    if ($.isFunction(coelem.__cc_init__)) {
-      coelem.__cc_init__(elem);
-    } else {
-      coelem.elem = elem;
+  register.component = function (name) {
+    if (!isFunction(name)) {
+      return function (Cls) {
+        register(name, Cls);
+      };
     }
 
-    getAllListenerInfo(Constructor).forEach(function (listenerInfo) {
-      listenerInfo.bindTo(elem, coelem);
-    });
-
-    elem.data(COELEMENT_DATA_KEY_PREFIX + name, coelem);
+    // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
+    register(camelToKebab(name.name), name);
   };
-
-  /**
-   * Gets all the listener info of the coelement.
-   * @private
-   * @return {ListenerInfo[]}
-   */
-  var getAllListenerInfo = function getAllListenerInfo(Constructor) {
-    return Constructor.__events__ || [];
-  };
-
-  function assert(assertion, message) {
-    if (!assertion) {
-      throw new Error(message);
-    }
-  }
-
-  /**
-   * @property {Object<ClassComponentConfiguration>} ccc
-   */
-  var ccc = {};
-
-  /**
-   * Gets the configuration of the given class name.
-   * @param {String} className The class name
-   * @return {ClassComponentConfiguration}
-   * @throw {Error}
-   */
-  function getConfiguration(className) {
-    assert(ccc[className], 'Class componet "' + className + '" is not defined.');
-
-    return ccc[className];
-  }
-
-  /**
-   * Registers the class component configuration for the given name.
-   * @param {String} name The name
-   * @param {Function} Constructor The constructor of the class component
-   */
-  function register(name, Constructor) {
-    assert(typeof name === 'string', '`name` of a class component has to be a string');
-    assert($.isFunction(Constructor), '`Constructor` of a class component has to be a function');
-
-    ccc[name] = new ClassComponentConfiguration(name, Constructor);
-
-    $(function () {
-      init(name);
-    });
-  }
-
-  /**
-   * Initializes the class components of the given name in the given element.
-   * @param {String} className The class name
-   * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
-   * @return {Array<HTMLElement>} The elements which are initialized in this initialization
-   * @throw {Error}
-   */
-  function init(className, elem) {
-    var conf = getConfiguration(className);
-
-    return $(conf.selector, elem).each(function () {
-      conf.initElem($(this));
-    }).toArray();
-  }
-
-  /**
-   * Initializes the class component of the give name at the given element.
-   * @param {String} className The class name
-   * @param {jQuery|HTMLElement|String} elem The element
-   */
-  function initAt(className, elem) {
-    getConfiguration(className).initElem($(elem));
-  }
-
-  /**
-   * Initializes all the class component at the element.
-   * @param {jQuery} elem jQuery selection of doms
-   */
-  function initAllAtElem(elem) {
-    var classes = elem[0].className;
-
-    if (classes) {
-      classes.split(reSpaces).forEach(function (className) {
-        if (ccc[className]) {
-          initAt(className, elem);
-        }
-      });
-    }
-  }
-
-  /**
-   * @param {jQuery|HTMLElement|String} elem The element
-   */
-  function initAll(elem) {
-    Object.keys(ccc).forEach(function (className) {
-      init(className, elem);
-    });
-  }
-
-  /**
-   * Initializes the element if it has registered class component names. Returns the jquery object itself.
-   * @param {jQuery} elem The element (jQuery selection)
-   * @param {string} [classNames] The class name.
-   * @return {jQuery}
-   */
-  function componentInit(elem, classNames) {
-    if (classNames) {
-      classNames.split(reSpaces).forEach(function (className) {
-        initAt(className, elem.addClass(className)); // init as the class-component
-      });
-    } else {
-        // Initializes anything it already has.
-        initAllAtElem(elem);
-      }
-  }
-
-  /**
-   * Gets the coelement of the given name in the given element.
-   * @param {jQuery} elem The elemenet (jQuery selection)
-   * @param {String} coelementName The name of the coelement
-   * @return {Object}
-   */
-  function componentGet(elem, coelementName) {
-    assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection');
-
-    var coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName);
-
-    assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName);
-
-    return coelement;
-  }
-
-  var CLASS_COMPONENT_DATA_KEY = '__class_component_data__';
 
   // Defines the special property cc on the jquery prototype.
   var defineFnCc = function defineFnCc($) {
-    return Object.defineProperty($.fn, 'cc', {
+    return OBJECT.defineProperty($.fn, 'cc', {
       get: function get() {
-        var _this2 = this;
-
-        var cc = this.data(CLASS_COMPONENT_DATA_KEY);
+        var elem = this;
+        var cc = elem.data(CLASS_COMPONENT_DATA_KEY);
 
         if (!cc) {
-          this.data(CLASS_COMPONENT_DATA_KEY, cc = function cc(classNames) {
-            componentInit(_this2, classNames);
-            return _this2;
-          });
+          /**
+           * Initializes the element as class-component of the given names. If the names not given, then initializes it by the class-component of the class names it already has.
+           * @param {string} classNames The class component names
+           * @return {jQuery}
+           */
+          cc = function cc(classNames) {
+            (typeof classNames === 'string' ? classNames : elem[0].className).split(/\s+/).forEach(function (className) {
+              if (ccc[className]) {
+                getConfiguration(className).initElem(elem.addClass(className));
+              }
+            });
 
-          cc.get = function (className) {
-            return componentGet(_this2, className);
+            return elem;
           };
+          elem.data(CLASS_COMPONENT_DATA_KEY, cc);
+
+          /**
+           * Gets the coelement of the given name.
+           * @param {String} coelementName The name of the coelement
+           * @return {Object}
+           */
+          cc.get = function (coelementName) {
+            assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection');
+
+            var coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName);
+
+            assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName);
+
+            return coelement;
+          };
+
           cc.init = function (className) {
             return cc(className).cc.get(className);
           };
@@ -366,7 +325,7 @@
   };
 
   /**
-   * class-component.js v10.5.0
+   * class-component.js v10.6.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
@@ -376,51 +335,10 @@
 
     defineFnCc($);
 
-    /**
-     * Initialized the all class components of the given names and returns of the promise of all initialization.
-     *
-     * @param {String[]|String} arguments
-     * @return {Object<HTMLElement[]>}
-     */
-    register.init = function (classNames, elem) {
-      if (!classNames) {
-        initAll(elem);
-
-        return;
-      }
-
-      if (typeof classNames === 'string') {
-        classNames = classNames.split(reSpaces);
-      }
-
-      return classNames.map(function (className) {
-        return init(className, elem);
-      });
-    };
-
-    /**
-     * The decorator for class component registration.
-     * @param {String|Function} name The class name or the implementation class itself
-     * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
-     */
-    register.component = function (name) {
-      if (!$.isFunction(name)) {
-        return function (Cls) {
-          register(name, Cls);
-        };
-      }
-
-      // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-      register(camelToKebab(name.name), name);
-    };
+    register.init = init;
 
     // Expose __ccc__
     register.__ccc__ = ccc;
-
-    // Exports decorators
-    register.on = on;
-    register.emit = emit;
-    register.wire = wire;
   }
 })();
 
