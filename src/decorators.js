@@ -1,18 +1,8 @@
-import ListenerInfo, {getListeners} from './listener-info.js'
+import ListenerInfo, {getListeners, registerListenerInfo} from './listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc} from './class-component-manager.js'
 import {isFunction} from './jquery.js'
 import {KEY_EVENT_LISTENERS} from './const'
-
-/**
- * @param {Function} constructor The constructor
- * @param {string} key The key of handler method
- * @param {string} event The event name
- * @param {string} selector The selector
- */
-const registerListenerInfo = (prototype, key, event, selector) => {
-  prototype.constructor[KEY_EVENT_LISTENERS] = getListeners(prototype).concat(new ListenerInfo(event, selector, key))
-}
 
 /**
  * The decorator for registering event listener info to the method.

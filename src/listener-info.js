@@ -19,6 +19,7 @@ export default function ListenerInfo (event, selector, key) {
   }
 }
 
+const constructor = 'constructor'
 
 /**
  * Gets the listers from the prototype.
@@ -28,8 +29,18 @@ export default function ListenerInfo (event, selector, key) {
 export const getListeners = prototype => {
   let listeners
   do {
-    listeners = prototype.constructor && prototype.constructor[KEY_EVENT_LISTENERS]
+    listeners = prototype[constructor] && prototype[constructor][KEY_EVENT_LISTENERS]
   } while (!listeners && (prototype = Object.getPrototypeOf(prototype)))
 
   return listeners || []
+}
+
+/**
+ * @param {Function} constructor The constructor
+ * @param {string} key The key of handler method
+ * @param {string} event The event name
+ * @param {string} selector The selector
+ */
+export const registerListenerInfo = (prototype, key, event, selector) => {
+  prototype[constructor][KEY_EVENT_LISTENERS] = getListeners(prototype).concat(new ListenerInfo(event, selector, key))
 }
