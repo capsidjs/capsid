@@ -1,4 +1,4 @@
-import $ from './jquery.js'
+import {isFunction} from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
@@ -32,7 +32,7 @@ export default function ClassComponentConfiguration (className, Constructor) {
 const initializeClassComponent = (elem, name, Constructor) => {
   const coelem = new Constructor(elem)
 
-  if ($.isFunction(coelem.__cc_init__)) {
+  if (isFunction(coelem.__cc_init__)) {
     coelem.__cc_init__(elem)
   } else {
     coelem.elem = elem

@@ -7,7 +7,7 @@ import './decorators.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc, init, initAll, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
-import $ from './jquery.js'
+import $, {isFunction} from './jquery.js'
 import {reSpaces} from './const.js'
 
 // Initializes the module object.
@@ -42,7 +42,7 @@ if (!$.cc) {
    * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
    */
   cc.component = name => {
-    if (!$.isFunction(name)) {
+    if (!isFunction(name)) {
       return Cls => {
         cc(name, Cls)
       }

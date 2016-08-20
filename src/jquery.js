@@ -1,1 +1,3 @@
-export default jQuery
+const $ = jQuery
+export default $
+export const isFunction = $.isFunction

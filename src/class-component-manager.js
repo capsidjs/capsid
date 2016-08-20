@@ -1,4 +1,4 @@
-import $ from './jquery.js'
+import $, {isFunction} from './jquery.js'
 import {reSpaces} from './const.js'
 import ClassComponentConfiguration from './class-component-configuration.js'
 import assert from './assert.js'
@@ -27,7 +27,7 @@ function getConfiguration (className) {
  */
 export function register (name, Constructor) {
   assert(typeof name === 'string', '`name` of a class component has to be a string')
-  assert($.isFunction(Constructor), '`Constructor` of a class component has to be a function')
+  assert(isFunction(Constructor), '`Constructor` of a class component has to be a function')
 
   ccc[name] = new ClassComponentConfiguration(name, Constructor)
 
