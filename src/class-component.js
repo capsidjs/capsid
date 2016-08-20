@@ -4,10 +4,9 @@
  * license: MIT
  */
 import './decorators.js'
-import camelToKebab from './camel-to-kebab.js'
 import {register as cc, init, initAll, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
-import $, {isFunction} from './jquery.js'
+import $ from './jquery.js'
 import {reSpaces} from './const.js'
 
 // Initializes the module object.
@@ -17,7 +16,7 @@ if (!$.cc) {
   defineFnCc($)
 
   /**
-   * Initialized the all class components of the given names and returns of the promise of all initialization.
+   * Initializes the all class components of the given names and returns the array of initialized components.
    *
    * @param {String[]|String} arguments
    * @return {Object<HTMLElement[]>}
@@ -34,22 +33,6 @@ if (!$.cc) {
     }
 
     return classNames.map(className => init(className, elem))
-  }
-
-  /**
-   * The decorator for class component registration.
-   * @param {String|Function} name The class name or the implementation class itself
-   * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
-   */
-  cc.component = name => {
-    if (!isFunction(name)) {
-      return Cls => {
-        cc(name, Cls)
-      }
-    }
-
-    // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-    cc(camelToKebab(name.name), name)
   }
 
   // Expose __ccc__

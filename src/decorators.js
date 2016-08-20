@@ -1,6 +1,7 @@
-import ListenerInfo from './listener-info'
-import camelToKebab from './camel-to-kebab'
-import {register as cc} from './class-component-manager'
+import ListenerInfo from './listener-info.js'
+import camelToKebab from './camel-to-kebab.js'
+import {register as cc} from './class-component-manager.js'
+import {isFunction} from './jquery.js'
 
 /**
  * @param {Function} constructor The constructor
@@ -112,4 +113,20 @@ cc.wire = (target, key, descriptor) => {
   }
 
   wireByNameAndSelector(camelToKebab(key))(target, key, descriptor)
+}
+
+/**
+ * The decorator for class component registration.
+ * @param {String|Function} name The class name or the implementation class itself
+ * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
+ */
+cc.component = name => {
+  if (!isFunction(name)) {
+    return Cls => {
+      cc(name, Cls)
+    }
+  }
+
+  // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
+  cc(camelToKebab(name.name), name)
 }
