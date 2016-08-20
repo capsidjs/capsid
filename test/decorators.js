@@ -46,18 +46,22 @@ describe('@on(event).at(selector)', () => {
 describe('@emit(event)', () => {
   it('makes the method emits the event with the arguments of the method', done => {
     class EmitTest0 {
-      foo () {}
+      foo () {
+        return 42
+      }
     }
     $.cc('emit-test0', EmitTest0)
     callDecorator($.cc.emit('event-foo'), EmitTest0, 'foo')
 
-    div().on('event-foo', (e, a, b, c) => {
+    const coelem = div().on('event-foo', (e, a, b, c) => {
       assert(a === 1)
       assert(b === 2)
       assert(c === 3)
+    }).cc.init('emit-test0')
 
-      done()
-    }).cc.init('emit-test0').foo(1, 2, 3)
+    assert(coelem.foo(1, 2, 3) === 42)
+
+    done()
   })
 })
 

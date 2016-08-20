@@ -44,7 +44,7 @@ export const emit = event => {
     descriptor.value = function () {
       this.elem.trigger(event, arguments)
 
-      method.apply(this, arguments)
+      return method.apply(this, arguments)
     }
   }
 
