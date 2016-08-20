@@ -7,23 +7,18 @@ import {KEY_EVENT_LISTENERS} from './const'
  * @param {string} key The handler name
  */
 export default function ListenerInfo (event, selector, key) {
-  this.event = event
-  this.selector = selector
-  this.key = key
+  /**
+   * Binds the listener to the given element with the given coelement.
+   * @param {jQuery} elem The jquery element
+   * @param {object} coelem The coelement which is bound to the element
+   */
+  this.bindTo = (elem, coelem) => {
+    elem.on(event, selector, function () {
+      coelem[key].apply(coelem, arguments)
+    })
+  }
 }
 
-/**
- * Binds the listener to the given element with the given coelement.
- * @param {jQuery} elem The jquery element
- * @param {object} coelem The coelement which is bound to the element
- */
-ListenerInfo.prototype.bindTo = function (elem, coelem) {
-  const key = this.key
-
-  elem.on(this.event, this.selector, function () {
-    coelem[key].apply(coelem, arguments)
-  })
-}
 
 /**
  * Gets the listers from the prototype.
