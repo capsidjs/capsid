@@ -51,4 +51,3 @@ const initializeClassComponent = (elem, name, Constructor) => {
  * @return {ListenerInfo[]}
  */
 const getAllListenerInfo = Constructor => Constructor.__events__ || []
-
