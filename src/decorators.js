@@ -1,5 +1,6 @@
 import ListenerInfo from './listener-info'
 import camelToKebab from './camel-to-kebab'
+import {register as cc} from './class-component-manager'
 
 /**
  * @param {Function} constructor The constructor
@@ -15,7 +16,7 @@ const registerListenerInfo = (constructor, key, event, selector) => {
  * The decorator for registering event listener info to the method.
  * @param {string} event The event name
  */
-export const on = event => {
+cc.on = event => {
   const onDecorator = (target, key) => {
     registerListenerInfo(target.constructor, key, event)
   }
@@ -37,7 +38,7 @@ export const on = event => {
  * This decorator adds the event emission at the beginning of the method.
  * @param {string} event The event name
  */
-export const emit = event => {
+cc.emit = event => {
   const emitDecorator = (target, key, descriptor) => {
     const method = descriptor.value
 
@@ -103,7 +104,7 @@ const wireByNameAndSelector = (name, selector) => (target, key, descriptor) => {
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-export const wire = (target, key, descriptor) => {
+cc.wire = (target, key, descriptor) => {
   if (!descriptor) {
     // If the descriptor is not given, then suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).

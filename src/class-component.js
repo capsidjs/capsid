@@ -3,7 +3,7 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-import {on, emit, wire} from './decorators.js'
+import './decorators.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc, init, initAll, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
@@ -54,9 +54,4 @@ if (!$.cc) {
 
   // Expose __ccc__
   cc.__ccc__ = ccc
-
-  // Exports decorators
-  cc.on = on
-  cc.emit = emit
-  cc.wire = wire
 }
