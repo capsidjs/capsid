@@ -1,7 +1,7 @@
 const {div} = require('dom-gen')
 const assert = require('power-assert')
 const $ = jQuery
-const {wire} = $.cc
+const {on, emit, component, wire} = $.cc
 
 /**
  * @param {Function} decorator The decorator
@@ -20,7 +20,7 @@ describe('@on(event)', () => {
       handler () { done() }
     }
     $.cc('on-test0', OnTest0)
-    callDecorator($.cc.on('click'), OnTest0, 'handler')
+    callDecorator(on('click'), OnTest0, 'handler')
 
     div().cc('on-test0').trigger('click')
   })
@@ -33,8 +33,8 @@ describe('@on(event).at(selector)', () => {
       bar () { done(new Error('bar should not be called')) }
     }
     $.cc('on-at-test0', OnAtTest0)
-    callDecorator($.cc.on('foo-event').at('.inner'), OnAtTest0, 'foo')
-    callDecorator($.cc.on('bar-event').at('.inner'), OnAtTest0, 'bar')
+    callDecorator(on('foo-event').at('.inner'), OnAtTest0, 'foo')
+    callDecorator(on('bar-event').at('.inner'), OnAtTest0, 'bar')
 
     const elem = div(div({addClass: 'inner'})).cc('on-at-test0')
 
@@ -51,7 +51,7 @@ describe('@emit(event)', () => {
       }
     }
     $.cc('emit-test0', EmitTest0)
-    callDecorator($.cc.emit('event-foo'), EmitTest0, 'foo')
+    callDecorator(emit('event-foo'), EmitTest0, 'foo')
 
     const coelem = div().on('event-foo', (e, a, b, c) => {
       assert(a === 1)
@@ -67,9 +67,9 @@ describe('@emit(event)', () => {
 
 describe('@emit(event).first', () => {
   it('is the same as @emit(event)', () => {
-    const emit = $.cc.emit('event-foo')
+    const deco = emit('event-foo')
 
-    assert(emit.first === emit)
+    assert(deco.first === deco)
   })
 })
 
@@ -81,7 +81,7 @@ describe('@emit(event).last', () => {
       }
     }
     $.cc('emit-last-test0', EmitLastTest0)
-    callDecorator($.cc.emit('event-foo').last, EmitLastTest0, 'foo')
+    callDecorator(emit('event-foo').last, EmitLastTest0, 'foo')
 
     div().on('event-foo', (e, param) => {
       assert(param === 321)
@@ -104,7 +104,7 @@ describe('@emit(event).last', () => {
       }
     }
     $.cc('emit-last-test1', EmitLastTest1)
-    callDecorator($.cc.emit('event-foo').last, EmitLastTest1, 'foo')
+    callDecorator(emit('event-foo').last, EmitLastTest1, 'foo')
 
     div().on('event-foo', (e, param) => {
       assert(promiseResolved)
@@ -119,9 +119,9 @@ describe('@component', () => {
   it('registers the component with the kebab cased component name', () => {
     class FooBarBaz {}
 
-    $.cc.component(FooBarBaz)
+    component(FooBarBaz)
 
-    assert($('<div />').cc.init('foo-bar-baz') instanceof FooBarBaz)
+    assert(div().cc.init('foo-bar-baz') instanceof FooBarBaz)
   })
 })
 
@@ -133,11 +133,9 @@ describe('@component(className)', () => {
       }
     }
 
-    $.cc.component('decorated-component')(Cls)
+    component('decorated-component')(Cls)
 
-    const elem = $('<div />')
-
-    elem.cc.init('decorated-component')
+    const elem = div().cc('decorated-component')
 
     assert(elem.attr('this-is') === 'decorated-component')
   })
@@ -155,7 +153,7 @@ describe('@wire\'d getter', () => {
 
     callDecorator(wire, Cls0, 'wire-test0-1')
 
-    const elem = $('<div />').append($('<div />').cc('wire-test0-1'))
+    const elem = div().append(div().cc('wire-test0-1'))
 
     const wireTest0 = elem.cc.init('wire-test0')
 
@@ -173,7 +171,7 @@ describe('@wire\'d getter', () => {
 
     callDecorator(wire, Cls0, 'wireTest3Child')
 
-    const elem = $('<div />').append($('<div />').cc('wire-test3-child'))
+    const elem = div().append(div().cc('wire-test3-child'))
 
     const wireTest3 = elem.cc.init('wire-test3')
 
@@ -191,7 +189,7 @@ describe('@wire\'d getter', () => {
 
     callDecorator(wire, Cls0, 'wire-test2-1')
 
-    const wireTest0 = $('<div />').cc('wire-test2-1').cc.init('wire-test2')
+    const wireTest0 = div().cc('wire-test2-1').cc.init('wire-test2')
 
     assert(wireTest0['wire-test2-1'] instanceof Cls1)
   })
@@ -209,7 +207,7 @@ describe('@wire(name, selector)\'d getter', () => {
 
     callDecorator(wire('wire-test1-1', '.foo'), Cls0, 'test')
 
-    const elem = $('<div />').append($('<div class="foo" />').cc('wire-test1-1'))
+    const elem = div().append(div().addClass('foo').cc('wire-test1-1'))
 
     const wireTest1 = elem.cc.init('wire-test1')
 
