@@ -13,7 +13,7 @@ export const ccc = {}
  * @return {ClassComponentConfiguration}
  * @throw {Error}
  */
-function getConfiguration (className) {
+export function getConfiguration (className) {
   assert(ccc[className], 'Class componet "' + className + '" is not defined.')
 
   return ccc[className]
@@ -35,24 +35,17 @@ export function register (name, Constructor) {
 
 /**
  * Initializes the class components of the given name in the given element.
- * @param {String} className The class name
+ * @param {String} classNames The class names
  * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
  * @return {Array<HTMLElement>} The elements which are initialized in this initialization
  * @throw {Error}
  */
-export function init (className, elem) {
-  const conf = getConfiguration(className)
+export function init (classNames, elem) {
+  (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(className => {
+    const conf = getConfiguration(className)
 
-  $(conf.selector, elem).each(function () {
-    conf.initElem($(this))
+    $(conf.selector, elem).each(function () {
+      conf.initElem($(this))
+    })
   })
-}
-
-/**
- * Initializes the class component of the give name at the given element.
- * @param {String} className The class name
- * @param {jQuery|HTMLElement|String} elem The element
- */
-export function initAt (className, elem) {
-  getConfiguration(className).initElem($(elem).addClass(className))
 }

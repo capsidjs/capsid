@@ -14,18 +14,7 @@ if (!$.cc) {
 
   defineFnCc($)
 
-  /**
-   * Initializes the all class components of the given names and returns the array of initialized components.
-   *
-   * @param {String} classNames
-   * @return {Object<HTMLElement[]>}
-   */
-  cc.init = (classNames, elem) => {
-    (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc))
-      .forEach(className => {
-        init(className, elem)
-      })
-  }
+  cc.init = init
 
   // Expose __ccc__
   cc.__ccc__ = ccc

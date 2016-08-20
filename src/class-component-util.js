@@ -1,6 +1,7 @@
-import {ccc, initAt} from './class-component-manager.js'
+import {ccc, getConfiguration} from './class-component-manager.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
 import assert from './assert.js'
+import $ from './jquery.js'
 
 /**
  * Initializes the element if it has registered class component names. Returns the jquery object itself.
@@ -9,13 +10,9 @@ import assert from './assert.js'
  * @return {jQuery}
  */
 export function componentInit (elem, classNames) {
-  if (typeof classNames !== 'string') {
-    classNames = elem[0].className
-  }
-
-  classNames.split(/\s+/).forEach(className => {
+  (typeof classNames === 'string' ? classNames : elem[0].className).split(/\s+/).forEach(className => {
     if (ccc[className]) {
-      initAt(className, elem)
+      getConfiguration(className).initElem(elem.addClass(className))
     }
   })
 }
