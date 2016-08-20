@@ -1,5 +1,5 @@
 import {ccc, initAt} from './class-component-manager.js'
-import {COELEMENT_DATA_KEY_PREFIX, reSpaces} from './const.js'
+import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
 import assert from './assert.js'
 
 /**
@@ -13,7 +13,7 @@ export function componentInit (elem, classNames) {
     classNames = elem[0].className
   }
 
-  classNames.split(reSpaces).forEach(className => {
+  classNames.split(/\s+/).forEach(className => {
     if (ccc[className]) {
       initAt(className, elem)
     }

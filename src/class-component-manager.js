@@ -43,9 +43,9 @@ export function register (name, Constructor) {
 export function init (className, elem) {
   const conf = getConfiguration(className)
 
-  return $(conf.selector, elem).each(function () {
+  $(conf.selector, elem).each(function () {
     conf.initElem($(this))
-  }).toArray()
+  })
 }
 
 /**

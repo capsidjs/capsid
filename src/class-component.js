@@ -7,7 +7,6 @@ import './decorators.js'
 import {register as cc, init, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
 import $ from './jquery.js'
-import {reSpaces} from './const.js'
 
 // Initializes the module object.
 if (!$.cc) {
@@ -22,13 +21,10 @@ if (!$.cc) {
    * @return {Object<HTMLElement[]>}
    */
   cc.init = (classNames, elem) => {
-    if (typeof classNames === 'string') {
-      return classNames.split(reSpaces).map(className => init(className, elem))
-    }
-
-    Object.keys(ccc).forEach(className => {
-      init(className, elem)
-    })
+    (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc))
+      .forEach(className => {
+        init(className, elem)
+      })
   }
 
   // Expose __ccc__
