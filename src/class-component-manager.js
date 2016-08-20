@@ -74,12 +74,3 @@ export function initAllAtElem (elem) {
       })
   }
 }
-
-/**
- * @param {jQuery|HTMLElement|String} elem The element
- */
-export function initAll (elem) {
-  Object.keys(ccc).forEach(className => {
-    init(className, elem)
-  })
-}

@@ -4,7 +4,7 @@
  * license: MIT
  */
 import './decorators.js'
-import {register as cc, init, initAll, ccc} from './class-component-manager.js'
+import {register as cc, init, ccc} from './class-component-manager.js'
 import defineFnCc from './fn.cc.js'
 import $ from './jquery.js'
 import {reSpaces} from './const.js'
@@ -22,13 +22,13 @@ if (!$.cc) {
    * @return {Object<HTMLElement[]>}
    */
   cc.init = (classNames, elem) => {
-    if (typeof classNames !== 'string') {
-      initAll(elem)
-
-      return
+    if (typeof classNames === 'string') {
+      return classNames.split(reSpaces).map(className => init(className, elem))
     }
 
-    return classNames.split(reSpaces).map(className => init(className, elem))
+    Object.keys(ccc).forEach(className => {
+      init(className, elem)
+    })
   }
 
   // Expose __ccc__
