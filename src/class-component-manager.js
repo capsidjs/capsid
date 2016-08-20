@@ -42,9 +42,9 @@ export function register (name, Constructor) {
  * @throw {Error}
  */
 export function init (classNames, elem) {
-  (typeof classNames === 'string' ? classNames.split(/\s+/) : OBJECT.keys(ccc)).forEach(className => {
-    const conf = getConfiguration(className)
-
+  (typeof classNames === 'string' ? classNames.split(/\s+/) : OBJECT.keys(ccc))
+  .map(getConfiguration)
+  .forEach(conf => {
     $(conf.selector, elem).each(function () {
       conf.initElem($(this))
     })
