@@ -20,16 +20,6 @@ export default function ListenerInfo (event, selector, key) {
 }
 
 /**
- * Gets the listers from the prototype.
- * @param {object} prototype The prototype object
- * @param {ListenerInfo[]} listeners The dummy parameter, don't use
- * @return {ListenerInfo[]}
- */
-export const getListeners = (constructor) => {
-  return constructor[KEY_EVENT_LISTENERS] || []
-}
-
-/**
  * @param {Function} constructor The constructor
  * @param {string} key The key of handler method
  * @param {string} event The event name
@@ -42,5 +32,5 @@ export const registerListenerInfo = (prototype, key, event, selector) => {
   // Does not assert the above because if the user uses decorators throw decorators syntax,
   // Then the above assertion always passes and never fails.
 
-  constructor[KEY_EVENT_LISTENERS] = getListeners(constructor).concat(new ListenerInfo(event, selector, key))
+  constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(new ListenerInfo(event, selector, key))
 }

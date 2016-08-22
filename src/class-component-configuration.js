@@ -1,6 +1,5 @@
 import {isFunction} from './jquery.js'
-import {getListeners} from './listener-info.js'
-import {COELEMENT_DATA_KEY_PREFIX} from './const.js'
+import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
 
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
@@ -28,7 +27,7 @@ export default function ClassComponentConfiguration (className, Constructor) {
         coelem.elem = elem
       }
 
-      getListeners(Constructor).forEach(listenerInfo => {
+      (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerInfo => {
         listenerInfo.bindTo(elem, coelem)
       })
     }
