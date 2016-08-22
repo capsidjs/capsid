@@ -20,7 +20,7 @@ class-component.js is tool for adding **special functions** to **html classes** 
   - now it has **5** methods and **8** decorators.
 - Does **not** introduce **any new language**
   - It uses plain javascript and html.
-- **2.5KB** minified (**1.1KB** gziped).
+- **2.4KB** minified (**1.1KB** gziped).
 
 # The timer
 
@@ -526,8 +526,9 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-08-22   v10.6.1   Improved the event listener registration process.
 - 2016-08-20   v10.6.0   Cleaned up some private APIs.
-- 2016-08-20   v10.5.0   Golfed codebase and made the bundle smaller. Remove some private APIs.
+- 2016-08-20   v10.5.0   Cleaned up codebase and made the bundle smaller. Remove some private APIs.
 - 2016-08-17   v10.4.1   Made built version smaller.
 - 2016-08-16   v10.4.0   Switched to babel-preset-es2015-loose.
 - 2016-08-16   v10.3.0   Modified bare @wire decorator.

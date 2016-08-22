@@ -1,4 +1,4 @@
-import {KEY_EVENT_LISTENERS, constructor, OBJECT} from './const'
+import {KEY_EVENT_LISTENERS} from './const.js'
 
 /**
  * The event listener's information model.
@@ -25,12 +25,8 @@ export default function ListenerInfo (event, selector, key) {
  * @param {ListenerInfo[]} listeners The dummy parameter, don't use
  * @return {ListenerInfo[]}
  */
-export const getListeners = (prototype, listeners) => {
-  do {
-    listeners = prototype[constructor] && prototype[constructor][KEY_EVENT_LISTENERS]
-  } while (!listeners && (prototype = OBJECT.getPrototypeOf(prototype)))
-
-  return listeners || []
+export const getListeners = (constructor) => {
+  return constructor[KEY_EVENT_LISTENERS] || []
 }
 
 /**
@@ -40,5 +36,11 @@ export const getListeners = (prototype, listeners) => {
  * @param {string} selector The selector
  */
 export const registerListenerInfo = (prototype, key, event, selector) => {
-  prototype[constructor][KEY_EVENT_LISTENERS] = getListeners(prototype).concat(new ListenerInfo(event, selector, key))
+  const constructor = prototype.constructor
+
+  // assert(constructor, 'prototype.constructor must be set to register the event listeners.')
+  // Does not assert the above because if the user uses decorators throw decorators syntax,
+  // Then the above assertion always passes and never fails.
+
+  constructor[KEY_EVENT_LISTENERS] = getListeners(constructor).concat(new ListenerInfo(event, selector, key))
 }

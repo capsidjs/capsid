@@ -28,7 +28,7 @@ export default function ClassComponentConfiguration (className, Constructor) {
         coelem.elem = elem
       }
 
-      getListeners(Constructor.prototype).forEach(listenerInfo => {
+      getListeners(Constructor).forEach(listenerInfo => {
         listenerInfo.bindTo(elem, coelem)
       })
     }

@@ -1,9 +1,9 @@
 import {getConfiguration, ccc} from './class-component-manager.js'
 import assert from './assert.js'
-import {COELEMENT_DATA_KEY_PREFIX, CLASS_COMPONENT_DATA_KEY, OBJECT} from './const'
+import {COELEMENT_DATA_KEY_PREFIX, CLASS_COMPONENT_DATA_KEY} from './const'
 
 // Defines the special property cc on the jquery prototype.
-export default $ => OBJECT.defineProperty($.fn, 'cc', {
+export default $ => Object.defineProperty($.fn, 'cc', {
   get () {
     const elem = this
     let cc = elem.data(CLASS_COMPONENT_DATA_KEY)

@@ -29,14 +29,10 @@ describe('@on(event)', () => {
     class OnTest1 {
       handler () { done() }
     }
-    function OnTest1Child () {}
-    OnTest1Child.prototype = new OnTest1()
-    OnTest1Child.prototype.constructor = OnTest1Child
-    function OnTest1ChildChild () {
+    class OnTest1Child extends OnTest1 {}
+    class OnTest1ChildChild extends OnTest1Child {
+      bar () {}
     }
-    OnTest1ChildChild.prototype = new OnTest1Child()
-    OnTest1ChildChild.prototype.constructor = OnTest1ChildChild
-    OnTest1ChildChild.prototype.bar = function () {}
 
     callDecorator(on('click'), OnTest1, 'handler')
     callDecorator(on('bar'), OnTest1ChildChild, 'bar')
