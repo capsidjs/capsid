@@ -522,6 +522,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-08-22   v10.6.2   Refactor the entrypoint.
 - 2016-08-22   v10.6.1   Improved the event listener registration process.
 - 2016-08-20   v10.6.0   Cleaned up some private APIs.
 - 2016-08-20   v10.5.0   Cleaned up codebase and made the bundle smaller. Remove some private APIs.

@@ -8,48 +8,22 @@
   var CLASS_COMPONENT_DATA_KEY = '__cc_data__';
 
   /**
-   * The event listener's information model.
-   * @param {string} event The event name to bind
-   * @param {string} selector The selector to bind the listener
-   * @param {string} key The handler name
-   */
-  function ListenerInfo(event, selector, key) {
-    /**
-     * Binds the listener to the given element with the given coelement.
-     * @param {jQuery} elem The jquery element
-     * @param {object} coelem The coelement which is bound to the element
-     */
-    this.bindTo = function (elem, coelem) {
-      elem.on(event, selector, function () {
-        coelem[key].apply(coelem, arguments);
-      });
-    };
-  }
-
-  /**
-   * Gets the listers from the prototype.
-   * @param {object} prototype The prototype object
-   * @param {ListenerInfo[]} listeners The dummy parameter, don't use
-   * @return {ListenerInfo[]}
-   */
-  var getListeners = function getListeners(constructor) {
-    return constructor[KEY_EVENT_LISTENERS] || [];
-  };
-
-  /**
-   * @param {Function} constructor The constructor
+   * Registers the event listener to the class constructor.
+   * @param {object} constructor The constructor
    * @param {string} key The key of handler method
    * @param {string} event The event name
    * @param {string} selector The selector
    */
-  var registerListenerInfo = function registerListenerInfo(prototype, key, event, selector) {
-    var constructor = prototype.constructor;
-
+  var registerListenerInfo = function registerListenerInfo(constructor, key, event, selector) {
     // assert(constructor, 'prototype.constructor must be set to register the event listeners.')
     // Does not assert the above because if the user uses decorators throw decorators syntax,
     // Then the above assertion always passes and never fails.
 
-    constructor[KEY_EVENT_LISTENERS] = getListeners(constructor).concat(new ListenerInfo(event, selector, key));
+    constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function (elem, coelem) {
+      elem.on(event, selector, function () {
+        coelem[key].apply(coelem, arguments);
+      });
+    });
   };
 
   var camelToKebab = function camelToKebab(camelString) {
@@ -87,8 +61,8 @@
           coelem.elem = elem;
         }
 
-        getListeners(Constructor).forEach(function (listenerInfo) {
-          listenerInfo.bindTo(elem, coelem);
+        (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
+          listenerBinder(elem, coelem);
         });
       }
     };
@@ -104,18 +78,6 @@
    * @property {Object<ClassComponentConfiguration>} ccc
    */
   var ccc = {};
-
-  /**
-   * Gets the configuration of the given class name.
-   * @param {String} className The class name
-   * @return {ClassComponentConfiguration}
-   * @throw {Error}
-   */
-  function getConfiguration(className) {
-    assert(ccc[className], 'Class componet "' + className + '" is not defined.');
-
-    return ccc[className];
-  }
 
   /**
    * Registers the class component configuration for the given name.
@@ -141,7 +103,10 @@
    * @throw {Error}
    */
   function init(classNames, elem) {
-    (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc)).map(getConfiguration).forEach(function (conf) {
+    (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
+      var conf = ccc[className];
+      assert(conf, 'Class componet "' + className + '" is not defined.');
+
       $(conf.selector, elem).each(function () {
         conf.initElem($(this));
       });
@@ -153,20 +118,19 @@
    * @param {string} event The event name
    */
   register.on = function (event) {
-    var onDecorator = function onDecorator(target, key) {
-      registerListenerInfo(target, key, event);
-    };
-
     /**
      * The decorator for registering event listener info to the method.
      * @param {string} event The event name
      * @param {string} selector The selector for listening.
      */
-    onDecorator.at = function (selector) {
+    var at = function at(selector) {
       return function (target, key) {
-        registerListenerInfo(target, key, event, selector);
+        registerListenerInfo(target.constructor, key, event, selector);
       };
     };
+
+    var onDecorator = at();
+    onDecorator.at = at;
 
     return onDecorator;
   };
@@ -275,11 +239,25 @@
     register(camelToKebab(name.name), name);
   };
 
-  // Defines the special property cc on the jquery prototype.
-  var defineFnCc = function defineFnCc($) {
-    return Object.defineProperty($.fn, 'cc', {
+  /**
+   * class-component.js v10.6.2
+   * author: Yoshiya Hinosawa ( http://github.com/kt3k )
+   * license: MIT
+   */
+  // Initializes the module object.
+  if (!$.cc) {
+    $.cc = register;
+
+    register.init = init;
+
+    // Expose __ccc__
+    register.__ccc__ = ccc;
+
+    // Defines the special property cc on the jquery prototype.
+    Object.defineProperty($.fn, 'cc', {
       get: function get() {
         var elem = this;
+        var dom = elem[0];
         var cc = elem.data(CLASS_COMPONENT_DATA_KEY);
 
         if (!cc) {
@@ -289,9 +267,9 @@
            * @return {jQuery}
            */
           cc = function cc(classNames) {
-            (typeof classNames === 'string' ? classNames : elem[0].className).split(/\s+/).forEach(function (className) {
+            (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(function (className) {
               if (ccc[className]) {
-                getConfiguration(className).initElem(elem.addClass(className));
+                ccc[className].initElem(elem.addClass(className));
               }
             });
 
@@ -305,11 +283,11 @@
            * @return {Object}
            */
           cc.get = function (coelementName) {
-            assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection');
+            assert(dom, 'coelement "' + coelementName + '" unavailable at empty dom selection');
 
             var coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName);
 
-            assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName);
+            assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName);
 
             return coelement;
           };
@@ -322,23 +300,6 @@
         return cc;
       }
     });
-  };
-
-  /**
-   * class-component.js v10.6.1
-   * author: Yoshiya Hinosawa ( http://github.com/kt3k )
-   * license: MIT
-   */
-  // Initializes the module object.
-  if (!$.cc) {
-    $.cc = register;
-
-    defineFnCc($);
-
-    register.init = init;
-
-    // Expose __ccc__
-    register.__ccc__ = ccc;
   }
 })();
 
