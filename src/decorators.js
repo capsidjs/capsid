@@ -1,4 +1,4 @@
-import {registerListenerInfo} from './listener-info.js'
+import {registerListenerInfo} from './register-listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc} from './class-component-manager.js'
 import {isFunction} from './jquery.js'
@@ -8,18 +8,17 @@ import {isFunction} from './jquery.js'
  * @param {string} event The event name
  */
 cc.on = event => {
-  const onDecorator = (target, key) => {
-    registerListenerInfo(target, key, event)
-  }
-
   /**
    * The decorator for registering event listener info to the method.
    * @param {string} event The event name
    * @param {string} selector The selector for listening.
    */
-  onDecorator.at = selector => (target, key) => {
-    registerListenerInfo(target, key, event, selector)
+  const at = selector => (target, key) => {
+    registerListenerInfo(target.constructor, key, event, selector)
   }
+
+  const onDecorator = at()
+  onDecorator.at = at
 
   return onDecorator
 }

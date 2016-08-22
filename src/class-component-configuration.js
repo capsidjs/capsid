@@ -27,8 +27,8 @@ export default function ClassComponentConfiguration (className, Constructor) {
         coelem.elem = elem
       }
 
-      (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerInfo => {
-        listenerInfo.bindTo(elem, coelem)
+      (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
+        listenerBinder(elem, coelem)
       })
     }
   }
