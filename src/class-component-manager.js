@@ -8,18 +8,6 @@ import assert from './assert.js'
 export const ccc = {}
 
 /**
- * Gets the configuration of the given class name.
- * @param {String} className The class name
- * @return {ClassComponentConfiguration}
- * @throw {Error}
- */
-export function getConfiguration (className) {
-  assert(ccc[className], 'Class componet "' + className + '" is not defined.')
-
-  return ccc[className]
-}
-
-/**
  * Registers the class component configuration for the given name.
  * @param {String} name The name
  * @param {Function} Constructor The constructor of the class component
@@ -42,8 +30,10 @@ export function register (name, Constructor) {
  */
 export function init (classNames, elem) {
   (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc))
-  .map(getConfiguration)
-  .forEach(conf => {
+  .forEach(className => {
+    const conf = ccc[className]
+    assert(conf, 'Class componet "' + className + '" is not defined.')
+
     $(conf.selector, elem).each(function () {
       conf.initElem($(this))
     })

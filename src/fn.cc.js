@@ -1,4 +1,4 @@
-import {getConfiguration, ccc} from './class-component-manager.js'
+import {ccc} from './class-component-manager.js'
 import assert from './assert.js'
 import {COELEMENT_DATA_KEY_PREFIX, CLASS_COMPONENT_DATA_KEY} from './const'
 
@@ -17,7 +17,7 @@ export default $ => Object.defineProperty($.fn, 'cc', {
       cc = classNames => {
         (typeof classNames === 'string' ? classNames : elem[0].className).split(/\s+/).forEach(className => {
           if (ccc[className]) {
-            getConfiguration(className).initElem(elem.addClass(className))
+            ccc[className].initElem(elem.addClass(className))
           }
         })
 
