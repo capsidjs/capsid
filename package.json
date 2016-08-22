@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "version": "10.6.0",
+  "version": "10.6.1",
   "description": "A presenter framework",
   "main": "dist/class-component.js",
   "scripts": {

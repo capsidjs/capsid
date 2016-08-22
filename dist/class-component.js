@@ -6,8 +6,6 @@
   var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
   var KEY_EVENT_LISTENERS = '__cc_listeners__';
   var CLASS_COMPONENT_DATA_KEY = '__cc_data__';
-  var constructor = 'constructor';
-  var OBJECT = Object;
 
   /**
    * The event listener's information model.
@@ -34,12 +32,8 @@
    * @param {ListenerInfo[]} listeners The dummy parameter, don't use
    * @return {ListenerInfo[]}
    */
-  var getListeners = function getListeners(prototype, listeners) {
-    do {
-      listeners = prototype[constructor] && prototype[constructor][KEY_EVENT_LISTENERS];
-    } while (!listeners && (prototype = OBJECT.getPrototypeOf(prototype)));
-
-    return listeners || [];
+  var getListeners = function getListeners(constructor) {
+    return constructor[KEY_EVENT_LISTENERS] || [];
   };
 
   /**
@@ -49,7 +43,13 @@
    * @param {string} selector The selector
    */
   var registerListenerInfo = function registerListenerInfo(prototype, key, event, selector) {
-    prototype[constructor][KEY_EVENT_LISTENERS] = getListeners(prototype).concat(new ListenerInfo(event, selector, key));
+    var constructor = prototype.constructor;
+
+    // assert(constructor, 'prototype.constructor must be set to register the event listeners.')
+    // Does not assert the above because if the user uses decorators throw decorators syntax,
+    // Then the above assertion always passes and never fails.
+
+    constructor[KEY_EVENT_LISTENERS] = getListeners(constructor).concat(new ListenerInfo(event, selector, key));
   };
 
   var camelToKebab = function camelToKebab(camelString) {
@@ -87,7 +87,7 @@
           coelem.elem = elem;
         }
 
-        getListeners(Constructor.prototype).forEach(function (listenerInfo) {
+        getListeners(Constructor).forEach(function (listenerInfo) {
           listenerInfo.bindTo(elem, coelem);
         });
       }
@@ -141,7 +141,7 @@
    * @throw {Error}
    */
   function init(classNames, elem) {
-    (typeof classNames === 'string' ? classNames.split(/\s+/) : OBJECT.keys(ccc)).map(getConfiguration).forEach(function (conf) {
+    (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc)).map(getConfiguration).forEach(function (conf) {
       $(conf.selector, elem).each(function () {
         conf.initElem($(this));
       });
@@ -277,7 +277,7 @@
 
   // Defines the special property cc on the jquery prototype.
   var defineFnCc = function defineFnCc($) {
-    return OBJECT.defineProperty($.fn, 'cc', {
+    return Object.defineProperty($.fn, 'cc', {
       get: function get() {
         var elem = this;
         var cc = elem.data(CLASS_COMPONENT_DATA_KEY);
@@ -325,7 +325,7 @@
   };
 
   /**
-   * class-component.js v10.6.0
+   * class-component.js v10.6.1
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
