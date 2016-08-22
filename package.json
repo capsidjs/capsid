@@ -9,9 +9,7 @@
     "test": "karma start karma.conf.js",
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
-    "dist:lib": "babel src -d lib",
-    "dist:dist": "rollup -i src/class-component.js -f iife | babel --presets es2015 > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
-    "dist": "npm-run-all -p dist:*",
+    "dist": "rollup -i src/index.js -f iife | babel --presets es2015 > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
     "prepublish": "npm run clean && npm run dist"
   },
   "repository": {
@@ -50,7 +48,6 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "mocha": "^3.0.0",
-    "npm-run-all": "^3.0.0",
     "power-assert": "^1.4.1",
     "rimraf": "^2.5.2",
     "rollup": "^0.34.10",

@@ -1,11 +1,27 @@
-import {ccc} from './class-component-manager.js'
+/**
+ * class-component.js v10.6.1
+ * author: Yoshiya Hinosawa ( http://github.com/kt3k )
+ * license: MIT
+ */
+import './decorators.js'
+import {register as cc, init, ccc} from './class-component-manager.js'
 import assert from './assert.js'
+import $ from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX, CLASS_COMPONENT_DATA_KEY} from './const'
 
-// Defines the special property cc on the jquery prototype.
-export default $ => Object.defineProperty($.fn, 'cc', {
-  get () {
+// Initializes the module object.
+if (!$.cc) {
+  $.cc = cc
+
+  cc.init = init
+
+  // Expose __ccc__
+  cc.__ccc__ = ccc
+
+  // Defines the special property cc on the jquery prototype.
+  Object.defineProperty($.fn, 'cc', {get () {
     const elem = this
+    const dom = elem[0]
     let cc = elem.data(CLASS_COMPONENT_DATA_KEY)
 
     if (!cc) {
@@ -15,7 +31,7 @@ export default $ => Object.defineProperty($.fn, 'cc', {
        * @return {jQuery}
        */
       cc = classNames => {
-        (typeof classNames === 'string' ? classNames : elem[0].className).split(/\s+/).forEach(className => {
+        (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(className => {
           if (ccc[className]) {
             ccc[className].initElem(elem.addClass(className))
           }
@@ -31,11 +47,11 @@ export default $ => Object.defineProperty($.fn, 'cc', {
        * @return {Object}
        */
       cc.get = coelementName => {
-        assert(elem[0], 'coelement "' + coelementName + '" unavailable at empty dom selection')
+        assert(dom, 'coelement "' + coelementName + '" unavailable at empty dom selection')
 
         const coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName)
 
-        assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + elem[0].tagName)
+        assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName)
 
         return coelement
       }
@@ -44,5 +60,5 @@ export default $ => Object.defineProperty($.fn, 'cc', {
     }
 
     return cc
-  }
-})
+  }})
+}
