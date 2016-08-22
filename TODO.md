@@ -1,7 +1,8 @@
 # TODO
+- doc: write Tutorial
+- doc: write How to test cc
+- doc: write about layered MVP = nesting class-components with reference to PAC and HMVC
 - doc: create document site
-- doc: testing of cc component with reference to Presenter First of atomic object
-- doc: describe layered MVP programming with class-component.js with reference to PAC and HMVC
 
 ## >= v10
 - include dom-gen as a part

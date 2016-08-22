@@ -5,22 +5,22 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
-> A presenter framework
+> Yet another UI framework
 
-class-component.js is tool for adding **special functions** to **html classes** and works as Presenter in MVP design pattern. See below for details.
+class-component.js is a tool for defining **html classes with special power**. class-component.js encourages the use of MVP (Model-View-Presenter) design pattern and it works as *Presenter* part of it. See below for details.
 
-# Feature
+# Features
 
-- It is a **presenter framework**.
-- It is a **jQuery plugin**.
+- It's an **UI framework**.
+- It's a **jQuery plugin**.
 - Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
 - **no virtual dom**
 - **friendly with real dom** (and jQuery)
 - **small number of APIs**
   - now it has **5** methods and **8** decorators.
-- Does **not** introduce **any new language**
-  - It uses plain javascript and html.
-- **2.4KB** minified (**1.1KB** gziped).
+- Does **not** introduce **new languages**
+  - It only uses plain javascript and html.
+- It's very small: **2.4KB** minified (**1.1KB** gziped).
 
 # The timer
 
@@ -495,10 +495,6 @@ const {wire} = $.cc
 @component('foo')
 class Foo {
   @wire('long-name-component') get it () {}
-
-  processIt () {
-    this.it.process()
-  }
 }
 
 @component('long-name-component')
@@ -514,12 +510,12 @@ $('body').append('<div class="foo"><div class="long-name-component"></div></div>
 With the above settings, you can call the following:
 
 ```js
-$('.foo').cc.get('foo').processIt()
+$('.foo').cc.get('foo').it.process()
 ```
 
 And this prints `processing long name component`.
 
-`@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the job.
+`@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the jobs.
 
 # License
 

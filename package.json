@@ -1,7 +1,7 @@
 {
   "name": "class-component",
   "version": "10.6.1",
-  "description": "A presenter framework",
+  "description": "Yet another UI framework",
   "main": "dist/class-component.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
