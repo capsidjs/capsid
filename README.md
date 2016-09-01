@@ -539,12 +539,16 @@ MIT
 The projects which uses class-component.js.
 
 - [class-component-todomvc](https://github.com/kt3k/class-component-todomvc)
+  - Implementation of TodoMVC in class-component.js, 100% unit tested
 - [multiflip](https://github.com/kt3k/multiflip)
 - [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
 - [puncher](https://github.com/kt3k/puncher)
 - [event-hub](https://github.com/kt3k/event-hub)
 - [spn](https://github.com/kt3k/spn)
 - [view-todo](https://github.com/kt3k/view-todo)
+- [long-dream](https://github.com/kt3kstudio/long-dream-core)
+  - The Long Dream is the first user and absolute inspiration of class-component.js
+  - class-component.js is basically created for developing this project.
 
 # Q&A
 
