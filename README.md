@@ -550,7 +550,7 @@ The projects which uses class-component.js.
   - The Long Dream is the first user and absolute inspiration of class-component.js
   - class-component.js is basically created for developing this project.
 
-# Q&A
+# Notes
 
 ## Why 'coelement'
 
@@ -563,3 +563,7 @@ This library deliberately doesn't support templates. A coelement starts existing
 ## Any recommended UI design pattern?
 
 class-component.js encourages the use of (layered) MVP architecture. Element (dom instance) works as the Passive View. Coelement works as the Presenter. Dom event bubbling works as upward communication between presenters. (`@on` and `@emit` decorators help it.) Coelements' methods works as downward messaging between presenters. (`@wire` decorator helps addressing child components.)
+
+## No tree structure other than dom tree
+
+One of the benefit of using class-component.js is that it does not introduce any new tree structures other than the dom tree like the many other libraries do. class-component.js thinks dom tree comes first always and *attaches* coelements to it. This simplifies the programmer's mental model of the page structure. Something like `setParent` or `setRoot` makes the structure really complicated and hard to reason about. When using class-component.js, there is the only one tree structure of UI and which is the dom tree which is familiar to everyone.
