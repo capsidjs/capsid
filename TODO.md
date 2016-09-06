@@ -1,11 +1,10 @@
 # TODO
+
+- breaking: fix syntax errored decorators like @emit().fist, @emit().last and @on().at(). These are syntax errors according to the current spec of decorators proposal.
 - doc: write Tutorial
 - doc: write How to test cc
 - doc: write about layered MVP = nesting class-components with reference to PAC and HMVC
 - doc: create document site
-
-## >= v10
-- include dom-gen as a part
 
 # DONE
 - @autowired decorator
