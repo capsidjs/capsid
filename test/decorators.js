@@ -140,6 +140,12 @@ describe('@component', () => {
 
     assert(div().cc.init('foo-bar-baz') instanceof FooBarBaz)
   })
+
+  it('returns the constructor', () => {
+    class FooBarBaz1 {}
+
+    assert(component(FooBarBaz1) === FooBarBaz1)
+  })
 })
 
 describe('@component(className)', () => {
@@ -155,6 +161,13 @@ describe('@component(className)', () => {
     const elem = div().cc('decorated-component')
 
     assert(elem.attr('this-is') === 'decorated-component')
+  })
+
+  it('returns the constructor', () => {
+    class Cls1 {
+    }
+
+    assert(component('decorated-component1')(Cls1) === Cls1)
   })
 })
 
