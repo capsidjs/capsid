@@ -232,15 +232,17 @@
     if (!isFunction(name)) {
       return function (Cls) {
         register(name, Cls);
+        return Cls;
       };
     }
 
     // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
     register(camelToKebab(name.name), name);
+    return name;
   };
 
   /**
-   * class-component.js v10.6.2
+   * class-component.js v10.6.3
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
