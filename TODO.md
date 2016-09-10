@@ -1,12 +1,15 @@
 # TODO
 
-- breaking: fix syntax errored decorators like @emit().fist, @emit().last and @on().at(). These are syntax errors according to the current spec of decorators proposal.
+- breaking: remove @on
+- breaking: remove @emit().first
+- breaking: remove @emit().last
 - doc: write Tutorial
 - doc: write How to test cc
 - doc: write about layered MVP = nesting class-components with reference to PAC and HMVC
 - doc: create document site
 
 # DONE
+- fix: component returns the class
 - @autowired decorator
 - chore: remove @event
 - chore: remove @trigger

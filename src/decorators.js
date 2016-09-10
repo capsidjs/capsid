@@ -119,5 +119,5 @@ cc.component = name => {
 
   // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
   cc(camelToKebab(name.name), name)
-  return Cls
+  return name
 }
