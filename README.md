@@ -17,10 +17,10 @@ class-component.js is a tool for defining **html classes with special power**. c
 - **no virtual dom**
 - **friendly with real dom** (and jQuery)
 - **small number of APIs**
-  - now it has **5** methods and **8** decorators.
+  - now it has **5** methods and **7** decorators.
 - Does **not** introduce **new languages**
   - It only uses plain javascript and html.
-- It's very small: **2.3KB** minified (**1.1KB** gziped).
+- It's very small: **2.4KB** minified (**1.1KB** gziped).
 
 # The timer
 
@@ -281,10 +281,9 @@ There are 8 decorators.
 
 - `@component`
 - `@component()`
-- `@on()`
-- `@on().at()`
-- `@emit()` (`@emit().first`)
-- `@emit().last`
+- `@on(event, {at})`
+- `@emit()` (`@emit.first()`)
+- `@emit.last()`
 - `@wire`
 - `@wire()`
 
@@ -357,16 +356,16 @@ class Btn {
 $.cc('btn', Btn)
 ```
 
-## `@on(eventName).at(selector)`
+## `@on(eventName, {at: selector})`
 
-`$.cc.on(eventName).at(selector)` is a method decorator. It's similar to `$.cc.on`, but it only handles the event from `selector` in the component.
+`$.cc.on(eventName, {at: selector})` is a method decorator. It's similar to `$.cc.on`, but it only handles the event from `selector` in the component.
 
 ```js
 const {on} = $.cc
 
 class Btn {
 
-  @on('click').at('.btn')
+  @on('click', {at: '.btn'})
   onBtnClick(e) {
     ...definitions...
   }
@@ -378,9 +377,9 @@ $.cc('btn', Btn)
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
 
 ## `@emit(startEvent)`
-## `@emit(startEvent).first`
+## `@emit.first(startEvent)`
 
-`$.cc.emit()` (or `$.cc.emit().first`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
+`$.cc.emit()` (or `$.cc.emit.first()`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
 
 ```js
 const {emit} = $.cc
@@ -411,15 +410,15 @@ class Manager {
 $.cc('manager', Manager)
 ```
 
-## `@emit(eventName).last`
+## `@emit.last(eventName)`
 
-`$.cc.emit(eventName).last` is similar to `$.cc.emit().first`, but it triggers the event at the last of the method.
+`$.cc.emit.last(eventName)` is similar to `$.cc.emit.first()`, but it triggers the event at the last of the method.
 
 ```js
 const {emit} = $.cc
 
 class Manager {
-  @emit('manager.ended').last
+  @emit.last('manager.ended')
   start() {
     ...definitions...
   }
@@ -522,6 +521,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-09-11   v10.7.0   Add @on(event, {at}) @emit.first and @emit.last
 - 2016-08-22   v10.6.2   Refactor the entrypoint.
 - 2016-08-22   v10.6.1   Improved the event listener registration process.
 - 2016-08-20   v10.6.0   Cleaned up some private APIs.
