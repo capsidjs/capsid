@@ -6,19 +6,20 @@ import {isFunction} from './jquery.js'
 /**
  * The decorator for registering event listener info to the method.
  * @param {string} event The event name
+ * @param {string} at The selector
  */
-cc.on = event => {
+cc.on = (event, {at} = {}) => {
   /**
    * The decorator for registering event listener info to the method.
    * @param {string} event The event name
    * @param {string} selector The selector for listening.
    */
-  const at = selector => (target, key) => {
+  const atDecorator = selector => (target, key) => {
     registerListenerInfo(target.constructor, key, event, selector)
   }
 
-  const onDecorator = at()
-  onDecorator.at = at
+  const onDecorator = atDecorator(at)
+  onDecorator.at = atDecorator
 
   return onDecorator
 }

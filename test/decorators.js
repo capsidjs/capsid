@@ -43,15 +43,16 @@ describe('@on(event)', () => {
   })
 })
 
-describe('@on(event).at(selector)', () => {
+describe('@on(event, {at: selector})', () => {
   it('registers the method as the event listener of the given event name and selector', done => {
     class OnAtTest0 {
       foo () { done() }
       bar () { done(new Error('bar should not be called')) }
     }
     $.cc('on-at-test0', OnAtTest0)
-    callDecorator(on('foo-event').at('.inner'), OnAtTest0, 'foo')
-    callDecorator(on('bar-event').at('.inner'), OnAtTest0, 'bar')
+
+    callDecorator(on('foo-event', {at: '.inner'}), OnAtTest0, 'foo')
+    callDecorator(on('bar-event', {at: '.inner'}), OnAtTest0, 'bar')
 
     const elem = div(div({addClass: 'inner'})).cc('on-at-test0')
 
