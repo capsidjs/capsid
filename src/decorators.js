@@ -66,7 +66,7 @@ cc.emit.last = event => (target, key, descriptor) => {
     const result = method.apply(this, arguments)
 
     if (result && result.then) {
-      Promise.resolve(result).then(x => this.elem.trigger(event, x))
+      result.then(x => this.elem.trigger(event, x))
     } else {
       this.elem.trigger(event, result)
     }
