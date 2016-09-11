@@ -52,22 +52,27 @@ cc.emit = event => {
    * @param {string} event The event name
    */
   emitDecorator.last = (target, key, descriptor) => {
-    const method = descriptor.value
-
-    descriptor.value = function () {
-      const result = method.apply(this, arguments)
-
-      if (result && result.then) {
-        Promise.resolve(result).then(x => this.elem.trigger(event, x))
-      } else {
-        this.elem.trigger(event, result)
-      }
-
-      return result
-    }
+    cc.emit.last(event)(target, key, descriptor)
   }
 
   return emitDecorator
+}
+
+cc.emit.first = cc.emit
+cc.emit.last = event => (target, key, descriptor) => {
+  const method = descriptor.value
+
+  descriptor.value = function () {
+    const result = method.apply(this, arguments)
+
+    if (result && result.then) {
+      Promise.resolve(result).then(x => this.elem.trigger(event, x))
+    } else {
+      this.elem.trigger(event, result)
+    }
+
+    return result
+  }
 }
 
 /**

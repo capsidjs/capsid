@@ -83,15 +83,13 @@ describe('@emit(event)', () => {
   })
 })
 
-describe('@emit(event).first', () => {
-  it('is the same as @emit(event)', () => {
-    const deco = emit('event-foo')
-
-    assert(deco.first === deco)
+describe('@emit.first', () => {
+  it('is the same as @emit', () => {
+    assert(emit.first === emit)
   })
 })
 
-describe('@emit(event).last', () => {
+describe('@emit.last(event)', () => {
   it('makes the method emit the event with the returned value', done => {
     class EmitLastTest0 {
       foo () {
@@ -99,7 +97,7 @@ describe('@emit(event).last', () => {
       }
     }
     $.cc('emit-last-test0', EmitLastTest0)
-    callDecorator(emit('event-foo').last, EmitLastTest0, 'foo')
+    callDecorator(emit.last('event-foo'), EmitLastTest0, 'foo')
 
     div().on('event-foo', (e, param) => {
       assert(param === 321)
@@ -122,7 +120,7 @@ describe('@emit(event).last', () => {
       }
     }
     $.cc('emit-last-test1', EmitLastTest1)
-    callDecorator(emit('event-foo').last, EmitLastTest1, 'foo')
+    callDecorator(emit.last('event-foo'), EmitLastTest1, 'foo')
 
     div().on('event-foo', (e, param) => {
       assert(promiseResolved)
