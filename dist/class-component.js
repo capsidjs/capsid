@@ -116,21 +116,26 @@
   /**
    * The decorator for registering event listener info to the method.
    * @param {string} event The event name
+   * @param {string} at The selector
    */
   register.on = function (event) {
+    var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    var at = _ref.at;
+
     /**
      * The decorator for registering event listener info to the method.
      * @param {string} event The event name
      * @param {string} selector The selector for listening.
      */
-    var at = function at(selector) {
+    var atDecorator = function atDecorator(selector) {
       return function (target, key) {
         registerListenerInfo(target.constructor, key, event, selector);
       };
     };
 
-    var onDecorator = at();
-    onDecorator.at = at;
+    var onDecorator = atDecorator(at);
+    onDecorator.at = atDecorator;
 
     return onDecorator;
   };
@@ -163,6 +168,15 @@
      * @param {string} event The event name
      */
     emitDecorator.last = function (target, key, descriptor) {
+      register.emit.last(event)(target, key, descriptor);
+    };
+
+    return emitDecorator;
+  };
+
+  register.emit.first = register.emit;
+  register.emit.last = function (event) {
+    return function (target, key, descriptor) {
       var method = descriptor.value;
 
       descriptor.value = function () {
@@ -181,8 +195,6 @@
         return result;
       };
     };
-
-    return emitDecorator;
   };
 
   /**
@@ -242,7 +254,7 @@
   };
 
   /**
-   * class-component.js v10.6.3
+   * class-component.js v10.7.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
