@@ -1,8 +1,6 @@
 # TODO
 
 - breaking: remove @on().at
-- feat: add @emit.first('event')
-- feat: add @emit.last('event')
 - breaking: remove @emit().first
 - breaking: remove @emit().last
 - doc: write Tutorial
@@ -11,6 +9,8 @@
 - doc: create document site
 
 # DONE
+- feat: add @emit.first('event')
+- feat: add @emit.last('event')
 - feat: add @on('event', {at: selector})
 - fix: component returns the class
 - @autowired decorator
