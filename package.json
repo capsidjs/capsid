@@ -50,7 +50,7 @@
     "mocha": "^3.0.0",
     "power-assert": "^1.4.1",
     "rimraf": "^2.5.2",
-    "rollup": "^0.35.1",
+    "rollup": "^0.36.0",
     "uglify-js": "^2.6.1",
     "watchify": "^3.7.0"
   },
