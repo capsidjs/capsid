@@ -7,7 +7,6 @@ import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
  * @param {Function} Constructor The constructor of the coelement of the class component
  */
 export default function ClassComponentConfiguration (className, Constructor) {
-  this.Constructor = Constructor
   const initClass = className + '-initialized'
   this.selector = '.' + className + ':not(.' + initClass + ')'
 
