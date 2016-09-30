@@ -12,6 +12,11 @@ export const registerListenerInfo = (constructor, key, event, selector) => {
   // Does not assert the above because if the user uses decorators throw decorators syntax,
   // Then the above assertion always passes and never fails.
 
+  /**
+   * @type <T> The coelement type
+   * @param {jQuery} elem The jquery selection of the element
+   * @param {T} coelem The coelement
+   */
   constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat((elem, coelem) => {
     elem.on(event, selector, function () {
       coelem[key].apply(coelem, arguments)
