@@ -7,7 +7,7 @@ import './decorators.js'
 import {register as cc, init, ccc} from './class-component-manager.js'
 import assert from './assert.js'
 import $ from './jquery.js'
-import {COELEMENT_DATA_KEY_PREFIX, CLASS_COMPONENT_DATA_KEY} from './const'
+import {COELEMENT_DATA_KEY_PREFIX} from './const'
 
 // Initializes the module object.
 if (!$.cc) {
@@ -22,7 +22,10 @@ if (!$.cc) {
   Object.defineProperty($.fn, 'cc', {get () {
     const elem = this
     const dom = elem[0]
-    let cc = elem.data(CLASS_COMPONENT_DATA_KEY)
+
+    assert(dom, 'cc (class-component context) is unavailable at empty dom selection')
+
+    let cc = dom.cc
 
     if (!cc) {
       /**
@@ -39,7 +42,7 @@ if (!$.cc) {
 
         return elem
       }
-      elem.data(CLASS_COMPONENT_DATA_KEY, cc)
+      dom.cc = cc
 
       /**
        * Gets the coelement of the given name.
@@ -47,8 +50,6 @@ if (!$.cc) {
        * @return {Object}
        */
       cc.get = coelementName => {
-        assert(dom, 'coelement "' + coelementName + '" unavailable at empty dom selection')
-
         const coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName)
 
         assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName)
