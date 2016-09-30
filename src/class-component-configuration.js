@@ -26,8 +26,6 @@ export default function ClassComponentConfiguration (className, Constructor) {
         coelem.__cc_init__($el)
       } else {
         coelem.elem = $el
-        coelem.$el = $el
-        coelem.el = el
       }
 
       (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
