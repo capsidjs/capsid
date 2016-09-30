@@ -9,7 +9,7 @@
     "test": "karma start karma.conf.js",
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
-    "dist": "rollup -i src/index.js -f iife | babel --presets es2015 > dist/class-component.js ; uglifyjs dist/class-component.js -m -c > dist/class-component.min.js",
+    "dist": "rollup -i src/index.js -f iife | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
     "prepublish": "npm run clean && npm run dist"
   },
   "repository": {
