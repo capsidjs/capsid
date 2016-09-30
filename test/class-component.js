@@ -38,7 +38,7 @@ describe('$.cc', () => {
     assert($.cc.__ccc__['assign-test0'] != null)
   })
 
-  it('sets __coelement:class-name data property when the class component is initialized', () => {
+  it('sets __coelement:class-name property when the class component is initialized', () => {
     class Class1 {}
 
     $.cc('assign-test2', Class1)
@@ -47,7 +47,7 @@ describe('$.cc', () => {
 
     $.cc.init('assign-test2', 'body')
 
-    assert(elem.data('__coelement:assign-test2') instanceof Class1)
+    assert(elem[0]['__coelement:assign-test2'] instanceof Class1)
   })
 
   it('sets coelement.elem as the base jquery element', () => {

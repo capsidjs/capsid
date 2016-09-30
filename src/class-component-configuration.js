@@ -19,7 +19,7 @@ export default function ClassComponentConfiguration (className, Constructor) {
    */
   this.initElem = (elem, coelem) => {
     if (!elem.hasClass(initClass)) {
-      elem.addClass(initClass).data(COELEMENT_DATA_KEY_PREFIX + className, coelem = new Constructor(elem))
+      elem.addClass(initClass)[0][COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor(elem)
 
       if (isFunction(coelem.__cc_init__)) {
         coelem.__cc_init__(elem)

@@ -50,7 +50,7 @@ if (!$.cc) {
        * @return {Object}
        */
       cc.get = coelementName => {
-        const coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName)
+        const coelement = dom[COELEMENT_DATA_KEY_PREFIX + coelementName]
 
         assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName)
 
