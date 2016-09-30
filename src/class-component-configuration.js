@@ -11,23 +11,27 @@ export default function ClassComponentConfiguration (className, Constructor) {
   this.selector = '.' + className + ':not(.' + initClass + ')'
 
   /**
-   * Initialize the element by the configuration.
+   * Initialize the html element by the configuration.
    * @public
-   * @param {jQuery} elem The element
+   * @param {HTMLElement} el The html element
    * @param {object} coelem The dummy parameter, don't use
    */
-  this.initElem = (elem, coelem) => {
-    if (!elem.hasClass(initClass)) {
-      elem.addClass(initClass)[0][COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor(elem)
+  this.initElem = (el, coelem) => {
+    const $el = $(el)
+    if (!$el.hasClass(initClass)) {
+      $el.addClass(initClass)
+      el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el)
 
       if (isFunction(coelem.__cc_init__)) {
-        coelem.__cc_init__(elem)
+        coelem.__cc_init__($el)
       } else {
-        coelem.elem = elem
+        coelem.elem = $el
+        coelem.$el = $el
+        coelem.el = el
       }
 
       (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
-        listenerBinder(elem, coelem)
+        listenerBinder($el, coelem)
       })
     }
   }

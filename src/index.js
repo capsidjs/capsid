@@ -36,7 +36,8 @@ if (!$.cc) {
       cc = classNames => {
         (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(className => {
           if (ccc[className]) {
-            ccc[className].initElem(elem.addClass(className))
+            elem.addClass(className)
+            ccc[className].initElem(dom)
           }
         })
 

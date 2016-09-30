@@ -35,7 +35,7 @@ export function init (classNames, elem) {
     assert(conf, 'Class componet "' + className + '" is not defined.')
 
     $(conf.selector, elem).each(function () {
-      conf.initElem($(this))
+      conf.initElem(this)
     })
   })
 }
