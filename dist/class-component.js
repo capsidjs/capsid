@@ -5,7 +5,6 @@
 
   var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
   var KEY_EVENT_LISTENERS = '__cc_listeners__';
-  var CLASS_COMPONENT_DATA_KEY = '__cc_data__';
 
   /**
    * Registers the event listener to the class constructor.
@@ -254,7 +253,7 @@
   };
 
   /**
-   * class-component.js v10.7.1
+   * class-component.js v10.7.2
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
@@ -272,7 +271,10 @@
       get: function get() {
         var elem = this;
         var dom = elem[0];
-        var cc = elem.data(CLASS_COMPONENT_DATA_KEY);
+
+        assert(dom, 'cc (class-component context) is unavailable at empty dom selection');
+
+        var cc = dom.cc;
 
         if (!cc) {
           /**
@@ -289,7 +291,7 @@
 
             return elem;
           };
-          elem.data(CLASS_COMPONENT_DATA_KEY, cc);
+          dom.cc = cc;
 
           /**
            * Gets the coelement of the given name.
@@ -297,8 +299,6 @@
            * @return {Object}
            */
           cc.get = function (coelementName) {
-            assert(dom, 'coelement "' + coelementName + '" unavailable at empty dom selection');
-
             var coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName);
 
             assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName);
