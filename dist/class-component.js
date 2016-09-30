@@ -185,7 +185,7 @@
         var result = method.apply(this, arguments);
 
         if (result && result.then) {
-          Promise.resolve(result).then(function (x) {
+          result.then(function (x) {
             return _this.elem.trigger(event, x);
           });
         } else {
@@ -254,7 +254,7 @@
   };
 
   /**
-   * class-component.js v10.7.0
+   * class-component.js v10.7.1
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */

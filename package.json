@@ -1,6 +1,6 @@
 {
   "name": "class-component",
-  "version": "10.7.0",
+  "version": "10.7.1",
   "description": "Yet another UI framework",
   "main": "dist/class-component.js",
   "scripts": {
