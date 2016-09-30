@@ -18,6 +18,11 @@
     // Does not assert the above because if the user uses decorators throw decorators syntax,
     // Then the above assertion always passes and never fails.
 
+    /**
+     * @type <T> The coelement type
+     * @param {jQuery} elem The jquery selection of the element
+     * @param {T} coelem The coelement
+     */
     constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function (elem, coelem) {
       elem.on(event, selector, function () {
         coelem[key].apply(coelem, arguments);
@@ -31,8 +36,8 @@
     }).replace(/^-/, '');
   };
 
-  var $ = jQuery;
-  var isFunction = $.isFunction;
+  var $$1 = jQuery;
+  var isFunction = $$1.isFunction;
 
   /**
    * ClassComponentConfiguration is the utility class for class component initialization.
@@ -40,28 +45,31 @@
    * @param {Function} Constructor The constructor of the coelement of the class component
    */
   function ClassComponentConfiguration(className, Constructor) {
-    this.Constructor = Constructor;
     var initClass = className + '-initialized';
     this.selector = '.' + className + ':not(.' + initClass + ')';
 
     /**
-     * Initialize the element by the configuration.
+     * Initialize the html element by the configuration.
      * @public
-     * @param {jQuery} elem The element
+     * @param {HTMLElement} el The html element
      * @param {object} coelem The dummy parameter, don't use
      */
-    this.initElem = function (elem, coelem) {
-      if (!elem.hasClass(initClass)) {
-        elem.addClass(initClass).data(COELEMENT_DATA_KEY_PREFIX + className, coelem = new Constructor(elem));
+    this.initElem = function (el, coelem) {
+      var $el = $(el);
+      if (!$el.hasClass(initClass)) {
+        $el.addClass(initClass);
+        el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el);
 
         if (isFunction(coelem.__cc_init__)) {
-          coelem.__cc_init__(elem);
+          coelem.__cc_init__($el);
         } else {
-          coelem.elem = elem;
+          coelem.elem = $el;
+          coelem.$el = $el;
+          coelem.el = el;
         }
 
         (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
-          listenerBinder(elem, coelem);
+          listenerBinder($el, coelem);
         });
       }
     };
@@ -89,7 +97,7 @@
 
     ccc[name] = new ClassComponentConfiguration(name, Constructor);
 
-    $(function () {
+    $$1(function () {
       init(name);
     });
   }
@@ -106,8 +114,8 @@
       var conf = ccc[className];
       assert(conf, 'Class componet "' + className + '" is not defined.');
 
-      $(conf.selector, elem).each(function () {
-        conf.initElem($(this));
+      $$1(conf.selector, elem).each(function () {
+        conf.initElem(this);
       });
     });
   }
@@ -253,13 +261,13 @@
   };
 
   /**
-   * class-component.js v10.7.2
+   * class-component.js v10.8.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
   // Initializes the module object.
-  if (!$.cc) {
-    $.cc = register;
+  if (!$$1.cc) {
+    $$1.cc = register;
 
     register.init = init;
 
@@ -267,7 +275,7 @@
     register.__ccc__ = ccc;
 
     // Defines the special property cc on the jquery prototype.
-    Object.defineProperty($.fn, 'cc', {
+    Object.defineProperty($$1.fn, 'cc', {
       get: function get() {
         var elem = this;
         var dom = elem[0];
@@ -285,7 +293,8 @@
           cc = function cc(classNames) {
             (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(function (className) {
               if (ccc[className]) {
-                ccc[className].initElem(elem.addClass(className));
+                elem.addClass(className);
+                ccc[className].initElem(dom);
               }
             });
 
@@ -299,7 +308,7 @@
            * @return {Object}
            */
           cc.get = function (coelementName) {
-            var coelement = elem.data(COELEMENT_DATA_KEY_PREFIX + coelementName);
+            var coelement = dom[COELEMENT_DATA_KEY_PREFIX + coelementName];
 
             assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName);
 

@@ -1,5 +1,5 @@
 ---
-version: 10.7.2
+version: 10.8.0
 commit: 'chore(version): :arrow_heading_up: bump to v%.%.%'
 files:
   package.json: '"version": "%.%.%"'
