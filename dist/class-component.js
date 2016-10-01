@@ -20,11 +20,11 @@
 
     /**
      * @type <T> The coelement type
-     * @param {jQuery} elem The jquery selection of the element
+     * @param {jQuery} $el The jquery selection of the element
      * @param {T} coelem The coelement
      */
-    constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function (elem, coelem) {
-      elem.on(event, selector, function () {
+    constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function ($el, coelem) {
+      $el.on(event, selector, function () {
         coelem[key].apply(coelem, arguments);
       });
     });
@@ -44,9 +44,8 @@
    * @param {String} className The class name
    * @param {Function} Constructor The constructor of the coelement of the class component
    */
-  function ClassComponentConfiguration(className, Constructor) {
+  function createComponentInitializer(className, Constructor) {
     var initClass = className + '-initialized';
-    this.selector = '.' + className + ':not(.' + initClass + ')';
 
     /**
      * Initialize the html element by the configuration.
@@ -54,8 +53,9 @@
      * @param {HTMLElement} el The html element
      * @param {object} coelem The dummy parameter, don't use
      */
-    this.initElem = function (el, coelem) {
+    var initializer = function initializer(el, coelem) {
       var $el = $(el);
+
       if (!$el.hasClass(initClass)) {
         $el.addClass(initClass);
         el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el);
@@ -64,8 +64,6 @@
           coelem.__cc_init__($el);
         } else {
           coelem.elem = $el;
-          coelem.$el = $el;
-          coelem.el = el;
         }
 
         (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
@@ -73,6 +71,10 @@
         });
       }
     };
+
+    initializer.selector = '.' + className + ':not(.' + initClass + ')';
+
+    return initializer;
   }
 
   function assert(assertion, message) {
@@ -92,10 +94,10 @@
    * @param {Function} Constructor The constructor of the class component
    */
   function register(name, Constructor) {
-    assert(typeof name === 'string', '`name` of a class component has to be a string');
+    assert(typeof name === 'string', '`name` of a class component has to be a string.');
     assert(isFunction(Constructor), '`Constructor` of a class component has to be a function');
 
-    ccc[name] = new ClassComponentConfiguration(name, Constructor);
+    ccc[name] = createComponentInitializer(name, Constructor);
 
     $$1(function () {
       init(name);
@@ -105,17 +107,15 @@
   /**
    * Initializes the class components of the given name in the given element.
    * @param {String} classNames The class names
-   * @param {jQuery|HTMLElement|String} elem The dom where class componets are initialized
+   * @param {?HTMLElement} el The dom where class componets are initialized
    * @return {Array<HTMLElement>} The elements which are initialized in this initialization
    * @throw {Error}
    */
-  function init(classNames, elem) {
+  function init(classNames, el) {
     (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
-      var conf = ccc[className];
-      assert(conf, 'Class componet "' + className + '" is not defined.');
-
-      $$1(conf.selector, elem).each(function () {
-        conf.initElem(this);
+      var initializer = ccc[className];
+      assert(initializer, 'Class componet "' + className + '" is not defined.');(el || document).querySelectorAll(initializer.selector).forEach(function (el) {
+        initializer(el);
       });
     });
   }
@@ -261,7 +261,7 @@
   };
 
   /**
-   * class-component.js v10.8.0
+   * class-component.js v11.0.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
@@ -294,7 +294,7 @@
             (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(function (className) {
               if (ccc[className]) {
                 elem.addClass(className);
-                ccc[className].initElem(dom);
+                ccc[className](dom);
               }
             });
 
