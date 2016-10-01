@@ -6,9 +6,8 @@ import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
  * @param {String} className The class name
  * @param {Function} Constructor The constructor of the coelement of the class component
  */
-export default function ClassComponentConfiguration (className, Constructor) {
+export default function createComponentInitializer (className, Constructor) {
   const initClass = className + '-initialized'
-  this.selector = '.' + className + ':not(.' + initClass + ')'
 
   /**
    * Initialize the html element by the configuration.
@@ -16,8 +15,9 @@ export default function ClassComponentConfiguration (className, Constructor) {
    * @param {HTMLElement} el The html element
    * @param {object} coelem The dummy parameter, don't use
    */
-  this.initElem = (el, coelem) => {
+  const initializer = (el, coelem) => {
     const $el = $(el)
+
     if (!$el.hasClass(initClass)) {
       $el.addClass(initClass)
       el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el)
@@ -33,4 +33,8 @@ export default function ClassComponentConfiguration (className, Constructor) {
       })
     }
   }
+
+  initializer.selector = '.' + className + ':not(.' + initClass + ')'
+
+  return initializer
 }

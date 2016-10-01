@@ -1,5 +1,5 @@
 import $, {isFunction} from './jquery.js'
-import ClassComponentConfiguration from './class-component-configuration.js'
+import createComponentInitializer from './create-component-initializer.js'
 import assert from './assert.js'
 
 /**
@@ -16,7 +16,7 @@ export function register (name, Constructor) {
   assert(typeof name === 'string', '`name` of a class component has to be a string.')
   assert(isFunction(Constructor), '`Constructor` of a class component has to be a function')
 
-  ccc[name] = new ClassComponentConfiguration(name, Constructor)
+  ccc[name] = createComponentInitializer(name, Constructor)
 
   $(() => { init(name) })
 }
@@ -31,11 +31,11 @@ export function register (name, Constructor) {
 export function init (classNames, el) {
   (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc))
   .forEach(className => {
-    const conf = ccc[className]
-    assert(conf, 'Class componet "' + className + '" is not defined.')
+    const initializer = ccc[className]
+    assert(initializer, 'Class componet "' + className + '" is not defined.')
 
-    ;(el || document).querySelectorAll(conf.selector).forEach(el => {
-      conf.initElem(el)
+    ;(el || document).querySelectorAll(initializer.selector).forEach(el => {
+      initializer(el)
     })
   })
 }
