@@ -112,7 +112,7 @@
    * @throw {Error}
    */
   function init(classNames, el) {
-    (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
+    assert(classNames == null || typeof classNames === 'string', 'classNames must be a string or null');(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(function (className) {
       var initializer = ccc[className];
       assert(initializer, 'Class componet "' + className + '" is not defined.');(el || document).querySelectorAll(initializer.selector).forEach(function (el) {
         initializer(el);
@@ -261,7 +261,7 @@
   };
 
   /**
-   * class-component.js v11.0.0
+   * class-component.js v11.0.1
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
