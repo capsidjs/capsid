@@ -1,6 +1,6 @@
 import $, {isFunction} from './jquery.js'
 import createComponentInitializer from './create-component-initializer.js'
-import assert from './assert.js'
+import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 
 /**
  * @property {Object<ClassComponentConfiguration>} ccc
@@ -29,7 +29,7 @@ export function register (name, Constructor) {
  * @throw {Error}
  */
 export function init (classNames, el) {
-  assert(classNames == null || typeof classNames === 'string', 'classNames must be a string or null')
+  assertClassNamesAreStringOrNull(classNames)
 
   ;(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(className => {
     const initializer = ccc[className]

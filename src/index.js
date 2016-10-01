@@ -5,7 +5,7 @@
  */
 import './decorators.js'
 import {register as cc, init, ccc} from './class-component-manager.js'
-import assert from './assert.js'
+import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 import $ from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const'
 
@@ -30,11 +30,13 @@ if (!$.cc) {
     if (!cc) {
       /**
        * Initializes the element as class-component of the given names. If the names not given, then initializes it by the class-component of the class names it already has.
-       * @param {string} classNames The class component names
+       * @param {?string} classNames The class component names
        * @return {jQuery}
        */
       cc = dom.cc = classNames => {
-        (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(className => {
+        assertClassNamesAreStringOrNull(classNames)
+
+        ;(classNames || dom.className).split(/\s+/).forEach(className => {
           if (ccc[className]) {
             ccc[className]($el.addClass(className)[0])
           }
