@@ -45,7 +45,7 @@ describe('$.cc', () => {
 
     const elem = $('<div class="assign-test2" />').appendTo('body')
 
-    $.cc.init('assign-test2', 'body')
+    $.cc.init('assign-test2')
 
     assert(elem[0]['__coelement:assign-test2'] instanceof Class1)
   })
