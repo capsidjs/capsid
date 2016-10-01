@@ -19,13 +19,13 @@ export default function createComponentInitializer (className, Constructor) {
     const $el = $(el)
 
     if (!$el.hasClass(initClass)) {
-      $el.addClass(initClass)
-      el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el)
+      el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el.addClass(initClass))
 
       if (isFunction(coelem.__cc_init__)) {
         coelem.__cc_init__($el)
       } else {
-        coelem.elem = $el
+        coelem.elem = coelem.$el = $el
+        coelem.el = el
       }
 
       (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {

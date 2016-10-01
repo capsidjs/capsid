@@ -20,8 +20,8 @@ if (!$.cc) {
 
   // Defines the special property cc on the jquery prototype.
   Object.defineProperty($.fn, 'cc', {get () {
-    const elem = this
-    const dom = elem[0]
+    const $el = this
+    const dom = $el[0]
 
     assert(dom, 'cc (class-component context) is unavailable at empty dom selection')
 
@@ -33,17 +33,15 @@ if (!$.cc) {
        * @param {string} classNames The class component names
        * @return {jQuery}
        */
-      cc = classNames => {
+      cc = dom.cc = classNames => {
         (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(className => {
           if (ccc[className]) {
-            elem.addClass(className)
-            ccc[className](dom)
+            ccc[className]($el.addClass(className)[0])
           }
         })
 
-        return elem
+        return $el
       }
-      dom.cc = cc
 
       /**
        * Gets the coelement of the given name.

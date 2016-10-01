@@ -20,7 +20,7 @@ class-component.js is a tool for defining **html classes with special power**. c
   - now it has **5** methods and **7** decorators.
 - Does **not** introduce **new languages**
   - It only uses plain javascript and html.
-- It's very small: **2.4KB** minified (**1.1KB** gziped).
+- It's very small: **2.5KB** minified (**1.1KB** gziped).
 
 # The timer
 
