@@ -29,8 +29,9 @@ export function register (name, Constructor) {
  * @throw {Error}
  */
 export function init (classNames, el) {
-  (typeof classNames === 'string' ? classNames.split(/\s+/) : Object.keys(ccc))
-  .forEach(className => {
+  assert(classNames == null || typeof classNames === 'string', 'classNames must be a string or null')
+
+  ;(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(className => {
     const initializer = ccc[className]
     assert(initializer, 'Class componet "' + className + '" is not defined.')
 
