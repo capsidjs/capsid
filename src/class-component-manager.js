@@ -1,4 +1,4 @@
-import {isFunction} from './jquery.js'
+import isFunction from './is-function.js'
 import createComponentInitializer from './create-component-initializer.js'
 import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 import documentReady from './document-ready.js'

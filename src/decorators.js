@@ -1,7 +1,7 @@
 import {registerListenerInfo} from './register-listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc} from './class-component-manager.js'
-import {isFunction} from './jquery.js'
+import isFunction from './is-function.js'
 
 /**
  * The decorator for registering event listener info to the method.
