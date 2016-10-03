@@ -6,6 +6,19 @@
   var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
   var KEY_EVENT_LISTENERS = '__cc_listeners__';
 
+  var $$1 = $ = jQuery;
+
+  /**
+   * Binds the callback to the element at the event and the selector.
+   * @param {HTMLElement} el The element
+   * @param {string} event The event
+   * @param {?string} selector The selector
+   * @param {Function} callback The handler
+   */
+  var eventDelegate = function eventDelegate(el, event, selector, callback) {
+    $$1(el).on(event, selector, callback);
+  };
+
   /**
    * Registers the event listener to the class constructor.
    * @param {object} constructor The constructor
@@ -23,8 +36,8 @@
      * @param {jQuery} $el The jquery selection of the element
      * @param {T} coelem The coelement
      */
-    constructor$$1[KEY_EVENT_LISTENERS] = (constructor$$1[KEY_EVENT_LISTENERS] || []).concat(function ($el, coelem) {
-      $el.on(event, selector, function () {
+    constructor$$1[KEY_EVENT_LISTENERS] = (constructor$$1[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
+      eventDelegate(el, event, selector, function () {
         coelem[key].apply(coelem, arguments);
       });
     });
@@ -36,8 +49,13 @@
     }).replace(/^-/, '');
   };
 
-  var $$1 = jQuery;
-  var isFunction = $$1.isFunction;
+  /**
+   * Returns true iff the given thing is a function.
+   * @param {any} func The thing to check
+   */
+  var isFunction = function isFunction(func) {
+    return typeof func === 'function';
+  };
 
   /**
    * ClassComponentConfiguration is the utility class for class component initialization.
@@ -54,20 +72,21 @@
      * @param {object} coelem The dummy parameter, don't use
      */
     var initializer = function initializer(el, coelem) {
-      var $el = $(el);
+      var classList = el.classList;
 
-      if (!$el.hasClass(initClass)) {
-        el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el.addClass(initClass));
+      if (!classList.contains(initClass)) {
+        classList.add(initClass);
+        el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($$1(el));
 
         if (isFunction(coelem.__cc_init__)) {
-          coelem.__cc_init__($el);
+          coelem.__cc_init__($$1(el));
         } else {
-          coelem.elem = coelem.$el = $el;
+          coelem.elem = coelem.$el = $$1(el);
           coelem.el = el;
         }
 
         (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
-          listenerBinder($el, coelem);
+          listenerBinder(el, coelem);
         });
       }
     };
@@ -95,6 +114,10 @@
     assert(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
   }
 
+  var documentReady = function documentReady(callback) {
+    $$1(callback);
+  };
+
   /**
    * @property {Object<ClassComponentConfiguration>} ccc
    */
@@ -111,7 +134,7 @@
 
     ccc[name] = createComponentInitializer(name, Constructor);
 
-    $$1(function () {
+    documentReady(function () {
       init(name);
     });
   }
@@ -124,7 +147,7 @@
    * @throw {Error}
    */
   function init(classNames, el) {
-    assertClassNamesAreStringOrNull(classNames);(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(function (className) {
+    assertClassNamesAreStringOrNull(classNames);(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
       var initializer = ccc[className];
       assert(initializer, 'Class componet "' + className + '" is not defined.');[].forEach.call((el || document).querySelectorAll(initializer.selector), function (el) {
         initializer(el);
