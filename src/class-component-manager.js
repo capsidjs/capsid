@@ -35,7 +35,7 @@ export function init (classNames, el) {
     const initializer = ccc[className]
     assert(initializer, 'Class componet "' + className + '" is not defined.')
 
-    ;(el || document).querySelectorAll(initializer.selector).forEach(el => {
+    ;[].forEach.call((el || document).querySelectorAll(initializer.selector), el => {
       initializer(el)
     })
   })

@@ -9,7 +9,6 @@ export default function assert (assertion, message) {
   }
 }
 
-
 /**
  * @param {any} classNames The class names
  */
