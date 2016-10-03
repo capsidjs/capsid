@@ -1,6 +1,6 @@
 import {registerListenerInfo} from './register-listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
-import {register as cc} from './class-component-manager.js'
+import {register as cc} from './register-and-init.js'
 import isFunction from './is-function.js'
 
 /**

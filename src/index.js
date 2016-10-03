@@ -4,7 +4,7 @@
  * license: MIT
  */
 import './decorators.js'
-import {register as cc, init, ccc} from './class-component-manager.js'
+import {register as cc, init, ccc} from './register-and-init.js'
 import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 import $ from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const'
