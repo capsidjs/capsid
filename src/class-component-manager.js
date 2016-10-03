@@ -1,6 +1,7 @@
 import $, {isFunction} from './jquery.js'
 import createComponentInitializer from './create-component-initializer.js'
 import assert, {assertClassNamesAreStringOrNull} from './assert.js'
+import documentReady from './document-ready.js'
 
 /**
  * @property {Object<ClassComponentConfiguration>} ccc
@@ -18,7 +19,7 @@ export function register (name, Constructor) {
 
   ccc[name] = createComponentInitializer(name, Constructor)
 
-  $(() => { init(name) })
+  documentReady(() => { init(name) })
 }
 
 /**

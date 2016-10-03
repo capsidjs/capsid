@@ -16,20 +16,21 @@ export default function createComponentInitializer (className, Constructor) {
    * @param {object} coelem The dummy parameter, don't use
    */
   const initializer = (el, coelem) => {
-    const $el = $(el)
+    const classList = el.classList
 
-    if (!$el.hasClass(initClass)) {
-      el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el.addClass(initClass))
+    if (!classList.contains(initClass)) {
+      classList.add(initClass)
+      el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($(el))
 
       if (isFunction(coelem.__cc_init__)) {
-        coelem.__cc_init__($el)
+        coelem.__cc_init__($(el))
       } else {
-        coelem.elem = coelem.$el = $el
+        coelem.elem = coelem.$el = $(el)
         coelem.el = el
       }
 
       (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
-        listenerBinder($el, coelem)
+        listenerBinder(el, coelem)
       })
     }
   }

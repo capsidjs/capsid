@@ -2,7 +2,6 @@
 
 - remove $(func) by native impl
 - remove $().on('event', 'selector', func) by native impl
-- remove addClass removeClass hasClass by classList I/F
 - breaking: remove @on().at @12
 - breaking: remove @emit().first @12
 - breaking: remove @emit().last @12
@@ -12,6 +11,7 @@
 - doc: create document site
 
 # DONE
+- remove addClass removeClass hasClass by classList I/F
 - feat: add @emit.first('event')
 - feat: add @emit.last('event')
 - feat: add @on('event', {at: selector})

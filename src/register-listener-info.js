@@ -1,4 +1,5 @@
 import {KEY_EVENT_LISTENERS} from './const.js'
+import eventDelegate from './event-delegate.js'
 
 /**
  * Registers the event listener to the class constructor.
@@ -17,8 +18,8 @@ export const registerListenerInfo = (constructor, key, event, selector) => {
    * @param {jQuery} $el The jquery selection of the element
    * @param {T} coelem The coelement
    */
-  constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(($el, coelem) => {
-    $el.on(event, selector, function () {
+  constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat((el, coelem) => {
+    eventDelegate(el, event, selector, function () {
       coelem[key].apply(coelem, arguments)
     })
   })
