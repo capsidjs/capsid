@@ -2,6 +2,8 @@
 
 - remove $(func) by native impl
 - remove $().on('event', 'selector', func) by native impl
+- remote $().trigger by native impl
+- remove jquery dep of @wire
 - breaking: remove @on().at @12
 - breaking: remove @emit().first @12
 - breaking: remove @emit().last @12
