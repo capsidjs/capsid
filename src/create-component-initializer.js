@@ -1,4 +1,4 @@
-import {isFunction} from './jquery.js'
+import $, {isFunction} from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
 
 /**
