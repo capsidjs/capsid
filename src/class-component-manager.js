@@ -1,4 +1,4 @@
-import $, {isFunction} from './jquery.js'
+import {isFunction} from './jquery.js'
 import createComponentInitializer from './create-component-initializer.js'
 import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 import documentReady from './document-ready.js'
@@ -32,7 +32,7 @@ export function register (name, Constructor) {
 export function init (classNames, el) {
   assertClassNamesAreStringOrNull(classNames)
 
-  ;(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(className => {
+  ;(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(className => {
     const initializer = ccc[className]
     assert(initializer, 'Class componet "' + className + '" is not defined.')
 
