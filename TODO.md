@@ -1,8 +1,11 @@
 # TODO
 
-- breaking: remove @on().at
-- breaking: remove @emit().first
-- breaking: remove @emit().last
+- remove $(func) by native impl
+- remove $().on('event', 'selector', func) by native impl
+- remove addClass removeClass hasClass by classList I/F
+- breaking: remove @on().at @12
+- breaking: remove @emit().first @12
+- breaking: remove @emit().last @12
 - doc: write Tutorial
 - doc: write How to test cc
 - doc: write about layered MVP = nesting class-components with reference to PAC and HMVC
