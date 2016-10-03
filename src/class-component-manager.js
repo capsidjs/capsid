@@ -9,9 +9,10 @@ import documentReady from './document-ready.js'
 export const ccc = {}
 
 /**
- * Registers the class component configuration for the given name.
+ * Registers the class-component for the given name and constructor and returns the constructor.
  * @param {String} name The name
  * @param {Function} Constructor The constructor of the class component
+ * @return {Function}
  */
 export function register (name, Constructor) {
   assert(typeof name === 'string', '`name` of a class component has to be a string.')
@@ -20,6 +21,8 @@ export function register (name, Constructor) {
   ccc[name] = createComponentInitializer(name, Constructor)
 
   documentReady(() => { init(name) })
+
+  return Constructor
 }
 
 /**

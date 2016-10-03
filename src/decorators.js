@@ -112,18 +112,9 @@ cc.wire = (target, key, descriptor) => {
 
 /**
  * The decorator for class component registration.
+ *
+ * if `name` is function, then use it as class itself and the component name is kebabized version of its name.
  * @param {String|Function} name The class name or the implementation class itself
  * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
  */
-cc.component = name => {
-  if (!isFunction(name)) {
-    return Cls => {
-      cc(name, Cls)
-      return Cls
-    }
-  }
-
-  // if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-  cc(camelToKebab(name.name), name)
-  return name
-}
+cc.component = name => isFunction(name) ? cc(camelToKebab(name.name), name) : Cls => cc(name, Cls)
