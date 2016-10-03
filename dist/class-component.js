@@ -13,7 +13,7 @@
    * @param {string} event The event name
    * @param {string} selector The selector
    */
-  var registerListenerInfo = function registerListenerInfo(constructor, key, event, selector) {
+  var registerListenerInfo = function registerListenerInfo(constructor$$1, key, event, selector) {
     // assert(constructor, 'prototype.constructor must be set to register the event listeners.')
     // Does not assert the above because if the user uses decorators throw decorators syntax,
     // Then the above assertion always passes and never fails.
@@ -23,7 +23,7 @@
      * @param {jQuery} $el The jquery selection of the element
      * @param {T} coelem The coelement
      */
-    constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function ($el, coelem) {
+    constructor$$1[KEY_EVENT_LISTENERS] = (constructor$$1[KEY_EVENT_LISTENERS] || []).concat(function ($el, coelem) {
       $el.on(event, selector, function () {
         coelem[key].apply(coelem, arguments);
       });
@@ -57,13 +57,13 @@
       var $el = $(el);
 
       if (!$el.hasClass(initClass)) {
-        $el.addClass(initClass);
-        el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el);
+        el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($el.addClass(initClass));
 
         if (isFunction(coelem.__cc_init__)) {
           coelem.__cc_init__($el);
         } else {
-          coelem.elem = $el;
+          coelem.elem = coelem.$el = $el;
+          coelem.el = el;
         }
 
         (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
@@ -77,10 +77,22 @@
     return initializer;
   }
 
+  /**
+   * Asserts the given condition holds, otherwise throws.
+   * @param {boolean} assertion The assertion expression
+   * @param {string} message The assertion message
+   */
   function assert(assertion, message) {
     if (!assertion) {
       throw new Error(message);
     }
+  }
+
+  /**
+   * @param {any} classNames The class names
+   */
+  function assertClassNamesAreStringOrNull(classNames) {
+    assert(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
   }
 
   /**
@@ -112,9 +124,9 @@
    * @throw {Error}
    */
   function init(classNames, el) {
-    assert(classNames == null || typeof classNames === 'string', 'classNames must be a string or null');(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(function (className) {
+    assertClassNamesAreStringOrNull(classNames);(classNames && classNames.split(/\s+/) || Object.keys(ccc)).forEach(function (className) {
       var initializer = ccc[className];
-      assert(initializer, 'Class componet "' + className + '" is not defined.');(el || document).querySelectorAll(initializer.selector).forEach(function (el) {
+      assert(initializer, 'Class componet "' + className + '" is not defined.');[].forEach.call((el || document).querySelectorAll(initializer.selector), function (el) {
         initializer(el);
       });
     });
@@ -126,7 +138,7 @@
    * @param {string} at The selector
    */
   register.on = function (event) {
-    var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var at = _ref.at;
 
@@ -261,7 +273,7 @@
   };
 
   /**
-   * class-component.js v11.0.1
+   * class-component.js v11.0.2
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
@@ -277,8 +289,8 @@
     // Defines the special property cc on the jquery prototype.
     Object.defineProperty($$1.fn, 'cc', {
       get: function get() {
-        var elem = this;
-        var dom = elem[0];
+        var $el = this;
+        var dom = $el[0];
 
         assert(dom, 'cc (class-component context) is unavailable at empty dom selection');
 
@@ -287,20 +299,18 @@
         if (!cc) {
           /**
            * Initializes the element as class-component of the given names. If the names not given, then initializes it by the class-component of the class names it already has.
-           * @param {string} classNames The class component names
+           * @param {?string} classNames The class component names
            * @return {jQuery}
            */
-          cc = function cc(classNames) {
-            (typeof classNames === 'string' ? classNames : dom.className).split(/\s+/).forEach(function (className) {
+          cc = dom.cc = function (classNames) {
+            assertClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).forEach(function (className) {
               if (ccc[className]) {
-                elem.addClass(className);
-                ccc[className](dom);
+                ccc[className]($el.addClass(className)[0]);
               }
             });
 
-            return elem;
+            return $el;
           };
-          dom.cc = cc;
 
           /**
            * Gets the coelement of the given name.
