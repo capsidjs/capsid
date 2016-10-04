@@ -5,7 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
-> Yet another UI framework
+> Frontend MVP tool
 
 class-component.js is a tool for defining **html classes with special power**. class-component.js encourages the use of MVP (Model-View-Presenter) design pattern and it works as *Presenter* part of it. See below for details.
 
@@ -15,11 +15,12 @@ class-component.js is a tool for defining **html classes with special power**. c
 - It's a **jQuery plugin**.
 - Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
 - **no virtual dom**
+- **no template, no rendering**
 - **friendly with real dom** (and jQuery)
 - **small number of APIs**
   - now it has **5** methods and **7** decorators.
-- Does **not** introduce **new languages**
-  - It only uses plain javascript and html.
+- It uses plain javascript and plain html.
+  - Does **not** introduce **new languages**
 - It's very small: **2.5KB** minified (**1.1KB** gziped).
 
 # The timer
