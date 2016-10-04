@@ -7,7 +7,7 @@
 
 > Frontend MVP tool
 
-class-component.js is a tool for defining **html classes with special power**. class-component.js encourages the use of MVP (Model-View-Presenter) design pattern and it works as *Presenter* part of it. See below for details.
+class-component.js is frontend MVP library. It's unique among other frameworks in that it does not create any dom, but attaches the behaviours to existing doms.
 
 # Features
 
