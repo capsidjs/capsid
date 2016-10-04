@@ -135,6 +135,10 @@ $.cc('my-component', MyComponent)
 
 With the above example, the jquery element is stored in `this.el` instead of `this.elem`.
 
+## Note
+
+As you can see in the above examples, class-component never *creates* or *renders* dom, but always attaches coelements to them after they are created.
+
 # Install
 
 ## Via npm
