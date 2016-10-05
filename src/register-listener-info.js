@@ -15,7 +15,7 @@ export const registerListenerInfo = (constructor, key, event, selector) => {
 
   /**
    * @type <T> The coelement type
-   * @param {jQuery} $el The jquery selection of the element
+   * @param {HTMLElement} el The jquery selection of the element
    * @param {T} coelem The coelement
    */
   constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat((el, coelem) => {
