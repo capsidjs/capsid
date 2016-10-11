@@ -1,1 +1,1 @@
-export default $ = jQuery
+export default $

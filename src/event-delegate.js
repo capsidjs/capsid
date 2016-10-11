@@ -1,5 +1,3 @@
-import $ from './jquery.js'
-
 /**
  * Binds the callback to the element at the event and the selector.
  * @param {HTMLElement} el The element
