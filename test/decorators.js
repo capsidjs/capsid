@@ -56,8 +56,8 @@ describe('@on(event, {at: selector})', () => {
 
     const elem = div(div({addClass: 'inner'})).cc('on-at-test0')
 
-    elem.trigger('bar-event')
-    elem.find('.inner').trigger('foo-event')
+    elem[0].dispatchEvent(new CustomEvent('bar-event', {bubbles: true}))
+    elem.find('.inner')[0].dispatchEvent(new CustomEvent('foo-event', {bubbles: true}))
   })
 })
 

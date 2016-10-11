@@ -8,5 +8,19 @@ import $ from './jquery.js'
  * @param {Function} callback The handler
  */
 export default (el, event, selector, callback) => {
-  $(el).on(event, selector, callback)
+  el.addEventListener(event, e => {
+    if (!selector) {
+      callback(e)
+      return
+    }
+
+    const nodes = el.querySelectorAll(selector)
+
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i] === e.target || nodes[i].contains(e.target)) {
+        callback(e)
+        return
+      }
+    }
+  })
 }
