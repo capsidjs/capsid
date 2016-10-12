@@ -5,23 +5,20 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 
-> Frontend MVP tool
+> Class driven component tool
 
-class-component.js is frontend MVP library. It's unique among other frameworks in that it does not create any dom, but attaches the behaviours to existing doms.
+class-component.js is a tool for creating UI Component based on HTML classes.
+
+class-component.js encourages the use of MVP design pattern. A component (or coelement) works as Presenter of MVP and dom (HTMLElement) works as View of MVP. See the below for details.
+
+If you don't need big frameworks like React & Redux or Angular but still need some structure like components, then I recommend this tool.
 
 # Features
 
 - It's an **UI framework**.
-- It's a **jQuery plugin**.
-- Exposes **2** namespaces: `$.cc` and `$.fn.cc`.
-- **no virtual dom**
-- **no template, no rendering**
-- **friendly with real dom** (and jQuery)
-- **small number of APIs**
-  - now it has **5** methods and **7** decorators.
-- It uses plain javascript and plain html.
-  - Does **not** introduce **new languages**
-- It's very small: **3.0KB** minified (**1.3KB** gziped).
+- **no virtual dom, no template, no rendering**
+- **small APIs**: 5 apis & 7 decorators & (2 experimental apis)
+- **small size**: **3.0KB** minified (**1.3KB** gziped).
 
 # The timer
 
@@ -165,8 +162,6 @@ Download dist.min.js. Then:
 
 # APIs
 
-There are 5 APIs.
-
 - `$.cc`
   - Registers class-component.
 - `$.cc.init`
@@ -177,6 +172,10 @@ There are 5 APIs.
   - Gets the coelement of the element.
 - `$.fn.cc.init`
   - Initializes the element as a class-component.
+- `cc.el('class-name', dom)`
+  - TBD
+- `cc.get('class-name', dom)`
+  - TBD
 
 
 ## `$.cc` namespace
