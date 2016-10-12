@@ -56,8 +56,12 @@ describe('@on(event, {at: selector})', () => {
 
     const elem = div(div({addClass: 'inner'})).cc('on-at-test0')
 
+    document.body.appendChild(elem[0])
+
     elem[0].dispatchEvent(new CustomEvent('bar-event', {bubbles: true}))
     elem.find('.inner')[0].dispatchEvent(new CustomEvent('foo-event', {bubbles: true}))
+
+    document.body.removeChild(elem[0])
   })
 })
 
