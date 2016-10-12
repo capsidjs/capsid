@@ -6,7 +6,7 @@
  */
 import './decorators.js'
 import {register, init, ccc} from './register-and-init.js'
-import assert, {assertClassNamesAreStringOrNull} from './assert.js'
+import assert, {assertClassNamesAreStringOrNull, assertComponentNameIsValid} from './assert.js'
 import $ from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const'
 
@@ -23,11 +23,11 @@ if (!$.cc) {
 
   const descriptor: any = {get () {
     const $el = this
-    const dom = $el[0]
+    const dom: HTMLElement = $el[0]
 
-    assert(dom, 'cc (class-component context) is unavailable at empty dom selection')
+    assert(dom != null, 'cc (class-component context) is unavailable at empty dom selection')
 
-    let cc = dom.cc
+    let cc = (dom: any).cc
 
     if (!cc) {
       /**
@@ -35,7 +35,7 @@ if (!$.cc) {
        * @param {?string} classNames The class component names
        * @return {jQuery}
        */
-      cc = dom.cc = (classNames: ?string) => {
+      cc = (dom: any).cc = (classNames: ?string) => {
         assertClassNamesAreStringOrNull(classNames)
 
         ;(classNames || dom.className).split(/\s+/).forEach(className => {
@@ -49,16 +49,10 @@ if (!$.cc) {
 
       /**
        * Gets the coelement of the given name.
-       * @param {String} coelementName The name of the coelement
+       * @param {string} name The name of the coelement
        * @return {Object}
        */
-      cc.get = (coelementName: string) => {
-        const coelement = dom[COELEMENT_DATA_KEY_PREFIX + coelementName]
-
-        assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName)
-
-        return coelement
-      }
+      cc.get = (name: string) => get(name, dom)
 
       cc.init = (className: string) => cc(className).cc.get(className)
     }
@@ -68,4 +62,20 @@ if (!$.cc) {
 
   // Defines the special property cc on the jquery prototype.
   Object.defineProperty($.fn, 'cc', descriptor)
+
+  cc.el = (name: string, el: HTMLElement) => {
+    assertComponentNameIsValid(name)
+
+    ccc[name](el)
+  }
+
+  const get = cc.get = (name: string, el: HTMLElement) => {
+    assertComponentNameIsValid(name)
+
+    const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name]
+
+    assert(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName)
+
+    return coelement
+  }
 }

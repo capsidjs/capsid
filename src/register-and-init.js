@@ -4,7 +4,9 @@ import createComponentInitializer from './create-component-initializer.js'
 import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 import documentReady from './document-ready.js'
 
-export type cccType = {[key: string]: Function}
+type Initializer = {(el: HTMLElement, coelem: any): void; selector: string}
+type cccType = {[key: string]: Initializer}
+
 /**
  * @property {Object<Function>} ccc
  */
@@ -19,6 +21,8 @@ export const ccc: cccType = {}
 export function register (name: string, Constructor: Function): Function {
   assert(typeof name === 'string', '`name` of a class component has to be a string.')
   assert(isFunction(Constructor), '`Constructor` of a class component has to be a function')
+
+  Constructor.__cc = name
 
   ccc[name] = createComponentInitializer(name, Constructor)
 
