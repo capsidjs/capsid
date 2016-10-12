@@ -21,7 +21,7 @@ class-component.js is frontend MVP library. It's unique among other frameworks i
   - now it has **5** methods and **7** decorators.
 - It uses plain javascript and plain html.
   - Does **not** introduce **new languages**
-- It's very small: **2.5KB** minified (**1.1KB** gziped).
+- It's very small: **2.8KB** minified (**1.3KB** gziped).
 
 # The timer
 

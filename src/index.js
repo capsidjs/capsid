@@ -1,13 +1,16 @@
+// @flow
 /**
  * class-component.js v11.0.2
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
 import './decorators.js'
-import {register as cc, init, ccc} from './register-and-init.js'
+import {register, init, ccc} from './register-and-init.js'
 import assert, {assertClassNamesAreStringOrNull} from './assert.js'
 import $ from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const'
+
+const cc = (register: any)
 
 // Initializes the module object.
 if (!$.cc) {
@@ -18,8 +21,7 @@ if (!$.cc) {
   // Expose __ccc__
   cc.__ccc__ = ccc
 
-  // Defines the special property cc on the jquery prototype.
-  Object.defineProperty($.fn, 'cc', {get () {
+  const descriptor: any = {get () {
     const $el = this
     const dom = $el[0]
 
@@ -33,7 +35,7 @@ if (!$.cc) {
        * @param {?string} classNames The class component names
        * @return {jQuery}
        */
-      cc = dom.cc = classNames => {
+      cc = dom.cc = (classNames: ?string) => {
         assertClassNamesAreStringOrNull(classNames)
 
         ;(classNames || dom.className).split(/\s+/).forEach(className => {
@@ -50,7 +52,7 @@ if (!$.cc) {
        * @param {String} coelementName The name of the coelement
        * @return {Object}
        */
-      cc.get = coelementName => {
+      cc.get = (coelementName: string) => {
         const coelement = dom[COELEMENT_DATA_KEY_PREFIX + coelementName]
 
         assert(coelement, 'no coelement named: ' + coelementName + ', on the dom: ' + dom.tagName)
@@ -58,9 +60,12 @@ if (!$.cc) {
         return coelement
       }
 
-      cc.init = className => cc(className).cc.get(className)
+      cc.init = (className: string) => cc(className).cc.get(className)
     }
 
     return cc
-  }})
+  }}
+
+  // Defines the special property cc on the jquery prototype.
+  Object.defineProperty($.fn, 'cc', descriptor)
 }

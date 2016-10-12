@@ -1,5 +1,6 @@
+// @flow
 import $ from './jquery'
 
-export default callback => {
+export default (callback: Function) => {
   $(callback)
 }
