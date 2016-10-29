@@ -39,7 +39,7 @@
     "codecov": "^1.0.1",
     "dom-gen": "^2.1.0",
     "eslint-plugin-flowtype": "^2.20.0",
-    "flow-bin": "^0.33.0",
+    "flow-bin": "^0.34.0",
     "jquery": "^3.0.0",
     "karma": "^1.1.1",
     "karma-browserify": "^5.0.4",
