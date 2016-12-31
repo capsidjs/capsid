@@ -329,7 +329,7 @@
 
   //      
   /**
-   * class-component.js v12.0.0
+   * class-component.js v12.0.2
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
