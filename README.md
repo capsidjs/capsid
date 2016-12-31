@@ -9,7 +9,7 @@
 
 class-component.js is a tool for creating UI Component based on HTML classes.
 
-class-component.js encourages the use of MVP design pattern. A component (or coelement) works as Presenter of MVP and dom (HTMLElement) works as View of MVP. See the below for details.
+class-component.js encourages the use of MVP design pattern. A component (or coelement) works as Presenter of MVP and a HTMLElement (dom) works as View of MVP. See the below for details.
 
 If you don't need big frameworks like React & Redux or Angular but still need some structure like components, then I recommend this tool.
 
@@ -18,17 +18,17 @@ If you don't need big frameworks like React & Redux or Angular but still need so
 - It's an **UI framework**.
 - **no virtual dom, no template, no rendering**
 - **small APIs**: 5 apis & 7 decorators & (2 experimental apis)
-- **small size**: **3.0KB** minified (**1.3KB** gziped).
+- **small size**: **2.9KB** minified (**1.3KB** gziped).
 
 # The timer
 
-The timer example in `$.cc`:
+The timer example:
 
 timer.js:
 
 ```js
 class Timer {
-  constructor() {
+  init() {
     this.secondsElapsed = 0
     this.start()
   }
@@ -45,7 +45,7 @@ class Timer {
    */
   tick() {
     this.secondsElapsed++
-    this.elem.text('Seconds Elapsed:' + this.secondsElapsed)
+    this.el.textContent = `Seconds Elapsed: ${this.secondsElapsed}`
   }
 
   /**
@@ -69,24 +69,24 @@ See [the working demo](https://kt3k.github.io/class-component/demo/timer.html).
 
 # The concept
 
-A `class-component` is basically `element` + `coelement` like the following diagram:
+A `class-component` is the combination of `element` and `coelement`:
 
 ![diagram-1](http://kt3k.github.io/class-component/asset/diagram-1.svg)
 
 where:
 
-- `element` is the usual dom element wrapped by jquery.
-  - e.g. `$('.timer')` in *the timer* example.
+- `element` is the usual dom element.
+  - `<span class="timer"></span>` in the timer example
 - `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
-  - e.g. `class Timer {...}` in *the timer* example.
+  - `class Timer {...}` in the timer example.
 
-What class-component.js is responsible for is the following transition from the usual dom to a `class-component`.
+class-component.js is responsible for the following transition from the usual dom to a `class-component`.
 
 ![diagram-2](http://kt3k.github.io/class-component/asset/diagram-2.svg)
 
 ## Register your class-component
 
-You can register the class-component of the given name by the following:
+You can register the class-component of the given name like this:
 
 ```js
 $.cc('component-name', ComponentClass)
@@ -101,42 +101,23 @@ The followings are exact steps when a class-component is initialized.
 ```js
 const coelem = new ComponentClass(elem) // The constructor is called with the element.
 
-if (typeof coelem.__cc_init__ === 'function') {
-  coelem.__cc_init__(elem) // If coelement has __cc_init__ method, then it's called.
-} else {
-  coelem.elem = elem // If it doesn't, then coelem.elem is assigned to elem.
-}
+coelem.el = elem
+coelem.$el = $(elem)
 
-elem.on([givenEvent], [givenSelector], [givenHandler]) // See `event` decorator section for details.
+$el.on([givenEvent], [givenSelector], [givenHandler]) // See `event` decorator section for details.
 
-elem.addClass(componentName + '-initialized') // The element is marked `initialized`.
+$el.addClass(componentName + '-initialized') // The element is marked `initialized`.
 
-elem.data('__coelement:' + componentName, coelem) // The coelement is stored in the element.
+$el.data('__coelement:' + componentName, coelem) // The coelement is stored in the element.
 ```
 
-where `elem` is jquery element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
+where `el` is the element and `$el` is jquery-wrapped element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
 
-## `this.elem`
+## `this.el` and `this.$el`
 
-After the constructor is called, this.elem is automatically set to jquery dom element by the framework. This behaviour can be overriden by defining the method `__cc_init__`. If your Coelement class has the `__cc_init__` method, then it's called instead.
+`this.el` is HTMLElement and `this.$el` is the same thing wrapped by jquery.
 
-```js
-class MyComponent {
-  __cc_init__(el) {
-    this.el = el
-  }
-}
-
-$.cc('my-component', MyComponent)
-```
-
-With the above example, the jquery element is stored in `this.el` instead of `this.elem`.
-
-## Note
-
-As you can see in the above examples, class-component never *creates* or *renders* dom, but always attaches coelements to them after they are created.
-
-# Install
+# :cd: Install
 
 ## Via npm
 
