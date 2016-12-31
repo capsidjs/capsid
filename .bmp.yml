@@ -1,6 +1,6 @@
 ---
 version: 12.0.2
-commit: 'chore(version): :arrow_heading_up: bump to v%.%.%'
+commit: ':bookmark: chore(version): bump to v%.%.%'
 files:
   package.json: '"version": "%.%.%"'
   src/index.js: v%.%.%
