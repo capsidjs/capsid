@@ -506,6 +506,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-12-31   v12.0.0   Remove __cc_init__ feature. Add init feature.
 - 2016-09-30   v10.7.1   Refactor @emit.last decorator
 - 2016-09-11   v10.7.0   Add @on(event, {at}) @emit.first and @emit.last
 - 2016-08-22   v10.6.2   Refactor the entrypoint.
