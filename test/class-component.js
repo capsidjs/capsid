@@ -1,20 +1,21 @@
 const $ = jQuery
 const assert = require('power-assert')
+const { div } = require('dom-gen')
 
 describe('$.cc', () => {
   'use strict'
 
   before(() => {
     class Foo {
-      constructor (elem) {
-        elem.attr('is_foo', 'true')
+      init () {
+        this.$el.attr('is_foo', 'true')
       }
     }
     $.cc('foo', Foo)
 
     class Bar {
-      constructor (elem) {
-        elem.attr('is_bar', 'true')
+      init () {
+        this.$el.attr('is_bar', 'true')
       }
     }
     $.cc('bar', Bar)
@@ -50,18 +51,29 @@ describe('$.cc', () => {
     assert(elem[0]['__coelement:assign-test2'] instanceof Class1)
   })
 
-  it('sets coelement.elem as the base jquery element', () => {
+  it('sets coelement.$el as the base jquery element', () => {
     class Class2 {}
 
     $.cc('elem-test', Class2)
 
-    const elem = $('<div class="elem-test" />').appendTo('body')
+    const $el = $('<div class="elem-test" />').appendTo('body')
 
     $.cc.init('elem-test')
 
-    const coelem = elem.cc.get('elem-test')
+    const coelem = $el.cc.get('elem-test')
 
-    assert(coelem.elem[0] === elem[0])
+    assert(coelem.$el.length === 1)
+    assert(coelem.$el[0] === $el[0])
+  })
+
+  it('sets coelement.el as the corresponding dom', () => {
+    class Class3 {}
+
+    $.cc('elem-test-3', Class3)
+
+    const $dom = div().cc('elem-test-3')
+
+    assert($dom.cc.get('elem-test-3').el === $dom[0])
   })
 
   describe('init', () => {

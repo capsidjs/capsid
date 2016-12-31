@@ -1,5 +1,6 @@
 // @flow
 import $ from './jquery.js'
+import isFunction from './is-function'
 import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
 
 /**
@@ -26,7 +27,11 @@ export default function createComponentInitializer (className: string, Construct
       coelem.elem = coelem.$el = $(el)
       coelem.el = el
 
-      ;(Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
+      if (isFunction(coelem.init)) {
+        coelem.init()
+      }
+
+      (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
         listenerBinder(el, coelem)
       })
     }
