@@ -64,22 +64,6 @@ describe('$.cc', () => {
     assert(coelem.elem[0] === elem[0])
   })
 
-  it('does not set coelement.elem if __cc_init__ is overriden', () => {
-    class ClassCcInit {
-      __cc_init__(elem) { // eslint-disable-line
-        this.el = elem
-      }
-    }
-
-    $.cc('cc-init-test', ClassCcInit)
-
-    const elem = $('<div/>').cc('cc-init-test')
-    const coelem = elem.cc.get('cc-init-test')
-
-    assert(coelem.elem === undefined)
-    assert(coelem.el[0] === elem[0])
-  })
-
   describe('init', () => {
     beforeEach(() => {
       $('body').empty()
