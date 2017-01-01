@@ -101,8 +101,8 @@
         coelem.elem = coelem.$el = $(el);
         coelem.el = el;
 
-        if (isFunction(coelem.init)) {
-          coelem.init();
+        if (typeof coelem.__init__ === 'function') {
+          coelem.__init__();
         }
 
         (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
@@ -317,7 +317,7 @@
 
   //      
   /**
-   * class-component.js v12.2.0
+   * class-component.js v13.0.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
