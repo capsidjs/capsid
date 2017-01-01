@@ -4,6 +4,7 @@
 [![codecov.io](https://codecov.io/github/kt3k/class-component/coverage.svg?branch=master)](https://codecov.io/github/kt3k/class-component?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
+[![npm](https://img.shields.io/npm/v/class-component.svg)](https://npm.im/class-component)
 
 > Class driven component tool
 
@@ -267,7 +268,7 @@ There are 8 decorators.
 - `@component`
 - `@component()`
 - `@on(event, {at})`
-- `@emit()` (`@emit.first()`)
+- `@emit()`
 - `@emit.last()`
 - `@wire`
 - `@wire()`
@@ -362,9 +363,8 @@ $.cc('btn', Btn)
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
 
 ## `@emit(startEvent)`
-## `@emit.first(startEvent)`
 
-`$.cc.emit()` (or `$.cc.emit.first()`) is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
+`$.cc.emit()` is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
 
 ```js
 const {emit} = $.cc
@@ -397,7 +397,7 @@ $.cc('manager', Manager)
 
 ## `@emit.last(eventName)`
 
-`$.cc.emit.last(eventName)` is similar to `$.cc.emit.first()`, but it triggers the event at the last of the method.
+`$.cc.emit.last(eventName)` is similar to `$.cc.emit()`, but it triggers the event at the last of the method.
 
 ```js
 const {emit} = $.cc
@@ -506,6 +506,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-01-01   v12.1.0   Remove @emit.first. Use native dispatchEvent.
 - 2016-12-31   v12.0.0   Remove __cc_init__ feature. Add init feature.
 - 2016-09-30   v10.7.1   Refactor @emit.last decorator
 - 2016-09-11   v10.7.0   Add @on(event, {at}) @emit.first and @emit.last

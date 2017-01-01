@@ -123,7 +123,7 @@
    * @param {boolean} assertion The assertion expression
    * @param {string} message The assertion message
    */
-  function assert(assertion, message) {
+  function check(assertion, message) {
     if (!assertion) {
       throw new Error(message);
     }
@@ -132,17 +132,17 @@
   /**
    * @param {any} classNames The class names
    */
-  function assertClassNamesAreStringOrNull(classNames) {
-    assert(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
+  function checkClassNamesAreStringOrNull(classNames) {
+    check(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
   }
 
   /**
    * Asserts the given name is a valid component name.
    * @param name The component name
    */
-  function assertComponentNameIsValid(name) {
-    assert(typeof name === 'string', 'The name should not be a string');
-    assert(ccc[name] != null, 'The coelement of the given name is not registered: ' + name);
+  function checkComponentNameIsValid(name) {
+    check(typeof name === 'string', 'The name should not be a string');
+    check(ccc[name] != null, 'The coelement of the given name is not registered: ' + name);
   }
 
   //      
@@ -163,8 +163,8 @@
    * @return {Function}
    */
   function register(name, Constructor) {
-    assert(typeof name === 'string', '`name` of a class component has to be a string.');
-    assert(isFunction(Constructor), '`Constructor` of a class component has to be a function');
+    check(typeof name === 'string', '`name` of a class component has to be a string.');
+    check(isFunction(Constructor), '`Constructor` of a class component has to be a function');
 
     Constructor.__cc = name;
 
@@ -185,13 +185,24 @@
    * @throw {Error}
    */
   function init(classNames, el) {
-    assertClassNamesAreStringOrNull(classNames);(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
+    checkClassNamesAreStringOrNull(classNames);(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
       var initializer = ccc[className];
-      assert(initializer != null, 'Class componet "' + className + '" is not defined.');[].forEach.call((el || document).querySelectorAll(initializer.selector), function (el) {
+      check(initializer != null, 'Class componet "' + className + '" is not defined.');[].forEach.call((el || document).querySelectorAll(initializer.selector), function (el) {
         initializer(el);
       });
     });
   }
+
+  //      
+  /**
+   * Triggers the event.
+   * @param el The element
+   * @param type The event type
+   * @param detail The optional detail object
+   */
+  var trigger = function trigger(el, type, detail) {
+    el.dispatchEvent(new CustomEvent(type, { detail: detail }));
+  };
 
   /**
    * The decorator for registering event listener info to the method.
@@ -229,17 +240,11 @@
       var method = descriptor.value;
 
       descriptor.value = function () {
-        this.elem.trigger(event, arguments);
+        trigger(this.el, event, arguments[0]);
 
         return method.apply(this, arguments);
       };
     };
-
-    /**
-     * `@emit(event).first` decorator. This is the same as emit()
-     * @param {string} event The event name
-     */
-    emitDecorator.first = emitDecorator;
 
     /**
      * `@emit(event).last` decorator.
@@ -253,7 +258,6 @@
     return emitDecorator;
   };
 
-  register.emit.first = register.emit;
   register.emit.last = function (event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
@@ -263,12 +267,14 @@
 
         var result = method.apply(this, arguments);
 
+        var emit = function emit(x) {
+          return trigger(_this.el, event, x);
+        };
+
         if (result && result.then) {
-          result.then(function (x) {
-            return _this.elem.trigger(event, x);
-          });
+          result.then(emit);
         } else {
-          this.elem.trigger(event, result);
+          emit(result);
         }
 
         return result;
@@ -329,7 +335,7 @@
 
   //      
   /**
-   * class-component.js v12.0.2
+   * class-component.js v12.1.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
@@ -360,7 +366,7 @@
           var $el = this;
           var dom = $el[0];
 
-          assert(dom != null, 'cc (class-component context) is unavailable at empty dom selection');
+          check(dom != null, 'cc (class-component context) is unavailable at empty dom selection');
 
           var cc = dom.cc;
 
@@ -371,7 +377,7 @@
              * @return {jQuery}
              */
             cc = dom.cc = function (classNames) {
-              assertClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).forEach(function (className) {
+              checkClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).forEach(function (className) {
                 if (ccc[className]) {
                   ccc[className]($el.addClass(className)[0]);
                 }
@@ -402,17 +408,17 @@
       Object.defineProperty($.fn, 'cc', descriptor);
 
       cc.el = function (name, el) {
-        assertComponentNameIsValid(name);
+        checkComponentNameIsValid(name);
 
         ccc[name](el);
       };
 
       var get = cc.get = function (name, el) {
-        assertComponentNameIsValid(name);
+        checkComponentNameIsValid(name);
 
         var coelement = el[COELEMENT_DATA_KEY_PREFIX + name];
 
-        assert(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
+        check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
 
         return coelement;
       };
