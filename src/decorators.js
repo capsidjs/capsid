@@ -1,15 +1,16 @@
-import {registerListenerInfo} from './register-listener-info.js'
+// @flow
+
+import { registerListenerInfo } from './register-listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
-import {register as cc} from './register-and-init.js'
-import isFunction from './is-function.js'
+import { register as cc } from './register-and-init.js'
 import trigger from './event-trigger.js'
 
 /**
  * The decorator for registering event listener info to the method.
- * @param {string} event The event name
- * @param {string} at The selector
+ * @param event The event name
+ * @param at The selector
  */
-cc.on = (event, {at} = {}) => {
+(cc: any).on = (event: string, { at }: { at: string } = {}) => {
   /**
    * The decorator for registering event listener info to the method.
    * @param {string} event The event name
@@ -30,7 +31,7 @@ cc.on = (event, {at} = {}) => {
  * This decorator adds the event emission at the beginning of the method.
  * @param {string} event The event name
  */
-cc.emit = event => {
+(cc: any).emit = (event: string) => {
   const emitDecorator = (target, key, descriptor) => {
     const method = descriptor.value
 
@@ -41,19 +42,10 @@ cc.emit = event => {
     }
   }
 
-  /**
-   * `@emit(event).last` decorator.
-   * This adds the emission of the event at the end of the method.
-   * @param {string} event The event name
-   */
-  emitDecorator.last = (target, key, descriptor) => {
-    cc.emit.last(event)(target, key, descriptor)
-  }
-
   return emitDecorator
 }
 
-cc.emit.last = event => (target, key, descriptor) => {
+(cc: any).emit.last = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
   descriptor.value = function () {
@@ -79,26 +71,20 @@ cc.emit.last = event => (target, key, descriptor) => {
  * @param {string} key The name of the property
  * @param {object} descriptor The property descriptor
  */
-const wireByNameAndSelector = (name, selector) => (target, key, descriptor) => {
+const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
   selector = selector || '.' + name
 
   descriptor.get = function () {
-    const matched = this.elem.filter(selector).add(selector, this.elem)
-
-    if (matched[1]) { // meaning matched.length > 1
-      console.warn(`There are ${matched.length} matches for the given wired getter selector: ${selector}`)
-    }
-
-    return matched.cc.get(name)
+    return this.$el.filter(selector).add(selector, this.el).cc.get(name)
   }
 }
 
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-cc.wire = (target, key, descriptor) => {
-  if (!descriptor) {
-    // If the descriptor is not given, then suppose this is called as @wire(componentName, selector) and therefore
+(cc: any).wire = (target: Object, key: string, descriptor: Object) => {
+  if (typeof target === 'string') {
+    // If target is a tring, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
     return wireByNameAndSelector(target, key)
   }
@@ -110,7 +96,13 @@ cc.wire = (target, key, descriptor) => {
  * The decorator for class component registration.
  *
  * if `name` is function, then use it as class itself and the component name is kebabized version of its name.
- * @param {String|Function} name The class name or the implementation class itself
- * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
+ * @param name The class name or the implementation class itself
+ * @return The decorator if the class name is given, undefined if the implementation class is given
  */
-cc.component = name => isFunction(name) ? cc(camelToKebab(name.name), name) : Cls => cc(name, Cls)
+(cc: any).component = (name: string | Function): ?Function => {
+  if (typeof name !== 'function') {
+    return Cls => cc((name: any), Cls)
+  }
+
+  return cc(camelToKebab(name.name), name)
+}
