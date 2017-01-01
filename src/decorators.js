@@ -29,22 +29,25 @@ import trigger from './event-trigger.js'
 /**
  * `@emit(event)` decorator.
  * This decorator adds the event emission at the beginning of the method.
- * @param {string} event The event name
+ * @param event The event name
  */
-(cc: any).emit = (event: string) => {
-  const emitDecorator = (target, key, descriptor) => {
-    const method = descriptor.value
+(cc: any).emit = (event: string) => (target: Object, key: string, descriptor: Object) => {
+  const method = descriptor.value
 
-    descriptor.value = function () {
-      trigger(this.el, event, arguments[0])
+  descriptor.value = function () {
+    trigger(this.el, event, arguments[0])
 
-      return method.apply(this, arguments)
-    }
+    return method.apply(this, arguments)
   }
-
-  return emitDecorator
 }
 
+/**
+ * `@emit.last(event)` decorator
+ *
+ * This decorator adds the event emission at the end of the method.
+ * If the method returns the promise, then the event is emitted when it is resolved.
+ * @param event The event name
+ */
 (cc: any).emit.last = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
