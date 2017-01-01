@@ -10,20 +10,8 @@ import trigger from './event-trigger.js'
  * @param event The event name
  * @param at The selector
  */
-(cc: any).on = (event: string, { at }: { at: string } = {}) => {
-  /**
-   * The decorator for registering event listener info to the method.
-   * @param {string} event The event name
-   * @param {string} selector The selector for listening.
-   */
-  const atDecorator = selector => (target, key) => {
-    registerListenerInfo(target.constructor, key, event, selector)
-  }
-
-  const onDecorator = atDecorator(at)
-  onDecorator.at = atDecorator
-
-  return onDecorator
+(cc: any).on = (event: string, { at }: { at: string } = {}) => (target: Object, key: string) => {
+  registerListenerInfo(target.constructor, key, event, at)
 }
 
 /**
