@@ -1,7 +1,7 @@
 // @flow
 import isFunction from './is-function.js'
 import createComponentInitializer from './create-component-initializer.js'
-import assert, {assertClassNamesAreStringOrNull} from './assert.js'
+import check, {checkClassNamesAreStringOrNull} from './assert.js'
 import documentReady from './document-ready.js'
 
 type Initializer = {(el: HTMLElement, coelem: any): void; selector: string}
@@ -19,8 +19,8 @@ export const ccc: cccType = {}
  * @return {Function}
  */
 export function register (name: string, Constructor: Function): Function {
-  assert(typeof name === 'string', '`name` of a class component has to be a string.')
-  assert(isFunction(Constructor), '`Constructor` of a class component has to be a function')
+  check(typeof name === 'string', '`name` of a class component has to be a string.')
+  check(isFunction(Constructor), '`Constructor` of a class component has to be a function')
 
   Constructor.__cc = name
 
@@ -39,11 +39,11 @@ export function register (name: string, Constructor: Function): Function {
  * @throw {Error}
  */
 export function init (classNames: string, el: ?HTMLElement) {
-  assertClassNamesAreStringOrNull(classNames)
+  checkClassNamesAreStringOrNull(classNames)
 
   ;(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(className => {
     const initializer = ccc[className]
-    assert(initializer != null, 'Class componet "' + className + '" is not defined.')
+    check(initializer != null, 'Class componet "' + className + '" is not defined.')
 
     ;[].forEach.call((el || document).querySelectorAll(initializer.selector), el => {
       initializer(el)

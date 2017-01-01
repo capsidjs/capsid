@@ -2,6 +2,7 @@ import {registerListenerInfo} from './register-listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
 import {register as cc} from './register-and-init.js'
 import isFunction from './is-function.js'
+import trigger from './event-trigger.js'
 
 /**
  * The decorator for registering event listener info to the method.
@@ -34,17 +35,11 @@ cc.emit = event => {
     const method = descriptor.value
 
     descriptor.value = function () {
-      this.elem.trigger(event, arguments)
+      trigger(this.el, event, arguments[0])
 
       return method.apply(this, arguments)
     }
   }
-
-  /**
-   * `@emit(event).first` decorator. This is the same as emit()
-   * @param {string} event The event name
-   */
-  emitDecorator.first = emitDecorator
 
   /**
    * `@emit(event).last` decorator.
@@ -58,17 +53,18 @@ cc.emit = event => {
   return emitDecorator
 }
 
-cc.emit.first = cc.emit
 cc.emit.last = event => (target, key, descriptor) => {
   const method = descriptor.value
 
   descriptor.value = function () {
     const result = method.apply(this, arguments)
 
+    const emit = x => trigger(this.el, event, x)
+
     if (result && result.then) {
-      result.then(x => this.elem.trigger(event, x))
+      result.then(emit)
     } else {
-      this.elem.trigger(event, result)
+      emit(result)
     }
 
     return result

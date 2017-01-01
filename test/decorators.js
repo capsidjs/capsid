@@ -1,7 +1,7 @@
-const {div} = require('dom-gen')
+const { div } = require('dom-gen')
 const assert = require('power-assert')
 const $ = jQuery
-const {on, emit, component, wire} = $.cc
+const { on, emit, component, wire } = $.cc
 
 /**
  * @param {Function} decorator The decorator
@@ -75,21 +75,15 @@ describe('@emit(event)', () => {
     $.cc('emit-test0', EmitTest0)
     callDecorator(emit('event-foo'), EmitTest0, 'foo')
 
-    const coelem = div().on('event-foo', (e, a, b, c) => {
-      assert(a === 1)
-      assert(b === 2)
-      assert(c === 3)
+    const coelem = div().on('event-foo', e => {
+      assert(e.detail.a === 1)
+      assert(e.detail.b === 2)
+      assert(e.detail.c === 3)
     }).cc.init('emit-test0')
 
-    assert(coelem.foo(1, 2, 3) === 42)
+    assert(coelem.foo({ a: 1, b: 2, c: 3 }) === 42)
 
     done()
-  })
-})
-
-describe('@emit.first', () => {
-  it('is the same as @emit', () => {
-    assert(emit.first === emit)
   })
 })
 
@@ -103,8 +97,8 @@ describe('@emit.last(event)', () => {
     $.cc('emit-last-test0', EmitLastTest0)
     callDecorator(emit.last('event-foo'), EmitLastTest0, 'foo')
 
-    div().on('event-foo', (e, param) => {
-      assert(param === 321)
+    div().on('event-foo', (e) => {
+      assert(e.detail === 321)
 
       done()
     }).cc.init('emit-last-test0').foo()
@@ -126,9 +120,9 @@ describe('@emit.last(event)', () => {
     $.cc('emit-last-test1', EmitLastTest1)
     callDecorator(emit.last('event-foo'), EmitLastTest1, 'foo')
 
-    div().on('event-foo', (e, param) => {
+    div().on('event-foo', (e) => {
       assert(promiseResolved)
-      assert(param === 123)
+      assert(e.detail === 123)
 
       done()
     }).cc.init('emit-last-test1').foo()

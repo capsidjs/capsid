@@ -6,7 +6,7 @@
  */
 import './decorators.js'
 import {register, init, ccc} from './register-and-init.js'
-import assert, {assertClassNamesAreStringOrNull, assertComponentNameIsValid} from './assert.js'
+import check, {checkClassNamesAreStringOrNull, checkComponentNameIsValid} from './assert.js'
 import $ from './jquery.js'
 import {COELEMENT_DATA_KEY_PREFIX} from './const'
 
@@ -25,7 +25,7 @@ if (!$.cc) {
     const $el = this
     const dom: HTMLElement = $el[0]
 
-    assert(dom != null, 'cc (class-component context) is unavailable at empty dom selection')
+    check(dom != null, 'cc (class-component context) is unavailable at empty dom selection')
 
     let cc = (dom: any).cc
 
@@ -36,7 +36,7 @@ if (!$.cc) {
        * @return {jQuery}
        */
       cc = (dom: any).cc = (classNames: ?string) => {
-        assertClassNamesAreStringOrNull(classNames)
+        checkClassNamesAreStringOrNull(classNames)
 
         ;(classNames || dom.className).split(/\s+/).forEach(className => {
           if (ccc[className]) {
@@ -64,17 +64,17 @@ if (!$.cc) {
   Object.defineProperty($.fn, 'cc', descriptor)
 
   cc.el = (name: string, el: HTMLElement) => {
-    assertComponentNameIsValid(name)
+    checkComponentNameIsValid(name)
 
     ccc[name](el)
   }
 
   const get = cc.get = (name: string, el: HTMLElement) => {
-    assertComponentNameIsValid(name)
+    checkComponentNameIsValid(name)
 
     const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name]
 
-    assert(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName)
+    check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName)
 
     return coelement
   }
