@@ -506,6 +506,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2016-01-02   v13.0.0   Add __init__ instead of init.
 - 2016-01-01   v12.1.1   Fix bug of event bubbling.
 - 2016-01-01   v12.1.0   Remove @emit.first. Use native dispatchEvent.
 - 2016-12-31   v12.0.0   Remove __cc_init__ feature. Add init feature.
