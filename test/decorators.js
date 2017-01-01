@@ -95,9 +95,11 @@ describe('@emit(event)', () => {
     $.cc('emit-test1', EmitTest1)
     callDecorator(emit('event-foo'), EmitTest1, 'foo')
 
-    const parent = div().on('event-foo', () => done())
+    const parent = div().on('event-foo', () => done()).appendTo('body')
 
     div().appendTo(parent).cc.init('emit-test1').foo()
+
+    parent.remove()
   })
 })
 
