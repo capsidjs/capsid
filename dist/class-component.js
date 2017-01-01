@@ -38,16 +38,15 @@
   //      
   /**
    * Registers the event listener to the class constructor.
-   * @param {object} Constructor The constructor
-   * @param {string} key The key of handler method
-   * @param {string} event The event name
-   * @param {string} selector The selector
+   * @param Constructor The constructor
+   * @param key The key of handler method
+   * @param event The event name
+   * @param selector The selector
    */
   var registerListenerInfo = function registerListenerInfo(Constructor, key, event, selector) {
     /**
-     * @type <T> The coelement type
-     * @param {HTMLElement} el The jquery selection of the element
-     * @param {T} coelem The coelement
+     * @param el The element
+     * @param coelem The coelement
      */
     Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
       eventDelegate(el, event, selector, function () {
@@ -204,39 +203,29 @@
     el.dispatchEvent(new CustomEvent(type, { detail: detail, bubbles: true }));
   };
 
+  //      
+
   /**
    * The decorator for registering event listener info to the method.
-   * @param {string} event The event name
-   * @param {string} at The selector
+   * @param event The event name
+   * @param at The selector
    */
   register.on = function (event) {
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
         at = _ref.at;
 
-    /**
-     * The decorator for registering event listener info to the method.
-     * @param {string} event The event name
-     * @param {string} selector The selector for listening.
-     */
-    var atDecorator = function atDecorator(selector) {
-      return function (target, key) {
-        registerListenerInfo(target.constructor, key, event, selector);
-      };
+    return function (target, key) {
+      registerListenerInfo(target.constructor, key, event, at);
     };
-
-    var onDecorator = atDecorator(at);
-    onDecorator.at = atDecorator;
-
-    return onDecorator;
   };
 
   /**
    * `@emit(event)` decorator.
    * This decorator adds the event emission at the beginning of the method.
-   * @param {string} event The event name
+   * @param event The event name
    */
   register.emit = function (event) {
-    var emitDecorator = function emitDecorator(target, key, descriptor) {
+    return function (target, key, descriptor) {
       var method = descriptor.value;
 
       descriptor.value = function () {
@@ -245,19 +234,15 @@
         return method.apply(this, arguments);
       };
     };
-
-    /**
-     * `@emit(event).last` decorator.
-     * This adds the emission of the event at the end of the method.
-     * @param {string} event The event name
-     */
-    emitDecorator.last = function (target, key, descriptor) {
-      register.emit.last(event)(target, key, descriptor);
-    };
-
-    return emitDecorator;
   };
 
+  /**
+   * `@emit.last(event)` decorator
+   *
+   * This decorator adds the event emission at the end of the method.
+   * If the method returns the promise, then the event is emitted when it is resolved.
+   * @param event The event name
+   */
   register.emit.last = function (event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
@@ -295,14 +280,7 @@
       selector = selector || '.' + name;
 
       descriptor.get = function () {
-        var matched = this.elem.filter(selector).add(selector, this.elem);
-
-        if (matched[1]) {
-          // meaning matched.length > 1
-          console.warn('There are ' + matched.length + ' matches for the given wired getter selector: ' + selector);
-        }
-
-        return matched.cc.get(name);
+        return this.$el.filter(selector).add(selector, this.el).cc.get(name);
       };
     };
   };
@@ -311,8 +289,8 @@
    * Wires the class component of the name of the key to the property of the same name.
    */
   register.wire = function (target, key, descriptor) {
-    if (!descriptor) {
-      // If the descriptor is not given, then suppose this is called as @wire(componentName, selector) and therefore
+    if (typeof target === 'string') {
+      // If target is a tring, then we suppose this is called as @wire(componentName, selector) and therefore
       // we need to return the following expression (it works as another decorator).
       return wireByNameAndSelector(target, key);
     }
@@ -324,18 +302,22 @@
    * The decorator for class component registration.
    *
    * if `name` is function, then use it as class itself and the component name is kebabized version of its name.
-   * @param {String|Function} name The class name or the implementation class itself
-   * @return {Function|undefined} The decorator if the class name is given, undefined if the implementation class is given
+   * @param name The class name or the implementation class itself
+   * @return The decorator if the class name is given, undefined if the implementation class is given
    */
   register.component = function (name) {
-    return isFunction(name) ? register(camelToKebab(name.name), name) : function (Cls) {
-      return register(name, Cls);
-    };
+    if (typeof name !== 'function') {
+      return function (Cls) {
+        return register(name, Cls);
+      };
+    }
+
+    return register(camelToKebab(name.name), name);
   };
 
   //      
   /**
-   * class-component.js v12.1.1
+   * class-component.js v12.2.0
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
