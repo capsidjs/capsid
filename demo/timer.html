@@ -5,18 +5,18 @@
 <script src="../dist/class-component.js"></script>
 <script>
 class Timer {
-  init() {
+  __init__ () {
     this.secondsElapsed = 0
     this.start()
   }
-  start() {
+  start () {
     this.interval = setInterval(() => this.tick(), 1000)
   }
-  tick() {
+  tick () {
     this.secondsElapsed++
     this.elem.text('Seconds Elapsed:' + this.secondsElapsed)
   }
-  stop() {
+  stop () {
     clearInterval(this.interval);
   }
 }

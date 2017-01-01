@@ -27,8 +27,8 @@ export default function createComponentInitializer (className: string, Construct
       coelem.elem = coelem.$el = $(el)
       coelem.el = el
 
-      if (isFunction(coelem.init)) {
-        coelem.init()
+      if (typeof coelem.__init__ === 'function') {
+        coelem.__init__()
       }
 
       (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {

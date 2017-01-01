@@ -7,14 +7,14 @@ describe('$.cc', () => {
 
   before(() => {
     class Foo {
-      init () {
+      __init__ () {
         this.$el.attr('is_foo', 'true')
       }
     }
     $.cc('foo', Foo)
 
     class Bar {
-      init () {
+      __init__ () {
         this.$el.attr('is_bar', 'true')
       }
     }
@@ -109,9 +109,9 @@ describe('$.cc', () => {
 
 describe('$.fn.cc', () => {
   class Spam {
-    constructor (elem) {
-      elem.attr('is_spam', 'true')
-      elem.toggleClass('spam-toggle-test')
+    __init__ (elem) {
+      this.$el.attr('is_spam', 'true')
+      this.$el.toggleClass('spam-toggle-test')
     }
   }
 

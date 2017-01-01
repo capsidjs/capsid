@@ -29,7 +29,7 @@ timer.js:
 
 ```js
 class Timer {
-  init() {
+  __init__ () {
     this.secondsElapsed = 0
     this.start()
   }
