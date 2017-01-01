@@ -1,6 +1,6 @@
 // @flow
 /**
- * class-component.js v12.1.0
+ * class-component.js v12.1.1
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */

@@ -201,7 +201,7 @@
    * @param detail The optional detail object
    */
   var trigger = function trigger(el, type, detail) {
-    el.dispatchEvent(new CustomEvent(type, { detail: detail }));
+    el.dispatchEvent(new CustomEvent(type, { detail: detail, bubbles: true }));
   };
 
   /**
@@ -335,7 +335,7 @@
 
   //      
   /**
-   * class-component.js v12.1.0
+   * class-component.js v12.1.1
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
