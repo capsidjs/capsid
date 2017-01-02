@@ -1,18 +1,18 @@
 # TODO
 
 - remove $(func) by native impl
-- remove $().on('event', 'selector', func) by native impl
-- remote $().trigger by native impl
 - remove jquery dep of @wire
-- breaking: remove @on().at @12
-- breaking: remove @emit().first @12
-- breaking: remove @emit().last @12
 - doc: write Tutorial
 - doc: write How to test cc
 - doc: write about layered MVP = nesting class-components with reference to PAC and HMVC
 - doc: create document site
 
 # DONE
+- breaking: remove @on().at @12
+- breaking: remove @emit().first @12
+- breaking: remove @emit().last @12
+- remote $().trigger by native impl
+- remove $().on('event', 'selector', func) by native impl
 - remove addClass removeClass hasClass by classList I/F
 - feat: add @emit.first('event')
 - feat: add @emit.last('event')
