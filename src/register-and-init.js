@@ -1,5 +1,4 @@
 // @flow
-import isFunction from './is-function.js'
 import createComponentInitializer from './create-component-initializer.js'
 import check, {checkClassNamesAreStringOrNull} from './assert.js'
 import documentReady from './document-ready.js'
@@ -20,7 +19,7 @@ export const ccc: cccType = {}
  */
 export function register (name: string, Constructor: Function): Function {
   check(typeof name === 'string', '`name` of a class component has to be a string.')
-  check(isFunction(Constructor), '`Constructor` of a class component has to be a function')
+  check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function')
 
   Constructor.__cc = name
 

@@ -1,6 +1,5 @@
 // @flow
 import $ from './jquery.js'
-import isFunction from './is-function'
 import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
 
 /**
