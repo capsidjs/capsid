@@ -2,6 +2,8 @@
 
 - remove $(func) by native impl
 - remove jquery dep of @wire
+- separate class-component and class-component-jquery
+- new name: senku.js, zenku.js(前駆) or kanku.js?
 - doc: write Tutorial
 - doc: write How to test cc
 - doc: write about layered MVP = nesting class-components with reference to PAC and HMVC
