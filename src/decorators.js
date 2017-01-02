@@ -10,7 +10,7 @@ import trigger from './event-trigger.js'
  * @param event The event name
  * @param at The selector
  */
-(cc: any).on = (event: string, { at }: { at: string } = {}) => (target: Object, key: string) => {
+cc.on = (event: string, { at }: { at: string } = {}) => (target: Object, key: string) => {
   registerListenerInfo(target.constructor, key, event, at)
 }
 
@@ -19,7 +19,7 @@ import trigger from './event-trigger.js'
  * This decorator adds the event emission at the beginning of the method.
  * @param event The event name
  */
-(cc: any).emit = (event: string) => (target: Object, key: string, descriptor: Object) => {
+cc.emit = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
   descriptor.value = function () {
@@ -36,7 +36,7 @@ import trigger from './event-trigger.js'
  * If the method returns the promise, then the event is emitted when it is resolved.
  * @param event The event name
  */
-(cc: any).emit.last = (event: string) => (target: Object, key: string, descriptor: Object) => {
+cc.emit.last = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
   descriptor.value = function () {
@@ -73,7 +73,7 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-(cc: any).wire = (target: Object, key: string, descriptor: Object) => {
+cc.wire = (target: Object, key: string, descriptor: Object) => {
   if (typeof target === 'string') {
     // If target is a tring, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
@@ -90,7 +90,7 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
  * @param name The class name or the implementation class itself
  * @return The decorator if the class name is given, undefined if the implementation class is given
  */
-(cc: any).component = (name: string | Function): ?Function => {
+cc.component = (name: string | Function): ?Function => {
   if (typeof name !== 'function') {
     return Cls => cc((name: any), Cls)
   }

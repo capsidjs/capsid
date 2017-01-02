@@ -13,11 +13,11 @@ export const ccc: cccType = {}
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
- * @param {String} name The name
- * @param {Function} Constructor The constructor of the class component
- * @return {Function}
+ * @param name The component name
+ * @param Constructor The constructor of the class component
+ * @return The registered component class
  */
-export function register (name: string, Constructor: Function): Function {
+export const register: any = (name: string, Constructor: Function): Function => {
   check(typeof name === 'string', '`name` of a class component has to be a string.')
   check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function')
 
