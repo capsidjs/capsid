@@ -37,14 +37,14 @@ class Timer {
   /**
    * Starts the timer.
    */
-  start() {
-    this.interval = setInterval(() => this.tick(), 1000)
+  start () {
+    this.interval = setInterval(() => { this.tick() }, 1000)
   }
 
   /**
    * Ticks the timer.
    */
-  tick() {
+  tick () {
     this.secondsElapsed++
     this.el.textContent = `Seconds Elapsed: ${this.secondsElapsed}`
   }
@@ -52,12 +52,14 @@ class Timer {
   /**
    * Stops the timer.
    */
-  stop() {
+  stop () {
     clearInterval(this.interval)
   }
 }
 
-$.cc('timer', Timer)
+const cc = require('class-component')
+
+cc.def('timer', Timer)
 ```
 
 timer.html:
@@ -90,7 +92,9 @@ class-component.js is responsible for the following transition from the usual do
 You can register the class-component of the given name like this:
 
 ```js
-$.cc('component-name', ComponentClass)
+const cc = require('class-component')
+
+cc.def('component-name', ComponentClass)
 ```
 
 By the above call, dom elements which have `class="component-name"` are automatically initialized with ComponentClass.
@@ -100,19 +104,19 @@ By the above call, dom elements which have `class="component-name"` are automati
 The followings are exact steps when a class-component is initialized.
 
 ```js
-const coelem = new ComponentClass(elem) // The constructor is called with the element.
+const coelem = new ComponentClass() // The constructor is called with the element.
 
-coelem.el = elem
+coelem.el = el
 coelem.$el = $(elem)
 
 $el.on([givenEvent], [givenSelector], [givenHandler]) // See `event` decorator section for details.
 
-$el.addClass(componentName + '-initialized') // The element is marked `initialized`.
+$el.addClass(`${componentName}-initialized`) // The element is marked `initialized`.
 
-$el.data('__coelement:' + componentName, coelem) // The coelement is stored in the element.
+el['__coelement:' + componentName] = coelem // The coelement is stored in the element.
 ```
 
-where `el` is the element and `$el` is jquery-wrapped element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
+where `el` is the dom element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
 
 ## `this.el` and `this.$el`
 
@@ -127,8 +131,8 @@ where `el` is the element and `$el` is jquery-wrapped element which is initializ
 then do this:
 
 ```js
-global.jQuery = require('jquery');
-require('class-component');
+global.jQuery = require('jquery')
+require('class-component')
 ```
 
 ## Via file
@@ -144,73 +148,100 @@ Download dist.min.js. Then:
 
 # APIs
 
-- `$.cc`
+```
+const cc = require('class-component')
+```
+
+- `cc.def(name, constructor)`
   - Registers class-component.
-- `$.cc.init`
+- `cc.init(name[, element])`
   - Initializes class-component on the range.
-- `$.fn.cc`
+- `cc.el(name, element)`
+  - Initializes the element with the class-component of the given name.
+- `cc.get(name, element)`
+  - Gets the coelement instance from the given element.
+- `$dom.cc(name)`
   - Initializes the element as class-component.
-- `$.fn.cc.get`
+- `$dom.cc.get(name)`
   - Gets the coelement of the element.
-- `$.fn.cc.init`
+- `$dom.cc.init(name)` *deprecated*
   - Initializes the element as a class-component.
-- `cc.el('class-name', dom)`
-  - TBD
-- `cc.get('class-name', dom)`
-  - TBD
 
+## `cc` namespace
 
-## `$.cc` namespace
+### `cc.def(name, constructor)`
 
-### `$.cc(className, Constructor)`
+- @param {string} name The class name of the component
+- @param {Function} constructor The constructor of the coelement of the component
 
-- @param {string} className The class name of the component
-- @param {Function} Constructor The constructor of the coelement of the component
-
-This registers `Constructor` as the constructor of the coelement of the class component of the given name `className`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(className)`.
+This registers `constructor` as the constructor of the coelement of the class component of the given name `name`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(name)`.
 
 Example:
-
 
 ```js
 class TodoItem {
   // ...behaviours...
 }
 
-$.cc('todo-item', TodoItem)
+cc.def('todo-item', TodoItem)
 ```
 
 ```html
 <li class="todo-item"></li>
 ```
 
-### `$.cc.init(className, [range])`
+### `cc.init(name[, element])`
 
-- @param {string} className The class name to intialize
-- @param {HTMLElement|string} range The range to initialize
+- @param {string} name The class-component name to intialize
+- @param {HTMLElement} element The range to initialize
 
-This initializes the class components of the given name in the given range. If the range is omitted, it initializes them in the entire page. If the className is omitted, then it initializes all the registered class components.
+This initializes the class components of the given name in the given element. If the element is omitted, it initializes them in the entire page. If the name is omitted, then it initializes all the registered class components.
 
-This method is useful when you want to add class components dynamically.
+### `cc.el(name, element)`
 
-## `$.fn.cc` namespace
+- @param {string} name The class-component name to initialize
+- @param {HTMLElement} element The element to initialize
 
-These APIs are available via jQuery object's `.cc` property like `$('<div />').cc('timer')` or `$('#main').cc.get('app')`.
-
-### `$.fn.cc(classNames)`
-
-- @param {string} classNames The class names to initialize
-- @return {jQuery}
-
-This initializes the class-compenents of the given names on the element and returns the element itself.
+Initializes the element as the class-component.
 
 ```js
-$('<div />').cc('timer modal').appendTo('body')
+cc.el('timer', dom)
+```
+
+The above initializes `dom` as `timer` class-component.
+
+### `cc.get(name, element)`
+
+- @param {string} name The class-component name to get
+- @param {HTMLElement} element The element
+- @return The coelement instance
+
+Gets the coelement instance from the element.
+
+```js
+const timer = cc.get('timer', dom)
+```
+
+The above gets `Timer` class instance (coelement) from dom. In this case, dom need to be initialized as `timer` class-component before this call.
+
+## `$dom.cc` namespace
+
+These APIs are available via jQuery selection object's `.cc` property like `$('<div />').cc('timer')` or `$('#main').cc.get('app')`.
+
+### `$dom.cc(name)`
+
+- @param {string} name The class-component name to initialize
+- @return {jQuery}
+
+This initializes the class-compenents of the given name on the element and returns the element itself.
+
+```js
+$('<div />').cc('timer').cc('modal').appendTo('body')
 ```
 
 The above example creates a `div` element, initializes it as `timer` and `modal` class components, and appends it to the body.
 
-### `$.fn.cc()`
+### `$dom.cc()`
 
 This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
 
@@ -225,7 +256,7 @@ The above example is the same as the previous one.
 Example:
 
 ```js
-var div = $('<div/>')
+const div = $('<div/>')
 
 classes.forEach(cls => div.addClass(cls))
 
@@ -234,29 +265,29 @@ div.cc().appendTo('body')
 
 The above example creates a `div` element and initializes all the classes in `classes` variable on in.
 
-### `$.fn.cc.get(className)`
+### `$dom.cc.get(name)`
 
-- @param {string} className The class name of the component
+- @param {string} name The class name of the component
 
 This gets the coelement of the component of the given name if exists. It throws if none.
 
 ```js
-var todoItem = elem.cc.get('todo-item');
+const todoItem = $dom.cc.get('todo-item');
 
 todoItem.update({id: 'milk', title: 'Buy a milk'});
 ```
 
-### `$.fn.cc.init(className)`
+### `$dom.cc.init(name)` (deprecated)
 
-This initializes an element as a class component of the given name. It throws an error if the class component of the given name isn't available.
+This initializes the $dom as a class component of the given name. It throws an error if the class component of the given name isn't available.
 
 This returns the instance of class-component class, not a dom element itself. If you want to get the dom element (jquery wrapped), use `$.fn.cc.up(classNames)`
 
-- @param {string} className - The class name of the component
+- @param {string} name - The class name of the component
 
 ```js
 // Creates `todo-app` in #main
-$('<div />').appendTo('#main').cc.init('todo-app');
+$('<div />').appendTo('#main').cc.init('todo-app')
 ```
 
 In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
@@ -275,12 +306,12 @@ There are 8 decorators.
 
 ## `@component(className)`
 
-$.cc.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
+cc.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
 
 This is a shorthand of `$.cc('component', Component)`.
 
 ```js
-const {component} = $.cc
+const { component } = cc
 
 @component('timer')
 class Timer {
@@ -292,10 +323,10 @@ The above registers `Timer` class as `timer` component.
 
 ## `@component`
 
-$.cc.component is similar to the above. This decorator registers the js class as the class component of the same name. If the js class is in `CamelCase`, then the component name is made `kebab-cased`.
+cc.component is similar to the above. This decorator registers the js class as the class component of the same name. If the js class is in `CamelCase`, then the component name is made `kebab-cased`.
 
 ```js
-const {component} = $.cc
+const { component } = cc
 
 @component
 class Timer {} // This registers Timer class as `timer` component
@@ -306,20 +337,20 @@ class FooBar {} // This registers FooBar class as `foo-bar` component
 
 ## `@on(eventName)`
 
-`$.cc.on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
+`cc.on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
 ```js
-const {on} = $.cc
+const { on } = cc
 
 class Btn {
 
   @on('click')
-  onClick(e) {
+  onClick (e) {
     ...definitions...
   }
 }
 
-$.cc('btn', Btn)
+cc.def('btn', Btn)
 ```
 
 The above binds `onClick` method to its element's 'click' event automatically.
@@ -328,55 +359,54 @@ The above is equivalent of:
 
 ```js
 class Btn {
-  constructor(elem) {
-    elem.on('click', e => {
+  __init__ () {
+    this.el.addEventListener('click', e => {
       this.onClick(e)
     })
   }
 
-  onClick(e) {
+  onClick (e) {
     ...definitions...
   }
 }
 
-$.cc('btn', Btn)
+cc.def('btn', Btn)
 ```
 
-## `@on(eventName, {at: selector})`
+## `@on(name, { at: selector })`
 
-`$.cc.on(eventName, {at: selector})` is a method decorator. It's similar to `$.cc.on`, but it only handles the event from `selector` in the component.
+`cc.on(name, { at: selector })` is a method decorator. It's similar to `cc.on`, but it only handles the event from `selector` in the component.
 
 ```js
-const {on} = $.cc
+const { on } = cc
 
 class Btn {
-
-  @on('click', {at: '.btn'})
-  onBtnClick(e) {
+  @on('click', { at: '.btn' })
+  onBtnClick (e) {
     ...definitions...
   }
 }
 
-$.cc('btn', Btn)
+cc.def('btn', Btn)
 ```
 
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
 
 ## `@emit(startEvent)`
 
-`$.cc.emit()` is a method decorator. This decorator makes the method triggering of the given event at the start of the method. The `arguments` of the method is passed as the additional parameter of the event.
+`cc.emit()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
 
 ```js
-const {emit} = $.cc
+const { emit } = cc
 
 class Manager {
   @emit('manager.started')
-  start() {
+  start () {
     ...definitions...
   }
 }
 
-$.cc('manager', Manager)
+cc.def('manager', Manager)
 ```
 
 The above `start` method automatically triggers `manager.started` event at the begining of the method process.
@@ -385,22 +415,21 @@ The above is equivalent of:
 
 ```js
 class Manager {
-
-  start() {
-    this.elem.trigger('manager.started', arguments)
+  start () {
+    this.$el.trigger('manager.started', arguments)
     ...definitions...
   }
 }
 
-$.cc('manager', Manager)
+cc.def('manager', Manager)
 ```
 
 ## `@emit.last(eventName)`
 
-`$.cc.emit.last(eventName)` is similar to `$.cc.emit()`, but it triggers the event at the last of the method.
+`cc.emit.last(eventName)` is similar to `cc.emit()`, but it triggers the event at the last of the method.
 
 ```js
-const {emit} = $.cc
+const { emit } = cc
 
 class Manager {
   @emit.last('manager.ended')
@@ -409,7 +438,7 @@ class Manager {
   }
 }
 
-$.cc('manager', Manager)
+cc.def('manager', Manager)
 ```
 
 In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as the second arguments of the event handler.
@@ -417,18 +446,18 @@ In the above example, `start` method triggers the `manager.ended` event when it 
 If the method returns a promise, then the event is triggered after the promise is resolved.
 
 ```js
-const {emit} = $.cc
+const { emit } = cc
 
 class Manager {
-  @emit('manager.ended').last
-  start() {
+  @emit.last('manager.ended')
+  start () {
     ...definitions...
 
     return promise
   }
 }
 
-$.cc('manager', Manager)
+cc.def('manager', Manager)
 ```
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as the second argument of the event handler.
@@ -438,9 +467,9 @@ In the above example, `manager.ended` event is triggered after `promise` is reso
 `@wire` is a getter decorator. If a getter is decorated by this, it returns the class component of the name of the decorated method.
 
 ```js
-const {wire} = $.cc
+const { wire, component } = require('class-component')
 
-@component('foo')
+@component
 class Foo {
   @wire get bar () {}
 
@@ -449,7 +478,7 @@ class Foo {
   }
 }
 
-@component('bar')
+@component
 class Bar {
   process () {
     console.log('processing bar!')
@@ -459,7 +488,7 @@ class Bar {
 $('body').append('<div class="foo"><div class="bar"></div></div>')
 ```
 
-In the above situation, the getter `bar` of Foo class is wired to `bar` component inside the foo component. Technically accessing `bar` property almost equals to the call of `this.elem.find('.bar').cc.get('bar')`. With the above settings you can call the following:
+In the above situation, the getter `bar` of Foo class is wired to `bar` component inside the foo component. Technically accessing `bar` property almost equals to the call of `this.$el.find('.bar').cc.get('bar')`. With the above settings you can call the following:
 
 ```js
 $('.foo').cc.get('foo').processBar()
@@ -474,14 +503,14 @@ When the decorated getter name is in `CamelCase`, then it's replaced by the `keb
 This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
 
 ```js
-const {wire} = $.cc
+const { wire, component } = require('class-component')
 
-@component('foo')
+@component
 class Foo {
   @wire('long-name-component') get it () {}
 }
 
-@component('long-name-component')
+@component
 class LongNameComponent {
   process () {
     console.log('processing long name component!')
