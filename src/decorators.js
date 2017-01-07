@@ -1,18 +1,9 @@
 // @flow
 
-import { registerListenerInfo } from './register-listener-info.js'
 import camelToKebab from './camel-to-kebab.js'
 import { register as cc } from './register-and-init.js'
 import trigger from './event-trigger.js'
-
-/**
- * The decorator for registering event listener info to the method.
- * @param event The event name
- * @param at The selector
- */
-cc.on = (event: string, { at }: { at: string } = {}) => (target: Object, key: string) => {
-  registerListenerInfo(target.constructor, key, event, at)
-}
+import './on-decorator.js'
 
 /**
  * `@emit(event)` decorator.
