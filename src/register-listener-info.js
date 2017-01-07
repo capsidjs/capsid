@@ -1,6 +1,5 @@
 // @flow
 import { KEY_EVENT_LISTENERS } from './const.js'
-import eventDelegate from './event-delegate.js'
 
 /**
  * Registers the event listener to the class constructor.
@@ -15,8 +14,12 @@ export const registerListenerInfo = (Constructor: Function, key: string, event: 
    * @param coelem The coelement
    */
   Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
-    eventDelegate(el, event, selector, function () {
-      coelem[key].apply(coelem, arguments)
+    el.addEventListener(event, (e: Event): void => {
+      if (!selector || [].some.call(el.querySelectorAll(selector), node => {
+        return node === e.target || node.contains(e.target)
+      })) {
+        coelem[key](e)
+      }
     })
   })
 }
