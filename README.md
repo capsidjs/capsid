@@ -148,7 +148,7 @@ Download dist.min.js. Then:
 
 # APIs
 
-```
+```js
 const cc = require('class-component')
 ```
 
