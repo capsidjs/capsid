@@ -2,7 +2,9 @@ const $ = jQuery
 const assert = require('power-assert')
 const { div } = require('dom-gen')
 
-describe('$.cc', () => {
+const cc = $.cc
+
+describe('cc', () => {
   'use strict'
 
   before(() => {
@@ -11,43 +13,43 @@ describe('$.cc', () => {
         this.$el.attr('is_foo', 'true')
       }
     }
-    $.cc.def('foo', Foo)
+    cc.def('foo', Foo)
 
     class Bar {
       __init__ () {
         this.$el.attr('is_bar', 'true')
       }
     }
-    $.cc.def('bar', Bar)
+    cc.def('bar', Bar)
   })
 
   describe('def', () => {
     it('throws an error when the first param is not a string', () => {
       assert.throws(() => {
-        $.cc.def(null, class A {})
+        cc.def(null, class A {})
       }, Error)
     })
 
     it('throws an error when the second param is not a function', () => {
       assert.throws(() => {
-        $.cc.def('register-test2', null)
+        cc.def('register-test2', null)
       }, Error)
     })
 
     it('registers a class component of the given name', () => {
-      $.cc.def('assign-test0', class Class0 {})
+      cc.def('assign-test0', class Class0 {})
 
-      assert($.cc.__ccc__['assign-test0'] != null)
+      assert(cc.__ccc__['assign-test0'] != null)
     })
 
     it('sets __coelement:class-name property when the class component is initialized', () => {
       class Class1 {}
 
-      $.cc.def('assign-test2', Class1)
+      cc.def('assign-test2', Class1)
 
-      const elem = $('<div class="assign-test2" />').appendTo('body')
+      const elem = div().addClass('assign-test2').appendTo('body')
 
-      $.cc.init('assign-test2')
+      cc.init('assign-test2')
 
       assert(elem[0]['__coelement:assign-test2'] instanceof Class1)
     })
@@ -55,11 +57,11 @@ describe('$.cc', () => {
     it('sets coelement.$el as the base jquery element', () => {
       class Class2 {}
 
-      $.cc.def('elem-test', Class2)
+      cc.def('elem-test', Class2)
 
-      const $el = $('<div class="elem-test" />').appendTo('body')
+      const $el = div().addClass('elem-test').appendTo('body')
 
-      $.cc.init('elem-test')
+      cc.init('elem-test')
 
       const coelem = $el.cc.get('elem-test')
 
@@ -70,7 +72,7 @@ describe('$.cc', () => {
     it('sets coelement.el as the corresponding dom', () => {
       class Class3 {}
 
-      $.cc.def('elem-test-3', Class3)
+      cc.def('elem-test-3', Class3)
 
       const $dom = div().cc('elem-test-3')
 
@@ -84,18 +86,18 @@ describe('$.cc', () => {
     })
 
     it('initializes the class component of the given name', () => {
-      const foo = $('<div class="foo" />').appendTo(document.body)
+      const foo = div().addClass('foo').appendTo(document.body)
 
-      $.cc.init('foo')
+      cc.init('foo')
 
       assert(foo.attr('is_foo') === 'true')
     })
 
     it('initializes multiple class componet by class names separated by whitespaces', () => {
-      const foo = $('<div class="foo" />').appendTo('body')
-      const bar = $('<div class="bar" />').appendTo('body')
+      const foo = div().addClass('foo').appendTo('body')
+      const bar = div().addClass('bar').appendTo('body')
 
-      $.cc.init('foo bar')
+      cc.init('foo bar')
 
       assert(foo.attr('is_foo') === 'true')
       assert(bar.attr('is_bar') === 'true')
@@ -103,13 +105,13 @@ describe('$.cc', () => {
 
     it('throws an error when the given name of class-component is not registered', () => {
       assert.throws(() => {
-        $.cc.init('does-not-exist')
+        cc.init('does-not-exist')
       }, Error)
     })
   })
 })
 
-describe('$.fn.cc', () => {
+describe('$dom.cc', () => {
   class Spam {
     __init__ (elem) {
       this.$el.attr('is_spam', 'true')
@@ -118,31 +120,29 @@ describe('$.fn.cc', () => {
   }
 
   before(() => {
-    $.cc('spam', Spam)
+    cc.def('spam', Spam)
   })
 
   it('is a function', () => {
-    const elem = $('<div />')
-
-    assert(typeof elem.cc === 'function')
+    assert(typeof div().cc === 'function')
   })
 
   it('initializes the class compenents of the given names', () => {
-    const elem = $('<div/>').cc('foo bar')
+    const elem = div().cc('foo').cc('bar')
 
     assert(elem.attr('is_foo') === 'true')
     assert(elem.attr('is_bar') === 'true')
   })
 
   it('adds the given class names to the element', () => {
-    const elem = $('<div/>').cc('foo bar')
+    const elem = div().cc('foo').cc('bar')
 
     assert(elem.hasClass('foo'))
     assert(elem.hasClass('bar'))
   })
 
   it('does not initialize twice', () => {
-    const elem = $('<div/>').cc('spam')
+    const elem = div().cc('spam')
 
     assert(elem.hasClass('spam-toggle-test'))
 
@@ -152,19 +152,19 @@ describe('$.fn.cc', () => {
   })
 
   it('initializes the class components which the element has the name of', () => {
-    const elem = $('<div class="foo bar" />').cc()
+    const elem = div().addClass('foo bar').cc()
 
     assert(elem.attr('is_foo') === 'true')
     assert(elem.attr('is_bar') === 'true')
   })
 
   it('does nothing if it does not have the class component names', () => {
-    const elem = $('<div class="foo-x bar-x" />').cc()
+    const elem = div().addClass('foo-x bar-x').cc()
 
     assert(elem.attr('is_foo') === undefined)
     assert(elem.attr('is_bar') === undefined)
 
-    const elem0 = $('<div class="" />').cc()
+    const elem0 = div().cc()
 
     assert(elem0.attr('is_foo') === undefined)
     assert(elem0.attr('is_bar') === undefined)
@@ -172,7 +172,7 @@ describe('$.fn.cc', () => {
 
   describe('init', () => {
     it('inserts the given class name into the element', () => {
-      const elem = $('<div />')
+      const elem = div()
 
       elem.cc.init('spam')
 
@@ -180,7 +180,7 @@ describe('$.fn.cc', () => {
     })
 
     it('sets the coelement if it has a coelemental', () => {
-      const elem = $('<div />')
+      const elem = div()
 
       elem.cc.init('spam')
 
@@ -189,7 +189,7 @@ describe('$.fn.cc', () => {
     })
 
     it('returns the coelement if it has a coelement', () => {
-      const elem = $('<div />')
+      const elem = div()
 
       assert(elem.cc.init('spam') instanceof Spam)
     })
@@ -197,18 +197,18 @@ describe('$.fn.cc', () => {
 
   describe('get', () => {
     it('gets the coelement of the given name', () => {
-      const elem = $('<div class="spam" />').appendTo('body')
+      const elem = div().addClass('spam').appendTo('body')
 
-      $.cc.init()
+      cc.init()
 
       assert(elem.cc.get('spam') != null)
       assert(elem.cc.get('spam') instanceof Spam)
     })
 
     it('throws an error when the corresponding coelement is unavailable', () => {
-      const elem = $('<div class="does-not-exist" />').appendTo('body')
+      const elem = div().addClass('does-not-exist').appendTo('body')
 
-      $.cc.init()
+      cc.init()
 
       assert.throws(() => {
         elem.cc.get('does-not-exist')
