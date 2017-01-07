@@ -1,20 +1,19 @@
 // @flow
 import $ from './jquery.js'
-import {COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS} from './const.js'
+import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './const.js'
 
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
- * @param {string} className The class name
- * @param {Function} Constructor The constructor of the coelement of the class component
+ * @param className The class name
+ * @param Constructor The constructor of the coelement of the class component
  */
 export default function createComponentInitializer (className: string, Constructor: Function) {
-  const initClass = className + '-initialized'
+  const initClass = `${className}-initialized`
 
   /**
    * Initialize the html element by the configuration.
-   * @public
-   * @param {HTMLElement} el The html element
-   * @param {Object} coelem The dummy parameter, don't use
+   * @param el The html element
+   * @param coelem The dummy parameter, don't use
    */
   const initializer = (el: Object/* HTMLElement */, coelem: Constructor) => {
     const classList = el.classList
@@ -30,13 +29,13 @@ export default function createComponentInitializer (className: string, Construct
         coelem.__init__()
       }
 
-      (Constructor[KEY_EVENT_LISTENERS] || []).forEach(listenerBinder => {
+      (Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
         listenerBinder(el, coelem)
       })
     }
   }
 
-  initializer.selector = '.' + className + ':not(.' + initClass + ')'
+  initializer.selector = `.${className}:not(.${initClass})`
 
   return initializer
 }

@@ -5,23 +5,47 @@
  * license: MIT
  */
 import './decorators.js'
-import {register, init, ccc} from './register-and-init.js'
-import check, {checkClassNamesAreStringOrNull, checkComponentNameIsValid} from './assert.js'
+import { register as cc, init, ccc } from './register-and-init.js'
+import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './assert.js'
 import $ from './jquery.js'
-import {COELEMENT_DATA_KEY_PREFIX} from './const'
+import { COELEMENT_DATA_KEY_PREFIX } from './const'
 
-const cc = (register: any)
+cc.init = init
 
-// Initializes the module object.
+// Expose __ccc__
+cc.__ccc__ = ccc
+
+/**
+ * Initializes the given element with the class-component of the given name.
+ * @param name The name of the class component
+ * @param el The element to initialize
+ */
+cc.el = (name: string, el: HTMLElement) => {
+  checkComponentNameIsValid(name)
+
+  ccc[name](el)
+}
+
+/**
+ * Gets the eoelement instance of the class-component of the given name
+ * @param name The class-component name
+ * @param el The element
+ */
+const get = cc.get = (name: string, el: HTMLElement) => {
+  checkComponentNameIsValid(name)
+
+  const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name]
+
+  check(coelement, `no coelement named: ${name}, on the dom: ${el.tagName}`)
+
+  return coelement
+}
+
+// Initializes the jquery things.
 if (!$.cc) {
   $.cc = cc
 
-  cc.init = init
-
-  // Expose __ccc__
-  cc.__ccc__ = ccc
-
-  const descriptor: any = {get () {
+  const descriptor: any = { get () {
     const $el = this
     const dom: HTMLElement = $el[0]
 
@@ -38,7 +62,7 @@ if (!$.cc) {
       cc = (dom: any).cc = (classNames: ?string) => {
         checkClassNamesAreStringOrNull(classNames)
 
-        ;(classNames || dom.className).split(/\s+/).forEach(className => {
+        ;(classNames || dom.className).split(/\s+/).map(className => {
           if (ccc[className]) {
             ccc[className]($el.addClass(className)[0])
           }
@@ -58,24 +82,8 @@ if (!$.cc) {
     }
 
     return cc
-  }}
+  } }
 
   // Defines the special property cc on the jquery prototype.
   Object.defineProperty($.fn, 'cc', descriptor)
-
-  cc.el = (name: string, el: HTMLElement) => {
-    checkComponentNameIsValid(name)
-
-    ccc[name](el)
-  }
-
-  const get = cc.get = (name: string, el: HTMLElement) => {
-    checkComponentNameIsValid(name)
-
-    const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name]
-
-    check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName)
-
-    return coelement
-  }
 }

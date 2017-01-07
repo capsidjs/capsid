@@ -1,13 +1,13 @@
 // @flow
 import createComponentInitializer from './create-component-initializer.js'
-import check, {checkClassNamesAreStringOrNull} from './assert.js'
+import check, { checkClassNamesAreStringOrNull } from './assert.js'
 import documentReady from './document-ready.js'
 
-type Initializer = {(el: HTMLElement, coelem: any): void; selector: string}
-type cccType = {[key: string]: Initializer}
+type Initializer = { (el: HTMLElement, coelem: any): void; selector: string }
+type cccType = { [key: string]: Initializer }
 
 /**
- * @property {Object<Function>} ccc
+ * The mapping from class-component name to its initializer function.
  */
 export const ccc: cccType = {}
 
@@ -32,20 +32,18 @@ export const register: any = (name: string, Constructor: Function): Function => 
 
 /**
  * Initializes the class components of the given name in the given element.
- * @param {string} classNames The class names
- * @param {?HTMLElement} el The dom where class componets are initialized
- * @return {Array<HTMLElement>} The elements which are initialized in this initialization
- * @throw {Error}
+ * @param classNames The class names
+ * @param el The dom where class componets are initialized
+ * @throws when the class name is invalid type.
  */
 export function init (classNames: string, el: ?HTMLElement) {
   checkClassNamesAreStringOrNull(classNames)
 
-  ;(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(className => {
+  ;(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).map(className => {
     const initializer = ccc[className]
-    check(initializer != null, 'Class componet "' + className + '" is not defined.')
 
-    ;[].forEach.call((el || document).querySelectorAll(initializer.selector), el => {
-      initializer(el)
-    })
+    check(!!initializer, `Class componet ${className} is not defined.`)
+
+    ;[].map.call((el || document).querySelectorAll(initializer.selector), initializer)
   })
 }
