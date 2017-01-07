@@ -12,6 +12,8 @@ import { COELEMENT_DATA_KEY_PREFIX } from './const'
 
 cc.init = init
 
+cc.def = cc
+
 // Expose __ccc__
 cc.__ccc__ = ccc
 
