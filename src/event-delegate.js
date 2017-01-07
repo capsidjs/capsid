@@ -8,19 +8,11 @@
  */
 export default (el: HTMLElement, event: string, selector: ?string, callback: ((e: Event) => void)) => {
   el.addEventListener(event, (e: Event): void => {
-    if (!selector) {
-      callback(e)
-      return
-    }
-
-    const nodes = el.querySelectorAll(selector)
-    const target: HTMLElement = (e.target: any)
-
-    for (let i = 0; i < nodes.length; i++) {
-      if (nodes[i] === target || nodes[i].contains(target)) {
+    selector ? [].some.call(el.querySelectorAll(selector), node => {
+      if (node === e.target || node.contains(e.target)) {
         callback(e)
-        return
+        return 1
       }
-    }
+    }) : callback(e)
   })
 }
