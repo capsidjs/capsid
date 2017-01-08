@@ -6,20 +6,20 @@ const cc = $.cc
 
 describe('cc', () => {
   'use strict'
+  class Foo {
+    __init__ () {
+      this.$el.attr('is_foo', 'true')
+    }
+  }
+
+  class Bar {
+    __init__ () {
+      this.$el.attr('is_bar', 'true')
+    }
+  }
 
   before(() => {
-    class Foo {
-      __init__ () {
-        this.$el.attr('is_foo', 'true')
-      }
-    }
     cc.def('foo', Foo)
-
-    class Bar {
-      __init__ () {
-        this.$el.attr('is_bar', 'true')
-      }
-    }
     cc.def('bar', Bar)
   })
 
@@ -107,6 +107,47 @@ describe('cc', () => {
       assert.throws(() => {
         cc.init('does-not-exist')
       }, Error)
+    })
+  })
+
+  describe('el', () => {
+    it('initializes the element as an class-component of the given name', () => {
+      const el = div()[0]
+
+      cc.el('foo', el)
+
+      assert($(el).attr('is_foo') === 'true')
+    })
+
+    it('returns nothing', () => {
+      assert(cc.el('foo', div()[0]) === undefined)
+    })
+  })
+
+  describe('co', () => {
+    it('initializes the element as an class-component of the given name', () => {
+      const el = div()[0]
+
+      cc.co('foo', el)
+
+      assert($(el).attr('is_foo') === 'true')
+    })
+
+    it('returns an instance of coelement', () => {
+      assert(cc.co('foo', div()[0]) instanceof Foo)
+    })
+  })
+
+  describe('get', () => {
+    it('gets the coelement instance from the element', () => {
+      const el = div()[0]
+
+      cc.el('foo', el)
+
+      const coel = cc.get('foo', el)
+
+      assert(coel instanceof Foo)
+      assert(coel.el === el)
     })
   })
 })

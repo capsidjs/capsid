@@ -18,7 +18,7 @@ cc.def = cc
 cc.__ccc__ = ccc
 
 /**
- * Initializes the given element with the class-component of the given name.
+ * Initializes the given element as the class-component.
  * @param name The name of the class component
  * @param el The element to initialize
  */
@@ -26,6 +26,18 @@ cc.el = (name: string, el: HTMLElement) => {
   checkComponentNameIsValid(name)
 
   ccc[name](el)
+}
+
+/**
+ * Initializes the given element as the class-component.
+ * @param name The name of the class component
+ * @param el The element to initialize
+ * @return
+ */
+cc.co = (name: string, el: HTMLElement) => {
+  cc.el(name, el)
+
+  return cc.get(name, el)
 }
 
 /**
