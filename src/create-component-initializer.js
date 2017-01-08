@@ -20,9 +20,10 @@ export default function createComponentInitializer (className: string, Construct
 
     if (!classList.contains(initClass)) {
       classList.add(initClass)
+
       ;(el: any)[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($(el))
 
-      coelem.elem = coelem.$el = $(el)
+      coelem.elem /* <- backward compat */ = coelem.$el = $(el)
       coelem.el = el
 
       if (typeof coelem.__init__ === 'function') {
