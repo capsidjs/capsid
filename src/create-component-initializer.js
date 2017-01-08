@@ -15,12 +15,12 @@ export default function createComponentInitializer (className: string, Construct
    * @param el The html element
    * @param coelem The dummy parameter, don't use
    */
-  const initializer = (el: Object/* HTMLElement */, coelem: Constructor) => {
+  const initializer = (el: HTMLElement, coelem: Constructor) => {
     const classList = el.classList
 
     if (!classList.contains(initClass)) {
       classList.add(initClass)
-      el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($(el))
+      ;(el: any)[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($(el))
 
       coelem.elem = coelem.$el = $(el)
       coelem.el = el
