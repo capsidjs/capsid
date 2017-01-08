@@ -1,6 +1,5 @@
 # TODO
 
-- remove $(func) by native impl
 - remove jquery dep of @wire
 - separate class-component and class-component-jquery
 - new name: senku.js, zenku.js(前駆) or kanku.js?
@@ -10,6 +9,7 @@
 - doc: create document site
 
 # DONE
+- remove $(func) by native impl
 - breaking: remove @on().at @12
 - breaking: remove @emit().first @12
 - breaking: remove @emit().last @12

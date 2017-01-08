@@ -73,7 +73,8 @@
       "mocha"
     ],
     "ignore": [
-      "/dist"
+      "/dist",
+      "jquery.js"
     ]
   }
 }
