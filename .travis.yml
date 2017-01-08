@@ -1,7 +1,0 @@
-language: node_js
-node_js:
-  - 4
-addons:
-  firefox: latest
-script:
-  - xvfb-run npm run test-firefox
