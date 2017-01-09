@@ -2,6 +2,7 @@
 import createComponentInitializer from './create-component-initializer.js'
 import check, { checkClassNamesAreStringOrNull } from './assert.js'
 import documentReady from './document-ready.js'
+import doc from './document'
 
 type Initializer = { (el: HTMLElement, coelem: any): void; selector: string }
 type cccType = { [key: string]: Initializer }
@@ -42,6 +43,6 @@ export function init (classNames: string, el: ?HTMLElement) {
 
     check(!!initializer, `Class componet ${className} is not defined.`)
 
-    ;[].map.call((el || document).querySelectorAll(initializer.selector), initializer)
+    ;[].map.call((el || doc).querySelectorAll(initializer.selector), initializer)
   })
 }
