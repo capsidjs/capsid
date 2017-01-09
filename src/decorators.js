@@ -3,6 +3,7 @@
 import camelToKebab from './camel-to-kebab.js'
 import { register as cc } from './register-and-init.js'
 import trigger from './event-trigger.js'
+import matches from './matches.js'
 import './on-decorator.js'
 
 /**
@@ -54,10 +55,20 @@ cc.emit.last = (event: string) => (target: Object, key: string, descriptor: Obje
  * @param {object} descriptor The property descriptor
  */
 const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
-  selector = selector || '.' + name
+  const sel: string = selector || `.${name}`
 
   descriptor.get = function () {
-    return this.$el.filter(selector).add(selector, this.el).cc.get(name)
+    if (matches.call(this.el, sel)) {
+      return cc.get(name, this.el)
+    }
+
+    const nodes = this.el.querySelectorAll(sel)
+
+    if (nodes.length) {
+      return cc.get(name, nodes[0])
+    }
+
+    throw new Error(`wired class-component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
   }
 }
 
@@ -66,7 +77,7 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
  */
 cc.wire = (target: Object, key: string, descriptor: Object) => {
   if (typeof target === 'string') {
-    // If target is a tring, then we suppose this is called as @wire(componentName, selector) and therefore
+    // If target is a string, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
     return wireByNameAndSelector(target, key)
   }

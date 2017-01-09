@@ -1,7 +1,6 @@
 # TODO
 
-- remove jquery dep of @wire
-- separate class-component and class-component-jquery
+- separate class-component and cc-jquery
 - new name: senku.js, zenku.js(前駆) or kanku.js?
 - doc: write Tutorial
 - doc: write How to test cc
@@ -9,6 +8,7 @@
 - doc: create document site
 
 # DONE
+- remove jquery dep of @wire
 - remove $(func) by native impl
 - breaking: remove @on().at @12
 - breaking: remove @emit().first @12
