@@ -1,6 +1,5 @@
 # TODO
 
-- plugin system
 - separate class-component and cc-jquery
 - new name: classcade, rhei, rous, nomoi, senku.js, zenku.js(前駆) or kanku.js?
 - doc: How to test class-component
@@ -11,6 +10,7 @@
 - class-component.js.org or rhei.js.org,
 
 # DONE
+- plugin system
 - remove jquery dep of @wire
 - remove $(func) by native impl
 - breaking: remove @on().at @12

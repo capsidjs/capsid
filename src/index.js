@@ -8,6 +8,7 @@ import './decorators.js'
 import def from './def.js'
 import init from './init.js'
 import ccc from './ccc.js'
+import plugins from './plugins.js'
 import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './util/check.js'
 import $ from './util/jquery.js'
 import { COELEMENT_DATA_KEY_PREFIX } from './const'
@@ -20,6 +21,9 @@ cc.init = init
 
 // Expose __ccc__
 cc.__ccc__ = ccc
+
+// Expose plugins
+cc.plugins = plugins
 
 /**
  * Initializes the given element as the class-component.
@@ -104,4 +108,7 @@ if (!$.cc) {
 
   // Defines the special property cc on the jquery prototype.
   Object.defineProperty($.fn, 'cc', descriptor)
+
+  // Applies jQuery initializer plugin
+  plugins.push((el: HTMLElement, coel: any) => { coel.$el = $(el) })
 }

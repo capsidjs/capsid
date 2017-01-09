@@ -1,6 +1,6 @@
 // @flow
-import $ from './util/jquery.js'
 import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './const.js'
+import plugins from './plugins.js'
 
 /**
  * ClassComponentConfiguration is the utility class for class component initialization.
@@ -21,9 +21,12 @@ export default function createComponentInitializer (className: string, Construct
     if (!classList.contains(initClass)) {
       classList.add(initClass)
 
-      ;(el: any)[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($(el))
+      ;(el: any)[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor()
 
-      coelem.elem /* <- backward compat */ = coelem.$el = $(el)
+      plugins.forEach(plugin => {
+        plugin(el, coelem)
+      })
+
       coelem.el = el
 
       if (typeof coelem.__init__ === 'function') {
