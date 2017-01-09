@@ -1,6 +1,6 @@
 // @flow
 import { KEY_EVENT_LISTENERS } from './const.js'
-import { register as cc } from './register-and-init.js'
+import { def as cc } from './def-and-init.js'
 
 /**
  * The decorator for registering event listener info to the method.

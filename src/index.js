@@ -5,14 +5,16 @@
  * license: MIT
  */
 import './decorators.js'
-import { register as cc, init, ccc } from './register-and-init.js'
+import { def, init, ccc } from './def-and-init.js'
 import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './util/check.js'
 import $ from './util/jquery.js'
 import { COELEMENT_DATA_KEY_PREFIX } from './const'
 
-cc.init = init
+const cc = def
 
-cc.def = cc
+cc.def = def
+
+cc.init = init
 
 // Expose __ccc__
 cc.__ccc__ = ccc

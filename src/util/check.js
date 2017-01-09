@@ -1,5 +1,5 @@
 // @flow
-import { ccc } from '../register-and-init.js'
+import { ccc } from '../def-and-init.js'
 /**
  * Asserts the given condition holds, otherwise throws.
  * @param assertion The assertion expression
