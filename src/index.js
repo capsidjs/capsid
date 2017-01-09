@@ -6,8 +6,8 @@
  */
 import './decorators.js'
 import { register as cc, init, ccc } from './register-and-init.js'
-import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './assert.js'
-import $ from './jquery.js'
+import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './util/check.js'
+import $ from './util/jquery.js'
 import { COELEMENT_DATA_KEY_PREFIX } from './const'
 
 cc.init = init

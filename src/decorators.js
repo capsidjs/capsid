@@ -1,9 +1,9 @@
 // @flow
 
-import camelToKebab from './camel-to-kebab.js'
+import camelToKebab from './util/camel-to-kebab.js'
 import { register as cc } from './register-and-init.js'
-import trigger from './event-trigger.js'
-import matches from './matches.js'
+import trigger from './util/event-trigger.js'
+import matches from './util/matches.js'
 import './on-decorator.js'
 
 /**
