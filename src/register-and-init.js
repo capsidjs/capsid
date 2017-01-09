@@ -1,8 +1,7 @@
 // @flow
 import createComponentInitializer from './create-component-initializer.js'
 import check, { checkClassNamesAreStringOrNull } from './util/check.js'
-import documentReady from './util/document-ready.js'
-import doc from './util/document'
+import doc, { ready } from './util/document'
 
 type Initializer = { (el: HTMLElement, coelem: any): void; selector: string }
 type cccType = { [key: string]: Initializer }
@@ -24,7 +23,7 @@ export const register: any = (name: string, Constructor: Function): Function => 
 
   ccc[name] = createComponentInitializer(name, Constructor)
 
-  documentReady(() => { init(name) })
+  ready(() => { init(name) })
 
   return Constructor
 }
