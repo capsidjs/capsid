@@ -5,7 +5,8 @@
  * license: MIT
  */
 import './decorators.js'
-import { def, init } from './def-and-init.js'
+import def from './def.js'
+import init from './init.js'
 import ccc from './ccc.js'
 import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './util/check.js'
 import $ from './util/jquery.js'
