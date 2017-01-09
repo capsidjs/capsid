@@ -1,7 +1,8 @@
 const { div } = require('dom-gen')
 const assert = require('assert')
 const $ = jQuery
-const { on, emit, component, wire } = $.cc
+const cc = $.cc
+const { on, emit, component, wire } = cc
 
 /**
  * @param {Function} decorator The decorator
@@ -19,7 +20,7 @@ describe('@on(event)', () => {
     class OnTest0 {
       handler () { done() }
     }
-    $.cc('on-test0', OnTest0)
+    cc.def('on-test0', OnTest0)
     callDecorator(on('click'), OnTest0, 'handler')
 
     div().cc('on-test0').trigger('click')
@@ -37,7 +38,7 @@ describe('@on(event)', () => {
     callDecorator(on('click'), OnTest1, 'handler')
     callDecorator(on('bar'), OnTest1ChildChild, 'bar')
 
-    $.cc('on-test1-child-child', OnTest1ChildChild)
+    cc.def('on-test1-child-child', OnTest1ChildChild)
 
     div().cc('on-test1-child-child').trigger('click')
   })
@@ -49,7 +50,7 @@ describe('@on(event, {at: selector})', () => {
       foo () { done() }
       bar () { done(new Error('bar should not be called')) }
     }
-    $.cc('on-at-test0', OnAtTest0)
+    cc.def('on-at-test0', OnAtTest0)
 
     callDecorator(on('foo-event', {at: '.inner'}), OnAtTest0, 'foo')
     callDecorator(on('bar-event', {at: '.inner'}), OnAtTest0, 'bar')
@@ -72,7 +73,7 @@ describe('@emit(event)', () => {
         return 42
       }
     }
-    $.cc('emit-test0', EmitTest0)
+    cc.def('emit-test0', EmitTest0)
     callDecorator(emit('event-foo'), EmitTest0, 'foo')
 
     const coelem = div().on('event-foo', e => {
@@ -92,7 +93,7 @@ describe('@emit(event)', () => {
         return 42
       }
     }
-    $.cc('emit-test1', EmitTest1)
+    cc.def('emit-test1', EmitTest1)
     callDecorator(emit('event-foo'), EmitTest1, 'foo')
 
     const parent = div().on('event-foo', () => done()).appendTo('body')
@@ -110,7 +111,7 @@ describe('@emit.last(event)', () => {
         return 321
       }
     }
-    $.cc('emit-last-test0', EmitLastTest0)
+    cc.def('emit-last-test0', EmitLastTest0)
     callDecorator(emit.last('event-foo'), EmitLastTest0, 'foo')
 
     div().on('event-foo', (e) => {
@@ -133,7 +134,7 @@ describe('@emit.last(event)', () => {
         })
       }
     }
-    $.cc('emit-last-test1', EmitLastTest1)
+    cc.def('emit-last-test1', EmitLastTest1)
     callDecorator(emit.last('event-foo'), EmitLastTest1, 'foo')
 
     div().on('event-foo', (e) => {
@@ -164,8 +165,8 @@ describe('@component', () => {
 describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     class Cls {
-      constructor (elem) {
-        elem.attr('this-is', 'decorated-component')
+      __init__ () {
+        this.$el.attr('this-is', 'decorated-component')
       }
     }
 
@@ -184,15 +185,15 @@ describe('@component(className)', () => {
   })
 })
 
-describe('@wire\'d getter', () => {
+describe('@wire', () => {
   it('replaces the decorated getter and returns the instance of class-component of the getter name', () => {
     class Cls0 {
       get ['wire-test0-1'] () {}
     }
     class Cls1 {
     }
-    $.cc('wire-test0', Cls0)
-    $.cc('wire-test0-1', Cls1)
+    cc.def('wire-test0', Cls0)
+    cc.def('wire-test0-1', Cls1)
 
     callDecorator(wire, Cls0, 'wire-test0-1')
 
@@ -209,8 +210,8 @@ describe('@wire\'d getter', () => {
     }
     class Cls1 {
     }
-    $.cc('wire-test3', Cls0)
-    $.cc('wire-test3-child', Cls1)
+    cc.def('wire-test3', Cls0)
+    cc.def('wire-test3-child', Cls1)
 
     callDecorator(wire, Cls0, 'wireTest3Child')
 
@@ -227,8 +228,8 @@ describe('@wire\'d getter', () => {
     }
     class Cls1 {
     }
-    $.cc('wire-test2', Cls0)
-    $.cc('wire-test2-1', Cls1)
+    cc.def('wire-test2', Cls0)
+    cc.def('wire-test2-1', Cls1)
 
     callDecorator(wire, Cls0, 'wire-test2-1')
 
@@ -236,17 +237,35 @@ describe('@wire\'d getter', () => {
 
     assert(wireTest0['wire-test2-1'] instanceof Cls1)
   })
+
+  it('throws when the element is not available', () => {
+    class Cls0 {
+      get ['does-not-exist'] () {}
+    }
+
+    cc.def('wire-test4', Cls0)
+
+    callDecorator(wire, Cls0, 'does-not-exist')
+
+    const instance = cc.co('wire-test4', div()[0])
+
+    assert.throws(() => {
+      instance['does-not-exist']
+    }, err => {
+      return err.message === 'wired class-component "does-not-exist" is not available at DIV(class=[Cls0]'
+    })
+  })
 })
 
-describe('@wire(name, selector)\'d getter', () => {
+describe('@wire(name, selector)', () => {
   it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
     class Cls0 {
       get test () {}
     }
     class Cls1 {
     }
-    $.cc('wire-test1', Cls0)
-    $.cc('wire-test1-1', Cls1)
+    cc.def('wire-test1', Cls0)
+    cc.def('wire-test1-1', Cls1)
 
     callDecorator(wire('wire-test1-1', '.foo'), Cls0, 'test')
 
