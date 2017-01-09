@@ -1,5 +1,5 @@
 const { div } = require('dom-gen')
-const assert = require('power-assert')
+const assert = require('assert')
 const $ = jQuery
 const { on, emit, component, wire } = $.cc
 

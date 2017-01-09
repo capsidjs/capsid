@@ -1,6 +1,6 @@
-const camelToKebab = require('../../src/util/camel-to-kebab').default
+import camelToKebab from '../../src/util/camel-to-kebab'
 
-const assert = require('power-assert')
+const assert = require('assert')
 
 describe('camelToKebab', () => {
   it('convert camel case to kebab case', () => {
