@@ -8,6 +8,7 @@
     "lint": "standard",
     "flow": "flow",
     "test": "karma start karma.conf.js",
+    "all": "npm run lint && npm run flow && npm run test",
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
     "dist": "rollup -c | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
