@@ -1,19 +1,19 @@
 // @flow
 
-const DOM_CONTENT_LOADED = 'DOMContentLoaded'
+const READY_STATE_CHANGE = 'readystatechange'
 const doc = document
 
 const promise = new Promise(resolve => {
-  const completed = () => {
-    resolve()
-    doc.removeEventListener(DOM_CONTENT_LOADED, completed)
+  const checkReady = () => {
+    if (doc.readyState === 'complete') {
+      resolve()
+      doc.removeEventListener(READY_STATE_CHANGE, checkReady)
+    }
   }
 
-  if (doc.readyState === 'complete') {
-    setTimeout(resolve)
-  } else {
-    doc.addEventListener(DOM_CONTENT_LOADED, completed)
-  }
+  doc.addEventListener(READY_STATE_CHANGE, checkReady)
+
+  checkReady()
 })
 
 /**
