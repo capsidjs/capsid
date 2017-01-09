@@ -5,7 +5,8 @@
  * license: MIT
  */
 import './decorators.js'
-import { def, init, ccc } from './def-and-init.js'
+import { def, init } from './def-and-init.js'
+import ccc from './ccc.js'
 import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './util/check.js'
 import $ from './util/jquery.js'
 import { COELEMENT_DATA_KEY_PREFIX } from './const'

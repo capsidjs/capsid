@@ -2,14 +2,7 @@
 import createComponentInitializer from './create-component-initializer.js'
 import check, { checkClassNamesAreStringOrNull } from './util/check.js'
 import doc, { ready } from './util/document'
-
-type Initializer = { (el: HTMLElement, coelem: any): void; selector: string }
-type cccType = { [key: string]: Initializer }
-
-/**
- * The mapping from class-component name to its initializer function.
- */
-export const ccc: cccType = {}
+import ccc from './ccc.js'
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
