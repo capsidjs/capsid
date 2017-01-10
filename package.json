@@ -13,7 +13,7 @@
     "codecov": "codecov",
     "dist": "rollup -c | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
     "dist:jq": "rollup -c rollup.config.jquery.js | babel --presets es2015 | tee dist/class-component-jquery.js | uglifyjs - -m -c > dist/class-component-jquery.min.js",
-    "prepublish": "npm run clean && npm run dist"
+    "prepublish": "npm run clean && npm run dist && npm run dist:jq"
   },
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
     "mocha": "^3.0.0",
     "power-assert": "^1.4.1",
     "rimraf": "^2.5.2",
-    "rollup": "^0.36.0",
+    "rollup": "0.41.1",
     "rollup-plugin-flow": "^1.0.1",
     "standard": "^8.2.0",
     "uglify-js": "^2.6.1",
