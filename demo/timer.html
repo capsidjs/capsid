@@ -1,7 +1,5 @@
 <div class="timer"></div>
 
-
-<script src="./jquery.js"></script>
 <script src="../dist/class-component.js"></script>
 <script>
 class Timer {
@@ -14,12 +12,12 @@ class Timer {
   }
   tick () {
     this.secondsElapsed++
-    this.elem.text('Seconds Elapsed:' + this.secondsElapsed)
+    this.el.textContent = `Seconds Elapsed: ${this.secondsElapsed}`
   }
   stop () {
     clearInterval(this.interval);
   }
 }
 
-$.cc('timer', Timer);
+cc('timer', Timer);
 </script>

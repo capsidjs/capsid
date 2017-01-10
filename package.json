@@ -12,6 +12,7 @@
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
     "dist": "rollup -c | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
+    "dist:jq": "rollup -c rollup.config.jquery.js | babel --presets es2015 | tee dist/class-component-jquery.js | uglifyjs - -m -c > dist/class-component-jquery.min.js",
     "prepublish": "npm run clean && npm run dist"
   },
   "repository": {

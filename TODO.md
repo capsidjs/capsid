@@ -1,7 +1,6 @@
 # TODO
 
-- separate class-component and cc-jquery
-- new name: classcade, rhei, rous, nomoi, senku.js, zenku.js(前駆) or kanku.js?
+- new name: classclamp, classcoup, classcool, classcade, rhei, rous, nomoi, senku.js, zenku.js(前駆) or kanku.js?
 - doc: How to test class-component
 - doc: How to write a good class-component
 - doc: How to do MVC(MVP) with class-component
@@ -10,6 +9,7 @@
 - class-component.js.org or rhei.js.org,
 
 # DONE
+- separate class-component and cc-jquery
 - plugin system
 - remove jquery dep of @wire
 - remove $(func) by native impl
