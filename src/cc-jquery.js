@@ -1,7 +1,13 @@
 // @flow
 
 import check, { checkClassNamesAreStringOrNull } from './util/check.js'
-const init = (cc, $) => {
+
+/**
+ * Applies the jquery plugin to cc and $
+ * @param cc The class-component function
+ * @param $ The jQuery function
+ */
+const init = (cc: Function, $: Function): void => {
   $.cc = cc
 
   const getter = function () {
@@ -47,13 +53,17 @@ const init = (cc, $) => {
   Object.defineProperty($.fn, 'cc', { get: getter })
 
   // Applies jQuery initializer plugin
-  plugins.push((el: HTMLElement, coel: any) => { coel.$el = $(el) })
-}
-
-if (typeof self !== 'undefined' && self.cc && self.$ && !self.$.cc) {
-  init(cc, $)
+  plugins.push((el: HTMLElement, coel: any) => {
+    coel.$el = $(el)
+    coel.elem = coel.$el // backward compat, will be removed
+  })
 }
 
 if (typeof module !== 'undefined' && module.exports) {
+  // If the env is common js, then exports init.
   module.exports = init
+} else if (typeof self !== 'undefined' && self.cc && self.$ && !self.$.cc) {
+  // If the env is browser and cc and $ is already defined and this plugin isn't applied yet
+  // Then applies the plugin here.
+  init(self.cc, self.$)
 }
