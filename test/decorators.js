@@ -1,7 +1,6 @@
 const { div } = require('dom-gen')
 const assert = require('assert')
-const $ = jQuery
-const cc = $.cc
+const cc = require('../src')
 const { on, emit, component, wire } = cc
 
 /**

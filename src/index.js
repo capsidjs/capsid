@@ -9,7 +9,7 @@ import def from './def.js'
 import init from './init.js'
 import ccc from './ccc.js'
 import plugins from './plugins.js'
-import check, { checkClassNamesAreStringOrNull, checkComponentNameIsValid } from './util/check.js'
+import check, { checkComponentNameIsValid } from './util/check.js'
 import { COELEMENT_DATA_KEY_PREFIX } from './const'
 
 const cc = def
@@ -52,7 +52,7 @@ cc.co = (name: string, el: HTMLElement) => {
  * @param name The class-component name
  * @param el The element
  */
-const get = cc.get = (name: string, el: HTMLElement) => {
+cc.get = (name: string, el: HTMLElement) => {
   checkComponentNameIsValid(name)
 
   const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name]

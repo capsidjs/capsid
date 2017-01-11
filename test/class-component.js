@@ -2,7 +2,7 @@ const $ = jQuery
 const assert = require('assert')
 const { div } = require('dom-gen')
 
-const cc = $.cc
+const cc = require('../src')
 
 describe('cc', () => {
   'use strict'

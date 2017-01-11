@@ -9,8 +9,10 @@ import check, { checkClassNamesAreStringOrNull } from './util/check.js'
  */
 const init = (cc: Function, $: Function): void => {
   $.cc = cc
+  const ccc = cc.__ccc__
+  const get = cc.get
 
-  const getter = function () {
+  const descriptor: any = { get: function () {
     const $el = this
     const dom: HTMLElement = $el[0]
 
@@ -47,13 +49,13 @@ const init = (cc: Function, $: Function): void => {
     }
 
     return cc
-  }
+  } }
 
   // Defines the special property cc on the jquery prototype.
-  Object.defineProperty($.fn, 'cc', { get: getter })
+  Object.defineProperty($.fn, 'cc', descriptor)
 
   // Applies jQuery initializer plugin
-  plugins.push((el: HTMLElement, coel: any) => {
+  cc.plugins.push((el: HTMLElement, coel: any) => {
     coel.$el = $(el)
     coel.elem = coel.$el // backward compat, will be removed
   })

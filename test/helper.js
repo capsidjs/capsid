@@ -1,3 +1,6 @@
 const $ = require('jquery')
 global.$ = global.jQuery = $
-require('../src')
+const cc = require('../src')
+const ccj = require('../src/cc-jquery')
+
+ccj(cc, $)
