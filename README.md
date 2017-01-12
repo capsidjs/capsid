@@ -1,4 +1,4 @@
-# ![class-component](http://kt3k.github.io/class-component/asset/logo-v2.svg)
+j ![class-component](http://kt3k.github.io/class-component/asset/logo-v2.svg)
 
 [![Circle CI](https://circleci.com/gh/kt3k/class-component.svg?style=svg)](https://circleci.com/gh/kt3k/class-component)
 [![codecov.io](https://codecov.io/github/kt3k/class-component/coverage.svg?branch=master)](https://codecov.io/github/kt3k/class-component?branch=master)
@@ -6,19 +6,19 @@
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
 [![npm](https://img.shields.io/npm/v/class-component.svg)](https://npm.im/class-component)
 
-> Class driven component tool
+> Class driven component framework
 
-class-component.js is a tool for creating UI Component based on HTML classes.
+class-component.js is a framework for creating UI Component based on HTML classes.
 
-class-component.js encourages the use of MVP design pattern. A component (or coelement) works as Presenter of MVP and a HTMLElement (dom) works as View of MVP. See the below for details.
+class-component.js encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
 
-If you don't need big frameworks like React & Redux or Angular but still need some structure like components, then I recommend this tool.
+class-component.js doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
 
 # Features
 
 - It's an **UI framework**.
 - **no virtual dom, no template, no rendering**
-- **small APIs**: 5 apis & 7 decorators & (2 experimental apis)
+- **small APIs**: 5 apis & 4 decorators
 - **small size**: **2.9KB** minified (**1.3KB** gziped).
 
 # The timer
@@ -28,6 +28,10 @@ The timer example:
 timer.js:
 
 ```js
+<span class="timer"></span>
+
+<script src="path/to/class-component.js"></script>
+<script>
 class Timer {
   __init__ () {
     this.secondsElapsed = 0
@@ -60,12 +64,7 @@ class Timer {
 const cc = require('class-component')
 
 cc.def('timer', Timer)
-```
-
-timer.html:
-
-```html
-<span class="timer"></span>
+</script>
 ```
 
 See [the working demo](https://kt3k.github.io/class-component/demo/timer.html).
@@ -294,15 +293,15 @@ In the above example, `<div>` is appended and it is initialized as `todo-app` cl
 
 # Decorators
 
-There are 8 decorators.
+There are 4 decorators.
 
 - `@component`
-- `@component()`
+  - optionally `@component(name)`
 - `@on(event, {at})`
-- `@emit()`
-- `@emit.last()`
+- `@emit(event)`
+  - optionally `@emit.last(event)`
 - `@wire`
-- `@wire()`
+  - optionally `@wire(name, [selector])`
 
 ## `@component(className)`
 
@@ -586,3 +585,7 @@ class-component.js encourages the use of (layered) MVP architecture. Element (do
 ## No tree structure other than dom tree
 
 One of the benefit of using class-component.js is that it does not introduce any new tree structures other than the dom tree like the many other libraries do. class-component.js thinks dom tree comes first always and *attaches* coelements to it. This simplifies the programmer's mental model of the page structure. Something like `setParent` or `setRoot` makes the structure really complicated and hard to reason about. When using class-component.js, there is the only one tree structure of UI and which is the dom tree which is familiar to everyone.
+
+## Why no rendering?
+
+In the frontend, dom trees are already *there* and not something you *create* usually except when you actually create dom nodes. Templates are tool for *generating* dom trees, and not a tool for updating it through its lifecycle. So the libraries like React or cycle.js are very unnatural in that they keep updating dom trees throughout its lifecycle by the tool which is very similar to Template which wasn't originally made for that purpose. There are always dom trees in the frontend when the scripts start and they already have their hierarchies in them, so the natural approach to enhance their behaviour is to *add* the functions to dom tree, not to *create* another tree like virtual dom. This is IMO the same direction with Polymer and similar to Flight. The natural way to updating dom tree is just manually updating the dom through its API and not by the template or template diffing.
