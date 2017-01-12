@@ -13,9 +13,9 @@
     "codecov": "codecov",
     "dist:cjs": "rollup -c -f cjs -- src/index.js | babel --presets es2015 > class-component.js",
     "dist:browser": "rollup -c -f iife -n cc -- src/index.js | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
-    "dist:jq-cjs": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 > class-component-jquery.js",
+    "dist:jq-cjs": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 > jquery.js",
     "dist:jq-browser": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 | tee dist/class-component-jquery.js | uglifyjs - -m -c > dist/class-component-jquery.min.js",
-    "prepublish": "npm run clean && npm run dist && npm run dist:jq"
+    "prepublish": "npm run clean && npm run dist:cjs && npm run dist:browser && npm run dist:jq-cjs && npm run dist:jq-browser"
   },
   "repository": {
     "type": "git",
@@ -78,7 +78,8 @@
     ],
     "ignore": [
       "/dist",
-      "jquery.js"
+      "jquery.js",
+      "class-component.js"
     ]
   }
 }
