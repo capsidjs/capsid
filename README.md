@@ -27,7 +27,7 @@ The timer example:
 
 timer.js:
 
-```js
+```html
 <span class="timer"></span>
 
 <script src="path/to/class-component.js"></script>
