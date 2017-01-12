@@ -3,7 +3,7 @@
 const READY_STATE_CHANGE = 'readystatechange'
 const doc = document
 
-const promise = new Promise(resolve => {
+export const ready = new Promise(resolve => {
   const checkReady = () => {
     if (doc.readyState === 'complete') {
       resolve()
@@ -15,13 +15,6 @@ const promise = new Promise(resolve => {
 
   checkReady()
 })
-
-/**
- * Fires the callback when doms are ready.
- */
-export const ready = (callback: Function) => {
-  promise.then(callback)
-}
 
 export const body = doc.body
 export default doc

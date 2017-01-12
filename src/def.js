@@ -51,7 +51,7 @@ const def: any = (name: string, Constructor: Function): Function => {
 
   ccc[name] = initializer
 
-  ready(() => { init(name) })
+  ready.then(() => { init(name) })
 
   return Constructor
 }
