@@ -1,59 +1,7 @@
 'use strict';
 
-(function () {
+var cc = function () {
   'use strict';
-
-  //      
-
-  var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
-  var KEY_EVENT_LISTENERS = '__cc_listeners__';
-
-  //      
-  /**
-   * Binds the callback to the element at the event and the selector.
-   * @param {HTMLElement} el The element
-   * @param {string} event The event
-   * @param {?string} selector The selector
-   * @param {Function} callback The handler
-   */
-  var eventDelegate = function eventDelegate(el, event, selector, callback) {
-    el.addEventListener(event, function (e) {
-      if (!selector) {
-        callback(e);
-        return;
-      }
-
-      var nodes = el.querySelectorAll(selector);
-      var target = e.target;
-
-      for (var i = 0; i < nodes.length; i++) {
-        if (nodes[i] === target || nodes[i].contains(target)) {
-          callback(e);
-          return;
-        }
-      }
-    });
-  };
-
-  //      
-  /**
-   * Registers the event listener to the class constructor.
-   * @param Constructor The constructor
-   * @param key The key of handler method
-   * @param event The event name
-   * @param selector The selector
-   */
-  var registerListenerInfo = function registerListenerInfo(Constructor, key, event, selector) {
-    /**
-     * @param el The element
-     * @param coelem The coelement
-     */
-    Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
-      eventDelegate(el, event, selector, function () {
-        coelem[key].apply(coelem, arguments);
-      });
-    });
-  };
 
   //      
   /**
@@ -61,66 +9,24 @@
    * @param camelString The string in camelCase
    * @return The string in kebab-case
    */
+
   var camelToKebab = function camelToKebab(camelString) {
-    return camelString.replace(/[A-Z]/g, function (c) {
-      return '-' + c.toLowerCase();
-    }).replace(/^-/, '');
+    return camelString.replace(/(?!^)[A-Z]/g, '-$&').toLowerCase();
   };
 
   //      
+
+
   /**
-   * Returns true iff the given thing is a function.
-   * @param {any} func The thing to check
+   * The mapping from class-component name to its initializer function.
    */
-  var isFunction = function isFunction(func) {
-    return typeof func === 'function';
-  };
-
-  //      
-  /**
-   * ClassComponentConfiguration is the utility class for class component initialization.
-   * @param {string} className The class name
-   * @param {Function} Constructor The constructor of the coelement of the class component
-   */
-  function createComponentInitializer(className, Constructor) {
-    var initClass = className + '-initialized';
-
-    /**
-     * Initialize the html element by the configuration.
-     * @public
-     * @param {HTMLElement} el The html element
-     * @param {Object} coelem The dummy parameter, don't use
-     */
-    var initializer = function initializer(el /* HTMLElement */, coelem) {
-      var classList = el.classList;
-
-      if (!classList.contains(initClass)) {
-        classList.add(initClass);
-        el[COELEMENT_DATA_KEY_PREFIX + className] = coelem = new Constructor($(el));
-
-        coelem.elem = coelem.$el = $(el);
-        coelem.el = el;
-
-        if (typeof coelem.__init__ === 'function') {
-          coelem.__init__();
-        }
-
-        (Constructor[KEY_EVENT_LISTENERS] || []).forEach(function (listenerBinder) {
-          listenerBinder(el, coelem);
-        });
-      }
-    };
-
-    initializer.selector = '.' + className + ':not(.' + initClass + ')';
-
-    return initializer;
-  }
+  var ccc = {};
 
   //      
   /**
    * Asserts the given condition holds, otherwise throws.
-   * @param {boolean} assertion The assertion expression
-   * @param {string} message The assertion message
+   * @param assertion The assertion expression
+   * @param message The assertion message
    */
   function check(assertion, message) {
     if (!assertion) {
@@ -129,7 +35,7 @@
   }
 
   /**
-   * @param {any} classNames The class names
+   * @param classNames The class names
    */
   function checkClassNamesAreStringOrNull(classNames) {
     check(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
@@ -141,56 +47,105 @@
    */
   function checkComponentNameIsValid(name) {
     check(typeof name === 'string', 'The name should not be a string');
-    check(ccc[name] != null, 'The coelement of the given name is not registered: ' + name);
+    check(!!ccc[name], 'The coelement of the given name is not registered: ' + name);
   }
 
   //      
-  var documentReady = function documentReady(callback) {
-    $(callback);
-  };
+
+  var READY_STATE_CHANGE = 'readystatechange';
+  var doc = document;
+
+  var ready = new Promise(function (resolve) {
+    var checkReady = function checkReady() {
+      if (doc.readyState === 'complete') {
+        resolve();
+        doc.removeEventListener(READY_STATE_CHANGE, checkReady);
+      }
+    };
+
+    doc.addEventListener(READY_STATE_CHANGE, checkReady);
+
+    checkReady();
+  });
+
+  var body = doc.body;
 
   //      
   /**
-   * @property {Object<Function>} ccc
+   * Initializes the class components of the given name in the given element.
+   * @param classNames The class names
+   * @param el The dom where class componets are initialized
+   * @throws when the class name is invalid type.
    */
-  var ccc = {};
+  var init = function init(classNames, el) {
+    checkClassNamesAreStringOrNull(classNames);(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).map(function (className) {
+      var initializer = ccc[className];
 
+      check(!!initializer, 'Class componet ' + className + ' is not defined.');[].map.call((el || doc).querySelectorAll(initializer.selector), initializer);
+    });
+  };
+
+  //      
+
+
+  var plugins = [];
+
+  //      
+  var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
+  var KEY_EVENT_LISTENERS = '__cc_listeners__';
+
+  //      
   /**
    * Registers the class-component for the given name and constructor and returns the constructor.
-   * @param {String} name The name
-   * @param {Function} Constructor The constructor of the class component
-   * @return {Function}
+   * @param name The component name
+   * @param Constructor The constructor of the class component
+   * @return The registered component class
    */
-  function register(name, Constructor) {
+  var def = function def(name, Constructor) {
     check(typeof name === 'string', '`name` of a class component has to be a string.');
-    check(isFunction(Constructor), '`Constructor` of a class component has to be a function');
+    check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function');
 
-    Constructor.__cc = name;
+    var initClass = name + '-initialized';
 
-    ccc[name] = createComponentInitializer(name, Constructor);
+    /**
+     * Initializes the html element by the configuration.
+     * @param el The html element
+     * @param coelem The dummy parameter, don't use
+     */
+    var initializer = function initializer(el, coelem) {
+      var classList = el.classList;
 
-    documentReady(function () {
+      if (!classList.contains(initClass)) {
+        el[COELEMENT_DATA_KEY_PREFIX + name] = coelem = new Constructor();
+
+        plugins.forEach(function (plugin) {
+          plugin(el, coelem);
+        });
+
+        coelem.el = el;
+
+        if (typeof coelem.__init__ === 'function') {
+          coelem.__init__();
+        }
+
+        (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
+          listenerBinder(el, coelem);
+        });
+
+        classList.add(initClass);
+      }
+    };
+
+    initializer.selector = '.' + name + ':not(.' + initClass + ')';
+
+    ccc[name] = initializer;
+
+    ready.then(function () {
       init(name);
     });
 
     return Constructor;
-  }
-
-  /**
-   * Initializes the class components of the given name in the given element.
-   * @param {string} classNames The class names
-   * @param {?HTMLElement} el The dom where class componets are initialized
-   * @return {Array<HTMLElement>} The elements which are initialized in this initialization
-   * @throw {Error}
-   */
-  function init(classNames, el) {
-    checkClassNamesAreStringOrNull(classNames);(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).forEach(function (className) {
-      var initializer = ccc[className];
-      check(initializer != null, 'Class componet "' + className + '" is not defined.');[].forEach.call((el || document).querySelectorAll(initializer.selector), function (el) {
-        initializer(el);
-      });
-    });
-  }
+  };
 
   //      
   /**
@@ -205,26 +160,47 @@
 
   //      
 
+  var matches = body.matches || body.webkitMatchesSelector || body.msMatchesSelector;
+
+  //      
   /**
    * The decorator for registering event listener info to the method.
    * @param event The event name
    * @param at The selector
+   * @param target The target prototype (decorator interface)
+   * @param key The decorator target key (decorator interface)
    */
-  register.on = function (event) {
+  def.on = function (event) {
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
         at = _ref.at;
 
     return function (target, key) {
-      registerListenerInfo(target.constructor, key, event, at);
+      var Constructor = target.constructor;
+
+      /**
+       * @param el The element
+       * @param coelem The coelement
+       */
+      Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
+        el.addEventListener(event, function (e) {
+          if (!at || [].some.call(el.querySelectorAll(at), function (node) {
+            return node === e.target || node.contains(e.target);
+          })) {
+            coelem[key](e);
+          }
+        });
+      });
     };
   };
+
+  //      
 
   /**
    * `@emit(event)` decorator.
    * This decorator adds the event emission at the beginning of the method.
    * @param event The event name
    */
-  register.emit = function (event) {
+  def.emit = function (event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
@@ -243,7 +219,7 @@
    * If the method returns the promise, then the event is emitted when it is resolved.
    * @param event The event name
    */
-  register.emit.last = function (event) {
+  def.emit.last = function (event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
@@ -277,10 +253,20 @@
    */
   var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
     return function (target, key, descriptor) {
-      selector = selector || '.' + name;
+      var sel = selector || '.' + name;
 
       descriptor.get = function () {
-        return this.$el.filter(selector).add(selector, this.el).cc.get(name);
+        if (matches.call(this.el, sel)) {
+          return def.get(name, this.el);
+        }
+
+        var nodes = this.el.querySelectorAll(sel);
+
+        if (nodes.length) {
+          return def.get(name, nodes[0]);
+        }
+
+        throw new Error('wired class-component "' + name + '" is not available at ' + this.el.tagName + '(class=[' + this.constructor.name + ']');
       };
     };
   };
@@ -288,9 +274,9 @@
   /**
    * Wires the class component of the name of the key to the property of the same name.
    */
-  register.wire = function (target, key, descriptor) {
+  def.wire = function (target, key, descriptor) {
     if (typeof target === 'string') {
-      // If target is a tring, then we suppose this is called as @wire(componentName, selector) and therefore
+      // If target is a string, then we suppose this is called as @wire(componentName, selector) and therefore
       // we need to return the following expression (it works as another decorator).
       return wireByNameAndSelector(target, key);
     }
@@ -305,14 +291,14 @@
    * @param name The class name or the implementation class itself
    * @return The decorator if the class name is given, undefined if the implementation class is given
    */
-  register.component = function (name) {
+  def.component = function (name) {
     if (typeof name !== 'function') {
       return function (Cls) {
-        return register(name, Cls);
+        return def(name, Cls);
       };
     }
 
-    return register(camelToKebab(name.name), name);
+    return def(camelToKebab(name.name), name);
   };
 
   //      
@@ -321,90 +307,56 @@
    * author: Yoshiya Hinosawa ( http://github.com/kt3k )
    * license: MIT
    */
-  var cc = register;
+  var cc = def;
 
-  // Initializes the module object.
-  if (!$.cc) {
-    (function () {
-      $.cc = cc;
+  cc.def = def;
 
-      cc.init = init;
+  cc.init = init;
 
-      // Expose __ccc__
-      cc.__ccc__ = ccc;
+  // Expose __ccc__
+  cc.__ccc__ = ccc;
 
-      var descriptor = {
-        get: function (_get) {
-          function get() {
-            return _get.apply(this, arguments);
-          }
+  // Expose plugins
+  cc.plugins = plugins;
 
-          get.toString = function () {
-            return _get.toString();
-          };
+  /**
+   * Initializes the given element as the class-component.
+   * @param name The name of the class component
+   * @param el The element to initialize
+   */
+  cc.el = function (name, el) {
+    checkComponentNameIsValid(name);
 
-          return get;
-        }(function () {
-          var $el = this;
-          var dom = $el[0];
+    ccc[name](el);
+  };
 
-          check(dom != null, 'cc (class-component context) is unavailable at empty dom selection');
+  /**
+   * Initializes the given element as the class-component.
+   * @param name The name of the class component
+   * @param el The element to initialize
+   * @return
+   */
+  cc.co = function (name, el) {
+    cc.el(name, el);
 
-          var cc = dom.cc;
+    return cc.get(name, el);
+  };
 
-          if (!cc) {
-            /**
-             * Initializes the element as class-component of the given names. If the names not given, then initializes it by the class-component of the class names it already has.
-             * @param {?string} classNames The class component names
-             * @return {jQuery}
-             */
-            cc = dom.cc = function (classNames) {
-              checkClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).forEach(function (className) {
-                if (ccc[className]) {
-                  ccc[className]($el.addClass(className)[0]);
-                }
-              });
+  /**
+   * Gets the eoelement instance of the class-component of the given name
+   * @param name The class-component name
+   * @param el The element
+   */
+  cc.get = function (name, el) {
+    checkComponentNameIsValid(name);
 
-              return $el;
-            };
+    var coelement = el[COELEMENT_DATA_KEY_PREFIX + name];
 
-            /**
-             * Gets the coelement of the given name.
-             * @param {string} name The name of the coelement
-             * @return {Object}
-             */
-            cc.get = function (name) {
-              return get(name, dom);
-            };
+    check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
 
-            cc.init = function (className) {
-              return cc(className).cc.get(className);
-            };
-          }
+    return coelement;
+  };
 
-          return cc;
-        })
-      };
-
-      // Defines the special property cc on the jquery prototype.
-      Object.defineProperty($.fn, 'cc', descriptor);
-
-      cc.el = function (name, el) {
-        checkComponentNameIsValid(name);
-
-        ccc[name](el);
-      };
-
-      var get = cc.get = function (name, el) {
-        checkComponentNameIsValid(name);
-
-        var coelement = el[COELEMENT_DATA_KEY_PREFIX + name];
-
-        check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
-
-        return coelement;
-      };
-    })();
-  }
-})();
+  return cc;
+}();
 
