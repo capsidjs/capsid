@@ -61,8 +61,6 @@ class Timer {
   }
 }
 
-const cc = require('class-component')
-
 cc.def('timer', Timer)
 </script>
 ```
