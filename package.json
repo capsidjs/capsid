@@ -2,7 +2,7 @@
   "name": "class-component",
   "version": "13.0.0",
   "description": "Class driven component tool",
-  "main": "dist/class-component.js",
+  "main": "class-component.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
     "lint": "standard",
@@ -11,8 +11,10 @@
     "all": "npm run lint && npm run flow && npm run test",
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
-    "dist": "rollup -c -n cc -- src/index.js | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
-    "dist:jq": "rollup -c -- src/cc-jquery.js | babel --presets es2015 | tee dist/class-component-jquery.js | uglifyjs - -m -c > dist/class-component-jquery.min.js",
+    "dist:cjs": "rollup -c -f cjs -- src/index.js | babel --presets es2015 > class-component.js",
+    "dist:browser": "rollup -c -f iife -n cc -- src/index.js | babel --presets es2015 | tee dist/class-component.js | uglifyjs - -m -c > dist/class-component.min.js",
+    "dist:jq-cjs": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 > class-component-jquery.js",
+    "dist:jq-browser": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 | tee dist/class-component-jquery.js | uglifyjs - -m -c > dist/class-component-jquery.min.js",
     "prepublish": "npm run clean && npm run dist && npm run dist:jq"
   },
   "repository": {

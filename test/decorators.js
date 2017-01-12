@@ -1,6 +1,7 @@
-const { div } = require('dom-gen')
-const assert = require('assert')
-const cc = require('../src')
+import cc from '../src'
+import assert from 'assert'
+import { div } from 'dom-gen'
+
 const { on, emit, component, wire } = cc
 
 /**

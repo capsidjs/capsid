@@ -62,8 +62,4 @@ cc.get = (name: string, el: HTMLElement) => {
   return coelement
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = cc
-}
-
 export default cc
