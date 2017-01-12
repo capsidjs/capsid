@@ -1,6 +1,5 @@
 // @flow
 import { KEY_EVENT_LISTENERS } from './const.js'
-import cc from './def.js'
 
 /**
  * The decorator for registering event listener info to the method.
@@ -9,7 +8,7 @@ import cc from './def.js'
  * @param target The target prototype (decorator interface)
  * @param key The decorator target key (decorator interface)
  */
-cc.on = (event: string, { at }: { at?: string } = {}) => (target: Object, key: string) => {
+export default (event: string, { at }: { at?: string } = {}) => (target: Object, key: string) => {
   const Constructor = target.constructor
 
   /**

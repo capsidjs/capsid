@@ -4,7 +4,8 @@
  * author: Yoshiya Hinosawa ( http://github.com/kt3k )
  * license: MIT
  */
-import './decorators.js'
+import { emit, component, wire } from './decorators.js'
+import on from './on-decorator.js'
 import def from './def.js'
 import init from './init.js'
 import ccc from './ccc.js'
@@ -15,8 +16,12 @@ import { COELEMENT_DATA_KEY_PREFIX } from './const'
 const cc = def
 
 cc.def = def
-
 cc.init = init
+
+cc.on = on
+cc.emit = emit
+cc.wire = wire
+cc.component = component
 
 // Expose __ccc__
 cc.__ccc__ = ccc
