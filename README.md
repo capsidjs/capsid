@@ -1,18 +1,18 @@
-j ![class-component](http://kt3k.github.io/class-component/asset/logo-v2.svg)
+<img src="http://kt3k.github.io/classclamp/asset/classclamp.svg" />
 
-[![Circle CI](https://circleci.com/gh/kt3k/class-component.svg?style=svg)](https://circleci.com/gh/kt3k/class-component)
-[![codecov.io](https://codecov.io/github/kt3k/class-component/coverage.svg?branch=master)](https://codecov.io/github/kt3k/class-component?branch=master)
+[![Circle CI](https://circleci.com/gh/kt3k/classclamp.svg?style=svg)](https://circleci.com/gh/kt3k/classclamp)
+[![codecov.io](https://codecov.io/github/kt3k/classclamp/coverage.svg?branch=master)](https://codecov.io/github/kt3k/classclamp?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![bitHound Overall Score](https://www.bithound.io/github/kt3k/class-component/badges/score.svg)](https://www.bithound.io/github/kt3k/class-component)
-[![npm](https://img.shields.io/npm/v/class-component.svg)](https://npm.im/class-component)
+[![bitHound Overall Score](https://www.bithound.io/github/kt3k/classclamp/badges/score.svg)](https://www.bithound.io/github/kt3k/classclamp)
+[![npm](https://img.shields.io/npm/v/classclamp.svg)](https://npm.im/classclamp)
 
 > Class driven component framework
 
-class-component.js is a framework for creating UI Component based on HTML classes.
+`classclamp` is a framework for creating UI Component based on HTML classes.
 
-class-component.js encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
+`classclamp` encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
 
-class-component.js doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
+`classclamp` doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
 
 # Features
 
@@ -30,7 +30,7 @@ timer.js:
 ```html
 <span class="timer"></span>
 
-<script src="path/to/class-component.js"></script>
+<script src="path/to/classclamp.js"></script>
 <script>
 class Timer {
   __init__ () {
@@ -65,13 +65,13 @@ cc.def('timer', Timer)
 </script>
 ```
 
-See [the working demo](https://kt3k.github.io/class-component/demo/timer.html).
+See [the working demo](https://kt3k.github.io/classclamp/demo/timer.html).
 
 # The concept
 
-A `class-component` is the combination of `element` and `coelement`:
+A `class-component` (or classclamp component) is a combination of `element` and `coelement`:
 
-![diagram-1](http://kt3k.github.io/class-component/asset/diagram-1.svg)
+![diagram-1](http://kt3k.github.io/classclamp/asset/diagram-1.svg)
 
 where:
 
@@ -80,7 +80,7 @@ where:
 - `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
   - `class Timer {...}` in the timer example.
 
-class-component.js is responsible for the following transition from the usual dom to a `class-component`.
+`classclamp` is responsible for the following transition from the usual dom to a `class-component`.
 
 ![diagram-2](http://kt3k.github.io/class-component/asset/diagram-2.svg)
 
@@ -89,7 +89,7 @@ class-component.js is responsible for the following transition from the usual do
 You can register the class-component of the given name like this:
 
 ```js
-const cc = require('class-component')
+const cc = require('classclamp')
 
 cc.def('component-name', ComponentClass)
 ```
@@ -103,33 +103,34 @@ The followings are exact steps when a class-component is initialized.
 ```js
 const coelem = new ComponentClass() // The constructor is called with the element.
 
+// Sets the element to the coelement
 coelem.el = el
-coelem.$el = $(elem)
 
-$el.on([givenEvent], [givenSelector], [givenHandler]) // See `event` decorator section for details.
+// Adds event listeners
+el.addEventListener(givenEvent, givenListener) // for each event/listener pair
 
-$el.addClass(`${componentName}-initialized`) // The element is marked `initialized`.
+// Adds initialized mark
+el.classList.add(`${componentName}-initialized`) // The element is marked `initialized`.
 
 el['__coelement:' + componentName] = coelem // The coelement is stored in the element.
 ```
 
 where `el` is the dom element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
 
-## `this.el` and `this.$el`
+## `this.el`
 
-`this.el` is HTMLElement and `this.$el` is the same thing wrapped by jquery.
+`this.el` is HTMLElement which is associated with the coelement.
 
 # :cd: Install
 
 ## Via npm
 
-    npm install --save class-component
+    npm install --save classclamp
 
-then do this:
+then:
 
 ```js
-global.jQuery = require('jquery')
-require('class-component')
+const cc = require('classclamp')
 ```
 
 ## Via file
@@ -138,7 +139,7 @@ Download dist.min.js. Then:
 
 ```html
 <script src="path/to/jquery.js"></script>
-<script src="path/to/class-component.js"></script>
+<script src="path/to/classclamp.js"></script>
 ```
 
 ***Note***: You need to load jquery.js first.
@@ -146,7 +147,7 @@ Download dist.min.js. Then:
 # APIs
 
 ```js
-const cc = require('class-component')
+const cc = require('classclamp')
 ```
 
 - `cc.def(name, constructor)`
@@ -187,10 +188,10 @@ cc.def('todo-item', TodoItem)
 <li class="todo-item"></li>
 ```
 
-### `cc.init(name[, element])`
+### `cc.init([name], [element])`
 
-- @param {string} name The class-component name to intialize
-- @param {HTMLElement} element The range to initialize
+- @param {string} [name] The class-component name to intialize
+- @param {HTMLElement} [element] The range to initialize
 
 This initializes the class components of the given name in the given element. If the element is omitted, it initializes them in the entire page. If the name is omitted, then it initializes all the registered class components.
 
@@ -500,7 +501,7 @@ When the decorated getter name is in `CamelCase`, then it's replaced by the `keb
 This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
 
 ```js
-const { wire, component } = require('class-component')
+const { wire, component } = require('classclamp')
 
 @component
 class Foo {
@@ -532,9 +533,12 @@ And this prints `processing long name component`.
 MIT
 
 # History
-- 2016-01-02   v13.0.0   Add __init__ instead of init.
-- 2016-01-01   v12.1.1   Fix bug of event bubbling.
-- 2016-01-01   v12.1.0   Remove @emit.first. Use native dispatchEvent.
+- 2017-01-xx   v0.1.0
+
+# History of class-component.js (former project)
+- 2017-01-02   v13.0.0   Add __init__ instead of init.
+- 2017-01-01   v12.1.1   Fix bug of event bubbling.
+- 2017-01-01   v12.1.0   Remove @emit.first. Use native dispatchEvent.
 - 2016-12-31   v12.0.0   Remove __cc_init__ feature. Add init feature.
 - 2016-09-30   v10.7.1   Refactor @emit.last decorator
 - 2016-09-11   v10.7.0   Add @on(event, {at}) @emit.first and @emit.last
@@ -563,27 +567,11 @@ The projects which uses class-component.js.
 - [spn](https://github.com/kt3k/spn)
 - [view-todo](https://github.com/kt3k/view-todo)
 - [long-dream](https://github.com/kt3kstudio/long-dream-core)
-  - The Long Dream is the first user and absolute inspiration of class-component.js
-  - class-component.js is basically created for developing this project.
+  - The Long Dream is the first user and absolute inspiration of classclamp
+  - classclamp is basically created for developing this project.
 
 # Notes
 
 ## Why 'coelement'
 
-`co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` or `cohomology` to `homology`. Coelement is the other aspect of `element` and they work together in the 1-to-1 relationship and in the same lifecycle. They are bound together closely.
-
-## No template support?
-
-This library deliberately doesn't support templates. A coelement starts existing after (or at the same time) the corresponding element does appear and they work together in the same lifecycle on a page. So creating dom is completely different task from what class-component.js provides.
-
-## Any recommended UI design pattern?
-
-class-component.js encourages the use of (layered) MVP architecture. Element (dom instance) works as the Passive View. Coelement works as the Presenter. Dom event bubbling works as upward communication between presenters. (`@on` and `@emit` decorators help it.) Coelements' methods works as downward messaging between presenters. (`@wire` decorator helps addressing child components.)
-
-## No tree structure other than dom tree
-
-One of the benefit of using class-component.js is that it does not introduce any new tree structures other than the dom tree like the many other libraries do. class-component.js thinks dom tree comes first always and *attaches* coelements to it. This simplifies the programmer's mental model of the page structure. Something like `setParent` or `setRoot` makes the structure really complicated and hard to reason about. When using class-component.js, there is the only one tree structure of UI and which is the dom tree which is familiar to everyone.
-
-## Why no rendering?
-
-In the frontend, dom trees are already *there* and not something you *create* usually except when you actually create dom nodes. Templates are tool for *generating* dom trees, and not a tool for updating it through its lifecycle. So the libraries like React or cycle.js are very unnatural in that they keep updating dom trees throughout its lifecycle by the tool which is very similar to Template which wasn't originally made for that purpose. There are always dom trees in the frontend when the scripts start and they already have their hierarchies in them, so the natural approach to enhance their behaviour is to *add* the functions to dom tree, not to *create* another tree like virtual dom. This is IMO the same direction with Polymer and similar to Flight. The natural way to updating dom tree is just manually updating the dom through its API and not by the template or template diffing.
+`co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` etc. Coelement is the other aspect of `element` and it works together in the 1-to-1 relationship and in the same lifecycle with the element.

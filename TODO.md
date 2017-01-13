@@ -1,14 +1,14 @@
 # TODO
 
-- new name: classclamp, classcoup, classcool, classcade, rhei, rous, nomoi, senku.js, zenku.js(前駆) or kanku.js?
 - doc: How to test class-component
 - doc: How to write a good class-component
 - doc: How to do MVC(MVP) with class-component
 - doc: How to propagate data from a child to its parent or ancestors
 - doc: How to declare parent-child relationships between components
-- class-component.js.org or rhei.js.org,
+- classclamp.js.org
 
 # DONE
+- new name: classclamp, classcoup, classcool, classcade, rhei, rous, nomoi, senku.js, zenku.js(前駆) or kanku.js?
 - separate class-component and cc-jquery
 - plugin system
 - remove jquery dep of @wire
