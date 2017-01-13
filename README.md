@@ -82,7 +82,7 @@ where:
 
 `classclamp` is responsible for the following transition from the usual dom to a `class-component`.
 
-![diagram-2](http://kt3k.github.io/class-component/asset/diagram-2.svg)
+![diagram-2](http://kt3k.github.io/classclamp/asset/diagram-2.svg)
 
 ## Register your class-component
 
