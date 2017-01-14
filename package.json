@@ -15,6 +15,7 @@
     "dist:browser": "rollup -c -f iife -n cc -- src/index.js | babel --presets es2015 | tee dist/classclamp.js | uglifyjs - -m -c > dist/classclamp.min.js",
     "dist:jq-cjs": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 > jquery.js",
     "dist:jq-browser": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 | tee dist/classclamp-jquery.js | uglifyjs - -m -c > dist/classclamp-jquery.min.js",
+    "size": "npm run dist:browser && cat dist/classclamp.min.js | gzip | wc -c",
     "prepublish": "npm run clean && npm run dist:cjs && npm run dist:browser && npm run dist:jq-cjs && npm run dist:jq-browser"
   },
   "repository": {
