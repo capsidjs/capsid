@@ -17,9 +17,10 @@
 # Features
 
 - It's an **UI framework**.
+- Works well with **real** DOM APIs. Plays nice with `jQuery` or `Umbrella`.
 - **no virtual dom, no template, no rendering**
 - **small APIs**: 5 apis & 4 decorators
-- **small size**: **2.9KB** minified (**1.3KB** gziped).
+- **small size**: **1.2KB** gzipped
 
 # The timer
 
@@ -80,7 +81,7 @@ where:
 - `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
   - `class Timer {...}` in the timer example.
 
-`classclamp` is responsible for the following transition from the usual dom to a `class-component`.
+`classclamp` is responsible for the transition from the usual dom to a `class-component`.
 
 ![diagram-2](http://kt3k.github.io/classclamp/asset/diagram-2.svg)
 
@@ -89,8 +90,6 @@ where:
 You can register the class-component of the given name like this:
 
 ```js
-const cc = require('classclamp')
-
 cc.def('component-name', ComponentClass)
 ```
 
@@ -135,7 +134,7 @@ const cc = require('classclamp')
 
 ## Via file
 
-Download dist.min.js. Then:
+Download [classclamp.min.js](https://unpkg.com/classclamp@0.1.0/dist/classclamp.min.js) Then:
 
 ```html
 <script src="path/to/jquery.js"></script>
