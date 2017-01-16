@@ -134,7 +134,7 @@ const cc = require('classcaps')
 
 ## Via file
 
-Download [classcaps.min.js](https://unpkg.com/classcaps@0.1.0/dist/classcaps.min.js) Then:
+Download [classcaps.min.js](https://unpkg.com/classcaps@0.1.1/dist/classcaps.min.js) Then:
 
 ```html
 <script src="path/to/classcaps.js"></script>
@@ -529,7 +529,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
-- 2017-01-xx   v0.1.0
+- 2017-01-17   v0.1.1   Rename to classcaps. Add plugin system.
 
 # History of class-component.js (former project)
 - 2017-01-02   v13.0.0   Add __init__ instead of init.

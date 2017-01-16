@@ -107,4 +107,3 @@
     init(self.cc, self.$);
   }
 })();
-
