@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Class driven component framework",
   "main": "classcaps.js",
+  "unpkg": "dist/classcaps.min.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
     "lint": "standard",
