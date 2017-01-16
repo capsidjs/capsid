@@ -299,11 +299,7 @@ var on = function on(event) {
 };
 
 //      
-/**
- * classclamp v0.1.0
- * author: Yoshiya Hinosawa ( http://github.com/kt3k )
- * license: MIT
- */
+
 var cc = def;
 
 cc.def = def;
