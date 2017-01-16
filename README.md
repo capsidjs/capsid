@@ -1,18 +1,18 @@
-<img src="http://kt3k.github.io/classclamp/asset/classclamp.svg" />
+<img src="http://kt3k.github.io/classcaps/asset/classcaps.svg" />
 
-[![Circle CI](https://circleci.com/gh/kt3k/classclamp.svg?style=svg)](https://circleci.com/gh/kt3k/classclamp)
-[![codecov.io](https://codecov.io/github/kt3k/classclamp/coverage.svg?branch=master)](https://codecov.io/github/kt3k/classclamp?branch=master)
+[![Circle CI](https://circleci.com/gh/kt3k/classcaps.svg?style=svg)](https://circleci.com/gh/kt3k/classcaps)
+[![codecov.io](https://codecov.io/github/kt3k/classcaps/coverage.svg?branch=master)](https://codecov.io/github/kt3k/classcaps?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![bitHound Overall Score](https://www.bithound.io/github/kt3k/classclamp/badges/score.svg)](https://www.bithound.io/github/kt3k/classclamp)
-[![npm](https://img.shields.io/npm/v/classclamp.svg)](https://npm.im/classclamp)
+[![bitHound Overall Score](https://www.bithound.io/github/kt3k/classcaps/badges/score.svg)](https://www.bithound.io/github/kt3k/classcaps)
+[![npm](https://img.shields.io/npm/v/classcaps.svg)](https://npm.im/classcaps)
 
 > Class driven component framework
 
-`classclamp` is a framework for creating UI Component based on HTML classes.
+`classcaps` is a framework for creating UI Component based on HTML classes.
 
-`classclamp` encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
+`classcaps` encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
 
-`classclamp` doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
+`classcaps` doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
 
 # Features
 
@@ -31,7 +31,7 @@ timer.js:
 ```html
 <span class="timer"></span>
 
-<script src="path/to/classclamp.js"></script>
+<script src="path/to/classcaps.js"></script>
 <script>
 class Timer {
   __init__ () {
@@ -66,13 +66,13 @@ cc.def('timer', Timer)
 </script>
 ```
 
-See [the working demo](https://kt3k.github.io/classclamp/demo/timer.html).
+See [the working demo](https://kt3k.github.io/classcaps/demo/timer.html).
 
 # The concept
 
-A `class-component` (or classclamp component) is a combination of `element` and `coelement`:
+A `class-component` (or classcaps component) is a combination of `element` and `coelement`:
 
-![diagram-1](http://kt3k.github.io/classclamp/asset/diagram-1.svg)
+![diagram-1](http://kt3k.github.io/classcaps/asset/diagram-1.svg)
 
 where:
 
@@ -81,9 +81,9 @@ where:
 - `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
   - `class Timer {...}` in the timer example.
 
-`classclamp` is responsible for the transition from the usual dom to a `class-component`.
+`classcaps` is responsible for the transition from the usual dom to a `class-component`.
 
-![diagram-2](http://kt3k.github.io/classclamp/asset/diagram-2.svg)
+![diagram-2](http://kt3k.github.io/classcaps/asset/diagram-2.svg)
 
 ## Register your class-component
 
@@ -124,29 +124,26 @@ where `el` is the dom element which is initialized, `ComponentClass` is the regi
 
 ## Via npm
 
-    npm install --save classclamp
+    npm install --save classcaps
 
 then:
 
 ```js
-const cc = require('classclamp')
+const cc = require('classcaps')
 ```
 
 ## Via file
 
-Download [classclamp.min.js](https://unpkg.com/classclamp@0.1.0/dist/classclamp.min.js) Then:
+Download [classcaps.min.js](https://unpkg.com/classcaps@0.1.0/dist/classcaps.min.js) Then:
 
 ```html
-<script src="path/to/jquery.js"></script>
-<script src="path/to/classclamp.js"></script>
+<script src="path/to/classcaps.js"></script>
 ```
-
-***Note***: You need to load jquery.js first.
 
 # APIs
 
 ```js
-const cc = require('classclamp')
+const cc = require('classcaps')
 ```
 
 - `cc.def(name, constructor)`
@@ -500,7 +497,7 @@ When the decorated getter name is in `CamelCase`, then it's replaced by the `keb
 This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
 
 ```js
-const { wire, component } = require('classclamp')
+const { wire, component } = require('classcaps')
 
 @component
 class Foo {
@@ -566,10 +563,14 @@ The projects which uses class-component.js.
 - [spn](https://github.com/kt3k/spn)
 - [view-todo](https://github.com/kt3k/view-todo)
 - [long-dream](https://github.com/kt3kstudio/long-dream-core)
-  - The Long Dream is the first user and absolute inspiration of classclamp
-  - classclamp is basically created for developing this project.
+  - The Long Dream is the first user and absolute inspiration of classcaps
+  - classcaps is basically created for developing this project.
 
 # Notes
+
+## The name
+
+classcaps = class + capsule.
 
 ## Why 'coelement'
 

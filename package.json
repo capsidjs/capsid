@@ -1,8 +1,8 @@
 {
-  "name": "classclamp",
+  "name": "classcaps",
   "version": "0.1.0",
   "description": "Class driven component framework",
-  "main": "classclamp.js",
+  "main": "classcaps.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
     "lint": "standard",
@@ -11,22 +11,22 @@
     "all": "npm run lint && npm run flow && npm run test",
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
-    "dist:cjs": "rollup -c -f cjs -- src/index.js | babel --presets es2015 > classclamp.js",
-    "dist:browser": "rollup -c -f iife -n cc -- src/index.js | babel --presets es2015 | tee dist/classclamp.js | uglifyjs - -m -c > dist/classclamp.min.js",
+    "dist:cjs": "rollup -c -f cjs -- src/index.js | babel --presets es2015 > classcaps.js",
+    "dist:browser": "rollup -c -f iife -n cc -- src/index.js | babel --presets es2015 | tee dist/classcaps.js | uglifyjs - -m -c > dist/classcaps.min.js",
     "dist:jq-cjs": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 > jquery.js",
-    "dist:jq-browser": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 | tee dist/classclamp-jquery.js | uglifyjs - -m -c > dist/classclamp-jquery.min.js",
-    "size": "npm run dist:browser && cat dist/classclamp.min.js | gzip | wc -c",
+    "dist:jq-browser": "rollup -c -f iife -- src/cc-jquery.js | babel --presets es2015 | tee dist/classcaps-jquery.js | uglifyjs - -m -c > dist/classcaps-jquery.min.js",
+    "size": "npm run dist:browser && cat dist/classcaps.min.js | gzip | wc -c",
     "prepublish": "npm run clean && npm run dist:cjs && npm run dist:browser && npm run dist:jq-cjs && npm run dist:jq-browser"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kt3k/classclamp.git"
+    "url": "git://github.com/kt3k/classcaps.git"
   },
   "keywords": [
     "dom",
     "element",
     "coelement",
-    "classclamp",
+    "classcaps",
     "class-component",
     "MVC",
     "MVP",
@@ -38,9 +38,9 @@
   "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kt3k/classclamp/issues"
+    "url": "https://github.com/kt3k/classcaps/issues"
   },
-  "homepage": "https://github.com/kt3k/classclamp",
+  "homepage": "https://github.com/kt3k/classcaps",
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-eslint": "^7.0.0",
@@ -90,7 +90,7 @@
     "ignore": [
       "/dist",
       "jquery.js",
-      "classclamp.js"
+      "classcaps.js"
     ]
   }
 }
