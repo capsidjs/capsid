@@ -57,3 +57,5 @@ gulp.task('jquery', () => (
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(paths.dist))
 ))
+
+gulp.task('dist', ['browser', 'cjs', 'jquery'])

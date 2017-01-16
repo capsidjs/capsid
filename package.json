@@ -12,11 +12,9 @@
     "all": "npm run lint && npm run flow && npm run test",
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
-    "dist:cjs": "gulp cjs",
-    "dist:browser": "gulp browser",
-    "dist:jq": "gulp jquery",
-    "size": "npm run dist:browser && cat dist/classcaps.min.js | gzip | wc -c",
-    "prepublish": "npm run clean && npm run dist:cjs && npm run dist:browser && npm run dist:jq"
+    "dist": "gulp dist",
+    "size": "gulp browser && cat dist/classcaps.min.js | gzip | wc -c",
+    "prepublish": "npm run clean && npm run dist"
   },
   "repository": {
     "type": "git",
