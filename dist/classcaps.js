@@ -68,7 +68,7 @@ var cc = function () {
     checkReady();
   });
 
-  var body = doc.body;
+  var documentElement = doc.documentElement;
 
   //      
   /**
@@ -160,7 +160,7 @@ var cc = function () {
 
   //      
 
-  var matches = body.matches || body.webkitMatchesSelector || body.msMatchesSelector;
+  var matches = documentElement.matches || documentElement.webkitMatchesSelector || documentElement.msMatchesSelector;
 
   //      
 

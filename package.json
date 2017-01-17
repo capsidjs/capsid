@@ -1,6 +1,6 @@
 {
   "name": "classcaps",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Class driven component framework",
   "main": "dist/classcaps-commonjs.js",
   "unpkg": "dist/classcaps.min.js",

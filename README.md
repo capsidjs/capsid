@@ -134,7 +134,7 @@ const cc = require('classcaps')
 
 ## Via file
 
-Download [classcaps.min.js](https://unpkg.com/classcaps@0.1.1/dist/classcaps.min.js) Then:
+Download [classcaps.min.js](https://unpkg.com/classcaps@0.1.2/dist/classcaps.min.js) Then:
 
 ```html
 <script src="path/to/classcaps.js"></script>

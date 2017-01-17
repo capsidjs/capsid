@@ -65,7 +65,7 @@ var ready = new Promise(function (resolve) {
   checkReady();
 });
 
-var body = doc.body;
+var documentElement = doc.documentElement;
 
 //      
 /**
@@ -157,7 +157,7 @@ var trigger = function trigger(el, type, detail) {
 
 //      
 
-var matches = body.matches || body.webkitMatchesSelector || body.msMatchesSelector;
+var matches = documentElement.matches || documentElement.webkitMatchesSelector || documentElement.msMatchesSelector;
 
 //      
 
