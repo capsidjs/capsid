@@ -16,5 +16,5 @@ export const ready = new Promise(resolve => {
   checkReady()
 })
 
-export const body = doc.body
+export const documentElement = doc.documentElement
 export default doc

@@ -1,4 +1,4 @@
 // @flow
 
-import { body } from './document.js'
-export default body.matches || (body: any).webkitMatchesSelector || (body: any).msMatchesSelector
+import { documentElement } from './document.js'
+export default documentElement.matches || (documentElement: any).webkitMatchesSelector || (documentElement: any).msMatchesSelector
