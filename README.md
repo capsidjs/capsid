@@ -1,18 +1,18 @@
-<img src="http://kt3k.github.io/classcaps/asset/classcaps.svg" />
+<img src="http://kt3k.github.io/capsid/asset/capsid.svg" />
 
-[![Circle CI](https://circleci.com/gh/kt3k/classcaps.svg?style=svg)](https://circleci.com/gh/kt3k/classcaps)
-[![codecov.io](https://codecov.io/github/kt3k/classcaps/coverage.svg?branch=master)](https://codecov.io/github/kt3k/classcaps?branch=master)
+[![Circle CI](https://circleci.com/gh/kt3k/capsid.svg?style=svg)](https://circleci.com/gh/kt3k/capsid)
+[![codecov.io](https://codecov.io/github/kt3k/capsid/coverage.svg?branch=master)](https://codecov.io/github/kt3k/capsid?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![bitHound Overall Score](https://www.bithound.io/github/kt3k/classcaps/badges/score.svg)](https://www.bithound.io/github/kt3k/classcaps)
-[![npm](https://img.shields.io/npm/v/classcaps.svg)](https://npm.im/classcaps)
+[![bitHound Overall Score](https://www.bithound.io/github/kt3k/capsid/badges/score.svg)](https://www.bithound.io/github/kt3k/capsid)
+[![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 > Class driven component framework
 
-`classcaps` is a framework for creating UI Component based on HTML classes.
+`capsid` is a framework for creating UI Component based on HTML classes.
 
-`classcaps` encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
+`capsid` encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
 
-`classcaps` doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
+`capsid` doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
 
 # Features
 
@@ -31,7 +31,7 @@ timer.js:
 ```html
 <span class="timer"></span>
 
-<script src="path/to/classcaps.js"></script>
+<script src="path/to/capsid.js"></script>
 <script>
 class Timer {
   __init__ () {
@@ -62,17 +62,17 @@ class Timer {
   }
 }
 
-cc.def('timer', Timer)
+capsid.def('timer', Timer)
 </script>
 ```
 
-See [the working demo](https://kt3k.github.io/classcaps/demo/timer.html).
+See [the working demo](https://kt3k.github.io/capsid/demo/timer.html).
 
 # The concept
 
-A `class-component` (or classcaps component) is a combination of `element` and `coelement`:
+A `class-component` (or capsid component) is a combination of `element` and `coelement`:
 
-![diagram-1](http://kt3k.github.io/classcaps/asset/diagram-1.svg)
+![diagram-1](http://kt3k.github.io/capsid/asset/diagram-1.svg)
 
 where:
 
@@ -81,16 +81,16 @@ where:
 - `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
   - `class Timer {...}` in the timer example.
 
-`classcaps` is responsible for the transition from the usual dom to a `class-component`.
+`capsid` is responsible for the transition from the usual dom to a `class-component`.
 
-![diagram-2](http://kt3k.github.io/classcaps/asset/diagram-2.svg)
+![diagram-2](http://kt3k.github.io/capsid/asset/diagram-2.svg)
 
 ## Register your class-component
 
 You can register the class-component of the given name like this:
 
 ```js
-cc.def('component-name', ComponentClass)
+capsid.def('component-name', ComponentClass)
 ```
 
 By the above call, dom elements which have `class="component-name"` are automatically initialized with ComponentClass.
@@ -124,35 +124,35 @@ where `el` is the dom element which is initialized, `ComponentClass` is the regi
 
 ## Via npm
 
-    npm install --save classcaps
+    npm install --save capsid
 
 then:
 
 ```js
-const cc = require('classcaps')
+const capsid = require('capsid')
 ```
 
 ## Via file
 
-Download [classcaps.min.js](https://unpkg.com/classcaps@0.1.2/dist/classcaps.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.1.2/dist/capsid.min.js) Then:
 
 ```html
-<script src="path/to/classcaps.js"></script>
+<script src="path/to/capsid.js"></script>
 ```
 
 # APIs
 
 ```js
-const cc = require('classcaps')
+const capsid = require('capsid')
 ```
 
-- `cc.def(name, constructor)`
+- `capsid.def(name, constructor)`
   - Registers class-component.
-- `cc.init(name[, element])`
+- `capsid.init(name[, element])`
   - Initializes class-component on the range.
-- `cc.el(name, element)`
+- `capsid.el(name, element)`
   - Initializes the element with the class-component of the given name.
-- `cc.get(name, element)`
+- `capsid.get(name, element)`
   - Gets the coelement instance from the given element.
 - `$dom.cc(name)`
   - Initializes the element as class-component.
@@ -161,9 +161,9 @@ const cc = require('classcaps')
 - `$dom.cc.init(name)` *deprecated*
   - Initializes the element as a class-component.
 
-## `cc` namespace
+## `capsid` namespace
 
-### `cc.def(name, constructor)`
+### `capsid.def(name, constructor)`
 
 - @param {string} name The class name of the component
 - @param {Function} constructor The constructor of the coelement of the component
@@ -177,21 +177,21 @@ class TodoItem {
   // ...behaviours...
 }
 
-cc.def('todo-item', TodoItem)
+capsid.def('todo-item', TodoItem)
 ```
 
 ```html
 <li class="todo-item"></li>
 ```
 
-### `cc.init([name], [element])`
+### `capsid.init([name], [element])`
 
 - @param {string} [name] The class-component name to intialize
 - @param {HTMLElement} [element] The range to initialize
 
 This initializes the class components of the given name in the given element. If the element is omitted, it initializes them in the entire page. If the name is omitted, then it initializes all the registered class components.
 
-### `cc.el(name, element)`
+### `capsid.el(name, element)`
 
 - @param {string} name The class-component name to initialize
 - @param {HTMLElement} element The element to initialize
@@ -199,12 +199,12 @@ This initializes the class components of the given name in the given element. If
 Initializes the element as the class-component.
 
 ```js
-cc.el('timer', dom)
+capsid.el('timer', dom)
 ```
 
 The above initializes `dom` as `timer` class-component.
 
-### `cc.get(name, element)`
+### `capsid.get(name, element)`
 
 - @param {string} name The class-component name to get
 - @param {HTMLElement} element The element
@@ -213,7 +213,7 @@ The above initializes `dom` as `timer` class-component.
 Gets the coelement instance from the element.
 
 ```js
-const timer = cc.get('timer', dom)
+const timer = capsid.get('timer', dom)
 ```
 
 The above gets `Timer` class instance (coelement) from dom. In this case, dom need to be initialized as `timer` class-component before this call.
@@ -275,7 +275,7 @@ todoItem.update({id: 'milk', title: 'Buy a milk'});
 
 This initializes the $dom as a class component of the given name. It throws an error if the class component of the given name isn't available.
 
-This returns the instance of class-component class, not a dom element itself. If you want to get the dom element (jquery wrapped), use `$.fn.cc.up(classNames)`
+This returns the instance of class-component class, not a dom element itself. If you want to get the dom element (jquery wrapped), use `$.fn.cc(classNames)`
 
 - @param {string} name - The class name of the component
 
@@ -300,12 +300,12 @@ There are 4 decorators.
 
 ## `@component(className)`
 
-cc.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
+capsid.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
 
-This is a shorthand of `$.cc('component', Component)`.
+This is a shorthand of `capsid.def('component', Component)`.
 
 ```js
-const { component } = cc
+const { component } = require('capsid')
 
 @component('timer')
 class Timer {
@@ -317,10 +317,10 @@ The above registers `Timer` class as `timer` component.
 
 ## `@component`
 
-cc.component is similar to the above. This decorator registers the js class as the class component of the same name. If the js class is in `CamelCase`, then the component name is made `kebab-cased`.
+`@component` is similar to the above. This decorator registers the js class as the class component of the same name. If the js class is in `CamelCase`, then the component name is made `kebab-cased`.
 
 ```js
-const { component } = cc
+const { component } = require('capsid')
 
 @component
 class Timer {} // This registers Timer class as `timer` component
@@ -331,10 +331,10 @@ class FooBar {} // This registers FooBar class as `foo-bar` component
 
 ## `@on(eventName)`
 
-`cc.on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
+`@on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
 ```js
-const { on } = cc
+const { on } = require('capsid')
 
 class Btn {
 
@@ -344,7 +344,7 @@ class Btn {
   }
 }
 
-cc.def('btn', Btn)
+capsid.def('btn', Btn)
 ```
 
 The above binds `onClick` method to its element's 'click' event automatically.
@@ -364,15 +364,15 @@ class Btn {
   }
 }
 
-cc.def('btn', Btn)
+capsid.def('btn', Btn)
 ```
 
 ## `@on(name, { at: selector })`
 
-`cc.on(name, { at: selector })` is a method decorator. It's similar to `cc.on`, but it only handles the event from `selector` in the component.
+`@on(name, { at: selector })` is a method decorator. It's similar to `@on`, but it only handles the event from `selector` in the component.
 
 ```js
-const { on } = cc
+const { on, def } = require('capsid')
 
 class Btn {
   @on('click', { at: '.btn' })
@@ -381,17 +381,17 @@ class Btn {
   }
 }
 
-cc.def('btn', Btn)
+def('btn', Btn)
 ```
 
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
 
 ## `@emit(startEvent)`
 
-`cc.emit()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
+`@emit()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
 
 ```js
-const { emit } = cc
+const { emit, def } = require('capsid')
 
 class Manager {
   @emit('manager.started')
@@ -400,7 +400,7 @@ class Manager {
   }
 }
 
-cc.def('manager', Manager)
+def('manager', Manager)
 ```
 
 The above `start` method automatically triggers `manager.started` event at the begining of the method process.
@@ -415,15 +415,15 @@ class Manager {
   }
 }
 
-cc.def('manager', Manager)
+capsid.def('manager', Manager)
 ```
 
 ## `@emit.last(eventName)`
 
-`cc.emit.last(eventName)` is similar to `cc.emit()`, but it triggers the event at the last of the method.
+`@emit.last(eventName)` is similar to `@emit()`, but it triggers the event at the last of the method.
 
 ```js
-const { emit } = cc
+const { emit, def } = require('capsid')
 
 class Manager {
   @emit.last('manager.ended')
@@ -432,7 +432,7 @@ class Manager {
   }
 }
 
-cc.def('manager', Manager)
+def('manager', Manager)
 ```
 
 In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as the second arguments of the event handler.
@@ -440,7 +440,7 @@ In the above example, `start` method triggers the `manager.ended` event when it 
 If the method returns a promise, then the event is triggered after the promise is resolved.
 
 ```js
-const { emit } = cc
+const { emit, def } = require('capsid')
 
 class Manager {
   @emit.last('manager.ended')
@@ -451,7 +451,7 @@ class Manager {
   }
 }
 
-cc.def('manager', Manager)
+def('manager', Manager)
 ```
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as the second argument of the event handler.
@@ -497,7 +497,7 @@ When the decorated getter name is in `CamelCase`, then it's replaced by the `keb
 This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
 
 ```js
-const { wire, component } = require('classcaps')
+const { wire, component } = require('capsid')
 
 @component
 class Foo {
@@ -529,6 +529,7 @@ And this prints `processing long name component`.
 MIT
 
 # History
+- 2017-01-17   v0.1.1   Rename to capsid. Add plugin system.
 - 2017-01-17   v0.1.1   Rename to classcaps. Add plugin system.
 
 # History of class-component.js (former project)
@@ -563,14 +564,18 @@ The projects which uses class-component.js.
 - [spn](https://github.com/kt3k/spn)
 - [view-todo](https://github.com/kt3k/view-todo)
 - [long-dream](https://github.com/kt3kstudio/long-dream-core)
-  - The Long Dream is the first user and absolute inspiration of classcaps
-  - classcaps is basically created for developing this project.
+  - The Long Dream is the first user and absolute inspiration of capsid
+  - capsid is basically created for developing this project.
 
 # Notes
 
 ## The name
 
-classcaps = class + capsule.
+> capsid /ˈkapsəd/ n.
+>
+> the protein coat or shell of a virus particle, surrounding the nucleic acid or nucleoprotein core.
+
+The purpose of capsid is to encapsulate the details of its contents just like capsid for virus cells. Its has the same origin *capsa* ("box" in Latin) as the word *capsule*.
 
 ## Why 'coelement'
 
