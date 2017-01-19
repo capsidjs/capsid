@@ -45,7 +45,7 @@ gulp.task('cjs', () => (
 
 gulp.task('jquery', () => (
   rollup({
-    entry: 'src/cc-jquery.js',
+    entry: 'src/plugins/jquery-plugin.js',
     format: 'iife',
     plugins: [flow()]
   })

@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import cc from '../src'
-import ccj from '../src/cc-jquery'
+import ccj from '../src/plugins/jquery-plugin'
 
-global.$ = global.jQuery = $
+global.$ = $
 
 ccj(cc, $)

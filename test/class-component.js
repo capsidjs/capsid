@@ -1,4 +1,3 @@
-const $ = jQuery
 const assert = require('assert')
 const { div } = require('dom-gen')
 

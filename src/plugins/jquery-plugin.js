@@ -1,6 +1,6 @@
 // @flow
 
-import check, { checkClassNamesAreStringOrNull } from './util/check.js'
+import check, { checkClassNamesAreStringOrNull } from '../util/check.js'
 
 /**
  * Applies the jquery plugin to cc and $
