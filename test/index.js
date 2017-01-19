@@ -1,10 +1,10 @@
-const assert = require('assert')
-const { div } = require('dom-gen')
+import capsid from '../src'
+import assert from 'assert'
+import { div } from 'dom-gen'
 
-import cc from '../src'
+const { def, init, co, get } = capsid
 
-describe('cc', () => {
-  'use strict'
+describe('capsid', () => {
   class Foo {
     __init__ () {
       this.$el.attr('is_foo', 'true')
@@ -18,37 +18,37 @@ describe('cc', () => {
   }
 
   before(() => {
-    cc.def('foo', Foo)
-    cc.def('bar', Bar)
+    def('foo', Foo)
+    def('bar', Bar)
   })
 
   describe('def', () => {
     it('throws an error when the first param is not a string', () => {
       assert.throws(() => {
-        cc.def(null, class A {})
+        def(null, class A {})
       }, Error)
     })
 
     it('throws an error when the second param is not a function', () => {
       assert.throws(() => {
-        cc.def('register-test2', null)
+        def('register-test2', null)
       }, Error)
     })
 
     it('registers a class component of the given name', () => {
-      cc.def('assign-test0', class Class0 {})
+      def('assign-test0', class Class0 {})
 
-      assert(cc.__ccc__['assign-test0'] != null)
+      assert(capsid.__ccc__['assign-test0'] != null)
     })
 
     it('sets __coelement:class-name property when the class component is initialized', () => {
       class Class1 {}
 
-      cc.def('assign-test2', Class1)
+      def('assign-test2', Class1)
 
       const elem = div().addClass('assign-test2').appendTo('body')
 
-      cc.init('assign-test2')
+      init('assign-test2')
 
       assert(elem[0]['__coelement:assign-test2'] instanceof Class1)
     })
@@ -56,11 +56,11 @@ describe('cc', () => {
     it('sets coelement.$el as the base jquery element', () => {
       class Class2 {}
 
-      cc.def('elem-test', Class2)
+      def('elem-test', Class2)
 
       const $el = div().addClass('elem-test').appendTo('body')
 
-      cc.init('elem-test')
+      init('elem-test')
 
       const coelem = $el.cc.get('elem-test')
 
@@ -71,7 +71,7 @@ describe('cc', () => {
     it('sets coelement.el as the corresponding dom', () => {
       class Class3 {}
 
-      cc.def('elem-test-3', Class3)
+      def('elem-test-3', Class3)
 
       const $dom = div().cc('elem-test-3')
 
@@ -87,7 +87,7 @@ describe('cc', () => {
     it('initializes the class component of the given name', () => {
       const foo = div().addClass('foo').appendTo(document.body)
 
-      cc.init('foo')
+      init('foo')
 
       assert(foo.attr('is_foo') === 'true')
     })
@@ -96,7 +96,7 @@ describe('cc', () => {
       const foo = div().addClass('foo').appendTo('body')
       const bar = div().addClass('bar').appendTo('body')
 
-      cc.init('foo bar')
+      init('foo bar')
 
       assert(foo.attr('is_foo') === 'true')
       assert(bar.attr('is_bar') === 'true')
@@ -104,7 +104,7 @@ describe('cc', () => {
 
     it('throws an error when the given name of class-component is not registered', () => {
       assert.throws(() => {
-        cc.init('does-not-exist')
+        init('does-not-exist')
       }, Error)
     })
   })
@@ -113,13 +113,13 @@ describe('cc', () => {
     it('initializes the element as an class-component of the given name', () => {
       const el = div()[0]
 
-      cc.el('foo', el)
+      capsid.el('foo', el)
 
       assert($(el).attr('is_foo') === 'true')
     })
 
     it('returns nothing', () => {
-      assert(cc.el('foo', div()[0]) === undefined)
+      assert(capsid.el('foo', div()[0]) === undefined)
     })
   })
 
@@ -127,13 +127,13 @@ describe('cc', () => {
     it('initializes the element as an class-component of the given name', () => {
       const el = div()[0]
 
-      cc.co('foo', el)
+      co('foo', el)
 
       assert($(el).attr('is_foo') === 'true')
     })
 
     it('returns an instance of coelement', () => {
-      assert(cc.co('foo', div()[0]) instanceof Foo)
+      assert(co('foo', div()[0]) instanceof Foo)
     })
   })
 
@@ -141,9 +141,9 @@ describe('cc', () => {
     it('gets the coelement instance from the element', () => {
       const el = div()[0]
 
-      cc.el('foo', el)
+      capsid.el('foo', el)
 
-      const coel = cc.get('foo', el)
+      const coel = get('foo', el)
 
       assert(coel instanceof Foo)
       assert(coel.el === el)
@@ -160,7 +160,7 @@ describe('$dom.cc', () => {
   }
 
   before(() => {
-    cc.def('spam', Spam)
+    def('spam', Spam)
   })
 
   it('is a function', () => {
@@ -239,7 +239,7 @@ describe('$dom.cc', () => {
     it('gets the coelement of the given name', () => {
       const elem = div().addClass('spam').appendTo('body')
 
-      cc.init()
+      init()
 
       assert(elem.cc.get('spam') != null)
       assert(elem.cc.get('spam') instanceof Spam)
@@ -248,7 +248,7 @@ describe('$dom.cc', () => {
     it('throws an error when the corresponding coelement is unavailable', () => {
       const elem = div().addClass('does-not-exist').appendTo('body')
 
-      cc.init()
+      init()
 
       assert.throws(() => {
         elem.cc.get('does-not-exist')

@@ -1,8 +1,8 @@
-import cc from '../src'
+import capsid from '../src'
 import assert from 'assert'
 import { div } from 'dom-gen'
 
-const { on, emit, component, wire } = cc
+const { def, co, on, emit, component, wire } = capsid
 
 /**
  * @param {Function} decorator The decorator
@@ -20,7 +20,7 @@ describe('@on(event)', () => {
     class OnTest0 {
       handler () { done() }
     }
-    cc.def('on-test0', OnTest0)
+    def('on-test0', OnTest0)
     callDecorator(on('click'), OnTest0, 'handler')
 
     div().cc('on-test0').trigger('click')
@@ -38,7 +38,7 @@ describe('@on(event)', () => {
     callDecorator(on('click'), OnTest1, 'handler')
     callDecorator(on('bar'), OnTest1ChildChild, 'bar')
 
-    cc.def('on-test1-child-child', OnTest1ChildChild)
+    def('on-test1-child-child', OnTest1ChildChild)
 
     div().cc('on-test1-child-child').trigger('click')
   })
@@ -50,7 +50,7 @@ describe('@on(event, {at: selector})', () => {
       foo () { done() }
       bar () { done(new Error('bar should not be called')) }
     }
-    cc.def('on-at-test0', OnAtTest0)
+    def('on-at-test0', OnAtTest0)
 
     callDecorator(on('foo-event', {at: '.inner'}), OnAtTest0, 'foo')
     callDecorator(on('bar-event', {at: '.inner'}), OnAtTest0, 'bar')
@@ -73,7 +73,7 @@ describe('@emit(event)', () => {
         return 42
       }
     }
-    cc.def('emit-test0', EmitTest0)
+    def('emit-test0', EmitTest0)
     callDecorator(emit('event-foo'), EmitTest0, 'foo')
 
     const coelem = div().on('event-foo', e => {
@@ -93,7 +93,7 @@ describe('@emit(event)', () => {
         return 42
       }
     }
-    cc.def('emit-test1', EmitTest1)
+    def('emit-test1', EmitTest1)
     callDecorator(emit('event-foo'), EmitTest1, 'foo')
 
     const parent = div().on('event-foo', () => done()).appendTo('body')
@@ -111,7 +111,7 @@ describe('@emit.last(event)', () => {
         return 321
       }
     }
-    cc.def('emit-last-test0', EmitLastTest0)
+    def('emit-last-test0', EmitLastTest0)
     callDecorator(emit.last('event-foo'), EmitLastTest0, 'foo')
 
     div().on('event-foo', (e) => {
@@ -134,7 +134,7 @@ describe('@emit.last(event)', () => {
         })
       }
     }
-    cc.def('emit-last-test1', EmitLastTest1)
+    def('emit-last-test1', EmitLastTest1)
     callDecorator(emit.last('event-foo'), EmitLastTest1, 'foo')
 
     div().on('event-foo', (e) => {
@@ -192,8 +192,8 @@ describe('@wire', () => {
     }
     class Cls1 {
     }
-    cc.def('wire-test0', Cls0)
-    cc.def('wire-test0-1', Cls1)
+    def('wire-test0', Cls0)
+    def('wire-test0-1', Cls1)
 
     callDecorator(wire, Cls0, 'wire-test0-1')
 
@@ -210,8 +210,8 @@ describe('@wire', () => {
     }
     class Cls1 {
     }
-    cc.def('wire-test3', Cls0)
-    cc.def('wire-test3-child', Cls1)
+    def('wire-test3', Cls0)
+    def('wire-test3-child', Cls1)
 
     callDecorator(wire, Cls0, 'wireTest3Child')
 
@@ -228,8 +228,8 @@ describe('@wire', () => {
     }
     class Cls1 {
     }
-    cc.def('wire-test2', Cls0)
-    cc.def('wire-test2-1', Cls1)
+    def('wire-test2', Cls0)
+    def('wire-test2-1', Cls1)
 
     callDecorator(wire, Cls0, 'wire-test2-1')
 
@@ -243,11 +243,11 @@ describe('@wire', () => {
       get ['does-not-exist'] () {}
     }
 
-    cc.def('wire-test4', Cls0)
+    def('wire-test4', Cls0)
 
     callDecorator(wire, Cls0, 'does-not-exist')
 
-    const instance = cc.co('wire-test4', div()[0])
+    const instance = co('wire-test4', div()[0])
 
     assert.throws(() => {
       instance['does-not-exist']
@@ -264,8 +264,8 @@ describe('@wire(name, selector)', () => {
     }
     class Cls1 {
     }
-    cc.def('wire-test1', Cls0)
-    cc.def('wire-test1-1', Cls1)
+    def('wire-test1', Cls0)
+    def('wire-test1-1', Cls1)
 
     callDecorator(wire('wire-test1-1', '.foo'), Cls0, 'test')
 
