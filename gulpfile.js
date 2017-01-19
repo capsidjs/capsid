@@ -19,7 +19,7 @@ gulp.task('browser', () => (
   rollup({
     entry: 'src/index.js',
     format: 'iife',
-    moduleName: 'cc',
+    moduleName: 'capsid',
     plugins: [flow()]
   })
     .pipe(source('capsid.js'))
