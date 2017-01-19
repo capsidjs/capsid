@@ -1,6 +1,6 @@
 'use strict';
 
-var cc = function () {
+var capsid = function () {
   'use strict';
 
   //      
