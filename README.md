@@ -134,7 +134,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.2.2/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.2.3/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>

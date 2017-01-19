@@ -42,10 +42,9 @@
    * @param cc The class-component function
    * @param $ The jQuery function
    */
-  var init = function init(cc, $) {
-    $.cc = cc;
-    var ccc = cc.__ccc__;
-    var _get = cc.get;
+  var init = function init(capsid, $) {
+    var ccc = capsid.__ccc__;
+    var _get = capsid.get;
 
     var descriptor = { get: function get() {
         var $el = this;
@@ -92,7 +91,7 @@
     Object.defineProperty($.fn, 'cc', descriptor);
 
     // Applies jQuery initializer plugin
-    cc.plugins.push(function (el, coel) {
+    capsid.plugins.push(function (el, coel) {
       coel.$el = $(el);
       coel.elem = coel.$el; // backward compat, will be removed
     });
@@ -101,9 +100,9 @@
   if (typeof module !== 'undefined' && module.exports) {
     // If the env is common js, then exports init.
     module.exports = init;
-  } else if (typeof self !== 'undefined' && self.cc && self.$ && !self.$.cc) {
+  } else if (typeof self !== 'undefined' && self.capsid && self.$) {
     // If the env is browser and cc and $ is already defined and this plugin isn't applied yet
     // Then applies the plugin here.
-    init(self.cc, self.$);
+    init(self.capsid, self.$);
   }
 })();
