@@ -140,6 +140,12 @@ Download [capsid.min.js](https://unpkg.com/capsid@0.2.2/dist/capsid.min.js) Then
 <script src="path/to/capsid.js"></script>
 ```
 
+In this case, the library exports the global variable `capsid`.
+
+```js
+window.capsid('timer', Timer)
+```
+
 # APIs
 
 ```js
@@ -151,15 +157,11 @@ const capsid = require('capsid')
 - `capsid.init(name[, element])`
   - Initializes class-component on the range.
 - `capsid.el(name, element)`
-  - Initializes the element with the class-component of the given name.
+  - Initializes the element with the class-component of the given name and return nothing
+- `capsid.co(name, element)`
+  - Initializes the element with the class-component of the given name and return the coelement instance.
 - `capsid.get(name, element)`
   - Gets the coelement instance from the given element.
-- `$dom.cc(name)`
-  - Initializes the element as class-component.
-- `$dom.cc.get(name)`
-  - Gets the coelement of the element.
-- `$dom.cc.init(name)` *deprecated*
-  - Initializes the element as a class-component.
 
 ## `capsid` namespace
 
@@ -218,73 +220,6 @@ const timer = capsid.get('timer', dom)
 
 The above gets `Timer` class instance (coelement) from dom. In this case, dom need to be initialized as `timer` class-component before this call.
 
-## `$dom.cc` namespace
-
-These APIs are available via jQuery selection object's `.cc` property like `$('<div />').cc('timer')` or `$('#main').cc.get('app')`.
-
-### `$dom.cc(name)`
-
-- @param {string} name The class-component name to initialize
-- @return {jQuery}
-
-This initializes the class-compenents of the given name on the element and returns the element itself.
-
-```js
-$('<div />').cc('timer').cc('modal').appendTo('body')
-```
-
-The above example creates a `div` element, initializes it as `timer` and `modal` class components, and appends it to the body.
-
-### `$dom.cc()`
-
-This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
-
-Example:
-
-```js
-$('<div class="timer modal"/>').cc().appendTo('body')
-```
-
-The above example is the same as the previous one.
-
-Example:
-
-```js
-const div = $('<div/>')
-
-classes.forEach(cls => div.addClass(cls))
-
-div.cc().appendTo('body')
-```
-
-The above example creates a `div` element and initializes all the classes in `classes` variable on in.
-
-### `$dom.cc.get(name)`
-
-- @param {string} name The class name of the component
-
-This gets the coelement of the component of the given name if exists. It throws if none.
-
-```js
-const todoItem = $dom.cc.get('todo-item');
-
-todoItem.update({id: 'milk', title: 'Buy a milk'});
-```
-
-### `$dom.cc.init(name)` (deprecated)
-
-This initializes the $dom as a class component of the given name. It throws an error if the class component of the given name isn't available.
-
-This returns the instance of class-component class, not a dom element itself. If you want to get the dom element (jquery wrapped), use `$.fn.cc(classNames)`
-
-- @param {string} name - The class name of the component
-
-```js
-// Creates `todo-app` in #main
-$('<div />').appendTo('#main').cc.init('todo-app')
-```
-
-In the above example, `<div>` is appended and it is initialized as `todo-app` class-component. (`todo-app` class is automcatically added)
 
 # Decorators
 
@@ -524,13 +459,84 @@ And this prints `processing long name component`.
 
 `@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the jobs.
 
+# Plugins
+
+## jQuery plugin
+
+```
+const $ = require('jquery')
+const capsid = require('capsid')
+
+require('capsid/jquery')(capsid, jquery)
+```
+
+### Plugin API
+
+- `$dom.cc(name)`
+  - Initializes the element as class-component.
+- `$dom.cc.get(name)`
+  - Gets the coelement of the element.
+
+## `$dom.cc` namespace
+
+These APIs are available via jQuery selection object's `.cc` property like `$('<div />').cc('timer')` or `$('#main').cc.get('app')`.
+
+### `$dom.cc(name)`
+
+- @param {string} name The class-component name to initialize
+- @return {jQuery}
+
+This initializes the class-compenents of the given name on the element and returns the element itself.
+
+```js
+$('<div />').cc('timer').cc('modal').appendTo('body')
+```
+
+The above example creates a `div` element, initializes it as `timer` and `modal` class components, and appends it to the body.
+
+### `$dom.cc()`
+
+This initializes all the class component on the element which it already has. This returns the the element (jquery-wrapped) itself.
+
+```js
+$('<div class="timer modal"/>').cc().appendTo('body')
+```
+
+The above example is the same as the previous one.
+
+```js
+const div = $('<div/>')
+
+classes.forEach(cls => div.addClass(cls))
+
+div.cc().appendTo('body')
+```
+
+The above example creates a `div` element and initializes all the classes in `classes` variable on in.
+
+### `$dom.cc.get(name)`
+
+- @param {string} name The class name of the component
+
+This gets the coelement of the component of the given name if exists. It throws if none.
+
+```js
+const todoItem = $dom.cc.get('todo-item');
+
+todoItem.update({id: 'milk', title: 'Buy a milk'});
+```
+
+## Umbrella JS plugin
+
+TBD
+
 # License
 
 MIT
 
 # History
-- 2017-01-17   v0.1.1   Rename to capsid. Add plugin system.
-- 2017-01-17   v0.1.1   Rename to classcaps. Add plugin system.
+- 2017-01-19   v0.2.2   Rename to capsid.
+- 2017-01-17   v0.1.1   Add plugin system.
 
 # History of class-component.js (former project)
 - 2017-01-02   v13.0.0   Add __init__ instead of init.
