@@ -7,10 +7,9 @@ import check, { checkClassNamesAreStringOrNull } from '../util/check.js'
  * @param cc The class-component function
  * @param $ The jQuery function
  */
-const init = (cc: Function, $: Function): void => {
-  $.cc = cc
-  const ccc = cc.__ccc__
-  const get = cc.get
+const init = (capsid: any, $: Function): void => {
+  const ccc = capsid.__ccc__
+  const get = capsid.get
 
   const descriptor: any = { get: function () {
     const $el = this
@@ -55,7 +54,7 @@ const init = (cc: Function, $: Function): void => {
   Object.defineProperty($.fn, 'cc', descriptor)
 
   // Applies jQuery initializer plugin
-  cc.plugins.push((el: HTMLElement, coel: any) => {
+  capsid.plugins.push((el: HTMLElement, coel: any) => {
     coel.$el = $(el)
     coel.elem = coel.$el // backward compat, will be removed
   })
@@ -64,8 +63,8 @@ const init = (cc: Function, $: Function): void => {
 if (typeof module !== 'undefined' && module.exports) {
   // If the env is common js, then exports init.
   module.exports = init
-} else if (typeof self !== 'undefined' && self.cc && self.$ && !self.$.cc) {
+} else if (typeof self !== 'undefined' && self.capsid && self.$) {
   // If the env is browser and cc and $ is already defined and this plugin isn't applied yet
   // Then applies the plugin here.
-  init(self.cc, self.$)
+  init(self.capsid, self.$)
 }
