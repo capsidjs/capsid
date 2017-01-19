@@ -1,7 +1,7 @@
 module.exports = config => config.set({
   frameworks: ['browserify', 'mocha'],
-  files: ['test/helper.js', 'test/*.js'],
-  preprocessors: {'test/*.js': 'browserify'},
+  files: ['test/helper.js', 'test/**/*.js'],
+  preprocessors: {'test/**/*.js': 'browserify'},
   browserify: {
     debug: true,
     transform: [['babelify', {presets: ['es2015', 'power-assert'], plugins: ['istanbul']}]]
