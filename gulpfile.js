@@ -22,7 +22,7 @@ gulp.task('browser', () => (
     moduleName: 'cc',
     plugins: [flow()]
   })
-    .pipe(source('classcaps.js'))
+    .pipe(source('capsid.js'))
     .pipe(buffer())
     .pipe(babel())
     .pipe(gulp.dest(paths.dist))
@@ -37,7 +37,7 @@ gulp.task('cjs', () => (
     format: 'cjs',
     plugins: [flow()]
   })
-    .pipe(source('classcaps-commonjs.js'))
+    .pipe(source('capsid-commonjs.js'))
     .pipe(buffer())
     .pipe(babel())
     .pipe(gulp.dest(paths.dist))
@@ -49,7 +49,7 @@ gulp.task('jquery', () => (
     format: 'iife',
     plugins: [flow()]
   })
-    .pipe(source('classcaps-jquery.js'))
+    .pipe(source('capsid-jquery.js'))
     .pipe(buffer())
     .pipe(babel())
     .pipe(gulp.dest(paths.dist))

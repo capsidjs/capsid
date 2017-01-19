@@ -1,1 +1,1 @@
-module.exports = require('./dist/classcaps-jquery.js')
+module.exports = require('./dist/capsid-jquery.js')

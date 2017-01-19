@@ -1,9 +1,9 @@
 {
-  "name": "classcaps",
+  "name": "capsid",
   "version": "0.1.2",
   "description": "Class driven component framework",
-  "main": "dist/classcaps-commonjs.js",
-  "unpkg": "dist/classcaps.min.js",
+  "main": "dist/capsid-commonjs.js",
+  "unpkg": "dist/capsid.min.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
     "lint": "standard",
@@ -13,18 +13,18 @@
     "test-firefox": "karma start karma.conf.js --browsers Firefox",
     "codecov": "codecov",
     "dist": "gulp dist",
-    "size": "gulp browser && cat dist/classcaps.min.js | gzip | wc -c",
+    "size": "gulp browser && cat dist/capsid.min.js | gzip | wc -c",
     "prepublish": "npm run clean && npm run dist"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kt3k/classcaps.git"
+    "url": "git://github.com/kt3k/capsid.git"
   },
   "keywords": [
     "dom",
     "element",
     "coelement",
-    "classcaps",
+    "capsid",
     "class-component",
     "MVC",
     "MVP",
@@ -36,9 +36,9 @@
   "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kt3k/classcaps/issues"
+    "url": "https://github.com/kt3k/capsid/issues"
   },
-  "homepage": "https://github.com/kt3k/classcaps",
+  "homepage": "https://github.com/kt3k/capsid",
   "devDependencies": {
     "babel-eslint": "^7.0.0",
     "babel-plugin-espower": "^2.2.0",

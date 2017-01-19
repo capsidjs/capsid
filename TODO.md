@@ -5,7 +5,7 @@
 - doc: How to do MVC(MVP) with class-component
 - doc: How to propagate data from a child to its parent or ancestors
 - doc: How to declare parent-child relationships between components
-- classcaps.js.org
+- capsid.js.org
 
 # DONE
 - new name: classclamp, classcoup, classcool, classcade, rhei, rous, nomoi, senku.js, zenku.js(前駆) or kanku.js?
