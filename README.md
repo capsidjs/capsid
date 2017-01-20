@@ -559,18 +559,18 @@ MIT
 
 # The user projects
 
-The projects which uses class-component.js.
+The projects which uses capsid.
 
-- [class-component-todomvc](https://github.com/kt3k/class-component-todomvc)
-  - Implementation of TodoMVC in class-component.js, 100% unit tested
+- [capsid-todomvc](https://github.com/kt3k/capsid-todomvc)
+  - Implementation of TodoMVC in capsid, 100% unit tested
 - [multiflip](https://github.com/kt3k/multiflip)
 - [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
 - [puncher](https://github.com/kt3k/puncher)
 - [event-hub](https://github.com/kt3k/event-hub)
 - [spn](https://github.com/kt3k/spn)
 - [view-todo](https://github.com/kt3k/view-todo)
-- [long-dream](https://github.com/kt3kstudio/long-dream-core)
-  - The Long Dream is the first user and absolute inspiration of capsid
+- [pairs](https://github.com/kt3kstudio/pairs)
+  - Pairs is the primary user project and inspiration source of capsid.
   - capsid is basically created for developing this project.
 
 # Notes
