@@ -1,7 +1,8 @@
 // @flow
 
 import camelToKebab from './util/camel-to-kebab.js'
-import cc from './def.js'
+import def from './def.js'
+import { get } from './index.js'
 import trigger from './util/event-trigger.js'
 import matches from './util/matches.js'
 
@@ -58,13 +59,13 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
 
   descriptor.get = function () {
     if (matches.call(this.el, sel)) {
-      return cc.get(name, this.el)
+      return get(name, this.el)
     }
 
     const nodes = this.el.querySelectorAll(sel)
 
     if (nodes.length) {
-      return cc.get(name, nodes[0])
+      return get(name, nodes[0])
     }
 
     throw new Error(`wired class-component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
@@ -93,8 +94,8 @@ export const wire = (target: Object, key: string, descriptor: Object) => {
  */
 export const component = (name: string | Function): ?Function => {
   if (typeof name !== 'function') {
-    return Cls => cc((name: any), Cls)
+    return Cls => def((name: any), Cls)
   }
 
-  return cc(camelToKebab(name.name), name)
+  return def(camelToKebab(name.name), name)
 }

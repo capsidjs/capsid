@@ -1,8 +1,7 @@
-import capsid from '../src'
 import assert from 'assert'
 import { div } from 'dom-gen'
 
-const { def, init, co, get } = capsid
+import { def, init, co, get, el, __ccc__ } from '../src'
 
 describe('capsid', () => {
   class Foo {
@@ -38,7 +37,7 @@ describe('capsid', () => {
     it('registers a class component of the given name', () => {
       def('assign-test0', class Class0 {})
 
-      assert(capsid.__ccc__['assign-test0'] != null)
+      assert(__ccc__['assign-test0'] != null)
     })
 
     it('sets __coelement:class-name property when the class component is initialized', () => {
@@ -111,15 +110,15 @@ describe('capsid', () => {
 
   describe('el', () => {
     it('initializes the element as an class-component of the given name', () => {
-      const el = div()[0]
+      const elm = div()[0]
 
-      capsid.el('foo', el)
+      el('foo', elm)
 
-      assert($(el).attr('is_foo') === 'true')
+      assert($(elm).attr('is_foo') === 'true')
     })
 
     it('returns nothing', () => {
-      assert(capsid.el('foo', div()[0]) === undefined)
+      assert(el('foo', div()[0]) === undefined)
     })
   })
 
@@ -139,14 +138,14 @@ describe('capsid', () => {
 
   describe('get', () => {
     it('gets the coelement instance from the element', () => {
-      const el = div()[0]
+      const elm = div()[0]
 
-      capsid.el('foo', el)
+      el('foo', elm)
 
-      const coel = get('foo', el)
+      const coel = get('foo', elm)
 
       assert(coel instanceof Foo)
-      assert(coel.el === el)
+      assert(coel.el === elm)
     })
   })
 })

@@ -1,8 +1,6 @@
-import capsid from '../src'
 import assert from 'assert'
 import { div } from 'dom-gen'
-
-const { def, co, on, emit, component, wire } = capsid
+import { def, co, on, emit, component, wire } from '../src'
 
 /**
  * @param {Function} decorator The decorator

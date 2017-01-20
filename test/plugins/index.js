@@ -1,8 +1,6 @@
-import capsid from '../../src'
+import { def, init } from '../../src'
 import assert from 'assert'
 import { div } from 'dom-gen'
-
-const { def, init } = capsid
 
 describe('$dom.cc', () => {
   class Spam {

@@ -1,7 +1,7 @@
 import $ from 'jquery'
-import cc from '../src'
-import ccj from '../src/plugins/jquery-plugin'
+import * as capsid from '../src'
+import cj from '../src/plugins/jquery-plugin'
 
 global.$ = $
 
-ccj(cc, $)
+cj(capsid, $)
