@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, make, on, emit, component, wire } from '../src'
+import { def, init, get, make, on, emit, component, wire } from '../src'
 
 /**
  * @param {Function} decorator The decorator
@@ -50,17 +50,19 @@ describe('@on(event, {at: selector})', () => {
     }
     def('on-at-test0', OnAtTest0)
 
-    callDecorator(on('foo-event', {at: '.inner'}), OnAtTest0, 'foo')
-    callDecorator(on('bar-event', {at: '.inner'}), OnAtTest0, 'bar')
+    callDecorator(on('foo-event', { at: '.inner' }), OnAtTest0, 'foo')
+    callDecorator(on('bar-event', { at: '.inner' }), OnAtTest0, 'bar')
 
-    const elem = div(div({addClass: 'inner'})).cc('on-at-test0')
+    const el = div(div({addClass: 'inner'}))[0]
 
-    document.body.appendChild(elem[0])
+    init('on-at-test0', el)
 
-    elem[0].dispatchEvent(new CustomEvent('bar-event', {bubbles: true}))
-    elem.find('.inner')[0].dispatchEvent(new CustomEvent('foo-event', {bubbles: true}))
+    document.body.appendChild(el)
 
-    document.body.removeChild(elem[0])
+    el.dispatchEvent(new CustomEvent('bar-event', { bubbles: true }))
+    el.querySelector('.inner').dispatchEvent(new CustomEvent('foo-event', { bubbles: true }))
+
+    document.body.removeChild(el)
   })
 })
 
@@ -74,11 +76,11 @@ describe('@emit(event)', () => {
     def('emit-test0', EmitTest0)
     callDecorator(emit('event-foo'), EmitTest0, 'foo')
 
-    const coelem = div().on('event-foo', e => {
+    const coelem = make('emit-test0', div().on('event-foo', e => {
       assert(e.detail.a === 1)
       assert(e.detail.b === 2)
       assert(e.detail.c === 3)
-    }).cc.init('emit-test0')
+    })[0])
 
     assert(coelem.foo({ a: 1, b: 2, c: 3 }) === 42)
 
@@ -96,7 +98,9 @@ describe('@emit(event)', () => {
 
     const parent = div().on('event-foo', () => done()).appendTo('body')
 
-    div().appendTo(parent).cc.init('emit-test1').foo()
+    const coel = make('emit-test1', div().appendTo(parent)[0])
+
+    coel.foo()
 
     parent.remove()
   })
@@ -112,11 +116,11 @@ describe('@emit.last(event)', () => {
     def('emit-last-test0', EmitLastTest0)
     callDecorator(emit.last('event-foo'), EmitLastTest0, 'foo')
 
-    div().on('event-foo', (e) => {
+    make('emit-last-test0', div().on('event-foo', (e) => {
       assert(e.detail === 321)
 
       done()
-    }).cc.init('emit-last-test0').foo()
+    })[0]).foo()
   })
 
   it('makes the method emit the event with the resolved value after the promise resolved', done => {
@@ -135,12 +139,12 @@ describe('@emit.last(event)', () => {
     def('emit-last-test1', EmitLastTest1)
     callDecorator(emit.last('event-foo'), EmitLastTest1, 'foo')
 
-    div().on('event-foo', (e) => {
+    make('emit-last-test1', div().on('event-foo', (e) => {
       assert(promiseResolved)
       assert(e.detail === 123)
 
       done()
-    }).cc.init('emit-last-test1').foo()
+    })[0]).foo()
   })
 })
 
@@ -150,7 +154,7 @@ describe('@component', () => {
 
     component(FooBarBaz)
 
-    assert(div().cc.init('foo-bar-baz') instanceof FooBarBaz)
+    assert(make('foo-bar-baz', div()[0]) instanceof FooBarBaz)
   })
 
   it('returns the constructor', () => {
@@ -164,15 +168,17 @@ describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     class Cls {
       __init__ () {
-        this.$el.attr('this-is', 'decorated-component')
+        this.el.setAttribute('this-is', 'decorated-component')
       }
     }
 
     component('decorated-component')(Cls)
 
-    const elem = div().cc('decorated-component')
+    const el = div()[0]
 
-    assert(elem.attr('this-is') === 'decorated-component')
+    init('decorated-component', el)
+
+    assert(el.getAttribute('this-is') === 'decorated-component')
   })
 
   it('returns the constructor', () => {
@@ -195,9 +201,9 @@ describe('@wire', () => {
 
     callDecorator(wire, Cls0, 'wire-test0-1')
 
-    const elem = div().append(div().cc('wire-test0-1'))
+    const el = div().append(make('wire-test0-1', div()[0]).el)[0]
 
-    const wireTest0 = elem.cc.init('wire-test0')
+    const wireTest0 = make('wire-test0', el)
 
     assert(wireTest0['wire-test0-1'] instanceof Cls1)
   })
@@ -213,9 +219,9 @@ describe('@wire', () => {
 
     callDecorator(wire, Cls0, 'wireTest3Child')
 
-    const elem = div().append(div().cc('wire-test3-child'))
+    const el = div().append(make('wire-test3-child', div()[0]).el)[0]
 
-    const wireTest3 = elem.cc.init('wire-test3')
+    const wireTest3 = make('wire-test3', el)
 
     assert(wireTest3.wireTest3Child instanceof Cls1)
   })
@@ -231,9 +237,13 @@ describe('@wire', () => {
 
     callDecorator(wire, Cls0, 'wire-test2-1')
 
-    const wireTest0 = div().cc('wire-test2-1').cc.init('wire-test2')
+    const el = div()[0]
+
+    init('wire-test2-1', el)
+    const wireTest0 = make('wire-test2', el)
 
     assert(wireTest0['wire-test2-1'] instanceof Cls1)
+    assert(wireTest0['wire-test2-1'] === get('wire-test2-1', el))
   })
 
   it('throws when the element is not available', () => {
@@ -267,9 +277,9 @@ describe('@wire(name, selector)', () => {
 
     callDecorator(wire('wire-test1-1', '.foo'), Cls0, 'test')
 
-    const elem = div().append(div().addClass('foo').cc('wire-test1-1'))
+    const el = div().append(make('wire-test1-1', div().addClass('foo')[0]).el)[0]
 
-    const wireTest1 = elem.cc.init('wire-test1')
+    const wireTest1 = make('wire-test1', el)
 
     assert(wireTest1.test instanceof Cls1)
   })

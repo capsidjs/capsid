@@ -72,33 +72,35 @@ describe('capsid', () => {
 
       def('elem-test-3', Class3)
 
-      const $dom = div().cc('elem-test-3')
+      const dom = div()[0]
 
-      assert($dom.cc.get('elem-test-3').el === $dom[0])
+      init('elem-test-3', dom)
+
+      assert(get('elem-test-3', dom).el === dom)
     })
   })
 
   describe('prep', () => {
     beforeEach(() => {
-      $('body').empty()
+      document.body.innerHTML = ''
     })
 
     it('initializes the class component of the given name', () => {
-      const foo = div().addClass('foo').appendTo(document.body)
+      const el = div().addClass('foo').appendTo(document.body)[0]
 
       prep('foo')
 
-      assert(foo.attr('is_foo') === 'true')
+      assert(el.getAttribute('is_foo') === 'true')
     })
 
     it('initializes multiple class componet by class names separated by whitespaces', () => {
-      const foo = div().addClass('foo').appendTo('body')
-      const bar = div().addClass('bar').appendTo('body')
+      const foo = div().addClass('foo').appendTo('body')[0]
+      const bar = div().addClass('bar').appendTo('body')[0]
 
       prep('foo bar')
 
-      assert(foo.attr('is_foo') === 'true')
-      assert(bar.attr('is_bar') === 'true')
+      assert(foo.getAttribute('is_foo') === 'true')
+      assert(bar.getAttribute('is_bar') === 'true')
     })
 
     it('throws an error when the given name of class-component is not registered', () => {
@@ -114,7 +116,7 @@ describe('capsid', () => {
 
       init('foo', el)
 
-      assert($(el).attr('is_foo') === 'true')
+      assert(el.getAttribute('is_foo') === 'true')
     })
 
     it('returns nothing', () => {
