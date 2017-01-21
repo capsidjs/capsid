@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 
-import { def, prep, co, get, init, __ccc__ } from '../src'
+import { def, prep, make, get, init, __ccc__ } from '../src'
 
 describe('capsid', () => {
   class Foo {
@@ -122,17 +122,17 @@ describe('capsid', () => {
     })
   })
 
-  describe('co', () => {
+  describe('make', () => {
     it('initializes the element as an class-component of the given name', () => {
       const el = div()[0]
 
-      co('foo', el)
+      make('foo', el)
 
-      assert($(el).attr('is_foo') === 'true')
+      assert(el.getAttribute('is_foo') === 'true')
     })
 
     it('returns an instance of coelement', () => {
-      assert(co('foo', div()[0]) instanceof Foo)
+      assert(make('foo', div()[0]) instanceof Foo)
     })
   })
 

@@ -158,7 +158,7 @@ const capsid = require('capsid')
   - Initialize class-component on the given range.
 - `capsid.init(name, element)`
   - Initializes the element with the class-component of the given name.
-- `capsid.co(name, element)`
+- `capsid.make(name, element)`
   - Initializes the element with the class-component of the given name and return the coelement instance.
 - `capsid.get(name, element)`
   - Gets the coelement instance from the given element.
@@ -205,6 +205,17 @@ capsid.init('timer', dom)
 ```
 
 The above initializes `dom` as `timer` class-component.
+
+### `capsid.make(name, element)`
+
+- @param {string} name The class-component name to initialize
+- @param {HTMLElement} element The element to initialize
+
+Initializes the element as the class-component (the same as `init`) and returns the coelement instance.
+
+```js
+const timer = make('timer', dom)
+```
 
 ### `capsid.get(name, element)`
 

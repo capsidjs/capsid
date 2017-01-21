@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, co, on, emit, component, wire } from '../src'
+import { def, make, on, emit, component, wire } from '../src'
 
 /**
  * @param {Function} decorator The decorator
@@ -245,7 +245,7 @@ describe('@wire', () => {
 
     callDecorator(wire, Cls0, 'does-not-exist')
 
-    const instance = co('wire-test4', div()[0])
+    const instance = make('wire-test4', div()[0])
 
     assert.throws(() => {
       instance['does-not-exist']
