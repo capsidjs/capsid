@@ -1,7 +1,7 @@
 // @flow
 
 import check, { checkComponentNameIsValid } from './util/check.js'
-import { COELEMENT_DATA_KEY_PREFIX } from './const'
+import { COELEMENT_DATA_KEY_PREFIX } from './util/const.js'
 
 /**
  * Gets the eoelement instance of the class-component of the given name

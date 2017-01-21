@@ -1,11 +1,12 @@
 // @flow
 
-import check from './util/check.js'
-import { ready } from './util/document'
 import ccc from './ccc.js'
 import prep from './prep.js'
 import plugins from './plugins.js'
-import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './const.js'
+
+import check from './util/check.js'
+import { ready } from './util/document'
+import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './util/const.js'
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
