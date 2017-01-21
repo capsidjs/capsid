@@ -23,6 +23,6 @@ export function checkClassNamesAreStringOrNull (classNames: any): void {
  * @param name The component name
  */
 export function checkComponentNameIsValid (name: any): void {
-  check(typeof name === 'string', 'The name should not be a string')
+  check(typeof name === 'string', 'The name should be a string')
   check(!!ccc[name], `The coelement of the given name is not registered: ${name}`)
 }

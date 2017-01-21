@@ -143,7 +143,7 @@ Download [capsid.min.js](https://unpkg.com/capsid@0.2.3/dist/capsid.min.js) Then
 In this case, the library exports the global variable `capsid`.
 
 ```js
-window.capsid('timer', Timer)
+window.capsid.def('timer', Timer)
 ```
 
 # APIs
@@ -154,10 +154,10 @@ const capsid = require('capsid')
 
 - `capsid.def(name, constructor)`
   - Registers class-component.
-- `capsid.init(name[, element])`
-  - Initializes class-component on the range.
-- `capsid.el(name, element)`
-  - Initializes the element with the class-component of the given name and return nothing
+- `capsid.prep(name[, element])`
+  - Initialize class-component on the given range.
+- `capsid.init(name, element)`
+  - Initializes the element with the class-component of the given name.
 - `capsid.co(name, element)`
   - Initializes the element with the class-component of the given name and return the coelement instance.
 - `capsid.get(name, element)`
@@ -186,14 +186,14 @@ capsid.def('todo-item', TodoItem)
 <li class="todo-item"></li>
 ```
 
-### `capsid.init([name], [element])`
+### `capsid.prep([name], [element])`
 
 - @param {string} [name] The class-component name to intialize
 - @param {HTMLElement} [element] The range to initialize
 
-This initializes the class components of the given name in the given element. If the element is omitted, it initializes them in the entire page. If the name is omitted, then it initializes all the registered class components.
+This initializes the class components of the given name under the given element. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
 
-### `capsid.el(name, element)`
+### `capsid.init(name, element)`
 
 - @param {string} name The class-component name to initialize
 - @param {HTMLElement} element The element to initialize
@@ -201,7 +201,7 @@ This initializes the class components of the given name in the given element. If
 Initializes the element as the class-component.
 
 ```js
-capsid.el('timer', dom)
+capsid.init('timer', dom)
 ```
 
 The above initializes `dom` as `timer` class-component.
@@ -462,6 +462,8 @@ And this prints `processing long name component`.
 # Plugins
 
 ## jQuery plugin
+
+Usage in commonJS
 
 ```
 const $ = require('jquery')

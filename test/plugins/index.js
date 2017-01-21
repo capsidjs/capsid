@@ -1,10 +1,10 @@
-import { def, init } from '../../src'
+import { def, prep } from '../../src'
 import assert from 'assert'
 import { div } from 'dom-gen'
 
 describe('$dom.cc', () => {
   class Spam {
-    __init__ (elem) {
+    __init__ () {
       this.$el.attr('is_spam', 'true')
       this.$el.toggleClass('spam-toggle-test')
     }
@@ -90,7 +90,7 @@ describe('$dom.cc', () => {
     it('gets the coelement of the given name', () => {
       const elem = div().addClass('spam').appendTo('body')
 
-      init()
+      prep()
 
       assert(elem.cc.get('spam') != null)
       assert(elem.cc.get('spam') instanceof Spam)
@@ -99,7 +99,7 @@ describe('$dom.cc', () => {
     it('throws an error when the corresponding coelement is unavailable', () => {
       const elem = div().addClass('does-not-exist').appendTo('body')
 
-      init()
+      prep()
 
       assert.throws(() => {
         elem.cc.get('does-not-exist')

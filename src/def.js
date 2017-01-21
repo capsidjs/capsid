@@ -1,8 +1,9 @@
 // @flow
+
 import check from './util/check.js'
 import { ready } from './util/document'
 import ccc from './ccc.js'
-import init from './init.js'
+import prep from './prep.js'
 import plugins from './plugins.js'
 import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './const.js'
 
@@ -12,7 +13,7 @@ import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './const.js'
  * @param Constructor The constructor of the class component
  * @return The registered component class
  */
-const def: any = (name: string, Constructor: Function): Function => {
+const def = (name: string, Constructor: Function) => {
   check(typeof name === 'string', '`name` of a class component has to be a string.')
   check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function')
 
@@ -51,9 +52,7 @@ const def: any = (name: string, Constructor: Function): Function => {
 
   ccc[name] = initializer
 
-  ready.then(() => { init(name) })
-
-  return Constructor
+  ready.then(() => { prep(name) })
 }
 
 export default def

@@ -1,18 +1,18 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 
-import { def, init, co, get, el, __ccc__ } from '../src'
+import { def, prep, co, get, init, __ccc__ } from '../src'
 
 describe('capsid', () => {
   class Foo {
     __init__ () {
-      this.$el.attr('is_foo', 'true')
+      this.el.setAttribute('is_foo', 'true')
     }
   }
 
   class Bar {
     __init__ () {
-      this.$el.attr('is_bar', 'true')
+      this.el.setAttribute('is_bar', 'true')
     }
   }
 
@@ -47,7 +47,7 @@ describe('capsid', () => {
 
       const elem = div().addClass('assign-test2').appendTo('body')
 
-      init('assign-test2')
+      prep('assign-test2')
 
       assert(elem[0]['__coelement:assign-test2'] instanceof Class1)
     })
@@ -59,7 +59,7 @@ describe('capsid', () => {
 
       const $el = div().addClass('elem-test').appendTo('body')
 
-      init('elem-test')
+      prep('elem-test')
 
       const coelem = $el.cc.get('elem-test')
 
@@ -78,7 +78,7 @@ describe('capsid', () => {
     })
   })
 
-  describe('init', () => {
+  describe('prep', () => {
     beforeEach(() => {
       $('body').empty()
     })
@@ -86,7 +86,7 @@ describe('capsid', () => {
     it('initializes the class component of the given name', () => {
       const foo = div().addClass('foo').appendTo(document.body)
 
-      init('foo')
+      prep('foo')
 
       assert(foo.attr('is_foo') === 'true')
     })
@@ -95,7 +95,7 @@ describe('capsid', () => {
       const foo = div().addClass('foo').appendTo('body')
       const bar = div().addClass('bar').appendTo('body')
 
-      init('foo bar')
+      prep('foo bar')
 
       assert(foo.attr('is_foo') === 'true')
       assert(bar.attr('is_bar') === 'true')
@@ -103,22 +103,22 @@ describe('capsid', () => {
 
     it('throws an error when the given name of class-component is not registered', () => {
       assert.throws(() => {
-        init('does-not-exist')
+        prep('does-not-exist')
       }, Error)
     })
   })
 
-  describe('el', () => {
+  describe('init', () => {
     it('initializes the element as an class-component of the given name', () => {
-      const elm = div()[0]
+      const el = div()[0]
 
-      el('foo', elm)
+      init('foo', el)
 
-      assert($(elm).attr('is_foo') === 'true')
+      assert($(el).attr('is_foo') === 'true')
     })
 
     it('returns nothing', () => {
-      assert(el('foo', div()[0]) === undefined)
+      assert(init('foo', div()[0]) === undefined)
     })
   })
 
@@ -140,7 +140,7 @@ describe('capsid', () => {
     it('gets the coelement instance from the element', () => {
       const elm = div()[0]
 
-      el('foo', elm)
+      init('foo', elm)
 
       const coel = get('foo', elm)
 

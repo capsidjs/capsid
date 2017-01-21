@@ -92,10 +92,13 @@ export const wire = (target: Object, key: string, descriptor: Object) => {
  * @param name The class name or the implementation class itself
  * @return The decorator if the class name is given, undefined if the implementation class is given
  */
-export const component = (name: string | Function): ?Function => {
+export const component = (name: string | Function): any => {
   if (typeof name !== 'function') {
-    return Cls => def((name: any), Cls)
+    return Cls => {
+      def((name: any), Cls)
+      return Cls
+    }
   }
 
-  return def(camelToKebab(name.name), name)
+  return component(camelToKebab(name.name))(name)
 }
