@@ -121,9 +121,6 @@ function check(assertion, message) {
 /**
  * @param classNames The class names
  */
-function checkClassNamesAreStringOrNull(classNames) {
-  check(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
-}
 
 /**
  * Asserts the given name is a valid component name.
@@ -230,16 +227,24 @@ var wire = function wire(target, key, descriptor) {
 
 //      
 /**
- * Initializes the class components of the given name in the given element.
- * @param classNames The class names
+ * Initializes the class components of the given name in the range of the given element.
+ * @param name The class name
  * @param el The dom where class componets are initialized
  * @throws when the class name is invalid type.
  */
-var init = function init(classNames, el) {
-  checkClassNamesAreStringOrNull(classNames);(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).map(function (className) {
-    var initializer = ccc[className];
+var prep = function prep(name, el) {
+  var classNames = void 0;
 
-    check(!!initializer, 'Class componet ' + className + ' is not defined.');[].map.call((el || doc).querySelectorAll(initializer.selector), initializer);
+  if (!name) {
+    classNames = Object.keys(ccc);
+  } else {
+    checkComponentNameIsValid(name);
+
+    classNames = [name];
+  }
+
+  classNames.map(function (className) {
+    [].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className]);
   });
 };
 
@@ -287,17 +292,17 @@ var def = function def(name, Constructor) {
         listenerBinder(el, coelem);
       });
 
-      classList.add(name);
-      classList.add(initClass);
+      classList.add(name, initClass);
     }
   };
 
-  initializer.selector = '.' + name + ':not(.' + initClass + ')';
+  // The selector
+  initializer.sel = '.' + name + ':not(.' + initClass + ')';
 
   ccc[name] = initializer;
 
   ready.then(function () {
-    init(name);
+    prep(name);
   });
 };
 
@@ -328,7 +333,7 @@ var component = function component(name) {
  * @param name The name of the class component
  * @param el The element to initialize
  */
-var init$1 = function init$1(name, el) {
+var init = function init(name, el) {
   checkComponentNameIsValid(name);
 
   ccc[name](el);
@@ -343,7 +348,7 @@ var init$1 = function init$1(name, el) {
  * @return
  */
 var make = function make(name, elm) {
-  init$1(name, elm);
+  init(name, elm);
 
   return get(name, elm);
 };
@@ -355,8 +360,8 @@ exports.emit = emit;
 exports.wire = wire;
 exports.component = component;
 exports.def = def;
-exports.prep = init;
-exports.init = init$1;
+exports.prep = prep;
+exports.init = init;
 exports.__ccc__ = ccc;
 exports.make = make;
 exports.plugins = plugins;
