@@ -1,10 +1,10 @@
 // @flow
 
-import camelToKebab from './util/camel-to-kebab.js'
 import def from './def.js'
-import { get } from './index.js'
+import get from './get.js'
 import trigger from './util/event-trigger.js'
 import matches from './util/matches.js'
+import camelToKebab from './util/camel-to-kebab.js'
 
 /**
  * `@emit(event)` decorator.
