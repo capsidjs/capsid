@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
   'use strict';
 
@@ -45,10 +43,12 @@
   var init = function init(capsid, $) {
     var ccc = capsid.__ccc__;
     var _get = capsid.get;
+    var init = capsid.init;
 
     var descriptor = { get: function get() {
-        var $el = this;
-        var dom = $el[0];
+        var _this = this;
+
+        var dom = this[0];
 
         check(dom != null, 'cc (class-component context) is unavailable at empty dom selection');
 
@@ -63,11 +63,11 @@
           cc = dom.cc = function (classNames) {
             checkClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).map(function (className) {
               if (ccc[className]) {
-                ccc[className]($el.addClass(className)[0]);
+                init(className, dom);
               }
             });
 
-            return $el;
+            return _this;
           };
 
           /**
