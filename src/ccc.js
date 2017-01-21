@@ -1,5 +1,5 @@
 // @flow
-type Initializer = { (el: HTMLElement, coelem: any): void; selector: string }
+type Initializer = { (el: HTMLElement, coelem: any): void; sel: string }
 type cccType = { [key: string]: Initializer }
 
 /**

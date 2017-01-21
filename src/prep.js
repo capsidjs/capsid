@@ -9,7 +9,7 @@ import ccc from './ccc.js'
  * @param el The dom where class componets are initialized
  * @throws when the class name is invalid type.
  */
-const init = (name: string, el: ?HTMLElement): void => {
+export default (name: string, el: ?HTMLElement): void => {
   let classNames
 
   if (!name) {
@@ -24,5 +24,3 @@ const init = (name: string, el: ?HTMLElement): void => {
     [].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className])
   })
 }
-
-export default init
