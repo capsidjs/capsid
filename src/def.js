@@ -45,12 +45,12 @@ const def = (name: string, Constructor: Function) => {
         listenerBinder(el, coelem)
       })
 
-      classList.add(name)
-      classList.add(initClass)
+      classList.add(name, initClass)
     }
   }
 
-  initializer.selector = `.${name}:not(.${initClass})`
+  // The selector
+  initializer.sel = `.${name}:not(.${initClass})`
 
   ccc[name] = initializer
 

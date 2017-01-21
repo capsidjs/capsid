@@ -93,16 +93,6 @@ describe('capsid', () => {
       assert(el.getAttribute('is_foo') === 'true')
     })
 
-    it('initializes multiple class componet by class names separated by whitespaces', () => {
-      const foo = div().addClass('foo').appendTo('body')[0]
-      const bar = div().addClass('bar').appendTo('body')[0]
-
-      prep('foo bar')
-
-      assert(foo.getAttribute('is_foo') === 'true')
-      assert(bar.getAttribute('is_bar') === 'true')
-    })
-
     it('throws an error when the given name of class-component is not registered', () => {
       assert.throws(() => {
         prep('does-not-exist')

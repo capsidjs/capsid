@@ -1,23 +1,27 @@
 // @flow
-import check, { checkClassNamesAreStringOrNull } from './util/check.js'
+import { checkComponentNameIsValid } from './util/check.js'
 import doc from './util/document'
 import ccc from './ccc.js'
 
 /**
- * Initializes the class components of the given name in the given element.
- * @param classNames The class names
+ * Initializes the class components of the given name in the range of the given element.
+ * @param name The class name
  * @param el The dom where class componets are initialized
  * @throws when the class name is invalid type.
  */
-const init = (classNames: string, el: ?HTMLElement): void => {
-  checkClassNamesAreStringOrNull(classNames)
+const init = (name: string, el: ?HTMLElement): void => {
+  let classNames
 
-  ;(classNames ? classNames.split(/\s+/) : Object.keys(ccc)).map(className => {
-    const initializer = ccc[className]
+  if (!name) {
+    classNames = Object.keys(ccc)
+  } else {
+    checkComponentNameIsValid(name)
 
-    check(!!initializer, `Class componet ${className} is not defined.`)
+    classNames = [name]
+  }
 
-    ;[].map.call((el || doc).querySelectorAll(initializer.selector), initializer)
+  classNames.map(className => {
+    [].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className])
   })
 }
 
