@@ -1,5 +1,5 @@
 // @flow
-import { KEY_EVENT_LISTENERS } from './util/const.js'
+import { KEY_EVENT_LISTENERS } from '../util/const.js'
 
 /**
  * The decorator for registering event listener info to the method.
