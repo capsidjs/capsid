@@ -44,6 +44,7 @@ const def = (name: string, Constructor: Function) => {
         listenerBinder(el, coelem)
       })
 
+      classList.add(name)
       classList.add(initClass)
     }
   }

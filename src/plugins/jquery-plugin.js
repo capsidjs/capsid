@@ -10,10 +10,10 @@ import check, { checkClassNamesAreStringOrNull } from '../util/check.js'
 const init = (capsid: any, $: Function): void => {
   const ccc = capsid.__ccc__
   const get = capsid.get
+  const init = capsid.init
 
   const descriptor: any = { get: function () {
-    const $el = this
-    const dom: HTMLElement = $el[0]
+    const dom: HTMLElement = this[0]
 
     check(dom != null, 'cc (class-component context) is unavailable at empty dom selection')
 
@@ -30,11 +30,11 @@ const init = (capsid: any, $: Function): void => {
 
         ;(classNames || dom.className).split(/\s+/).map(className => {
           if (ccc[className]) {
-            ccc[className]($el.addClass(className)[0])
+            init(className, dom)
           }
         })
 
-        return $el
+        return this
       }
 
       /**
