@@ -54,7 +54,7 @@ const init = (capsid: any, $: Function): void => {
   Object.defineProperty($.fn, 'cc', descriptor)
 
   // Applies jQuery initializer plugin
-  capsid.plugins.push((el: HTMLElement, coel: any) => {
+  capsid.pluginHooks.push((el: HTMLElement, coel: any) => {
     coel.$el = $(el)
     coel.elem = coel.$el // backward compat, will be removed
   })

@@ -2,7 +2,7 @@
 
 import ccc from './ccc.js'
 import prep from './prep.js'
-import plugins from './plugins.js'
+import pluginHooks from './plugin-hooks.js'
 
 import check from './util/check.js'
 import { ready } from './util/document'
@@ -31,8 +31,8 @@ const def = (name: string, Constructor: Function) => {
     if (!classList.contains(initClass)) {
       (el: any)[COELEMENT_DATA_KEY_PREFIX + name] = coelem = new Constructor()
 
-      plugins.forEach(plugin => {
-        plugin(el, coelem)
+      pluginHooks.forEach(pluginHook => {
+        pluginHook(el, coelem)
       })
 
       coelem.el = el
