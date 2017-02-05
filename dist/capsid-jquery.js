@@ -91,7 +91,7 @@
     Object.defineProperty($.fn, 'cc', descriptor);
 
     // Applies jQuery initializer plugin
-    capsid.plugins.push(function (el, coel) {
+    capsid.pluginHooks.push(function (el, coel) {
       coel.$el = $(el);
       coel.elem = coel.$el; // backward compat, will be removed
     });

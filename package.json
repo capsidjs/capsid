@@ -1,6 +1,6 @@
 {
   "name": "capsid",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Class driven component framework",
   "main": "dist/capsid-commonjs.js",
   "unpkg": "dist/capsid.min.js",

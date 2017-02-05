@@ -1,6 +1,6 @@
 ---
-version: 0.3.0
-commit: ":bookmark: chore(version): bump to v%.%.%"
+version: 0.3.1
+commit: ':bookmark: chore(version): bump to v%.%.%'
 files:
   package.json: '"version": "%.%.%"'
   README.md: https://unpkg.com/capsid@%.%.%/dist/capsid.min.js

@@ -251,7 +251,7 @@
   //      
 
 
-  var plugins = [];
+  var pluginHooks = [];
 
   //      
 
@@ -278,8 +278,8 @@
       if (!classList.contains(initClass)) {
         el[COELEMENT_DATA_KEY_PREFIX + name] = coelem = new Constructor();
 
-        plugins.forEach(function (plugin) {
-          plugin(el, coelem);
+        pluginHooks.forEach(function (pluginHook) {
+          pluginHook(el, coelem);
         });
 
         coelem.el = el;
@@ -364,6 +364,6 @@
   exports.init = init;
   exports.__ccc__ = ccc;
   exports.make = make;
-  exports.plugins = plugins;
+  exports.pluginHooks = pluginHooks;
   exports.get = get;
 })(this.capsid = this.capsid || {});
