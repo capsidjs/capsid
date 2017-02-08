@@ -600,3 +600,4 @@ The purpose of capsid is to encapsulate the details of its contents just like ca
 ## Why 'coelement'
 
 `co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` etc. Coelement is the other aspect of `element` and it works together in the 1-to-1 relationship and in the same lifecycle with the element.
+
