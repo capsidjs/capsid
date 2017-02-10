@@ -52,7 +52,7 @@
     "codecov": "^1.0.1",
     "dom-gen": "^2.3.0",
     "eslint-plugin-flowtype": "^2.20.0",
-    "flow-bin": "^0.38.0",
+    "flow-bin": "^0.39.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-rename": "^1.2.2",
