@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, init, get, make, on, emit, component, wire } from '../src'
+import { def, init, get, make, on, emit, component, wire } from '../../'
 
 /**
  * @param {Function} decorator The decorator

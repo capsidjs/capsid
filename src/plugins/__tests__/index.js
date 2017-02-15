@@ -1,4 +1,4 @@
-import { def, prep } from '../../src'
+import { def, prep } from '../../'
 import assert from 'assert'
 import { div } from 'dom-gen'
 

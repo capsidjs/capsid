@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 
-import { def, prep, make, get, init, __ccc__ } from '../src'
+import { def, prep, make, get, init, __ccc__ } from '../'
 
 describe('capsid', () => {
   class Foo {

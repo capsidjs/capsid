@@ -1,4 +1,4 @@
-import camelToKebab from '../../src/util/camel-to-kebab'
+import camelToKebab from '../camel-to-kebab'
 
 const assert = require('assert')
 
