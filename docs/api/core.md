@@ -1,0 +1,105 @@
+# Core APIs
+
+## def
+
+```js
+const { def } = capsid
+
+def(name, constructor)
+```
+
+- @param {string} name - The class name of the component
+- @param {Function} constructor - The constructor of the coelement of the component
+
+`def` registers the given `constructor` as the constructor of the coelement of the class component of the given `name`. The constructor is called when the page is loaded or [prep] is called. The instance of the coelement is attached to the dom at the initialization. The instance of coelement can be obtained by calling `get('the-name-of-component', el)`.
+
+Example:
+
+```html
+<script src="https://unpkg.com/capsid"></script>
+<script>
+class TodoItem {
+
+  __init__ () {
+    // something
+  }
+
+  // etc
+}
+
+capsid.def('todo-item', TodoItem) // TodoItem class is registered as `todo-item` component
+</script>
+
+<!-- This automatically initializes as `todo-item` component -->
+<li class="todo-item"></li>
+```
+
+## prep
+
+```js
+const { prep } = capsid
+
+prep([name], [element])
+```
+
+- @param {string} [name] The class-component name to intialize
+- @param {HTMLElement} [element] The range to initialize
+
+`prep` initializes the components of the given name under the given element based on their class name. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
+
+For example if you have registered `timer` component and added `<span class="timer"></span>` dynamically, and then called `capsid.prep('timer')`, then the `<span>` above becomes timer component.
+
+```js
+$.get('url').then(data => {
+  $('#main').html(data)
+
+  capsid.prep() // This initializes all the appended elements in the page.
+})
+```
+
+Or if you want to initialize only inside the affected element, you can specify the second argument.
+
+```js
+$.get('url').then(data => {
+  $('#main').html(data)
+
+  // This initializes all the components in `#main`
+  capsid.prep(null, document.querySelector('#main'))
+})
+```
+
+And if you know what kind of components are included in the fetched data, then you can specify the first argument.
+
+```js
+$.get('url').then(data => {
+  $('#main').html(data)
+
+  // This initializes only `foo-component`s in `#main`
+  capsid.prep('foo-component', document.querySelector('#main'))
+})
+```
+
+## init
+
+```
+const { init } = capsid
+
+init(name, element)
+```
+
+- @param {string} name The component name to initialize
+- @param {HTMLElement} element The element to initialize
+
+`init` initializes the given element as the component of the given name. The difference from the prop is that `prep` initializes components based on the class names which the elements already have, but `init` force the given element to initialize as a component of the given name. In other word, `init` turns elements into the component, but `prep` doesn't.
+
+```js
+const el = document.createElement('span')
+
+capsid.init('timer', el) // el becomes `timer` component.
+```
+
+The above initializes `el` as `timer` component.
+
+## get
+
+## make

@@ -34,17 +34,17 @@
 * [vs React](basics/react.md)
 
 ### API Reference
-* Core
-  * [def](api/def.md)
-  * [prep](api/prep.md)
-  * [init](api/init.md)
-  * [make](api/make.md)
-  * [get](api/get.md)
-* Decorators
-  * [@on](api/on.md)
-  * [@emit](api/emit.md)
-  * [@wire](api/wire.md)
-  * [@component](api/component.md)
+* [Core](api/core.md)
+  * [def](api/core.md#def)
+  * [prep](api/core.md#prep)
+  * [init](api/core.md#init)
+  * [get](api/core.md#get)
+  * [make](api/core.md#make)
+* [Decorators](api/decorators.md)
+  * [@on](api/decorators.md#on)
+  * [@emit](api/decorators.md#emit)
+  * [@wire](api/decorators.md#wire)
+  * [@component](api/decorators.md#component)
 
 ### Plugins
 * [jQuery plugin](plugins/jquery.md)
