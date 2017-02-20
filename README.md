@@ -280,9 +280,9 @@ class FooBar {} // This registers FooBar class as `foo-bar` component
 `@on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
 ```js
-const { on } = require('capsid')
+const { on } = capsid
 
-class Btn {
+class FooButton {
 
   @on('click')
   onClick (e) {
@@ -290,7 +290,7 @@ class Btn {
   }
 }
 
-capsid.def('btn', Btn)
+capsid.def('foo-btn', FooButton)
 ```
 
 The above binds `onClick` method to its element's 'click' event automatically.
@@ -298,7 +298,7 @@ The above binds `onClick` method to its element's 'click' event automatically.
 The above is equivalent of:
 
 ```js
-class Btn {
+class FooButton {
   __init__ () {
     this.el.addEventListener('click', e => {
       this.onClick(e)
@@ -310,7 +310,7 @@ class Btn {
   }
 }
 
-capsid.def('btn', Btn)
+capsid.def('foo-btn', FooButton)
 ```
 
 ## `@on(name, { at: selector })`
@@ -318,7 +318,7 @@ capsid.def('btn', Btn)
 `@on(name, { at: selector })` is a method decorator. It's similar to `@on`, but it only handles the event from `selector` in the component.
 
 ```js
-const { on, def } = require('capsid')
+const { on } = capsid
 
 class Btn {
   @on('click', { at: '.btn' })
@@ -327,7 +327,7 @@ class Btn {
   }
 }
 
-def('btn', Btn)
+capsid.def('btn', Btn)
 ```
 
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
