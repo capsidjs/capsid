@@ -11,7 +11,7 @@ def(name, constructor)
 - @param {string} name - The class name of the component
 - @param {Function} constructor - The constructor of the coelement of the component
 
-`def` registers the given `constructor` as the constructor of the coelement of the class component of the given `name`. The constructor is called when the page is loaded or [prep] is called. The instance of the coelement is attached to the dom at the initialization. The instance of coelement can be obtained by calling `get('the-name-of-component', el)`.
+`def` registers the given `constructor` as the constructor of the coelement of the component of the given `name`. The constructor is called when the page is loaded or [prep](#prep) is called. The instance of the coelement is attached to the dom at the initialization. The instance of coelement can be obtained by calling [get](#get).
 
 Example:
 
@@ -102,4 +102,43 @@ The above initializes `el` as `timer` component.
 
 ## get
 
+```js
+const { get } = capsid
+
+get(name, element)
+```
+
+- @param {string} name The class-component name to get
+- @param {HTMLElement} element The element
+- @return The coelement instance
+
+`get` gets the [coelement][coelement] instance from the element.
+
+```js
+const timer = capsid.get('timer', dom)
+```
+
+The above gets `Timer` class instance ([coelement][coelement]) from the element. The element needs to be initialized as `timer` component before this call.
+
 ## make
+
+```js
+const { make } = capsid
+
+const instance = make(name, element)
+```
+
+- @param {string} name - The component name to initialize
+- @param {HTMLElement} element - The element to initialize
+
+`make` initializes the element as a component of the given name (the same as `init`) and returns the coelement instance. `make` is just a combination of [init](#init) and [get](#get).
+
+```js
+const el = document.createElement('span')
+
+const timer = make('timer', el)
+```
+
+In the above, el becames timer and it returns the coelement instance.
+
+[coelement]: ../guides/component.md
