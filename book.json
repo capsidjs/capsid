@@ -1,5 +1,5 @@
 {
   "root": "docs",
   "title": "Capsid Document",
-  "plugins": ["anchorjs", "advanced-emoji"]
+  "plugins": ["anchorjs"]
 }
