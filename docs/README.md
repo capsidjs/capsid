@@ -1,9 +1,9 @@
-# <img src="http://kt3k.github.io/capsid/asset/capsid.svg" />
+# <img src="http://capsidjs.github.io/capsid/asset/capsid.svg" />
 
-[![Circle CI](https://circleci.com/gh/kt3k/capsid.svg?style=svg)](https://circleci.com/gh/kt3k/capsid)
-[![codecov.io](https://codecov.io/github/kt3k/capsid/coverage.svg?branch=master)](https://codecov.io/github/kt3k/capsid?branch=master)
+[![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/capsidjs/capsid)
+[![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![bitHound Overall Score](https://www.bithound.io/github/kt3k/capsid/badges/score.svg)](https://www.bithound.io/github/kt3k/capsid)
+[![bitHound Overall Score](https://www.bithound.io/github/capsidjs/capsid/badges/score.svg)](https://www.bithound.io/github/capsidjs/capsid)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 > Class driven component framework

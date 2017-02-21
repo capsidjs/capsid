@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kt3k/capsid.git"
+    "url": "git://github.com/capsidjs/capsid.git"
   },
   "keywords": [
     "dom",
@@ -37,9 +37,9 @@
   "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kt3k/capsid/issues"
+    "url": "https://github.com/capsidjs/capsid/issues"
   },
-  "homepage": "https://github.com/kt3k/capsid",
+  "homepage": "https://github.com/capsidjs/capsid",
   "devDependencies": {
     "babel-eslint": "^7.0.0",
     "babel-plugin-espower": "^2.2.0",
