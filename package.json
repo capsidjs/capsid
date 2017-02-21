@@ -6,7 +6,7 @@
   "unpkg": "dist/capsid.min.js",
   "scripts": {
     "clean": "rimraf coverage dist/*",
-    "book": "gitbook build",
+    "book": "gitbook build docs book",
     "lint": "standard",
     "flow": "flow",
     "test": "karma start",
