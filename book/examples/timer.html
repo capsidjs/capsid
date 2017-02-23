@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Nesting components · GitBook</title>
+        <title>Timer · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="siblings.html" />
+    <link rel="next" href="counter.md" />
     
     
 
@@ -155,9 +155,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="define.html">
+        <li class="chapter " data-level="2.1.1" data-path="../guides/define.html">
             
-                <a href="define.html">
+                <a href="../guides/define.html">
             
                     
                     Define components
@@ -168,9 +168,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" data-path="use.html">
+        <li class="chapter " data-level="2.1.2" data-path="../guides/use.html">
             
-                <a href="use.html">
+                <a href="../guides/use.html">
             
                     
                     Use components
@@ -181,9 +181,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.3" data-path="create.html">
+        <li class="chapter " data-level="2.1.3" data-path="../guides/create.html">
             
-                <a href="create.html">
+                <a href="../guides/create.html">
             
                     
                     Create components dynamically
@@ -194,9 +194,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.4" data-path="get.html">
+        <li class="chapter " data-level="2.1.4" data-path="../guides/get.html">
             
-                <a href="get.html">
+                <a href="../guides/get.html">
             
                     
                     Get components dynamically
@@ -207,9 +207,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.5" data-path="event.html">
+        <li class="chapter " data-level="2.1.5" data-path="../guides/event.html">
             
-                <a href="event.html">
+                <a href="../guides/event.html">
             
                     
                     Event handling
@@ -239,9 +239,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="2.2.1" data-path="nesting.html">
+        <li class="chapter " data-level="2.2.1" data-path="../guides/nesting.html">
             
-                <a href="nesting.html">
+                <a href="../guides/nesting.html">
             
                     
                     Nesting components
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2" data-path="siblings.html">
+        <li class="chapter " data-level="2.2.2" data-path="../guides/siblings.html">
             
-                <a href="siblings.html">
+                <a href="../guides/siblings.html">
             
                     
                     Interaction with siblings
@@ -291,9 +291,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="../examples/timer.html">
+        <li class="chapter active" data-level="3.1.1" data-path="timer.html">
             
-                <a href="../examples/timer.html">
+                <a href="timer.html">
             
                     
                     Timer
@@ -304,7 +304,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../examples/counter.md">
+        <li class="chapter " data-level="3.1.2" data-path="counter.md">
             
                 <span>
             
@@ -317,7 +317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="../examples/toggle.md">
+        <li class="chapter " data-level="3.1.3" data-path="toggle.md">
             
                 <span>
             
@@ -330,7 +330,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../examples/modal.md">
+        <li class="chapter " data-level="3.1.4" data-path="modal.md">
             
                 <span>
             
@@ -362,7 +362,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.2.1" data-path="../examples/youtube.md">
+        <li class="chapter " data-level="3.2.1" data-path="youtube.md">
             
                 <span>
             
@@ -375,7 +375,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2.2" data-path="../examples/todo.md">
+        <li class="chapter " data-level="3.2.2" data-path="todo.md">
             
                 <span>
             
@@ -697,7 +697,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Nesting components</a>
+        <a href=".." >Timer</a>
     </h1>
 </div>
 
@@ -712,7 +712,46 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="nesting-components">Nesting components</h1>
+                                <h1 id="the-timer">The timer</h1>
+<p>The timer example:</p>
+<p>timer.js:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/capsid.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Timer</span> </span>{
+  __init__ () {
+    <span class="hljs-keyword">this</span>.secondsElapsed = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">this</span>.start()
+  }
+
+  <span class="hljs-comment">/**
+   * Starts the timer.
+   */</span>
+  start () {
+    <span class="hljs-keyword">this</span>.interval = setInterval(() =&gt; { <span class="hljs-keyword">this</span>.tick() }, <span class="hljs-number">1000</span>)
+  }
+
+  <span class="hljs-comment">/**
+   * Ticks the timer.
+   */</span>
+  tick () {
+    <span class="hljs-keyword">this</span>.secondsElapsed++
+    <span class="hljs-keyword">this</span>.el.textContent = <span class="hljs-string">`Seconds Elapsed: <span class="hljs-subst">${this.secondsElapsed}</span>`</span>
+  }
+
+  <span class="hljs-comment">/**
+   * Stops the timer.
+   */</span>
+  stop () {
+    clearInterval(<span class="hljs-keyword">this</span>.interval)
+  }
+}
+
+capsid.def(<span class="hljs-string">&apos;timer&apos;</span>, Timer)
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>See <a href="https://capsidjs.github.io/capsid/demo/timer.html" target="_blank">the working demo</a>.</p>
 
                                 
                                 </section>
@@ -741,7 +780,7 @@
             
                 
                 
-                <a href="siblings.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Interaction with siblings">
+                <a href="counter.md" class="navigation navigation-next navigation-unique" aria-label="Next page: Counter">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -752,7 +791,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Nesting components","level":"2.2.1","depth":2,"next":{"title":"Interaction with siblings","level":"2.2.2","depth":2,"path":"guides/siblings.md","ref":"guides/siblings.md","articles":[]},"previous":{"title":"Advanced","level":"2.2","depth":1,"ref":"","articles":[{"title":"Nesting components","level":"2.2.1","depth":2,"path":"guides/nesting.md","ref":"guides/nesting.md","articles":[]},{"title":"Interaction with siblings","level":"2.2.2","depth":2,"path":"guides/siblings.md","ref":"guides/siblings.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/nesting.md","mtime":"2017-02-20T04:10:07.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-23T05:15:10.353Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Timer","level":"3.1.1","depth":2,"next":{"title":"Counter","level":"3.1.2","depth":2,"path":"examples/counter.md","ref":"examples/counter.md","articles":[]},"previous":{"title":"Basic","level":"3.1","depth":1,"ref":"","articles":[{"title":"Timer","level":"3.1.1","depth":2,"path":"examples/timer.md","ref":"examples/timer.md","articles":[]},{"title":"Counter","level":"3.1.2","depth":2,"path":"examples/counter.md","ref":"examples/counter.md","articles":[]},{"title":"Toggle Button","level":"3.1.3","depth":2,"path":"examples/toggle.md","ref":"examples/toggle.md","articles":[]},{"title":"Modal","level":"3.1.4","depth":2,"path":"examples/modal.md","ref":"examples/modal.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"examples/timer.md","mtime":"2017-02-23T05:14:30.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-23T05:15:10.353Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
