@@ -256,6 +256,34 @@
   //      
 
   /**
+   * Initialize component.
+   * @param Constructor The coelement class
+   * @param el The element
+   * @return The created coelement instance
+   */
+  var initComponent = function initComponent(Constructor, el) {
+    var coelem = new Constructor();
+
+    pluginHooks.forEach(function (pluginHook) {
+      pluginHook(el, coelem);
+    });
+
+    coelem.el = el;
+
+    if (typeof coelem.__init__ === 'function') {
+      coelem.__init__();
+    }
+
+    (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
+      listenerBinder(el, coelem);
+    });
+
+    return coelem;
+  };
+
+  //      
+
+  /**
    * Registers the class-component for the given name and constructor and returns the constructor.
    * @param name The component name
    * @param Constructor The constructor of the class component
@@ -276,21 +304,7 @@
       var classList = el.classList;
 
       if (!classList.contains(initClass)) {
-        el[COELEMENT_DATA_KEY_PREFIX + name] = coelem = new Constructor();
-
-        pluginHooks.forEach(function (pluginHook) {
-          pluginHook(el, coelem);
-        });
-
-        coelem.el = el;
-
-        if (typeof coelem.__init__ === 'function') {
-          coelem.__init__();
-        }
-
-        (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
-          listenerBinder(el, coelem);
-        });
+        el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el);
 
         classList.add(name, initClass);
       }
@@ -362,6 +376,7 @@
   exports.def = def;
   exports.prep = prep;
   exports.init = init;
+  exports.initComponent = initComponent;
   exports.__ccc__ = ccc;
   exports.make = make;
   exports.pluginHooks = pluginHooks;
