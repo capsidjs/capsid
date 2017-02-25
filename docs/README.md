@@ -1,4 +1,4 @@
-# <img src="http://capsidjs.github.io/capsid/asset/capsid.svg" />
+# <img src="asset/capsid.svg" />
 
 [![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/capsidjs/capsid)
 [![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
