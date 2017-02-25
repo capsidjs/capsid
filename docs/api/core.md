@@ -100,6 +100,22 @@ capsid.init('timer', el) // el becomes `timer` component.
 
 The above initializes `el` as `timer` component.
 
+## initComponent
+
+- @param {Function} constructor The constructor which is used as a coelement constructor
+- @param {HTMLElement} el The element to initialize
+- @return {Object} created coelement instance
+
+This is low level API.
+
+`initComponent` initializes the given element by the given constructor, but it doesn't require class name and doesn't append 'name'`-initialized` class.
+
+```js
+const coelem = capsid.initComponent(LocalComponent, el)
+
+coelem.something()
+```
+
 ## get
 
 ```js

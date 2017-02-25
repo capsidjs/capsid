@@ -2,11 +2,11 @@
 
 import ccc from './ccc.js'
 import prep from './prep.js'
-import pluginHooks from './plugin-hooks.js'
+import initComponent from './init-component.js'
 
 import check from './util/check.js'
 import { ready } from './util/document'
-import { COELEMENT_DATA_KEY_PREFIX, KEY_EVENT_LISTENERS } from './util/const.js'
+import { COELEMENT_DATA_KEY_PREFIX } from './util/const.js'
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -29,21 +29,7 @@ const def = (name: string, Constructor: Function) => {
     const classList = el.classList
 
     if (!classList.contains(initClass)) {
-      (el: any)[COELEMENT_DATA_KEY_PREFIX + name] = coelem = new Constructor()
-
-      pluginHooks.forEach(pluginHook => {
-        pluginHook(el, coelem)
-      })
-
-      coelem.el = el
-
-      if (typeof coelem.__init__ === 'function') {
-        coelem.__init__()
-      }
-
-      (Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
-        listenerBinder(el, coelem)
-      })
+      (el: any)[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el)
 
       classList.add(name, initClass)
     }
