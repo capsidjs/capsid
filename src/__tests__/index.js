@@ -1,7 +1,8 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 
-import { def, prep, make, get, init, __ccc__ } from '../'
+import * as capsid from '../index.js'
+const { def, prep, make, get, init, initComponent, __ccc__ } = capsid
 
 describe('capsid', () => {
   class Foo {
@@ -67,16 +68,24 @@ describe('capsid', () => {
       assert(coelem.$el[0] === $el[0])
     })
 
-    it('sets coelement.el as the corresponding dom', () => {
+    it('sets the dom to coele.el', () => {
       class Class3 {}
 
       def('elem-test-3', Class3)
 
-      const dom = div()[0]
+      const el = document.createElement('div')
 
-      init('elem-test-3', dom)
+      init('elem-test-3', el)
 
-      assert(get('elem-test-3', dom).el === dom)
+      assert(get('elem-test-3', el).el === el)
+    })
+
+    it('sets capsid to coelem.capsid', () => {
+      const el = document.createElement('div')
+
+      const coelem = initComponent(class A {}, el)
+
+      assert(coelem.capsid, capsid)
     })
   })
 

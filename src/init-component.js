@@ -1,6 +1,7 @@
 // @flow
 
-import pluginHooks from './plugin-hooks'
+import * as capsid from './index.js'
+import pluginHooks from './plugin-hooks.js'
 import { KEY_EVENT_LISTENERS } from './util/const.js'
 
 /**
@@ -17,6 +18,7 @@ export default (Constructor: Function, el: HTMLElement): any => {
   })
 
   coelem.el = el
+  coelem.capsid = capsid
 
   if (typeof coelem.__init__ === 'function') {
     coelem.__init__()
