@@ -261,7 +261,7 @@ var pluginHooks = [];
  * @param el The element
  * @return The created coelement instance
  */
-var initComponent = function initComponent(Constructor, el) {
+var initComponent$$1 = function initComponent$$1(Constructor, el) {
   var coelem = new Constructor();
 
   pluginHooks.forEach(function (pluginHook) {
@@ -269,6 +269,7 @@ var initComponent = function initComponent(Constructor, el) {
   });
 
   coelem.el = el;
+  coelem.capsid = capsid;
 
   if (typeof coelem.__init__ === 'function') {
     coelem.__init__();
@@ -304,7 +305,7 @@ var def = function def(name, Constructor) {
     var classList = el.classList;
 
     if (!classList.contains(initClass)) {
-      el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el);
+      el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent$$1(Constructor, el);
 
       classList.add(name, initClass);
     }
@@ -367,7 +368,23 @@ var make = function make(name, elm) {
   return get(name, elm);
 };
 
-//
+//      
+
+
+var capsid = Object.freeze({
+  on: on,
+  emit: emit,
+  wire: wire,
+  component: component,
+  def: def,
+  prep: prep,
+  init: init,
+  initComponent: initComponent$$1,
+  __ccc__: ccc,
+  make: make,
+  pluginHooks: pluginHooks,
+  get: get
+});
 
 exports.on = on;
 exports.emit = emit;
@@ -376,7 +393,7 @@ exports.component = component;
 exports.def = def;
 exports.prep = prep;
 exports.init = init;
-exports.initComponent = initComponent;
+exports.initComponent = initComponent$$1;
 exports.__ccc__ = ccc;
 exports.make = make;
 exports.pluginHooks = pluginHooks;
