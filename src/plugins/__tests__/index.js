@@ -2,6 +2,23 @@ import { def, prep } from '../../'
 import assert from 'assert'
 import { div } from 'dom-gen'
 
+describe('jquery plugin', () => {
+  it('sets coelement.$el as the base jquery element', () => {
+    class Class2 {}
+
+    def('elem-test', Class2)
+
+    const $el = div().addClass('elem-test').appendTo('body')
+
+    prep('elem-test')
+
+    const coelem = $el.cc.get('elem-test')
+
+    assert(coelem.$el.length === 1)
+    assert(coelem.$el[0] === $el[0])
+  })
+})
+
 describe('$dom.cc', () => {
   class Spam {
     __init__ () {

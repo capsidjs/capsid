@@ -1,3 +1,4 @@
+import * as capsid from '../index.js'
 import initComponent from '../init-component'
 import assert from 'power-assert'
 
@@ -10,5 +11,6 @@ describe('initComponent', () => {
 
     assert(coelem instanceof A)
     assert.strictEqual(coelem.el, el)
+    assert.strictEqual(coelem.capsid, capsid)
   })
 })
