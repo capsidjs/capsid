@@ -2,7 +2,8 @@
 
 import * as capsid from './index.js'
 import pluginHooks from './plugin-hooks.js'
-import { KEY_EVENT_LISTENERS } from './util/const.js'
+import initConstructor from './init-constructor.js'
+import { KEY_EVENT_LISTENERS, INITIALIZED_KEY } from './util/const.js'
 
 /**
  * Initialize component.
@@ -11,6 +12,10 @@ import { KEY_EVENT_LISTENERS } from './util/const.js'
  * @return The created coelement instance
  */
 export default (Constructor: Function, el: HTMLElement): any => {
+  if (!Constructor[INITIALIZED_KEY]) {
+    initConstructor(Constructor)
+  }
+
   const coelem = new Constructor()
 
   pluginHooks.forEach(pluginHook => {

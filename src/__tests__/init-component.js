@@ -13,4 +13,26 @@ describe('initComponent', () => {
     assert.strictEqual(coelem.el, el)
     assert.strictEqual(coelem.capsid, capsid)
   })
+
+  it('calls __init__', done => {
+    class A {
+      __init__ () {
+        done()
+      }
+    }
+
+    initComponent(A, document.createElement('div'))
+  })
+
+  it('calls static __init__', done => {
+    class A {
+      static __init__ (cap) {
+        assert.strictEqual(cap, capsid)
+
+        done()
+      }
+    }
+
+    initComponent(A, document.createElement('div'))
+  })
 })
