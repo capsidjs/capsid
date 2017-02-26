@@ -5,6 +5,7 @@
 
   var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
   var KEY_EVENT_LISTENERS = '__cc_listeners__';
+  var INITIALIZED_KEY = '__cc_initialized__';
 
   //      
   /**
@@ -255,6 +256,16 @@
 
   //      
 
+  var initConstructor = function initConstructor(constructor) {
+    constructor[INITIALIZED_KEY] = true;
+
+    if (typeof constructor.__init__ === 'function') {
+      constructor.__init__(capsid);
+    }
+  };
+
+  //      
+
   /**
    * Initialize component.
    * @param Constructor The coelement class
@@ -262,6 +273,10 @@
    * @return The created coelement instance
    */
   var initComponent$$1 = function initComponent$$1(Constructor, el) {
+    if (!Constructor[INITIALIZED_KEY]) {
+      initConstructor(Constructor);
+    }
+
     var coelem = new Constructor();
 
     pluginHooks.forEach(function (pluginHook) {

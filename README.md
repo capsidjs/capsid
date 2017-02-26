@@ -134,7 +134,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.5.0/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.6.0/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -548,6 +548,7 @@ TBD
 MIT
 
 # History
+- 2017-02-26   v0.6.0   static __init__ rule.
 - 2017-02-25   v0.5.0   coelem.capsid, initComponent APIs.
 - 2017-01-19   v0.3.0   API reorganization.
 - 2017-01-19   v0.2.2   Rename to capsid.
