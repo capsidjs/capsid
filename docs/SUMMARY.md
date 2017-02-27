@@ -24,7 +24,7 @@
   * [Modal](examples/modal.md)
 * Advanced
   * [Youtube list](examples/youtube.md)
-  * [TodoList](examples/todo.md)
+  * [TodoList](examples/todo-list.md)
 
 ### Basics
 * [Component and Coelement](basics/component.md)
@@ -50,4 +50,4 @@
 * [Umbrella plugin](plugins/umbrella.md)
 
 ### Testing Guide
-* [Unit testing with karma](testing/karma.md)
+* [Unit Testing with karma](testing/karma.md)
