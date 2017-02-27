@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf coverage dist/*",
     "book": "gitbook build",
-    "gh-pages": "gh-pages -d _book",
+    "gh-pages": "gh-pages -o hub -d _book",
     "lint": "standard",
     "flow": "flow",
     "test": "karma start",
