@@ -790,6 +790,18 @@ init(name, element)
 capsid.init(<span class="hljs-string">&apos;timer&apos;</span>, el) <span class="hljs-comment">// el becomes `timer` component.</span>
 </code></pre>
 <p>The above initializes <code>el</code> as <code>timer</code> component.</p>
+<h2 id="initcomponent">initComponent</h2>
+<ul>
+<li>@param {Function} constructor The constructor which is used as a coelement constructor</li>
+<li>@param {HTMLElement} el The element to initialize</li>
+<li>@return {Object} created coelement instance</li>
+</ul>
+<p>This is low level API.</p>
+<p><code>initComponent</code> initializes the given element by the given constructor, but it doesn&apos;t require class name and doesn&apos;t append &apos;name&apos;<code>-initialized</code> class.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> coelem = capsid.initComponent(LocalComponent, el)
+
+coelem.something()
+</code></pre>
 <h2 id="get">get</h2>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> { get } = capsid
 
@@ -862,7 +874,7 @@ get(name, element)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Core","level":"5.1","depth":1,"next":{"title":"def","level":"5.1.1","depth":2,"anchor":"#def","path":"api/core.md","ref":"api/core.md#def","articles":[]},"previous":{"title":"vs React & Flux","level":"4.4","depth":1,"path":"basics/react.md","ref":"basics/react.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"api/core.md","mtime":"2017-02-20T11:32:25.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-23T06:08:58.920Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Core","level":"5.1","depth":1,"next":{"title":"def","level":"5.1.1","depth":2,"anchor":"#def","path":"api/core.md","ref":"api/core.md#def","articles":[]},"previous":{"title":"vs React & Flux","level":"4.4","depth":1,"path":"basics/react.md","ref":"basics/react.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"api/core.md","mtime":"2017-02-25T09:23:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-27T00:55:59.763Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
