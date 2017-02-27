@@ -8,10 +8,9 @@
 ### Guides
 * Basic
   * [Define components](guides/define.md)
-  * [Use components](guides/use.md)
+  * [Event handling](guides/event.md)
   * [Create components dynamically](guides/create.md)
   * [Get components dynamically](guides/get.md)
-  * [Event handling](guides/event.md)
 * Advanced
   * [Nesting components](guides/nesting.md)
   * [Interaction with siblings](guides/siblings.md)
