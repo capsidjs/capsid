@@ -11,23 +11,26 @@ describe('initComponent', () => {
 
     assert(coelem instanceof A)
     assert.strictEqual(coelem.el, el)
-    assert.strictEqual(coelem.capsid, capsid)
   })
 
   it('calls __init__', done => {
     class A {
       __init__ () {
+        assert.strictEqual(this.el, el)
+
         done()
       }
     }
 
-    initComponent(A, document.createElement('div'))
+    const el = document.createElement('div')
+
+    initComponent(A, el)
   })
 
   it('calls static __init__', done => {
     class A {
-      static __init__ (cap) {
-        assert.strictEqual(cap, capsid)
+      static __init__ () {
+        assert.strictEqual(this.capsid, capsid)
 
         done()
       }
