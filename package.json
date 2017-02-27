@@ -5,7 +5,7 @@
   "main": "dist/capsid-commonjs.js",
   "unpkg": "dist/capsid.min.js",
   "scripts": {
-    "clean": "rimraf coverage dist/*",
+    "clean": "rimraf _book coverage dist/*",
     "book": "gitbook serve",
     "gh-pages": "gitbook build && gh-pages -o hub -d _book",
     "lint": "standard",
