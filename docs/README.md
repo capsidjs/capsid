@@ -20,7 +20,7 @@
 
 ### Install
 
-Download [https://unpkg.com/capsid@0.6.0](https://unpkg.com/capsid@0.3.1) and load it in the page:
+Download [https://unpkg.com/capsid@0.7.0](https://unpkg.com/capsid@0.3.1) and load it in the page:
 
 ```html
 <script src="path/to/capsid"></script>
