@@ -157,4 +157,4 @@ const timer = make('timer', el)
 
 In the above, el becames timer and it returns the coelement instance.
 
-[coelement]: ../guides/component.md
+[coelement]: ../basics/component.md
