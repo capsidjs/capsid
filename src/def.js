@@ -29,9 +29,9 @@ const def = (name: string, Constructor: Function) => {
     const classList = el.classList
 
     if (!classList.contains(initClass)) {
-      (el: any)[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el)
-
       classList.add(name, initClass)
+
+      ;(el: any)[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el)
     }
   }
 
