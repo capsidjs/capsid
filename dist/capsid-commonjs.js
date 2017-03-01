@@ -321,9 +321,7 @@ var def = function def(name, Constructor) {
     var classList = el.classList;
 
     if (!classList.contains(initClass)) {
-      el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent$$1(Constructor, el);
-
-      classList.add(name, initClass);
+      classList.add(name, initClass);el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent$$1(Constructor, el);
     }
   };
 
