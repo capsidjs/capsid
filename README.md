@@ -19,7 +19,7 @@
 - It's an **UI framework**.
 - Works well with **real** DOM APIs. Plays nice with `jQuery` or `Umbrella`.
 - **no virtual dom, no template, no rendering**
-- **small APIs**: 5 apis & 4 decorators
+- **small APIs**: 6 apis & 4 decorators
 - **small size**: **1.2KB** gzipped
 
 # The timer
@@ -39,24 +39,18 @@ class Timer {
     this.start()
   }
 
-  /**
-   * Starts the timer.
-   */
+  // Starts the timer
   start () {
     this.interval = setInterval(() => { this.tick() }, 1000)
   }
 
-  /**
-   * Ticks the timer.
-   */
+  // Ticks the timer
   tick () {
     this.secondsElapsed++
     this.el.textContent = `Seconds Elapsed: ${this.secondsElapsed}`
   }
 
-  /**
-   * Stops the timer.
-   */
+  // Stops the timer
   stop () {
     clearInterval(this.interval)
   }

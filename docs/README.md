@@ -15,7 +15,7 @@
 - It's an **UI framework**.
 - Works well with **real** DOM APIs. Plays nice with `jQuery` or `Umbrella`.
 - **no virtual dom, no template, no rendering**
-- **small APIs**: 5 apis & 4 decorators
+- **small APIs**: 6 apis & 4 decorators
 - **small size**: **1.2KB** gzipped
 
 ### Install
