@@ -1,6 +1,6 @@
 # Event handling
 
-In Capsid, you can declare component's event handling using [@on](../api/decorators.md#on)
+In Capsid, you can declare component's event handling using [@on](../api/decorators.md#on) decorator.
 
 ```js
 class TodoList {
@@ -34,5 +34,3 @@ class TodoList {
 ```
 
 In the above, you declare 4 event handlers which react against `todo-added`, `todo-deleted`, `todo-completed` and `todo-uncompleted`.
-
-TBD
