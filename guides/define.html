@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="use.html" />
+    <link rel="next" href="event.html" />
     
     
 
@@ -168,12 +168,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" data-path="use.html">
+        <li class="chapter " data-level="2.1.2" data-path="event.html">
             
-                <a href="use.html">
+                <a href="event.html">
             
                     
-                    Use components
+                    Event handling
             
                 </a>
             
@@ -200,19 +200,6 @@
             
                     
                     Get components dynamically
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.1.5" data-path="event.html">
-            
-                <a href="event.html">
-            
-                    
-                    Event handling
             
                 </a>
             
@@ -733,7 +720,9 @@ capsid.def(&apos;hello&apos;, Hello)
 <p>The above results</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hello hello-initialized&quot;</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
-<p>As you can see, <code>&lt;span class=&quot;hello&quot;&gt;&lt;/span&gt;</code> automatically becomes &apos;hello&apos; component in this case and Hello class&apos;s <code>__init__</code> method is automatically called. In Hello class, <code>this</code> has <code>el</code> property and it points to the mounted dom element, in this case, <code>&lt;span&gt;</code> element.</p>
+<p>In the above, <code>&lt;span class=&quot;hello&quot;&gt;&lt;/span&gt;</code> automatically becomes &apos;hello&apos; component and Hello&apos;s <code>__init__</code> method is automatically called. In Hello class, <code>this</code> has <code>el</code> property and it points to the mounted dom element, in this case, <code>&lt;span&gt;</code> element.</p>
+<p>So you can iteract with el (= <code>&lt;span&gt;</code>), and in this case, <code>this.el.textContent = &apos;Hello, world!&apos;</code> which inserts the text in <code>&lt;span&gt;</code>, and therefore the above result comes.</p>
+<p>That&apos;s the very basic idea of Capsid!</p>
 
                                 
                                 </section>
@@ -762,7 +751,7 @@ capsid.def(&apos;hello&apos;, Hello)
             
                 
                 
-                <a href="use.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Use components">
+                <a href="event.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Event handling">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -773,7 +762,7 @@ capsid.def(&apos;hello&apos;, Hello)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Define components","level":"2.1.1","depth":2,"next":{"title":"Use components","level":"2.1.2","depth":2,"path":"guides/use.md","ref":"guides/use.md","articles":[]},"previous":{"title":"Basic","level":"2.1","depth":1,"ref":"","articles":[{"title":"Define components","level":"2.1.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},{"title":"Use components","level":"2.1.2","depth":2,"path":"guides/use.md","ref":"guides/use.md","articles":[]},{"title":"Create components dynamically","level":"2.1.3","depth":2,"path":"guides/create.md","ref":"guides/create.md","articles":[]},{"title":"Get components dynamically","level":"2.1.4","depth":2,"path":"guides/get.md","ref":"guides/get.md","articles":[]},{"title":"Event handling","level":"2.1.5","depth":2,"path":"guides/event.md","ref":"guides/event.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"guides/define.md","mtime":"2017-02-27T04:49:03.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-27T05:15:35.934Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Define components","level":"2.1.1","depth":2,"next":{"title":"Event handling","level":"2.1.2","depth":2,"path":"guides/event.md","ref":"guides/event.md","articles":[]},"previous":{"title":"Basic","level":"2.1","depth":1,"ref":"","articles":[{"title":"Define components","level":"2.1.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},{"title":"Event handling","level":"2.1.2","depth":2,"path":"guides/event.md","ref":"guides/event.md","articles":[]},{"title":"Create components dynamically","level":"2.1.3","depth":2,"path":"guides/create.md","ref":"guides/create.md","articles":[]},{"title":"Get components dynamically","level":"2.1.4","depth":2,"path":"guides/get.md","ref":"guides/get.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"guides/define.md","mtime":"2017-02-27T05:32:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-12T13:45:30.271Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

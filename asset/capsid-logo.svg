@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>faviconlogo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0E1963" offset="0%"></stop>
+            <stop stop-color="#050923" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo-for-export" transform="translate(-644.000000, -837.000000)" fill="url(#linearGradient-1)">
+            <path d="M679,837 C698.329966,837 714,852.670034 714,872 C714,891.329966 698.329966,907 679,907 C659.670034,907 644,891.329966 644,872 C644,852.670034 659.670034,837 679,837 Z M668.79125,853.321865 L668.729098,853.214216 C658.626596,859.08563 655.173637,872.028805 661.019934,882.154887 C666.841306,892.237799 679.691661,895.732404 689.808083,890.022735 L689.808084,890.022735 C689.851462,889.998484 689.894741,889.973896 689.937917,889.948968 C694.995065,887.029223 696.727771,880.562673 693.808026,875.505525 C690.88828,870.448378 684.421731,868.715671 679.364583,871.635417 C674.307436,874.555162 667.840886,872.822455 664.921141,867.765308 C662.001395,862.70816 663.734102,856.241611 668.79125,853.321865 L668.79125,853.321865 Z" id="logo"></path>
+        </g>
+    </g>
+</svg>
