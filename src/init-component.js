@@ -23,7 +23,6 @@ export default (Constructor: Function, el: HTMLElement): any => {
   })
 
   coelem.el = el
-  coelem.capsid = capsid
 
   if (typeof coelem.__init__ === 'function') {
     coelem.__init__()
