@@ -258,8 +258,11 @@
 
   var initConstructor = function initConstructor(constructor) {
     constructor[INITIALIZED_KEY] = true;
+
+    // Expose capsid here
     constructor.capsid = capsid;
 
+    // If the constructor has the static __init__, then calls it.
     if (typeof constructor.__init__ === 'function') {
       constructor.__init__();
     }
@@ -285,7 +288,6 @@
     });
 
     coelem.el = el;
-    coelem.capsid = capsid;
 
     if (typeof coelem.__init__ === 'function') {
       coelem.__init__();
