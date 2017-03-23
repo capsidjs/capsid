@@ -64,55 +64,7 @@ See [the working demo](https://capsidjs.github.io/capsid/demo/timer.html).
 
 # The concept
 
-A `class-component` (or capsid component) is a combination of `element` and `coelement`:
-
-![diagram-1](http://capsidjs.github.io/capsid/asset/diagram-1.svg)
-
-where:
-
-- `element` is the usual dom element.
-  - `<span class="timer"></span>` in the timer example
-- `coelement` is JavaScript class which defines the behaviour of the special functions of the class-component.
-  - `class Timer {...}` in the timer example.
-
-`capsid` is responsible for the transition from the usual dom to a `class-component`.
-
-![diagram-2](http://capsidjs.github.io/capsid/asset/diagram-2.svg)
-
-## Register your class-component
-
-You can register the class-component of the given name like this:
-
-```js
-capsid.def('component-name', ComponentClass)
-```
-
-By the above call, dom elements which have `class="component-name"` are automatically initialized with ComponentClass.
-
-## What happens when a class-component is *initialized*
-
-The followings are exact steps when a class-component is initialized.
-
-```js
-const coelem = new ComponentClass() // The constructor is called with the element.
-
-// Sets the element to the coelement
-coelem.el = el
-
-// Adds event listeners
-el.addEventListener(givenEvent, givenListener) // for each event/listener pair
-
-// Adds initialized mark
-el.classList.add(`${componentName}-initialized`) // The element is marked `initialized`.
-
-el['__coelement:' + componentName] = coelem // The coelement is stored in the element.
-```
-
-where `el` is the dom element which is initialized, `ComponentClass` is the registered coelement class and `componentName` is the registered component name.
-
-## `this.el`
-
-`this.el` is HTMLElement which is associated with the coelement.
+See [Component and Coelement](http://capsidjs.github.io/capsid/basics/component.html) section of the document.
 
 # :cd: Install
 
