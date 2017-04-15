@@ -12,13 +12,12 @@
 
 ### The target users
 
-The target audience of `capsid` is someone who:
+`capsid` is a tool for someone who:
 
-- Wants to organize their code in component-based way.
-- Doesn't want to use virtual dom based solutions like React.
-- Doesn't mind to call native Dom APIs for modifying the dom tree.
+- wants to organize your code in **component-based** way.
+- does **not** want to use **virtual-dom based** solutions like React, Vue etc.
 
-If the above applies, `capsid` is a tool for you.
+If the above two apply to you, then `capsid` is a tool for you!
 
 ### Basic features
 
