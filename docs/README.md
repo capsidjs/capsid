@@ -8,9 +8,17 @@
 
 > Class driven component framework
 
-`capsid` is an UI framework for browsers. It encourages the use of real dom programming and helps component-based encapsulation of behaviors of apps.
+`capsid` is an UI framework for browsers. It helps organizing your JavaScript code in component-based programming style.
 
-`capsid` is an UI framework for browsers. It helps the component based coding style with
+### The target users
+
+The target audience of `capsid` is someone who:
+
+- Wants to organize their code in component-based way.
+- Doesn't want to use virtual dom based solutions like React.
+- Doesn't mind to call native Dom APIs for modifying the dom tree.
+
+If the above applies, `capsid` is a tool for you.
 
 ### Basic features
 
@@ -59,4 +67,4 @@ def('hello', HelloWorld)
 
 ### License
 
-MIT
+MIT License
