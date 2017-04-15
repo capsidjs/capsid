@@ -702,35 +702,35 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="event-handling">Event handling</h1>
-<p>In Capsid, you can declare component&apos;s event handling using <a href="../api/decorators.html#on">@on</a> decorator.</p>
-<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> </span>{
-
-  @on(<span class="hljs-string">&apos;todo-added&apos;</span>) onTodoAdded (e) {
-    <span class="hljs-keyword">const</span> todo = e.detail.todo
-    <span class="hljs-comment">// ...</span>
+<p>In Capsid, you can declare component&apos;s event handlers using <a href="../api/decorators.html#on">@on</a> decorator.</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyButton</span> </span>{
+  @on(<span class="hljs-string">&apos;click&apos;</span>)
+  onClick (e) {
+    alert(<span class="hljs-string">&apos;clicked!&apos;</span>)
   }
+}
 
-  @on(<span class="hljs-string">&apos;todo-deleted&apos;</span>) onTodoDeleted (e) {
-    <span class="hljs-keyword">const</span> todo = e.detail.todo
-    <span class="hljs-comment">// ...</span>
-  }
-
-  @on(<span class="hljs-string">&apos;todo-completed&apos;</span>) onTodoCompleted (e) {
-    <span class="hljs-keyword">const</span> todo = e.detail.todo
-    <span class="hljs-comment">// ...</span>
-  }
-
-  @on(<span class="hljs-string">&apos;todo-uncompleted&apos;</span>) onTodoCompleted (e) {
-    <span class="hljs-keyword">const</span> todo = e.detail.todo
-    <span class="hljs-comment">// ...</span>
-  }
-
+capsid.def(<span class="hljs-string">&apos;my-button&apos;</span>, MyButton)
+</code></pre>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;my-button&quot;</span>&gt;</span>BUTTON<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+<p><a href="https://capsidjs.github.io/capsid/demo/my-button.html" target="_blank">See the working example</a>.</p>
+<p><code>@on(&apos;click&apos;)</code> declares <code>onClick</code> method is the event handler of <code>click</code> event. Here, <code>@</code> is <a href="https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy" target="_blank">decorators syntax</a> of <em>ESNext</em>.</p>
+<p>You need to set up babel for using <a href="https://npm.im/babel-plugin-transform-decorators-legacy" target="_blank">babel-preset-decorators-legacy</a>.</p>
+<pre><code>npm install --dev babel-preset-decorators-legacy
+</code></pre><p>.babelrc:</p>
+<pre><code class="lang-json">{
+  presets: [
+    <span class="hljs-string">&quot;es2016&quot;</span>,
+    <span class="hljs-string">&quot;decorators-legacy&quot;</span>,
+  ]
 }
 </code></pre>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;todo-list&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<p>or using <a href="https://npm.im/babel-standalone" target="_blank">babel-standalone</a>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/babel-standalone&quot;</span> <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">&quot;transform-decorators-legacy&quot;</span>&gt;</span><span class="actionscript">
+<span class="hljs-comment">// You can use decorators here</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-<p>In the above, you declare 4 event handlers which react against <code>todo-added</code>, <code>todo-deleted</code>, <code>todo-completed</code> and <code>todo-uncompleted</code>.</p>
 
                                 
                                 </section>
@@ -774,7 +774,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Event handling","level":"2.1.2","depth":2,"next":{"title":"Create components dynamically","level":"2.1.3","depth":2,"path":"guides/create.md","ref":"guides/create.md","articles":[]},"previous":{"title":"Define components","level":"2.1.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"guides/event.md","mtime":"2017-03-12T09:58:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-14T12:58:49.565Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Event handling","level":"2.1.2","depth":2,"next":{"title":"Create components dynamically","level":"2.1.3","depth":2,"path":"guides/create.md","ref":"guides/create.md","articles":[]},"previous":{"title":"Define components","level":"2.1.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"guides/event.md","mtime":"2017-04-15T03:12:12.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-15T03:12:35.567Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

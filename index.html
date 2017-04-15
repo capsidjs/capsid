@@ -721,25 +721,28 @@
 <p>Download <a href="https://unpkg.com/capsid@0.3.1" target="_blank">https://unpkg.com/capsid@0.8.1</a> and load it in the page:</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/capsid&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> </span>{
   __init__ () {
     <span class="hljs-keyword">this</span>.el.textContent = <span class="hljs-string">&apos;Hello, world!&apos;</span>
   }
 }
 
-capsid.def(<span class="hljs-string">&apos;hello-world&apos;</span>, HelloWorld)
+capsid.def(<span class="hljs-string">&apos;hello&apos;</span>, HelloWorld)
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hello-world&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hello&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
+<p><a href="https://codepen.io/kt3k/pen/MmYxBB?editors=1010" target="_blank">See working example</a></p>
 <p>Or you can install via npm:</p>
-<pre><code>npm install capsid
-</code></pre><p>And you can require/import from <code>capsid</code> module:</p>
+<pre><code>npm install capsid --save-dev
+</code></pre><p>And require <code>capsid</code> module:</p>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> { def } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;capsid&apos;</span>)
 
-def(<span class="hljs-string">&apos;hello-world&apos;</span>, HelloWorld)
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> </span>{...}
+
+def(<span class="hljs-string">&apos;hello&apos;</span>, HelloWorld)
 </code></pre>
-<p><strong>Note</strong>: You need to set up webpack/browserify/rollup on your own in the above case.</p>
+<p><strong>Note</strong>: You need to set up webpack/browserify/rollup in the this case.</p>
 <h3 id="license">License</h3>
 <p>MIT</p>
 
@@ -781,7 +784,7 @@ def(<span class="hljs-string">&apos;hello-world&apos;</span>, HelloWorld)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"What's capsid?","level":"1.1","depth":1,"next":{"title":"Install","level":"1.1.1","depth":2,"anchor":"#install","path":"README.md","ref":"README.md#install","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"README.md","mtime":"2017-03-13T04:56:28.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-14T12:58:49.565Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"What's capsid?","level":"1.1","depth":1,"next":{"title":"Install","level":"1.1.1","depth":2,"anchor":"#install","path":"README.md","ref":"README.md#install","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"README.md","mtime":"2017-04-15T03:08:19.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-15T03:12:35.567Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
