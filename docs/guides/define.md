@@ -5,13 +5,10 @@ You can define components by using [def](../api/core.md#def) method.
 ```html
 <script src="path/to/capsid.js"></script>
 <script>
-
 class Hello {
-
   __init__ () {
     this.el.textContent = 'Hello, world!"
   }
-
 }
 
 capsid.def('hello', Hello)

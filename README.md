@@ -10,9 +10,9 @@
 
 `capsid` is a framework for creating UI Component based on HTML classes.
 
-`capsid` encourages the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
+`capsid` supposes the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
 
-`capsid` doesn't encourage the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
+`capsid` doesn't suppose the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
 
 # Features
 
@@ -22,16 +22,37 @@
 - **small APIs**: 6 apis & 4 decorators
 - **small size**: **1.2KB** gzipped
 
+# Hello world
+
+The hello world example:
+
+```html
+<script src="path/to/capsid"></script>
+<script>
+class Hello {
+  __init__ () {
+    this.el.textContent = 'Hello, world!'
+  }
+}
+
+capsid.def('hello', HelloWorld)
+</script>
+
+<span class="hello"></span>
+```
+
+[See working example](https://codepen.io/kt3k/pen/MmYxBB?editors=1010)
+
+When you *define* the component, then dom elements which has `hello` class is automatically mounted by Hello component and becomes Hello component.
+
 # The timer
 
 The timer example:
 
-timer.js:
-
 ```html
 <span class="timer"></span>
 
-<script src="path/to/capsid.js"></script>
+<script src="https://unpkg.com/capsid"></script>
 <script>
 class Timer {
   __init__ () {

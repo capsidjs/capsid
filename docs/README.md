@@ -25,31 +25,35 @@ Download [https://unpkg.com/capsid@0.8.1](https://unpkg.com/capsid@0.3.1) and lo
 ```html
 <script src="path/to/capsid"></script>
 <script>
-class HelloWorld {
+class Hello {
   __init__ () {
     this.el.textContent = 'Hello, world!'
   }
 }
 
-capsid.def('hello-world', HelloWorld)
+capsid.def('hello', HelloWorld)
 </script>
 
-<span class="hello-world"></span>
+<span class="hello"></span>
 ```
+
+[See working example](https://codepen.io/kt3k/pen/MmYxBB?editors=1010)
 
 Or you can install via npm:
 
-    npm install capsid
+    npm install capsid --save-dev
 
-And you can require/import from `capsid` module:
+And require `capsid` module:
 
 ```js
 const { def } = require('capsid')
 
-def('hello-world', HelloWorld)
+class Hello {...}
+
+def('hello', HelloWorld)
 ```
 
-**Note**: You need to set up webpack/browserify/rollup on your own in the above case.
+**Note**: You need to set up webpack/browserify/rollup in the this case.
 
 ### License
 
