@@ -382,6 +382,19 @@
             
         </li>
     
+        <li class="chapter " data-level="3.3" data-path="../demo/">
+            
+                <a href="../demo/">
+            
+                    
+                    List of Demos
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -714,8 +727,8 @@ capsid.def(<span class="hljs-string">&apos;my-button&apos;</span>, MyButton)
 </code></pre>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;my-button&quot;</span>&gt;</span>BUTTON<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </code></pre>
-<p><a href="https://capsidjs.github.io/capsid/demo/my-button.html" target="_blank">See the working example</a>.</p>
-<p><code>@on(&apos;click&apos;)</code> declares <code>onClick</code> method is the event handler of <code>click</code> event. Here, <code>@</code> is <a href="https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy" target="_blank">decorators syntax</a> of <em>ESNext</em>.</p>
+<p><a href="https://codepen.io/kt3k/pen/RVNOvM?editors=1010" target="_blank">See the working demo</a></p>
+<p><code>@on(&apos;click&apos;)</code> declares <code>onClick</code> method is the event handler of <code>click</code> event on <code>el</code>. Here, <code>@</code> is <a href="https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy" target="_blank">decorators syntax</a> of <em>ESNext</em>.</p>
 <p>You need to set up babel for using <a href="https://npm.im/babel-plugin-transform-decorators-legacy" target="_blank">babel-preset-decorators-legacy</a>.</p>
 <pre><code>npm install --dev babel-preset-decorators-legacy
 </code></pre><p>.babelrc:</p>
@@ -726,7 +739,7 @@ capsid.def(<span class="hljs-string">&apos;my-button&apos;</span>, MyButton)
   ]
 }
 </code></pre>
-<p>or using <a href="https://npm.im/babel-standalone" target="_blank">babel-standalone</a>:</p>
+<p>or using <a href="https://npm.im/babel-standalone" target="_blank">babel-standalone</a> with <code>transform-decorators-legacy</code> plugin:</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/babel-standalone&quot;</span> <span class="hljs-attr">data-plugins</span>=<span class="hljs-string">&quot;transform-decorators-legacy&quot;</span>&gt;</span><span class="actionscript">
 <span class="hljs-comment">// You can use decorators here</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -774,7 +787,7 @@ capsid.def(<span class="hljs-string">&apos;my-button&apos;</span>, MyButton)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Event handling","level":"2.1.2","depth":2,"next":{"title":"Create components dynamically","level":"2.1.3","depth":2,"path":"guides/create.md","ref":"guides/create.md","articles":[]},"previous":{"title":"Define components","level":"2.1.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"guides/event.md","mtime":"2017-04-15T03:12:12.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-15T03:12:35.567Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Event handling","level":"2.1.2","depth":2,"next":{"title":"Create components dynamically","level":"2.1.3","depth":2,"path":"guides/create.md","ref":"guides/create.md","articles":[]},"previous":{"title":"Define components","level":"2.1.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"guides/event.md","mtime":"2017-04-15T06:21:37.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-15T09:25:25.337Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
