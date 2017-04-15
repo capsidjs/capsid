@@ -1,0 +1,16 @@
+<script src="https://unpkg.com/babel-standalone"></script>
+<script src="https://unpkg.com/jquery"></script>
+<script src="https://unpkg.com/capsid"></script>
+<script src="https://unpkg.com/capsid/dist/capsid-jquery.js"></script>
+
+<script type="text/babel">
+class Hello {
+  __init__ () {
+    this.$el.text('Hello, world!')
+  }
+}
+
+capsid.def('hello', Hello)
+</script>
+
+<span class="hello"></span>

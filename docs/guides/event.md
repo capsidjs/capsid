@@ -17,9 +17,9 @@ capsid.def('my-button', MyButton)
 <button class="my-button">BUTTON</button>
 ```
 
-[See the working example](https://capsidjs.github.io/capsid/demo/my-button.html).
+[See the working demo](https://codepen.io/kt3k/pen/RVNOvM?editors=1010)
 
-`@on('click')` declares `onClick` method is the event handler of `click` event. Here, `@` is [decorators syntax](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) of *ESNext*.
+`@on('click')` declares `onClick` method is the event handler of `click` event on `el`. Here, `@` is [decorators syntax](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) of *ESNext*.
 
 You need to set up babel for using [babel-preset-decorators-legacy](https://npm.im/babel-plugin-transform-decorators-legacy).
 
@@ -36,7 +36,7 @@ You need to set up babel for using [babel-preset-decorators-legacy](https://npm.
 }
 ```
 
-or using [babel-standalone](https://npm.im/babel-standalone):
+or using [babel-standalone](https://npm.im/babel-standalone) with `transform-decorators-legacy` plugin:
 
 ```html
 <script src="https://unpkg.com/babel-standalone" data-plugins="transform-decorators-legacy">

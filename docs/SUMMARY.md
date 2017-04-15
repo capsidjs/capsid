@@ -24,6 +24,7 @@
 * Advanced
   * [Youtube list](examples/youtube.md)
   * [TodoList](examples/todo-list.md)
+* [List of Demos](demo/index.md)
 
 ### Basics
 * [Component and Coelement](basics/component.md)

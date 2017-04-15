@@ -439,21 +439,44 @@ And this prints `processing long name component`.
 
 # Plugins
 
-## jQuery plugin
+## jQuery Plugin
 
-Usage in commonJS
+To use Capsid jQuery plugin, do the following:
 
 ```
 const $ = require('jquery')
 const capsid = require('capsid')
 
-require('capsid/jquery')(capsid, jquery)
+require('capsid/jquery')(capsid, $)
 ```
 
-### Plugin API
+Then, your components automatically have `this.$el` property and it points the dom element wrapped by jQuery.
+
+By using jQuery plugin, the hello world example is written like the below:
+
+```html
+<script src="https://unpkg.com/jquery"></script>
+<script src="https://unpkg.com/capsid"></script>
+<script src="https://unpkg.com/capsid/dist/capsid-jquery.js"></script>
+<script>
+class Hello {
+  __init__ () {
+    this.$el.text('Hello, world!')
+  }
+}
+
+capsid.def('hello', Hello)
+</script>
+
+<span class="hello"></span>
+```
+
+[See the working demo]()
+
+### Plugin APIs
 
 - `$dom.cc(name)`
-  - Initializes the element as class-component.
+  - Initializes the element as a component.
 - `$dom.cc.get(name)`
   - Gets the coelement of the element.
 
@@ -510,11 +533,8 @@ todoItem.update({id: 'milk', title: 'Buy a milk'});
 
 TBD
 
-# License
-
-MIT
-
 # History
+
 - 2017-03-01   v0.8.0   Modify init sequence.
 - 2017-02-26   v0.7.0   Add static capsid object to each coelement class.
 - 2017-02-26   v0.6.0   static __init__ rule.
@@ -524,6 +544,7 @@ MIT
 - 2017-01-17   v0.1.1   Add plugin system.
 
 # History of class-component.js (former project)
+
 - 2017-01-02   v13.0.0   Add __init__ instead of init.
 - 2017-01-01   v12.1.1   Fix bug of event bubbling.
 - 2017-01-01   v12.1.0   Remove @emit.first. Use native dispatchEvent.
@@ -572,3 +593,6 @@ The purpose of capsid is to encapsulate the details of its contents just like ca
 
 `co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` etc. Coelement is the other aspect of `element` and it works together in the 1-to-1 relationship and in the same lifecycle with the element.
 
+# License
+
+MIT

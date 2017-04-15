@@ -10,6 +10,8 @@
 
 `capsid` is an UI framework for browsers. It encourages the use of real dom programming and helps component-based encapsulation of behaviors of apps.
 
+`capsid` is an UI framework for browsers. It helps the component based coding style with
+
 ### Basic features
 
 - It's an **UI framework**.
