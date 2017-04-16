@@ -3,7 +3,6 @@
 ### Introduction
 * [What's capsid?](README.md)
   * [Install](README.md#install)
-  * [License](README.md#license)
 
 ### Guides
 * Basic
