@@ -15,24 +15,24 @@
 `capsid` is a tool for someone who:
 
 - wants to organize your code in **component-based** way.
-- does **not** want to use **virtual-dom based** solutions like React, Vue etc.
+- wants to **avoid** using **virtual-dom based** solutions like React, Vue etc.
 
 If the above two apply to you, then `capsid` is a tool for you!
 
 ### Basic features
 
 - It's an **UI framework**.
-- Works well with **real** DOM APIs. Plays nice with `jQuery` or `Umbrella`.
+- Works well with **real** DOM APIs. Plays nice with `jQuery` or [Umbrella](https://umbrellajs.com/).
 - **no virtual dom, no template, no rendering**
 - **small APIs**: 6 apis & 4 decorators
 - **small size**: **1.2KB** gzipped
 
 ### Install
 
-Download [https://unpkg.com/capsid@0.8.1](https://unpkg.com/capsid@0.3.1) and load it in the page:
+Download [https://unpkg.com/capsid](https://unpkg.com/capsid) and load it in the page:
 
 ```html
-<script src="path/to/capsid"></script>
+<script src="https://unpkg.com/capsid"></script>
 <script>
 class Hello {
   __init__ () {
@@ -46,7 +46,7 @@ capsid.def('hello', HelloWorld)
 <span class="hello"></span>
 ```
 
-[See working example](https://codepen.io/kt3k/pen/MmYxBB?editors=1010)
+[See the working demo](https://capsid.js.org/demo/hello.html) or [codepen](https://codepen.io/kt3k/pen/MmYxBB?editors=1010).
 
 Or you can install via npm:
 
