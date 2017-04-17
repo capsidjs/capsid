@@ -5,6 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/capsidjs/capsid/badges/score.svg)](https://www.bithound.io/github/capsidjs/capsid)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
+[![GitHub stars](https://img.shields.io/github/stars/capsidjs/capsid.svg?style=social&label=Star)](https://github.com/capsidjs/capsid)
 
 > Class driven component framework
 
