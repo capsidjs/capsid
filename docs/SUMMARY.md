@@ -8,14 +8,17 @@
 * Basic
   * [Define components](guides/define.md)
   * [Event handling](guides/event.md)
+  * [Nesting components](guides/nesting.md)
+  * [Declaring children](guides/children.md)
+* Advanced
   * [Create components dynamically](guides/create.md)
   * [Get components dynamically](guides/get.md)
-* Advanced
-  * [Nesting components](guides/nesting.md)
   * [Interaction with siblings](guides/siblings.md)
 
 ### Examples
 * Basic
+  * [Hello](examples/hello.md)
+  * [The Button](examples/toggle.md)
   * [Timer](examples/timer.md)
   * [Counter](examples/counter.md)
   * [Toggle Button](examples/toggle.md)
