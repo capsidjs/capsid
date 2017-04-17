@@ -8,6 +8,7 @@
 * Basic
   * [Define components](guides/define.md)
   * [Event handling](guides/event.md)
+  * [Pass info to parents](guides/pass-info-to-parents.md)
   * [Nesting components](guides/nesting.md)
   * [Declaring children](guides/children.md)
 * Advanced
