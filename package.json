@@ -5,9 +5,9 @@
   "main": "dist/capsid-commonjs.js",
   "unpkg": "dist/capsid.min.js",
   "scripts": {
-    "clean": "rimraf _book coverage dist/*",
+    "clean": "rimraf _book coverage",
     "book": "gitbook serve",
-    "gh-pages": "gitbook build && gh-pages -o hub -d _book",
+    "gh-pages": "npm run clean && gitbook build && gh-pages -o hub -d _book",
     "lint": "standard",
     "flow": "flow",
     "test": "karma start",
