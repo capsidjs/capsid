@@ -60,7 +60,7 @@ const { def } = require('capsid')
 
 class Hello {...}
 
-def('hello', HelloWorld)
+def('hello', Hello)
 ```
 
 **Note**: You need to set up webpack/browserify/rollup in the this case.
