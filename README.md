@@ -35,7 +35,7 @@ class Hello {
   }
 }
 
-capsid.def('hello', HelloWorld)
+capsid.def('hello', Hello)
 </script>
 
 <span class="hello"></span>
