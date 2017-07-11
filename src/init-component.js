@@ -1,6 +1,5 @@
 // @flow
 
-import * as capsid from './index.js'
 import pluginHooks from './plugin-hooks.js'
 import initConstructor from './init-constructor.js'
 import { KEY_EVENT_LISTENERS, INITIALIZED_KEY } from './util/const.js'
