@@ -208,7 +208,7 @@ There are 4 decorators.
 - `@on(event, {at})`
   - `@on.click` is also available, a shorthand for `@on('click')`.
 - `@emit(event)`
-  - optionally `@emit.last(event)`
+  - optionally `@emit.first(event)`
 - `@wire`
   - optionally `@wire(name, [selector])`
 

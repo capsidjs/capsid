@@ -80,7 +80,7 @@ describe('@on.click', () => {
   })
 })
 
-describe('@emit(event)', () => {
+describe('@emit.first(event)', () => {
   it('makes the method emit the event with the arguments of the method', done => {
     class EmitTest0 {
       foo () {
@@ -88,7 +88,7 @@ describe('@emit(event)', () => {
       }
     }
     def('emit-test0', EmitTest0)
-    callDecorator(emit('event-foo'), EmitTest0, 'foo')
+    callDecorator(emit.first('event-foo'), EmitTest0, 'foo')
 
     const coelem = make('emit-test0', div().on('event-foo', e => {
       assert(e.detail.a === 1)
@@ -108,7 +108,7 @@ describe('@emit(event)', () => {
       }
     }
     def('emit-test1', EmitTest1)
-    callDecorator(emit('event-foo'), EmitTest1, 'foo')
+    callDecorator(emit.first('event-foo'), EmitTest1, 'foo')
 
     const parent = div().on('event-foo', () => done()).appendTo('body')
 
@@ -120,7 +120,7 @@ describe('@emit(event)', () => {
   })
 })
 
-describe('@emit.last(event)', () => {
+describe('@emit(event)', () => {
   it('makes the method emit the event with the returned value', done => {
     class EmitLastTest0 {
       foo () {
@@ -128,7 +128,7 @@ describe('@emit.last(event)', () => {
       }
     }
     def('emit-last-test0', EmitLastTest0)
-    callDecorator(emit.last('event-foo'), EmitLastTest0, 'foo')
+    callDecorator(emit('event-foo'), EmitLastTest0, 'foo')
 
     make('emit-last-test0', div().on('event-foo', (e) => {
       assert(e.detail === 321)
@@ -151,7 +151,7 @@ describe('@emit.last(event)', () => {
       }
     }
     def('emit-last-test1', EmitLastTest1)
-    callDecorator(emit.last('event-foo'), EmitLastTest1, 'foo')
+    callDecorator(emit('event-foo'), EmitLastTest1, 'foo')
 
     make('emit-last-test1', div().on('event-foo', (e) => {
       assert(promiseResolved)
