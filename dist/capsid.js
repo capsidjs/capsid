@@ -1,4 +1,4 @@
-(function (exports) {
+var capsid = function (exports) {
   'use strict';
 
   //      
@@ -418,4 +418,6 @@
   exports.make = make;
   exports.pluginHooks = pluginHooks;
   exports.get = get;
-})(this.capsid = this.capsid || {});
+
+  return exports;
+}({});
