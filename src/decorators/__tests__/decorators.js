@@ -66,6 +66,20 @@ describe('@on(event, {at: selector})', () => {
   })
 })
 
+describe('@on.click', () => {
+  it('binds method to click event', done => {
+    class Component {
+      handler () { done() }
+    }
+
+    callDecorator(on.click, Component, 'handler')
+
+    def('on-click-test-component', Component)
+
+    div().cc('on-click-test-component').trigger('click')
+  })
+})
+
 describe('@emit(event)', () => {
   it('makes the method emit the event with the arguments of the method', done => {
     class EmitTest0 {

@@ -206,6 +206,7 @@ There are 4 decorators.
 - `@component`
   - optionally `@component(name)`
 - `@on(event, {at})`
+  - `@on.click` is also available, a shorthand for `@on('click')`.
 - `@emit(event)`
   - optionally `@emit.last(event)`
 - `@wire`
@@ -298,6 +299,10 @@ capsid.def('btn', Btn)
 ```
 
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
+
+## `@on.click`
+
+`@on.click` is a shorthand for `@on('click')`.
 
 ## `@emit(startEvent)`
 
