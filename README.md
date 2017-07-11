@@ -101,7 +101,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.8.1/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.9.0/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -534,12 +534,9 @@ const todoItem = $dom.cc.get('todo-item');
 todoItem.update({id: 'milk', title: 'Buy a milk'});
 ```
 
-## Umbrella JS plugin
-
-TBD
-
 # History
 
+- 2017-07-11   v0.9.0   Add on.click shorthand.
 - 2017-03-01   v0.8.0   Modify init sequence.
 - 2017-02-26   v0.7.0   Add static capsid object to each coelement class.
 - 2017-02-26   v0.6.0   static __init__ rule.
