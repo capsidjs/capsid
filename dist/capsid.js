@@ -38,6 +38,8 @@
     };
   };
 
+  var onClick = on('click');
+
   //      
   /**
    * Triggers the event.
@@ -356,6 +358,8 @@
 
     return component(camelToKebab(name.name))(name);
   };
+
+  on.click = onClick;
 
   //      
 

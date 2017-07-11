@@ -38,6 +38,8 @@ var on = function on(event) {
   };
 };
 
+var onClick = on('click');
+
 //      
 /**
  * Triggers the event.
@@ -356,6 +358,8 @@ var component = function component(name) {
 
   return component(camelToKebab(name.name))(name);
 };
+
+on.click = onClick;
 
 //      
 
