@@ -54,30 +54,13 @@ var capsid = function (exports) {
   //      
 
   /**
-   * `@emit(event)` decorator.
-   * This decorator adds the event emission at the beginning of the method.
-   * @param event The event name
-   */
-  var emit = function emit(event) {
-    return function (target, key, descriptor) {
-      var method = descriptor.value;
-
-      descriptor.value = function () {
-        trigger(this.el, event, arguments[0]);
-
-        return method.apply(this, arguments);
-      };
-    };
-  };
-
-  /**
-   * `@emit.last(event)` decorator
+   * `@emit(event)` decorator
    *
    * This decorator adds the event emission at the end of the method.
    * If the method returns the promise, then the event is emitted when it is resolved.
    * @param event The event name
    */
-  emit.last = function (event) {
+  var emit = function emit(event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
@@ -97,6 +80,23 @@ var capsid = function (exports) {
         }
 
         return result;
+      };
+    };
+  };
+
+  /**
+   * `@emit.first(event)` decorator.
+   * This decorator adds the event emission at the beginning of the method.
+   * @param event The event name
+   */
+  emit.first = function (event) {
+    return function (target, key, descriptor) {
+      var method = descriptor.value;
+
+      descriptor.value = function () {
+        trigger(this.el, event, arguments[0]);
+
+        return method.apply(this, arguments);
       };
     };
   };
@@ -278,7 +278,7 @@ var capsid = function (exports) {
    * @param el The element
    * @return The created coelement instance
    */
-  var initComponent$$1 = function initComponent$$1(Constructor, el) {
+  var initComponent = function initComponent(Constructor, el) {
     if (!Constructor[INITIALIZED_KEY]) {
       initConstructor(Constructor);
     }
@@ -325,7 +325,7 @@ var capsid = function (exports) {
       var classList = el.classList;
 
       if (!classList.contains(initClass)) {
-        classList.add(name, initClass);el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent$$1(Constructor, el);
+        classList.add(name, initClass);el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el);
       }
     };
 
@@ -399,7 +399,7 @@ var capsid = function (exports) {
     def: def,
     prep: prep,
     init: init,
-    initComponent: initComponent$$1,
+    initComponent: initComponent,
     __ccc__: ccc,
     make: make,
     pluginHooks: pluginHooks,
@@ -413,7 +413,7 @@ var capsid = function (exports) {
   exports.def = def;
   exports.prep = prep;
   exports.init = init;
-  exports.initComponent = initComponent$$1;
+  exports.initComponent = initComponent;
   exports.__ccc__ = ccc;
   exports.make = make;
   exports.pluginHooks = pluginHooks;
