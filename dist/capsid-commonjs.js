@@ -218,7 +218,7 @@ var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-var wire = function wire(target, key, descriptor) {
+var wireComponent = function wireComponent(target, key, descriptor) {
   if (typeof target === 'string') {
     // If target is a string, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
@@ -227,6 +227,25 @@ var wire = function wire(target, key, descriptor) {
 
   wireByNameAndSelector(camelToKebab(key))(target, key, descriptor);
 };
+
+var wireElement = function wireElement(sel) {
+  return function (target, key, descriptor) {
+    descriptor.get = function () {
+      return this.el.querySelector(sel);
+    };
+  };
+};
+
+var wireElementAll = function wireElementAll(sel) {
+  return function (target, key, descriptor) {
+    descriptor.get = function () {
+      return this.el.querySelectorAll(sel);
+    };
+  };
+};
+
+wireComponent.el = wireElement;
+wireComponent.elAll = wireElementAll;
 
 //      
 /**
@@ -394,7 +413,7 @@ var make = function make(name, elm) {
 var capsid = Object.freeze({
   on: on,
   emit: emit,
-  wire: wire,
+  wire: wireComponent,
   component: component,
   def: def,
   prep: prep,
@@ -408,7 +427,7 @@ var capsid = Object.freeze({
 
 exports.on = on;
 exports.emit = emit;
-exports.wire = wire;
+exports.wire = wireComponent;
 exports.component = component;
 exports.def = def;
 exports.prep = prep;
