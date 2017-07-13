@@ -201,7 +201,7 @@ The above gets `Timer` class instance (coelement) from dom. In this case, dom ne
 
 # Decorators
 
-There are 4 decorators.
+There are 4 categories of decorators.
 
 - `@component`
   - optionally `@component(name)`
@@ -210,7 +210,7 @@ There are 4 decorators.
 - `@emit(event)`
   - optionally `@emit.first(event)`
 - `@wire`
-  - optionally `@wire(name, [selector])`
+  - optionally `@wire(name, [selector])` `@wire.el` `@wire.elAll`
 
 ## `@component(className)`
 
@@ -441,6 +441,18 @@ $('.foo').cc.get('foo').it.process()
 And this prints `processing long name component`.
 
 `@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the jobs.
+
+## @wire.el(selector) get element () {}
+
+- @param {string} selector The selector to look up the element in the component
+
+This wires the element selected by the given selector to the decorated getter. This is similar to `@wire` decorator, but it wires HTMLElmenent, not capsid component.
+
+## @wire.elAll(selector) get elements () {}
+
+- @param {string} selector The selector to look up the elements in the component
+
+This wires the all elements selected by the given selector to the decorated getter. This is similar to `@wire.elAll` decorator, but it wires all the elements, not the first one.
 
 # Plugins
 

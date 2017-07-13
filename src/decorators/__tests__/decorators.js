@@ -298,3 +298,38 @@ describe('@wire(name, selector)', () => {
     assert(wireTest1.test instanceof Cls1)
   })
 })
+
+describe('@wire.el(selector)', () => {
+  it('wires the element in the component', () => {
+    class Component {
+      get elm () {}
+    }
+
+    def('wire-el-test', Component)
+    callDecorator(wire.el('.elm'), Component, 'elm')
+
+    const el = div().append(div().addClass('elm'))[0]
+
+    const component = make('wire-el-test', el)
+    assert(component.elm instanceof HTMLElement)
+    assert(component.elm === el.firstChild)
+  })
+})
+
+describe('@wire.elAll(selector)', () => {
+  it('wires the all elements in the component', () => {
+    class Component {
+      get elms () {}
+    }
+
+    def('wire-el-all-test', Component)
+    callDecorator(wire.elAll('.elm'), Component, 'elms')
+
+    const el = div().append(div().addClass('elm'), div().addClass('elm'))[0]
+
+    const component = make('wire-el-all-test', el)
+    assert(component.elms.length === 2)
+    assert(component.elms[0] === el.firstChild)
+    assert(component.elms[1] === el.lastChild)
+  })
+})

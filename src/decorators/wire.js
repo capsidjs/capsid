@@ -33,7 +33,7 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
-export default (target: Object, key: string, descriptor: Object) => {
+const wireComponent = (target: Object, key: string, descriptor: Object) => {
   if (typeof target === 'string') {
     // If target is a string, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
@@ -42,3 +42,20 @@ export default (target: Object, key: string, descriptor: Object) => {
 
   wireByNameAndSelector(camelToKebab(key))(target, key, descriptor)
 }
+
+const wireElement = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+  descriptor.get = function () {
+    return this.el.querySelector(sel)
+  }
+}
+
+const wireElementAll = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+  descriptor.get = function () {
+    return this.el.querySelectorAll(sel)
+  }
+}
+
+wireComponent.el = wireElement
+wireComponent.elAll = wireElementAll
+
+export default wireComponent
