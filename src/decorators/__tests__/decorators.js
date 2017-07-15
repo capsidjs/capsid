@@ -1,6 +1,7 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 import { def, init, get, make, on, emit, component, wire } from '../../'
+import { clearComponents } from '../../__tests__/helper'
 
 /**
  * @param {Function} decorator The decorator
@@ -317,17 +318,19 @@ describe('@wire.el(selector)', () => {
 })
 
 describe('@wire.elAll(selector)', () => {
+  afterEach(() => clearComponents())
+
   it('wires the all elements in the component', () => {
     class Component {
       get elms () {}
     }
 
-    def('wire-el-all-test', Component)
+    def('comp', Component)
     callDecorator(wire.elAll('.elm'), Component, 'elms')
 
     const el = div().append(div().addClass('elm'), div().addClass('elm'))[0]
 
-    const component = make('wire-el-all-test', el)
+    const component = make('comp', el)
     assert(component.elms.length === 2)
     assert(component.elms[0] === el.firstChild)
     assert(component.elms[1] === el.lastChild)

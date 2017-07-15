@@ -1,18 +1,20 @@
 import { def, prep } from '../../'
 import assert from 'assert'
 import { div } from 'dom-gen'
+import { clearComponents } from '../../__tests__/helper'
+import { Foo, Bar, Spam } from '../../__tests__/fixture'
 
 describe('jquery plugin', () => {
+  afterEach(() => clearComponents())
+
   it('sets coelement.$el as the base jquery element', () => {
-    class Class2 {}
+    def('component', class {})
 
-    def('elem-test', Class2)
+    const $el = div().addClass('component').appendTo('body')
 
-    const $el = div().addClass('elem-test').appendTo('body')
+    prep('component')
 
-    prep('elem-test')
-
-    const coelem = $el.cc.get('elem-test')
+    const coelem = $el.cc.get('component')
 
     assert(coelem.$el.length === 1)
     assert(coelem.$el[0] === $el[0])
@@ -20,16 +22,13 @@ describe('jquery plugin', () => {
 })
 
 describe('$dom.cc', () => {
-  class Spam {
-    __init__ () {
-      this.$el.attr('is_spam', 'true')
-      this.$el.toggleClass('spam-toggle-test')
-    }
-  }
-
   before(() => {
+    def('foo', Foo)
+    def('bar', Bar)
     def('spam', Spam)
   })
+
+  after(() => clearComponents())
 
   it('is a function', () => {
     assert(typeof div().cc === 'function')

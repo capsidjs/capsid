@@ -9,3 +9,10 @@ export class Bar {
     this.el.setAttribute('is_bar', 'true')
   }
 }
+
+export class Spam {
+  __init__ () {
+    this.$el.attr('is_spam', 'true')
+    this.$el.toggleClass('spam-toggle-test')
+  }
+}
