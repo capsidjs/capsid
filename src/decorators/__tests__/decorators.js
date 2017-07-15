@@ -1,18 +1,7 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 import { def, init, get, make, on, emit, component, wire } from '../../'
-import { clearComponents } from '../../__tests__/helper'
-
-/**
- * @param {Function} decorator The decorator
- * @param {Function} cls The class
- * @param {string} key The key of the method to decorate
- */
-function callDecorator (decorator, cls, key) {
-  const descriptor = Object.getOwnPropertyDescriptor(cls.prototype, key)
-  const result = decorator(cls.prototype, key, descriptor)
-  Object.defineProperty(cls.prototype, key, result || descriptor)
-}
+import { clearComponents, callDecorator } from '../../__tests__/helper'
 
 describe('@on(event)', () => {
   it('registers the method as the event listener of the given event name', done => {

@@ -1,7 +1,7 @@
-import { def, prep } from '../../'
+import { def, prep, wire } from '../../'
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { clearComponents } from '../../__tests__/helper'
+import { clearComponents, callDecorator } from '../../__tests__/helper'
 import { Foo, Bar, Spam } from '../../__tests__/fixture'
 
 describe('jquery plugin', () => {
@@ -126,6 +126,23 @@ describe('$dom.cc', () => {
       assert.throws(() => {
         $('#nothing').cc.get('something')
       })
+    })
+  })
+
+  describe('wire.$el', () => {
+    it('makes the decorated getter the sub elements selected by jquery with the given selector', () => {
+      class Component {
+        get $subelems () {}
+      }
+
+      callDecorator(wire.$el('.abc'), Component, '$subelems')
+
+      def('component', Component)
+
+      const component = div(div().addClass('abc'), div().addClass('abc')).appendTo('body').cc.init('component')
+
+      assert(component.$subelems instanceof $)
+      assert(component.$subelems.length === 2)
     })
   })
 })

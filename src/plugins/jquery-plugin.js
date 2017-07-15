@@ -11,11 +11,12 @@ const init = (capsid: any, $: Function): void => {
   const ccc = capsid.__ccc__
   const get = capsid.get
   const init = capsid.init
+  const wire = capsid.wire
 
   const descriptor: any = { get: function () {
     const dom: HTMLElement = this[0]
 
-    check(dom != null, 'cc (class-component context) is unavailable at empty dom selection')
+    check(dom != null, 'cc (capsid context) is unavailable at empty dom selection')
 
     let cc = (dom: any).cc
 
@@ -58,6 +59,13 @@ const init = (capsid: any, $: Function): void => {
     coel.$el = $(el)
     coel.elem = coel.$el // backward compat, will be removed
   })
+
+  // Define wire.$el decorator
+  wire.$el = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+    descriptor.get = function () {
+      return this.$el.find(sel)
+    }
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {
