@@ -101,7 +101,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.11.0/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.12.0/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -548,7 +548,8 @@ todoItem.update({id: 'milk', title: 'Buy a milk'});
 
 # History
 
-- 2017-07-13   v0.11.0  Add wire.el and wire.elAll
+- 2017-07-15   v0.12.0  Add wire.$el and wire.elAll to jquery plugin.
+- 2017-07-13   v0.11.0  Add wire.el and wire.elAll.
 - 2017-07-11   v0.10.0  Add emit.first rename emit.last to emit.
 - 2017-07-10   v0.9.0   Add on.click shorthand.
 - 2017-03-01   v0.8.0   Modify init sequence.

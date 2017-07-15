@@ -44,13 +44,14 @@
     var ccc = capsid.__ccc__;
     var _get = capsid.get;
     var init = capsid.init;
+    var wire = capsid.wire;
 
     var descriptor = { get: function get() {
         var _this = this;
 
         var dom = this[0];
 
-        check(dom != null, 'cc (class-component context) is unavailable at empty dom selection');
+        check(dom != null, 'cc (capsid context) is unavailable at empty dom selection');
 
         var cc = dom.cc;
 
@@ -95,6 +96,15 @@
       coel.$el = $(el);
       coel.elem = coel.$el; // backward compat, will be removed
     });
+
+    // Define wire.$el decorator
+    wire.$el = function (sel) {
+      return function (target, key, descriptor) {
+        descriptor.get = function () {
+          return this.$el.find(sel);
+        };
+      };
+    };
   };
 
   if (typeof module !== 'undefined' && module.exports) {
