@@ -1,7 +1,10 @@
 import assert from 'assert'
 import { def, make } from '../index.js'
+import { clearComponents } from './helper'
 
 describe('def', () => {
+  after(() => clearComponents())
+
   it('throws an error when the first param is not a string', () => {
     assert.throws(() => {
       def(null, class A {})

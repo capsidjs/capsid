@@ -1,10 +1,18 @@
 import assert from 'assert'
-import { prep } from '../index.js'
+import { prep, def } from '../index.js'
+import { Foo } from './fixture'
+import { clearComponents } from './helper'
 
 describe('prep', () => {
+  before(() => {
+    def('foo', Foo)
+  })
+
   beforeEach(() => {
     document.body.innerHTML = ''
   })
+
+  after(() => clearComponents())
 
   it('initializes the class component of the given name', () => {
     const el = document.createElement('div')

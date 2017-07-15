@@ -1,7 +1,15 @@
 import assert from 'assert'
-import { init } from '../index.js'
+import { init, def } from '../index.js'
+import { clearComponents } from './helper'
+import { Foo } from './fixture'
 
 describe('init', () => {
+  before(() => {
+    def('foo', Foo)
+  })
+
+  after(() => clearComponents())
+
   it('initializes the element as an class-component of the given name', () => {
     const el = document.createElement('div')
 
