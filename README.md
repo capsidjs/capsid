@@ -462,7 +462,7 @@ Capsid jQuery plugin is the integration of jQuery with capsid.
 
 To use Capsid jQuery plugin in webpack/browserify, do the following:
 
-```
+```js
 const $ = require('jquery')
 const capsid = require('capsid')
 
