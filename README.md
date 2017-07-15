@@ -458,7 +458,9 @@ This wires the all elements selected by the given selector to the decorated gett
 
 ## jQuery Plugin
 
-To use Capsid jQuery plugin, do the following:
+Capsid jQuery plugin is the integration of jQuery with capsid.
+
+To use Capsid jQuery plugin in webpack/browserify, do the following:
 
 ```
 const $ = require('jquery')
@@ -469,7 +471,7 @@ require('capsid/jquery')(capsid, $)
 
 Then, your components automatically have `this.$el` property and it points the dom element wrapped by jQuery.
 
-By using jQuery plugin, the hello world example is written like the below:
+The hello world example with jQuery plugin is like the below:
 
 ```html
 <script src="https://unpkg.com/jquery"></script>
@@ -488,7 +490,7 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-[See the working demo]()
+[See the demo at Codepen](https://codepen.io/kt3k/pen/eRXQxg)
 
 ### Plugin APIs
 
@@ -496,6 +498,8 @@ capsid.def('hello', Hello)
   - Initializes the element as a component.
 - `$dom.cc.get(name)`
   - Gets the coelement of the element.
+- `@wire.$el('.selector') get $subElems ()` decorator
+  - Selects the elements with jquery by the given selector.
 
 ## `$dom.cc` namespace
 
