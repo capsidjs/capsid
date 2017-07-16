@@ -557,7 +557,7 @@ todoItem.update({id: 'milk', title: 'Buy a milk'});
 Wires the getter to the elements selected by jquery with the given selector.
 
 Example:
-```
+```js
 class Mirroring {
   @wire.$el('.mirror-src') get $src () {}
   @wire.$el('.mirror-dest') get $dest () {}
