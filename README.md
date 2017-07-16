@@ -550,6 +550,36 @@ const todoItem = $dom.cc.get('todo-item');
 todoItem.update({id: 'milk', title: 'Buy a milk'});
 ```
 
+### `@wire.$el(selector) get $getter ()`
+
+- @param {string} selector The selector to select subelements
+
+Wires the getter to the elements selected by jquery with the given selector.
+
+Example:
+```
+class Mirroring {
+  @wire.$el('.mirror-src') get $src () {}
+  @wire.$el('.mirror-dest') get $dest () {}
+
+  @on('input') onInput () {
+    this.$dest.text(this.$src.val())
+  }
+}
+
+def('mirroring', Mirroring)
+```
+
+```html
+<div class="mirroring">
+  <input class="mirror-src" />
+  <br />
+  <span class="mirror-dest"></span>
+</div>
+```
+
+[See demo on Codepen](https://codepen.io/kt3k/pen/mwgWXN?editors=1010)
+
 # History
 
 - 2017-07-15   v0.12.0  Add wire.$el and wire.elAll to jquery plugin.
