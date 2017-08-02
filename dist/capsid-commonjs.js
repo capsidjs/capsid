@@ -47,8 +47,8 @@ var onClick = on('click');
  * @param type The event type
  * @param detail The optional detail object
  */
-var trigger = function trigger(el, type, detail) {
-  el.dispatchEvent(new CustomEvent(type, { detail: detail, bubbles: true }));
+var trigger = function trigger(el, type, bubbles, detail) {
+  el.dispatchEvent(new CustomEvent(type, { detail: detail, bubbles: bubbles }));
 };
 
 //      
@@ -70,7 +70,7 @@ var emit = function emit(event) {
       var result = method.apply(this, arguments);
 
       var emit = function emit(x) {
-        return trigger(_this.el, event, x);
+        return trigger(_this.el, event, true, x);
       };
 
       if (result && result.then) {
@@ -94,7 +94,7 @@ emit.first = function (event) {
     var method = descriptor.value;
 
     descriptor.value = function () {
-      trigger(this.el, event, arguments[0]);
+      trigger(this.el, event, true, arguments[0]);
 
       return method.apply(this, arguments);
     };
@@ -378,6 +378,37 @@ var component = function component(name) {
   return component(camelToKebab(name.name))(name);
 };
 
+//      
+
+/**
+ * Adds the function to publish the given event to the descendent elements of the given selector to the decorated method.
+ */
+var pub = function pub(event, selector) {
+  return function (target, key, descriptor) {
+    var method = descriptor.value;
+
+    descriptor.value = function () {
+      var _this2 = this;
+
+      var result = method.apply(this, arguments);
+
+      var emit = function emit(x) {
+        _this2.el.querySelectorAll(selector).forEach(function (el) {
+          return trigger(el, event, false, x);
+        });
+      };
+
+      if (result && result.then) {
+        result.then(emit);
+      } else {
+        emit(result);
+      }
+
+      return result;
+    };
+  };
+};
+
 on.click = onClick;
 
 //      
@@ -415,6 +446,7 @@ var capsid = Object.freeze({
   emit: emit,
   wire: wireComponent,
   component: component,
+  pub: pub,
   def: def,
   prep: prep,
   init: init,
@@ -429,6 +461,7 @@ exports.on = on;
 exports.emit = emit;
 exports.wire = wireComponent;
 exports.component = component;
+exports.pub = pub;
 exports.def = def;
 exports.prep = prep;
 exports.init = init;
