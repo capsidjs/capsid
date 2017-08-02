@@ -1,6 +1,6 @@
 // @flow
 
-export { on, emit, wire, component } from './decorators/index.js'
+export { on, emit, wire, component, pub } from './decorators/index.js'
 
 export { default as def } from './def.js'
 export { default as prep } from './prep.js'

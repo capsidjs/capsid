@@ -15,7 +15,7 @@ const emit = (event: string) => (target: Object, key: string, descriptor: Object
   descriptor.value = function () {
     const result = method.apply(this, arguments)
 
-    const emit = x => trigger(this.el, event, x)
+    const emit = x => trigger(this.el, event, true, x)
 
     if (result && result.then) {
       result.then(emit)
@@ -36,7 +36,7 @@ emit.first = (event: string) => (target: Object, key: string, descriptor: Object
   const method = descriptor.value
 
   descriptor.value = function () {
-    trigger(this.el, event, arguments[0])
+    trigger(this.el, event, true, arguments[0])
 
     return method.apply(this, arguments)
   }

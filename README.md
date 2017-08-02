@@ -20,7 +20,7 @@
 - Works well with **real** DOM APIs. Plays nice with `jQuery` or `Umbrella`.
 - **no virtual dom, no template, no rendering**
 - **small APIs**: 6 apis & 4 decorators
-- **small size**: **1.3KB** gzipped
+- **small size**: **1.4KB** gzipped
 
 # Hello world
 
@@ -201,16 +201,22 @@ The above gets `Timer` class instance (coelement) from dom. In this case, dom ne
 
 # Decorators
 
-There are 4 categories of decorators.
+There are 5 categories of decorators.
 
 - `@component`
+  - registers components.
   - optionally `@component(name)`
 - `@on(event, {at})`
+  - registers event listeners.
   - `@on.click` is also available, a shorthand for `@on('click')`.
 - `@emit(event)`
+  - adds function to triggers the event.
   - optionally `@emit.first(event)`
 - `@wire`
+  - wires the given compenents/elements to the decorated getter.
   - optionally `@wire(name, [selector])` `@wire.el` `@wire.elAll`
+- `@pub`
+  - adds function to publish events to given descendent elements.
 
 ## `@component(className)`
 
