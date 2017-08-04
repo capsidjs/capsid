@@ -10,9 +10,10 @@ export default (event: string, selector: string) => (target: Object, key: string
 
   descriptor.value = function () {
     const result = method.apply(this, arguments)
+    const forEach = [].forEach
 
     const emit = x => {
-      this.el.querySelectorAll(selector).forEach(el => trigger(el, event, false, x))
+      forEach.call(this.el.querySelectorAll(selector), el => trigger(el, event, false, x))
     }
 
     if (result && result.then) {
