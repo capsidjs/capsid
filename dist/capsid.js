@@ -304,19 +304,17 @@ var capsid = function (exports) {
 
     var coelem = new Constructor();
 
+    coelem.el = el;(Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
+      listenerBinder(el, coelem);
+    });
+
     pluginHooks.forEach(function (pluginHook) {
       pluginHook(el, coelem);
     });
 
-    coelem.el = el;
-
     if (typeof coelem.__init__ === 'function') {
       coelem.__init__();
     }
-
-    (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
-      listenerBinder(el, coelem);
-    });
 
     return coelem;
   };
@@ -391,9 +389,10 @@ var capsid = function (exports) {
         var _this2 = this;
 
         var result = method.apply(this, arguments);
+        var forEach = [].forEach;
 
         var emit = function emit(x) {
-          _this2.el.querySelectorAll(selector).forEach(function (el) {
+          forEach.call(_this2.el.querySelectorAll(selector), function (el) {
             return trigger(el, event, false, x);
           });
         };
