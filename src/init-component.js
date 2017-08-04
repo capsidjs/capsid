@@ -17,19 +17,19 @@ export default (Constructor: Function, el: HTMLElement): any => {
 
   const coelem = new Constructor()
 
+  coelem.el = el
+
+  ;(Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
+    listenerBinder(el, coelem)
+  })
+
   pluginHooks.forEach(pluginHook => {
     pluginHook(el, coelem)
   })
 
-  coelem.el = el
-
   if (typeof coelem.__init__ === 'function') {
     coelem.__init__()
   }
-
-  (Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
-    listenerBinder(el, coelem)
-  })
 
   return coelem
 }
