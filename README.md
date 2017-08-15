@@ -81,7 +81,7 @@ capsid.def('timer', Timer)
 </script>
 ```
 
-See [the working demo](https://capsidjs.github.io/capsid/demo/timer.html).
+See [the working demo](https://codepen.io/kt3k/pen/YVPoWm).
 
 # The concept
 
