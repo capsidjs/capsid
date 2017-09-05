@@ -3,9 +3,217 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 //      
+
+
+/**
+ * The mapping from class-component name to its initializer function.
+ */
+var ccc = {};
+
+//      
+/**
+ * Asserts the given condition holds, otherwise throws.
+ * @param assertion The assertion expression
+ * @param message The assertion message
+ */
+function check(assertion, message) {
+  if (!assertion) {
+    throw new Error(message);
+  }
+}
+
+/**
+ * @param classNames The class names
+ */
+
+/**
+ * Asserts the given name is a valid component name.
+ * @param name The component name
+ */
+function checkComponentNameIsValid(name) {
+  check(typeof name === 'string', 'The name should be a string');
+  check(!!ccc[name], 'The coelement of the given name is not registered: ' + name);
+}
+
+//      
+
+var READY_STATE_CHANGE = 'readystatechange';
+var doc = document;
+
+var ready = new Promise(function (resolve) {
+  var checkReady = function checkReady() {
+    if (doc.readyState === 'complete') {
+      resolve();
+      doc.removeEventListener(READY_STATE_CHANGE, checkReady);
+    }
+  };
+
+  doc.addEventListener(READY_STATE_CHANGE, checkReady);
+
+  checkReady();
+});
+
+var documentElement = doc.documentElement;
+
+//      
+/**
+ * Initializes the class components of the given name in the range of the given element.
+ * @param name The class name
+ * @param el The dom where class componets are initialized
+ * @throws when the class name is invalid type.
+ */
+var prep = function prep(name, el) {
+  var classNames = void 0;
+
+  if (!name) {
+    classNames = Object.keys(ccc);
+  } else {
+    checkComponentNameIsValid(name);
+
+    classNames = [name];
+  }
+
+  classNames.map(function (className) {
+    [].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className]);
+  });
+};
+
+//      
+
+
+var pluginHooks = [];
+
+//      
 var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
 var KEY_EVENT_LISTENERS = '__cc_listeners__';
 var INITIALIZED_KEY = '__cc_initialized__';
+
+//      
+
+var initConstructor = function initConstructor(constructor) {
+  constructor[INITIALIZED_KEY] = true;
+
+  // Expose capsid here
+  constructor.capsid = capsid;
+
+  // If the constructor has the static __init__, then calls it.
+  if (typeof constructor.__init__ === 'function') {
+    constructor.__init__();
+  }
+};
+
+//      
+
+/**
+ * Initialize component.
+ * @param Constructor The coelement class
+ * @param el The element
+ * @return The created coelement instance
+ */
+var mount = function mount(Constructor, el) {
+  if (!Constructor[INITIALIZED_KEY]) {
+    initConstructor(Constructor);
+  }
+
+  var coelem = new Constructor();
+
+  coelem.el = el;(Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
+    listenerBinder(el, coelem);
+  });
+
+  pluginHooks.forEach(function (pluginHook) {
+    pluginHook(el, coelem);
+  });
+
+  if (typeof coelem.__init__ === 'function') {
+    coelem.__init__();
+  }
+
+  return coelem;
+};
+
+//      
+
+/**
+ * Registers the class-component for the given name and constructor and returns the constructor.
+ * @param name The component name
+ * @param Constructor The constructor of the class component
+ * @return The registered component class
+ */
+var def = function def(name, Constructor) {
+  check(typeof name === 'string', '`name` of a class component has to be a string.');
+  check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function');
+
+  var initClass = name + '-initialized';
+
+  /**
+   * Initializes the html element by the configuration.
+   * @param el The html element
+   * @param coelem The dummy parameter, don't use
+   */
+  var initializer = function initializer(el, coelem) {
+    var classList = el.classList;
+
+    if (!classList.contains(initClass)) {
+      classList.add(name, initClass);el[COELEMENT_DATA_KEY_PREFIX + name] = mount(Constructor, el);
+    }
+  };
+
+  // The selector
+  initializer.sel = '.' + name + ':not(.' + initClass + ')';
+
+  ccc[name] = initializer;
+
+  ready.then(function () {
+    prep(name);
+  });
+};
+
+//      
+
+/**
+ * Gets the eoelement instance of the class-component of the given name
+ * @param name The class-component name
+ * @param el The element
+ */
+var get = function get(name, el) {
+  checkComponentNameIsValid(name);
+
+  var coelement = el[COELEMENT_DATA_KEY_PREFIX + name];
+
+  check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
+
+  return coelement;
+};
+
+//      
+
+/**
+ * Initializes the given element as the class-component.
+ * @param name The name of the class component
+ * @param el The element to initialize
+ */
+var init = function init(name, el) {
+  checkComponentNameIsValid(name);
+
+  ccc[name](el);
+};
+
+//      
+
+/**
+ * Initializes the given element as the class-component.
+ * @param name The name of the class component
+ * @param el The element to initialize
+ * @return
+ */
+var make = function make(name, elm) {
+  init(name, elm);
+
+  return get(name, elm);
+};
+
+//
 
 //      
 /**
@@ -103,76 +311,6 @@ emit.first = function (event) {
 
 //      
 
-
-/**
- * The mapping from class-component name to its initializer function.
- */
-var ccc = {};
-
-//      
-/**
- * Asserts the given condition holds, otherwise throws.
- * @param assertion The assertion expression
- * @param message The assertion message
- */
-function check(assertion, message) {
-  if (!assertion) {
-    throw new Error(message);
-  }
-}
-
-/**
- * @param classNames The class names
- */
-
-/**
- * Asserts the given name is a valid component name.
- * @param name The component name
- */
-function checkComponentNameIsValid(name) {
-  check(typeof name === 'string', 'The name should be a string');
-  check(!!ccc[name], 'The coelement of the given name is not registered: ' + name);
-}
-
-//      
-
-/**
- * Gets the eoelement instance of the class-component of the given name
- * @param name The class-component name
- * @param el The element
- */
-var get = function get(name, el) {
-  checkComponentNameIsValid(name);
-
-  var coelement = el[COELEMENT_DATA_KEY_PREFIX + name];
-
-  check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
-
-  return coelement;
-};
-
-//      
-
-var READY_STATE_CHANGE = 'readystatechange';
-var doc = document;
-
-var ready = new Promise(function (resolve) {
-  var checkReady = function checkReady() {
-    if (doc.readyState === 'complete') {
-      resolve();
-      doc.removeEventListener(READY_STATE_CHANGE, checkReady);
-    }
-  };
-
-  doc.addEventListener(READY_STATE_CHANGE, checkReady);
-
-  checkReady();
-});
-
-var documentElement = doc.documentElement;
-
-//      
-
 var matches = documentElement.matches || documentElement.webkitMatchesSelector || documentElement.msMatchesSelector;
 
 //      
@@ -248,115 +386,6 @@ wireComponent.el = wireElement;
 wireComponent.elAll = wireElementAll;
 
 //      
-/**
- * Initializes the class components of the given name in the range of the given element.
- * @param name The class name
- * @param el The dom where class componets are initialized
- * @throws when the class name is invalid type.
- */
-var prep = function prep(name, el) {
-  var classNames = void 0;
-
-  if (!name) {
-    classNames = Object.keys(ccc);
-  } else {
-    checkComponentNameIsValid(name);
-
-    classNames = [name];
-  }
-
-  classNames.map(function (className) {
-    [].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className]);
-  });
-};
-
-//      
-
-
-var pluginHooks = [];
-
-//      
-
-var initConstructor = function initConstructor(constructor) {
-  constructor[INITIALIZED_KEY] = true;
-
-  // Expose capsid here
-  constructor.capsid = capsid;
-
-  // If the constructor has the static __init__, then calls it.
-  if (typeof constructor.__init__ === 'function') {
-    constructor.__init__();
-  }
-};
-
-//      
-
-/**
- * Initialize component.
- * @param Constructor The coelement class
- * @param el The element
- * @return The created coelement instance
- */
-var initComponent = function initComponent(Constructor, el) {
-  if (!Constructor[INITIALIZED_KEY]) {
-    initConstructor(Constructor);
-  }
-
-  var coelem = new Constructor();
-
-  coelem.el = el;(Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
-    listenerBinder(el, coelem);
-  });
-
-  pluginHooks.forEach(function (pluginHook) {
-    pluginHook(el, coelem);
-  });
-
-  if (typeof coelem.__init__ === 'function') {
-    coelem.__init__();
-  }
-
-  return coelem;
-};
-
-//      
-
-/**
- * Registers the class-component for the given name and constructor and returns the constructor.
- * @param name The component name
- * @param Constructor The constructor of the class component
- * @return The registered component class
- */
-var def = function def(name, Constructor) {
-  check(typeof name === 'string', '`name` of a class component has to be a string.');
-  check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function');
-
-  var initClass = name + '-initialized';
-
-  /**
-   * Initializes the html element by the configuration.
-   * @param el The html element
-   * @param coelem The dummy parameter, don't use
-   */
-  var initializer = function initializer(el, coelem) {
-    var classList = el.classList;
-
-    if (!classList.contains(initClass)) {
-      classList.add(name, initClass);el[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el);
-    }
-  };
-
-  // The selector
-  initializer.sel = '.' + name + ':not(.' + initClass + ')';
-
-  ccc[name] = initializer;
-
-  ready.then(function () {
-    prep(name);
-  });
-};
-
-//      
 
 /**
  * The decorator for class component registration.
@@ -412,60 +441,31 @@ on.click = onClick;
 
 //      
 
-/**
- * Initializes the given element as the class-component.
- * @param name The name of the class component
- * @param el The element to initialize
- */
-var init = function init(name, el) {
-  checkComponentNameIsValid(name);
-
-  ccc[name](el);
-};
-
-//      
-
-/**
- * Initializes the given element as the class-component.
- * @param name The name of the class component
- * @param el The element to initialize
- * @return
- */
-var make = function make(name, elm) {
-  init(name, elm);
-
-  return get(name, elm);
-};
-
-//      
-
 
 var capsid = Object.freeze({
+  def: def,
+  prep: prep,
+  make: make,
+  mount: mount,
+  get: get,
   on: on,
   emit: emit,
   wire: wireComponent,
   component: component,
   pub: pub,
-  def: def,
-  prep: prep,
-  init: init,
-  initComponent: initComponent,
   __ccc__: ccc,
-  make: make,
-  pluginHooks: pluginHooks,
-  get: get
+  pluginHooks: pluginHooks
 });
 
+exports.def = def;
+exports.prep = prep;
+exports.make = make;
+exports.mount = mount;
+exports.get = get;
 exports.on = on;
 exports.emit = emit;
 exports.wire = wireComponent;
 exports.component = component;
 exports.pub = pub;
-exports.def = def;
-exports.prep = prep;
-exports.init = init;
-exports.initComponent = initComponent;
 exports.__ccc__ = ccc;
-exports.make = make;
 exports.pluginHooks = pluginHooks;
-exports.get = get;

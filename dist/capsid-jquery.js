@@ -43,7 +43,7 @@
   var init = function init(capsid, $) {
     var ccc = capsid.__ccc__;
     var _get = capsid.get;
-    var init = capsid.init;
+    var make = capsid.make;
     var wire = capsid.wire;
 
     var descriptor = { get: function get() {
@@ -64,7 +64,7 @@
           cc = dom.cc = function (classNames) {
             checkClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).map(function (className) {
               if (ccc[className]) {
-                init(className, dom);
+                make(className, dom);
               }
             });
 
