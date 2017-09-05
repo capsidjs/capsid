@@ -598,6 +598,7 @@ def('mirroring', Mirroring)
 
 # History
 
+- 2017-09-05   v0.15.0  Add `mount` API. Remove `init` API.
 - 2017-08-04   v0.14.0  Make `@on` listeners ready at __init__ call.
 - 2017-08-03   v0.13.0  Add pub decorator.
 - 2017-07-15   v0.12.0  Add wire.$el and wire.elAll to jquery plugin.
