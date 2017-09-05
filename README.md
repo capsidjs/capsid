@@ -172,6 +172,28 @@ Initializes the element as the capsid component and returns the coelement instan
 const timer = make('timer', dom)
 ```
 
+### `capsid.mount(Constructor, element)`
+
+- @param {Function} Constructor The constructor which defines the capsid component
+- @param {HTMLElemen} element The element to mount the component
+- @return {<Constructor>} The created coelement
+
+Initializes the element with the component of the given class and return the coelement.
+
+```js
+class Component {
+  __init__ () {
+    this.el.foo = 1
+  }
+}
+
+capsid.mount(Component, div)
+
+div.foo === 1 # => true
+```
+
+This API is mainly for module authors. If you need to create an unnamed component, then use this API.
+
 ### `capsid.get(name, element)`
 
 - @param {string} name The capsid component name to get
