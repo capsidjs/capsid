@@ -10,7 +10,7 @@ import check, { checkClassNamesAreStringOrNull } from '../util/check.js'
 const init = (capsid: any, $: Function): void => {
   const ccc = capsid.__ccc__
   const get = capsid.get
-  const init = capsid.init
+  const make = capsid.make
   const wire = capsid.wire
 
   const descriptor: any = { get: function () {
@@ -31,7 +31,7 @@ const init = (capsid: any, $: Function): void => {
 
         ;(classNames || dom.className).split(/\s+/).map(className => {
           if (ccc[className]) {
-            init(className, dom)
+            make(className, dom)
           }
         })
 

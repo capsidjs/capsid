@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { get, init, def } from '../index.js'
+import { get, make, def } from '../index.js'
 import { Foo } from './fixture.js'
 import { clearComponents } from './helper.js'
 
@@ -13,7 +13,7 @@ describe('get', () => {
   it('gets the coelement instance from the element', () => {
     const el = document.createElement('div')
 
-    init('foo', el)
+    make('foo', el)
 
     const coel = get('foo', el)
 

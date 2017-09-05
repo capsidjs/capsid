@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, init, get, make, on, emit, component, wire, pub } from '../../'
+import { def, get, make, on, emit, component, wire, pub } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
 
 describe('@on(event)', () => {
@@ -45,7 +45,7 @@ describe('@on(event, {at: selector})', () => {
 
     const el = div(div({addClass: 'inner'}))[0]
 
-    init('on-at-test0', el)
+    make('on-at-test0', el)
 
     document.body.appendChild(el)
 
@@ -180,7 +180,7 @@ describe('@component(className)', () => {
 
     const el = div()[0]
 
-    init('decorated-component', el)
+    make('decorated-component', el)
 
     assert(el.getAttribute('this-is') === 'decorated-component')
   })
@@ -243,7 +243,7 @@ describe('@wire', () => {
 
     const el = div()[0]
 
-    init('wire-test2-1', el)
+    make('wire-test2-1', el)
     const wireTest0 = make('wire-test2', el)
 
     assert(wireTest0['wire-test2-1'] instanceof Cls1)

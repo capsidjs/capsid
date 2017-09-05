@@ -123,10 +123,10 @@ const capsid = require('capsid')
   - Registers class-component.
 - `capsid.prep(name[, element])`
   - Initialize class-component on the given range.
-- `capsid.init(name, element)`
-  - Initializes the element with the class-component of the given name.
 - `capsid.make(name, element)`
-  - Initializes the element with the class-component of the given name and return the coelement instance.
+  - Initializes the element with the component of the given name and return the coelement instance.
+- `capsid.mount(Constructor, element)`
+  - Initializes the element with the component of the given class and return the coelement.
 - `capsid.get(name, element)`
   - Gets the coelement instance from the given element.
 
@@ -155,30 +155,18 @@ capsid.def('todo-item', TodoItem)
 
 ### `capsid.prep([name], [element])`
 
-- @param {string} [name] The class-component name to intialize
+- @param {string} [name] The capsid component name to intialize
 - @param {HTMLElement} [element] The range to initialize
 
-This initializes the class components of the given name under the given element. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
-
-### `capsid.init(name, element)`
-
-- @param {string} name The class-component name to initialize
-- @param {HTMLElement} element The element to initialize
-
-Initializes the element as the class-component.
-
-```js
-capsid.init('timer', dom)
-```
-
-The above initializes `dom` as `timer` class-component.
+This initializes the capsid components of the given name under the given element. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
 
 ### `capsid.make(name, element)`
 
-- @param {string} name The class-component name to initialize
+- @param {string} name The capsid component name to initialize
 - @param {HTMLElement} element The element to initialize
+- @return {<Component>} created coelement
 
-Initializes the element as the class-component (the same as `init`) and returns the coelement instance.
+Initializes the element as the capsid component and returns the coelement instance.
 
 ```js
 const timer = make('timer', dom)
@@ -186,7 +174,7 @@ const timer = make('timer', dom)
 
 ### `capsid.get(name, element)`
 
-- @param {string} name The class-component name to get
+- @param {string} name The capsid component name to get
 - @param {HTMLElement} element The element
 - @return The coelement instance
 
@@ -201,7 +189,7 @@ The above gets `Timer` class instance (coelement) from dom. In this case, dom ne
 
 # Decorators
 
-There are 5 categories of decorators.
+There are 5 types of decorators.
 
 - `@component`
   - registers components.
