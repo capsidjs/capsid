@@ -8,18 +8,20 @@
 
 > Class driven component framework
 
-`capsid` is a framework for creating UI Component based on HTML classes.
+`capsid` is a framework for creating UI Components based on HTML classes.
 
-`capsid` supposes the use of MVP design pattern. Components work as Presenter and Dom Elements work as (Passive) View of MVP. See the below for details.
+`capsid` doesn't generate DOM nodes. Rather, it binds components to existing DOM nodes. See [Hello world](https://codepen.io/kt3k/pen/MmYxBB) or [Timer](https://codepen.io/kt3k/pen/YVPoWm) examples.
 
-`capsid` doesn't suppose the use of virtual dom for updating the dom tree, rather it recommends updating dom using native DOM API.
+`capsid` encourages the declarative programming by the use of decorators. See [Button](https://codepen.io/kt3k/pen/RVNOvM) or [Mirroring](https://codepen.io/kt3k/pen/VbvKNp) examples.
+
+`capsid` is very different from lately popular frameworks like React or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or vue's markup). `capsid` takes very different approach for creating components. It never creates or updates DOM nodes automatically, but let the framework users do it. `capsid` just helps organizing the event handlers and the DOM nodes relationships.
 
 # Features
 
 - It's an **UI framework**.
-- Works well with **real** DOM APIs. Plays nice with `jQuery` or `Umbrella`.
-- **no virtual dom, no template, no rendering**
-- **small APIs**: **6 APIs** & **5 decorators**
+- Works well with **real** DOM APIs. Plays nice with `jQuery`.
+- **no virtual dom, no template**
+- **small APIs**: **5 APIs** & **5 decorators**
 - **small size**: **1.4KB** gzipped
 
 # Hello world
@@ -43,7 +45,7 @@ capsid.def('hello', Hello)
 
 [See working example](https://codepen.io/kt3k/pen/MmYxBB?editors=1010)
 
-When you *define* the component, then dom elements which has `hello` class is automatically mounted by Hello component and becomes Hello component.
+When you *define* the component, then dom elements which has `hello` class is automatically mounted by Hello component.
 
 # The timer
 
