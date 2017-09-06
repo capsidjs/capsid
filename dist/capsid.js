@@ -108,19 +108,30 @@ var capsid = function (exports) {
    * Initialize component.
    * @param Constructor The coelement class
    * @param el The element
+   * @param name The coelement name
    * @return The created coelement instance
    */
-  var mount = function mount(Constructor, el) {
+  var mount = function mount(Constructor, el, name) {
     if (!Constructor[INITIALIZED_KEY]) {
       initConstructor(Constructor);
     }
 
     var coelem = new Constructor();
 
-    coelem.el = el;(Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
+    // Assigns element to coelement's .el property
+    coelem.el = el;
+
+    if (name) {
+      // Assigns coelement to element's "hidden" property
+      el[COELEMENT_DATA_KEY_PREFIX + name] = coelem;
+    }
+
+    // Initialize event listeners defined by @emit decorator
+    (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
       listenerBinder(el, coelem);
     });
 
+    // Executes plugin hooks
     pluginHooks.forEach(function (pluginHook) {
       pluginHook(el, coelem);
     });
@@ -155,7 +166,9 @@ var capsid = function (exports) {
       var classList = el.classList;
 
       if (!classList.contains(initClass)) {
-        classList.add(name, initClass);el[COELEMENT_DATA_KEY_PREFIX + name] = mount(Constructor, el);
+        classList.add(name, initClass);
+
+        mount(Constructor, el, name);
       }
     };
 
