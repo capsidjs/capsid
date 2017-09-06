@@ -1,5 +1,6 @@
 import assert from 'assert'
-import { make, def } from '../index.js'
+import { expect } from 'chai'
+import { make, def, get } from '../index.js'
 import { Foo } from './fixture.js'
 import { clearComponents } from './helper.js'
 
@@ -20,5 +21,21 @@ describe('make', () => {
 
   it('returns an instance of coelement', () => {
     assert(make('foo', document.createElement('div')) instanceof Foo)
+  })
+
+  describe('in __init__', () => {
+    it('can get coelement from el by the name', done => {
+      class Component {
+        __init__ () {
+          expect(get('bar', this.el)).to.equal(this)
+
+          done()
+        }
+      }
+
+      def('bar', Component)
+
+      make('bar', document.createElement('div'))
+    })
   })
 })

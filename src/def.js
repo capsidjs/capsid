@@ -6,7 +6,6 @@ import initComponent from './init-component.js'
 
 import check from './util/check.js'
 import { ready } from './util/document'
-import { COELEMENT_DATA_KEY_PREFIX } from './util/const.js'
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -31,7 +30,7 @@ const def = (name: string, Constructor: Function) => {
     if (!classList.contains(initClass)) {
       classList.add(name, initClass)
 
-      ;(el: any)[COELEMENT_DATA_KEY_PREFIX + name] = initComponent(Constructor, el)
+      initComponent(Constructor, el, name)
     }
   }
 
