@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, get, make, on, emit, component, wire, pub } from '../../'
+import { def, get, make, on, emits, component, wire, pub } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
 
 describe('@on(event)', () => {
@@ -70,7 +70,7 @@ describe('@on.click', () => {
   })
 })
 
-describe('@emit.first(event)', () => {
+describe('@emits.first(event)', () => {
   it('makes the method emit the event with the arguments of the method', done => {
     class EmitTest0 {
       foo () {
@@ -78,7 +78,7 @@ describe('@emit.first(event)', () => {
       }
     }
     def('emit-test0', EmitTest0)
-    callDecorator(emit.first('event-foo'), EmitTest0, 'foo')
+    callDecorator(emits.first('event-foo'), EmitTest0, 'foo')
 
     const coelem = make('emit-test0', div().on('event-foo', e => {
       assert(e.detail.a === 1)
@@ -98,7 +98,7 @@ describe('@emit.first(event)', () => {
       }
     }
     def('emit-test1', EmitTest1)
-    callDecorator(emit.first('event-foo'), EmitTest1, 'foo')
+    callDecorator(emits.first('event-foo'), EmitTest1, 'foo')
 
     const parent = div().on('event-foo', () => done()).appendTo('body')
 
@@ -118,7 +118,7 @@ describe('@emit(event)', () => {
       }
     }
     def('emit-last-test0', EmitLastTest0)
-    callDecorator(emit('event-foo'), EmitLastTest0, 'foo')
+    callDecorator(emits('event-foo'), EmitLastTest0, 'foo')
 
     make('emit-last-test0', div().on('event-foo', (e) => {
       assert(e.detail === 321)
@@ -141,7 +141,7 @@ describe('@emit(event)', () => {
       }
     }
     def('emit-last-test1', EmitLastTest1)
-    callDecorator(emit('event-foo'), EmitLastTest1, 'foo')
+    callDecorator(emits('event-foo'), EmitLastTest1, 'foo')
 
     make('emit-last-test1', div().on('event-foo', (e) => {
       assert(promiseResolved)

@@ -221,9 +221,9 @@ There are 5 types of decorators.
 - `@on(event, {at})`
   - registers event listeners.
   - `@on.click` is also available, a shorthand for `@on('click')`.
-- `@emit(event)`
+- `@emits(event)`
   - adds function to triggers the event.
-  - optionally `@emit.first(event)`
+  - optionally `@emits.first(event)`
 - `@wire`
   - wires the given compenents/elements to the decorated getter.
   - optionally `@wire(name, [selector])` `@wire.el` `@wire.elAll`
@@ -322,15 +322,15 @@ In the above example, `onBtnClick` method listens to the click event of the `.bt
 
 `@on.click` is a shorthand for `@on('click')`.
 
-## `@emit(startEvent)`
+## `@emits.first(startEvent)`
 
-`@emit()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
+`@emits.first()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
 
 ```js
-const { emit, def } = require('capsid')
+const { emits, def } = require('capsid')
 
 class Manager {
-  @emit('manager.started')
+  @emits.first('manager.started')
   start () {
     ...definitions...
   }
@@ -346,7 +346,10 @@ The above is equivalent of:
 ```js
 class Manager {
   start () {
-    this.$el.trigger('manager.started', arguments)
+    this.el.dispatchEvent(new CustomEvent('manager.started', {
+      bubbles: true,
+      detail: arguments[0]
+    }))
     ...definitions...
   }
 }
@@ -354,15 +357,15 @@ class Manager {
 capsid.def('manager', Manager)
 ```
 
-## `@emit.last(eventName)`
+## `@emits(eventName)`
 
-`@emit.last(eventName)` is similar to `@emit()`, but it triggers the event at the last of the method.
+`@emits(eventName)` is similar to `@emits.first()`, but it triggers the event at the end of the method.
 
 ```js
-const { emit, def } = require('capsid')
+const { emits, def } = require('capsid')
 
 class Manager {
-  @emit.last('manager.ended')
+  @emits('manager.ended')
   start() {
     ...definitions...
   }
@@ -371,15 +374,15 @@ class Manager {
 def('manager', Manager)
 ```
 
-In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as the second arguments of the event handler.
+In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as `detail` of the event object. So you can pass the data from children to parents.
 
 If the method returns a promise, then the event is triggered after the promise is resolved.
 
 ```js
-const { emit, def } = require('capsid')
+const { emits, def } = require('capsid')
 
 class Manager {
-  @emit.last('manager.ended')
+  @emits.last('manager.ended')
   start () {
     ...definitions...
 
@@ -390,7 +393,7 @@ class Manager {
 def('manager', Manager)
 ```
 
-In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as the second argument of the event handler.
+In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as `detail` of the event object.
 
 ## `@wire`
 
