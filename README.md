@@ -105,7 +105,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.15.1/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.16.0/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -637,6 +637,7 @@ def('mirroring', Mirroring)
 
 # History
 
+- 2017-09-09   v0.16.0  Rename `@emit` to `@emits` and `@pub` to `@notifies`
 - 2017-09-06   v0.15.1  Change component init sequence.
 - 2017-09-05   v0.15.0  Add `mount` API. Remove `init` API.
 - 2017-08-04   v0.14.0  Make `@on` listeners ready at __init__ call.

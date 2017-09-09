@@ -275,13 +275,13 @@ var capsid = function (exports) {
   //      
 
   /**
-   * `@emit(event)` decorator
+   * `@emits(event)` decorator
    *
    * This decorator adds the event emission at the end of the method.
    * If the method returns the promise, then the event is emitted when it is resolved.
    * @param event The event name
    */
-  var emit = function emit(event) {
+  var emits = function emits(event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
@@ -310,7 +310,7 @@ var capsid = function (exports) {
    * This decorator adds the event emission at the beginning of the method.
    * @param event The event name
    */
-  emit.first = function (event) {
+  emits.first = function (event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
@@ -423,7 +423,7 @@ var capsid = function (exports) {
   /**
    * Adds the function to publish the given event to the descendent elements of the given selector to the decorated method.
    */
-  var pub = function pub(event, selector) {
+  var notifies = function notifies(event, selector) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
@@ -454,6 +454,9 @@ var capsid = function (exports) {
 
   //      
 
+  var emit = emits; // alias
+  var pub = notifies; // alias
+
 
   var capsid = Object.freeze({
     def: def,
@@ -463,9 +466,11 @@ var capsid = function (exports) {
     get: get,
     on: on,
     emit: emit,
+    emits: emits,
     wire: wireComponent,
     component: component,
     pub: pub,
+    notifies: notifies,
     __ccc__: ccc,
     pluginHooks: pluginHooks
   });
@@ -477,9 +482,11 @@ var capsid = function (exports) {
   exports.get = get;
   exports.on = on;
   exports.emit = emit;
+  exports.emits = emits;
   exports.wire = wireComponent;
   exports.component = component;
   exports.pub = pub;
+  exports.notifies = notifies;
   exports.__ccc__ = ccc;
   exports.pluginHooks = pluginHooks;
 
