@@ -10,11 +10,13 @@
 
 `capsid` is a framework for creating UI Components based on HTML classes.
 
-`capsid` doesn't generate DOM nodes. Rather, it binds components to existing DOM nodes. See [Hello world](https://codepen.io/kt3k/pen/MmYxBB) or [Timer](https://codepen.io/kt3k/pen/YVPoWm) examples.
+`capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello world](https://codepen.io/kt3k/pen/MmYxBB) or [Timer](https://codepen.io/kt3k/pen/YVPoWm) examples.
 
 `capsid` encourages the declarative programming by the use of decorators. See [Button](https://codepen.io/kt3k/pen/RVNOvM) or [Mirroring](https://codepen.io/kt3k/pen/VbvKNp) examples.
 
 `capsid` is very different from lately popular frameworks like React or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or vue's markup). `capsid` takes very different approach for creating components. It never creates or updates DOM nodes automatically, but let the framework users do it. `capsid` just helps organizing the event handlers and the DOM nodes relationships.
+
+`capsid` recommends the use of [flux][] design pattern. In `capsid`, you don't need any framework or library to apply flux to your app. You can just use [@emits](https://github.com/capsidjs/capsid#emitseventname) and [@notifies](https://github.com/capsidjs/capsid#notifieseventselector) decorators for making unidirectional data flow among your components.
 
 # Features
 
@@ -227,7 +229,7 @@ There are 5 types of decorators.
 - `@wire`
   - wires the given compenents/elements to the decorated getter.
   - optionally `@wire(name, [selector])` `@wire.el` `@wire.elAll`
-- `@pub`
+- `@notifies`
   - adds function to publish events to given descendent elements.
 
 ## `@component(className)`
@@ -475,6 +477,38 @@ This wires the element selected by the given selector to the decorated getter. T
 
 This wires the all elements selected by the given selector to the decorated getter. This is similar to `@wire.elAll` decorator, but it wires all the elements, not the first one.
 
+## @notifies(event, selector)
+
+- @param {string} event The event type
+- @param {string} selector The selector to notify events
+
+`@notifies` is a method decorator. It adds the function to publishes the event to its descendant elements at the end of the decorated method.
+
+```
+@component
+class Component {
+  @notifies('user-saved', '.is-user-observer')
+  saveUser () {
+    this.save(this.user)
+  }
+}
+```
+
+In the above, when you call `saveUser` method, it publishes `user-saved` event to its descendant `.is-user-observer` elements.
+
+For example, if the dom tree is like the below:
+
+```
+<div class="component">
+  <input class="is-user-observer">
+  <label class="is-user-observer"></label>
+</div>
+```
+
+When `saveUser` is called, then `input` and `label` elements get `user-saved` event and they can react to the change of the data `user`.
+
+This decorator is useful for applying [flux][] design pattern to capsid components.
+
 # Plugins
 
 ## jQuery Plugin
@@ -643,8 +677,8 @@ def('mirroring', Mirroring)
 
 The projects which uses capsid.
 
-- [capsid-todomvc](https://github.com/capsidjs/capsid-todomvc)
-  - Implementation of TodoMVC in capsid, 100% unit tested
+- [todomvc](https://github.com/capsidjs/todomvc)
+  - [TodoMVC](http://todomvc.com/) in capsid.
 - [multiflip](https://github.com/kt3k/multiflip)
 - [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
 - [puncher](https://github.com/kt3k/puncher)
@@ -665,10 +699,12 @@ The projects which uses capsid.
 
 The purpose of capsid is to encapsulate the details of its contents just like capsid for virus cells. Its has the same origin *capsa* ("box" in Latin) as the word *capsule*.
 
-## Why 'coelement'
+## The name 'coelement'
 
 `co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` etc. Coelement is the other aspect of `element` and it works together in the 1-to-1 relationship and in the same lifecycle with the element.
 
 # License
 
 MIT
+
+[flux]: http://facebook.github.io/flux

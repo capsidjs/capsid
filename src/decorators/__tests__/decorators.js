@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, get, make, on, emits, component, wire, pub } from '../../'
+import { def, get, make, on, emits, component, wire, notifies } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
 
 describe('@on(event)', () => {
@@ -326,7 +326,7 @@ describe('@wire.elAll(selector)', () => {
   })
 })
 
-describe('@pub(event, selector)', () => {
+describe('@notifies(event, selector)', () => {
   afterEach(() => clearComponents())
 
   it('adds function to publish the event to the element of the given selector', () => {
@@ -339,7 +339,7 @@ describe('@pub(event, selector)', () => {
 
     def('component', Component)
 
-    callDecorator(pub(CUSTOM_EVENT, '.elm'), Component, 'publish')
+    callDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
 
     const child0 = div({ addClass: 'elm' })
     const child1 = div({ addClass: 'elm' })
@@ -383,7 +383,7 @@ describe('@pub(event, selector)', () => {
 
       def('component', Component)
 
-      callDecorator(pub(CUSTOM_EVENT, '.elm'), Component, 'publish')
+      callDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
 
       const child = div({ addClass: 'elm' })
 
@@ -408,7 +408,7 @@ describe('@pub(event, selector)', () => {
 
       def('component', Component)
 
-      callDecorator(pub(CUSTOM_EVENT, '.elm'), Component, 'publish')
+      callDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
 
       const child = div({ addClass: 'elm' })
 
