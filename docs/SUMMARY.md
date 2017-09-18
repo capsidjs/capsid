@@ -5,6 +5,7 @@
   * [Install](README.md#install)
 
 ### Guides
+* [Getting started](getting-started.md)
 * Basic
   * [Define components](guides/define.md)
   * [Event handling](guides/event.md)

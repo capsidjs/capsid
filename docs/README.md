@@ -11,22 +11,13 @@
 
 `capsid` is an UI framework for browsers. It helps organizing your JavaScript code in component-based programming style.
 
-### The target users
-
-`capsid` is a tool for someone who:
-
-- wants to organize your code in **component-based** way.
-- wants to **avoid** using **virtual-dom based** solutions like React, Vue etc.
-
-If the above two apply to you, then `capsid` is a tool for you!
-
 ### Basic features
 
 - It's an **UI framework**.
-- Works well with **real** DOM APIs. Plays nice with `jQuery` or [Umbrella](https://umbrellajs.com/).
-- **no virtual dom, no template, no rendering**
-- **small APIs**: 6 apis & 4 decorators
-- **small size**: **1.2KB** gzipped
+- It has **no dependencies**, but plays nice with `jQuery`.
+- **no virtual dom, no templates**
+- **small APIs**: 5 apis & 5 decorators
+- **small size**: **1.4KB** gzipped
 
 ### Install
 
@@ -47,7 +38,7 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-[See the working demo](https://capsid.js.org/demo/hello.html) or [codepen](https://codepen.io/kt3k/pen/MmYxBB?editors=1010).
+[See the working demo](https://codepen.io/kt3k/pen/MmYxBB?editors=1010).
 
 Or you can install via npm:
 

@@ -21,8 +21,8 @@
 # Features
 
 - It's an **UI framework**.
-- Works well with **real** DOM APIs. Plays nice with `jQuery`.
-- **no virtual dom, no template**
+- It has **no dependencies**, but plays nice with `jQuery`.
+- **no virtual dom, no templates**
 - **small APIs**: **5 APIs** & **5 decorators**
 - **small size**: **1.4KB** gzipped
 
