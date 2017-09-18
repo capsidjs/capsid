@@ -79,43 +79,6 @@ $.get('url').then(data => {
 })
 ```
 
-## init
-
-```
-const { init } = capsid
-
-init(name, element)
-```
-
-- @param {string} name The component name to initialize
-- @param {HTMLElement} element The element to initialize
-
-`init` initializes the given element as the component of the given name. The difference from the prop is that `prep` initializes components based on the class names which the elements already have, but `init` force the given element to initialize as a component of the given name. In other word, `init` turns elements into the component, but `prep` doesn't.
-
-```js
-const el = document.createElement('span')
-
-capsid.init('timer', el) // el becomes `timer` component.
-```
-
-The above initializes `el` as `timer` component.
-
-## initComponent
-
-- @param {Function} constructor The constructor which is used as a coelement constructor
-- @param {HTMLElement} el The element to initialize
-- @return {Object} created coelement instance
-
-This is low level API.
-
-`initComponent` initializes the given element by the given constructor, but it doesn't require class name and doesn't append 'name'`-initialized` class.
-
-```js
-const coelem = capsid.initComponent(LocalComponent, el)
-
-coelem.something()
-```
-
 ## get
 
 ```js
@@ -156,5 +119,28 @@ const timer = make('timer', el)
 ```
 
 In the above, el becames timer and it returns the coelement instance.
+
+
+### `mount(Constructor, element)`
+
+- @param {Function} Constructor The constructor which defines the capsid component
+- @param {HTMLElemen} element The element to mount the component
+- @return {<Constructor>} The created coelement
+
+Initializes the element with the component of the given class and return the coelement.
+
+```js
+class Component {
+  __init__ () {
+    this.el.foo = 1
+  }
+}
+
+capsid.mount(Component, div)
+
+div.foo === 1 # => true
+```
+
+This API is mainly for module authors. If you need to create an unnamed component, then use this API.
 
 [coelement]: ../basics/component.md

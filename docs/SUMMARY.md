@@ -39,18 +39,18 @@
 * [Core](api/core.md)
   * [def](api/core.md#def)
   * [prep](api/core.md#prep)
-  * [init](api/core.md#init)
   * [get](api/core.md#get)
   * [make](api/core.md#make)
+  * [make](api/core.md#mount)
 * [Decorators](api/decorators.md)
   * [@on](api/decorators.md#on)
-  * [@emit](api/decorators.md#emit)
   * [@wire](api/decorators.md#wire)
+  * [@emits](api/decorators.md#emits)
+  * [@notifies](api/decorators.md#notifies)
   * [@component](api/decorators.md#component)
 
 ### Plugins
 * [jQuery plugin](plugins/jquery.md)
-* [Umbrella plugin](plugins/umbrella.md)
 
 ### Testing Guide
 * [Unit Testing with karma](testing/karma.md)

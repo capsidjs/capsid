@@ -70,17 +70,17 @@ capsid.def('control-panel', ControlPanel)
 
 In the above example, `onBtnClick` method fires only when `.btn` element is clicked, not the entire `.control-panel` element.
 
-## @emit
+## @emits.first
 
-`@emit(name)` is a method decorator. This decorator makes the method trigger the given `name` event at the **start** of the method. (If you want to trigger event at the **end** of the method, use [@emit.last](#emitlast))
+`@emits.first(name)` is a method decorator. This decorator makes the method trigger the given `name` event at the **start** of the method. (If you want to trigger event at the **end** of the method, use [@emits](#emits))
 
 ```html
 <script>
-const { emit, def } = require('capsid')
+const { emits, def } = require('capsid')
 
 class Manager {
 
-  @emit('manager-started')
+  @emits.first('manager-started')
   start () {
     ...definitions...
   }
@@ -116,16 +116,16 @@ class Manager {
 capsid.def('manager', Manager)
 ```
 
-### @emit.last
+### @emits
 
-`@emit.last(name)` is similar to `@emit()`, but it triggers the event at the **end** of the method.
+`@emits(name)` is similar to `@emits.first()`, but it triggers the event at the **end** of the method.
 
 ```js
-const { emit, def } = capsid
+const { emits, def } = capsid
 
 class Manager {
 
-  @emit.last('manager-ended')
+  @emits('manager-ended')
   end() {
     ...definitions...
   }
@@ -142,11 +142,11 @@ In the above example, `end` method triggers the `manager-ended` event when it fi
 If the method returns a **promise**, then the event is triggered after the promise is resolved.
 
 ```js
-const { emit, def } = capsid
+const { emits, def } = capsid
 
 class Manager {
 
-  @emit.last('manager-ended')
+  @emits('manager-ended')
   start () {
     ...definitions...
 
@@ -195,3 +195,37 @@ class Timer {
 ```
 
 The above registers `Timer` class as `foo-timer` component.
+
+### @notifies(event, selector)
+
+- @param {string} event The event type
+- @param {string} selector The selector to notify events
+
+`@notifies` is a method decorator. It adds the function to publishes the event to its descendant elements at the end of the decorated method.
+
+```
+@component
+class Component {
+  @notifies('user-saved', '.is-user-observer')
+  saveUser () {
+    this.save(this.user)
+  }
+}
+```
+
+In the above, when you call `saveUser` method, it publishes `user-saved` event to its descendant `.is-user-observer` elements.
+
+For example, if the dom tree is like the below:
+
+```
+<div class="component">
+  <input class="is-user-observer">
+  <label class="is-user-observer"></label>
+</div>
+```
+
+When `saveUser` is called, then `input` and `label` elements get `user-saved` event and they can react to the change of the data `user`.
+
+This decorator is useful for applying [flux][] design pattern to capsid components.
+
+[flux]: http://facebook.github.io/flux
