@@ -34,7 +34,6 @@
 * [Component and Coelement](basics/component.md)
 * [MVP](basics/mvp.md)
 * [vs Backbone](basics/backbone.md)
-* [vs React & Flux](basics/react.md)
 
 ### API Reference
 * [Core](api/core.md)
