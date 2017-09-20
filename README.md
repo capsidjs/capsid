@@ -4,6 +4,7 @@
 [![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/capsidjs/capsid/badges/score.svg)](https://www.bithound.io/github/capsidjs/capsid)
+[![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 > Class driven component framework
@@ -19,8 +20,6 @@
 `capsid` recommends the use of [flux][] design pattern. In `capsid`, you don't need any framework or library to apply flux to your app. You can just use [@emits](https://github.com/capsidjs/capsid#emitseventname) and [@notifies](https://github.com/capsidjs/capsid#notifieseventselector) decorators for making unidirectional data flow among your components.
 
 # Features
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
 
 - It's an **UI framework**.
 - It has **no dependencies**, but plays nice with `jQuery`.
