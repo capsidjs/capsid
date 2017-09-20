@@ -20,6 +20,8 @@
 
 # Features
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
+
 - It's an **UI framework**.
 - It has **no dependencies**, but plays nice with `jQuery`.
 - **no virtual dom, no templates**
