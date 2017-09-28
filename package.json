@@ -15,7 +15,7 @@
     "test-firefox": "karma start --browsers Firefox",
     "codecov": "codecov",
     "dist": "gulp dist",
-    "size": "gulp browser && cat dist/capsid.min.js | gzip | wc -c",
+    "size": "gulp browser && gzip-size dist/capsid.min.js",
     "prepublish": "npm run clean && npm run dist"
   },
   "repository": {
@@ -60,6 +60,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
+    "gzip-size-cli": "^2.1.0",
     "jquery": "^3.0.0",
     "karma": "^1.1.1",
     "karma-browserify": "^5.0.4",
