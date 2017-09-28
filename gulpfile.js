@@ -17,9 +17,9 @@ const paths = {
 
 gulp.task('browser', () => (
   rollup({
-    entry: 'src/index.js',
+    input: 'src/index.js',
     format: 'iife',
-    moduleName: 'capsid',
+    name: 'capsid',
     plugins: [flow()]
   })
     .pipe(source('capsid.js'))
