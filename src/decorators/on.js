@@ -1,5 +1,6 @@
 // @flow
 import { KEY_EVENT_LISTENERS } from '../util/const.js'
+import debugMessage from '../util/debug-message.js'
 
 /**
  * The decorator for registering event listener info to the method.
@@ -20,6 +21,15 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
       if (!at || [].some.call(el.querySelectorAll(at), node => {
         return node === e.target || node.contains(e.target)
       })) {
+        if (__DEV__) {
+          debugMessage({
+            type: 'event',
+            e,
+            el,
+            coelem,
+          })
+        }
+
         coelem[key](e)
       }
     })
