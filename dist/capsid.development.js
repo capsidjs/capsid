@@ -228,7 +228,13 @@ var capsid = function (exports) {
 
   //
 
-  //
+  //      
+
+  var debugMessage = function debugMessage(message) {
+    if (typeof capsidDebugMessage !== 'undefined') {
+      capsidDebugMessage(message);
+    }
+  };
 
   //      
   /**
@@ -254,6 +260,15 @@ var capsid = function (exports) {
           if (!at || [].some.call(el.querySelectorAll(at), function (node) {
             return node === e.target || node.contains(e.target);
           })) {
+            {
+              debugMessage({
+                type: 'event',
+                e: e,
+                el: el,
+                coelem: coelem
+              });
+            }
+
             coelem[key](e);
           }
         });
