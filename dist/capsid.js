@@ -84,14 +84,16 @@ var capsid = function (exports) {
   var pluginHooks = [];
 
   //      
-  var COELEMENT_DATA_KEY_PREFIX = '__coelement:';
-  var KEY_EVENT_LISTENERS = '__cc_listeners__';
-  var INITIALIZED_KEY = '__cc_initialized__';
+  var COELEMENT_DATA_KEY_PREFIX = '$D';
+  var KEY_EVENT_LISTENERS = '$K';
+  var INITIALIZED_KEY = '$I';
+  var COMPONENT_NAME_KEY = '$N';
 
   //      
 
-  var initConstructor = function initConstructor(constructor) {
+  var initConstructor = function initConstructor(constructor, name) {
     constructor[INITIALIZED_KEY] = true;
+    constructor[COMPONENT_NAME_KEY] = name;
 
     // Expose capsid here
     constructor.capsid = capsid;
@@ -113,7 +115,7 @@ var capsid = function (exports) {
    */
   var mount = function mount(Constructor, el, name) {
     if (!Constructor[INITIALIZED_KEY]) {
-      initConstructor(Constructor);
+      initConstructor(Constructor, name);
     }
 
     var coelem = new Constructor();
