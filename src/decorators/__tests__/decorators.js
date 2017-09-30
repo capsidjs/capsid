@@ -262,7 +262,7 @@ describe('@wire', () => {
     const instance = make('wire-test4', div()[0])
 
     assert.throws(() => {
-      instance['does-not-exist']
+      console.log(instance['does-not-exist'])
     }, err => {
       return err.message === 'wired class-component "does-not-exist" is not available at DIV(class=[Cls0]'
     })

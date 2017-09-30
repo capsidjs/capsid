@@ -28,7 +28,7 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
             type: 'event',
             e,
             el,
-            coelem,
+            coelem
           })
         }
 
