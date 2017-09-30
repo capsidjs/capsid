@@ -659,6 +659,28 @@ def('mirroring', Mirroring)
 
 [See demo on Codepen](https://codepen.io/kt3k/pen/mwgWXN?editors=1010)
 
+## debug plugin
+
+`debug plugin` outputs information useful for debugging capsid app.
+
+### Install
+
+Via npm:
+
+```js
+require('')
+```
+
+Via CDN:
+
+```html
+<script src="https://unpkg.com/capsid/dist/capsid-debug.js"></script>
+```
+
+(Note: the script above needs to be loaded **before** capsid.js)
+
+And you'll get additional debug information in console.
+
 # History
 
 - 2017-09-09   v0.16.0  Rename `@emit` to `@emits` and `@pub` to `@notifies`
