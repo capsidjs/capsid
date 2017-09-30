@@ -13,7 +13,7 @@ import { KEY_EVENT_LISTENERS, INITIALIZED_KEY, COELEMENT_DATA_KEY_PREFIX } from 
  */
 export default (Constructor: Function, el: HTMLElement, name?: string): any => {
   if (!Constructor[INITIALIZED_KEY]) {
-    initConstructor(Constructor)
+    initConstructor(Constructor, name)
   }
 
   const coelem = new Constructor()

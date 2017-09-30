@@ -1,10 +1,11 @@
 // @flow
 
 import * as capsid from './index.js'
-import { INITIALIZED_KEY } from './util/const'
+import { INITIALIZED_KEY, COMPONENT_NAME_KEY } from './util/const'
 
-export default (constructor: Function) => {
+export default (constructor: Function, name?: string) => {
   constructor[INITIALIZED_KEY] = true
+  constructor[COMPONENT_NAME_KEY] = name
 
   // Expose capsid here
   constructor.capsid = capsid

@@ -13,7 +13,8 @@ const merge = require('merge-stream')
 const paths = {
   src: {
     index: 'src/index.js',
-    jqueryPlugin: 'src/plugins/jquery-plugin.js'
+    jqueryPlugin: 'src/plugins/jquery-plugin.js',
+    debugPlugin: 'src/plugins/debug-plugin.js'
   },
   dist: 'dist'
 }
@@ -70,4 +71,13 @@ gulp.task('jquery-plugin', () => build({
   modes: ['production']
 }))
 
-gulp.task('dist', ['browser', 'cjs', 'jquery-plugin'])
+gulp.task('debug-plugin', () => build({
+  input: paths.src.debugPlugin,
+  format: 'umd',
+  output: 'capsid-debug.js',
+  name: 'capsidDebugMessage',
+  minify: false,
+  modes: ['production']
+}))
+
+gulp.task('dist', ['browser', 'cjs', 'jquery-plugin', 'debug-plugin'])

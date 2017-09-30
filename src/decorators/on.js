@@ -2,6 +2,8 @@
 import { KEY_EVENT_LISTENERS } from '../util/const.js'
 import debugMessage from '../util/debug-message.js'
 
+declare var __DEV__: boolean
+
 /**
  * The decorator for registering event listener info to the method.
  * @param event The event name
