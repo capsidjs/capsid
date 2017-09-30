@@ -4,6 +4,7 @@ import cj from '../plugins/jquery-plugin.js'
 import { Foo, Bar } from './fixture.js'
 
 global.$ = $
+global.__DEV__ = true
 
 cj(capsid, $)
 
