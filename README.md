@@ -668,7 +668,7 @@ def('mirroring', Mirroring)
 Via npm:
 
 ```js
-require('')
+require('capsid/debug') // need to be before capsid load
 ```
 
 Via CDN:
