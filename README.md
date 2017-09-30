@@ -683,6 +683,7 @@ And you'll get additional debug information in console.
 
 # History
 
+- 2017-10-01   v0.17.0  Add debug plugin.
 - 2017-09-09   v0.16.0  Rename `@emit` to `@emits` and `@pub` to `@notifies`
 - 2017-09-06   v0.15.1  Change component init sequence.
 - 2017-09-05   v0.15.0  Add `mount` API. Remove `init` API.
