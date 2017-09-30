@@ -516,16 +516,39 @@ This decorator is useful for applying [flux][] design pattern to capsid componen
 
 Capsid jQuery plugin is the integration of jQuery with capsid.
 
-To use Capsid jQuery plugin in webpack/browserify, do the following:
+### Install
+
+via npm:
+
+```js
+const capsidJQuery = require('capsid/jquery')
+```
+
+via CDN:
+
+```html
+<script src="https://unpkg.com/capsid/dist/capsid-jquery.min.js"></script>
+```
+
+To use Capsid jQuery plugin via npm, do the following:
 
 ```js
 const $ = require('jquery')
 const capsid = require('capsid')
 
-require('capsid/jquery')(capsid, $)
+require('capsid/jquery')(capsid, $) // This appends jquery plugin functions to capsid
 ```
 
 Then, your components automatically have `this.$el` property and it points the dom element wrapped by jQuery.
+
+If you use capsid jquery plugin via CDN:
+
+```
+<script src="https://unpkg.com/capsid"></script>
+<script src="https://unpkg.com/capsid/dist/capsid-jquery.js"></script>
+```
+
+This automatically adds jQuery plugin functions to capsid.
 
 The hello world example with jQuery plugin is like the below:
 
