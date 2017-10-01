@@ -681,6 +681,8 @@ Via CDN:
 
 And you'll get additional debug information in console.
 
+<img src="http://capsidjs.github.io/capsid/asset/ss-debug.png" />
+
 # History
 
 - 2017-10-01   v0.17.0  Add debug plugin.
