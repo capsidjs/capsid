@@ -7,20 +7,52 @@ export default (message: Object) => {
     case 'event':
       onEventMessage(message)
       break
+    case 'outside-event':
+      onOutsideEventMessage(message)
+      break
     default:
       console.log(`Unknown message: ${JSON.stringify(message)}`)
   }
 }
 
-const onEventMessage = ({ el, coelem, e }: { el: HTMLElement, coelem: any, e: Event }) => {
+/**
+ * Gets the bold colored style.
+ * @return {string}
+ */
+const boldColor = color => `color: ${color}; font-weight: bold;`
+
+/**
+ * Gets the displayable component name.
+ */
+const getComponentName = coelem => {
   const { constructor } = coelem
-  const event = `${e.type}`
-  const component = `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
+  return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
+}
 
-  const eventStyle = 'color: magenta; font-weight: bold;'
-  const componentStyle = 'color: green; font-weight: bold;'
+const onEventMessage = ({ el, coelem, e }: { el: HTMLElement, coelem: any, e: Event }) => {
+  const event = e.type
+  const component = getComponentName(coelem)
 
-  console.groupCollapsed(`%c${event} %con %c${component}`, eventStyle, '', componentStyle)
+  console.groupCollapsed(
+    `%c${event} %con %c${component}`,
+    boldColor('#f012be'),
+    '',
+    boldColor('#2ecc40')
+  )
+  console.log(e)
+  console.groupEnd()
+}
+
+const onOutsideEventMessage = ({ el, coelem, e }: { el: HTMLElement, coelem: any, e: Event }) => {
+  const event = e.type
+  const component = getComponentName(coelem)
+
+  console.groupCollapsed(
+    `%coutside ${event} %con %c${component}`,
+    boldColor('#39cccc'),
+    '',
+    boldColor('#2ecc40')
+  )
   console.log(e)
   console.groupEnd()
 }
