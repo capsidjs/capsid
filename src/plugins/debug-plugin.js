@@ -17,19 +17,18 @@ export default (message: Object) => {
 
 /**
  * Gets the bold colored style.
- * @return {string}
  */
-const boldColor = color => `color: ${color}; font-weight: bold;`
+const boldColor = (color: string): string => `color: ${color}; font-weight: bold;`
 
 /**
  * Gets the displayable component name.
  */
-const getComponentName = coelem => {
+const getComponentName = (coelem: any): string => {
   const { constructor } = coelem
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
 }
 
-const onEventMessage = ({ el, coelem, e }: { el: HTMLElement, coelem: any, e: Event }) => {
+const onEventMessage = ({ coelem, e }: { coelem: any, e: Event }) => {
   const event = e.type
   const component = getComponentName(coelem)
 
@@ -43,7 +42,7 @@ const onEventMessage = ({ el, coelem, e }: { el: HTMLElement, coelem: any, e: Ev
   console.groupEnd()
 }
 
-const onOutsideEventMessage = ({ el, coelem, e }: { el: HTMLElement, coelem: any, e: Event }) => {
+const onOutsideEventMessage = ({ coelem, e }: { coelem: any, e: Event }) => {
   const event = e.type
   const component = getComponentName(coelem)
 
