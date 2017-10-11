@@ -72,7 +72,9 @@ if (typeof module !== 'undefined' && module.exports) {
   // If the env is common js, then exports init.
   module.exports = init
 } else if (typeof self !== 'undefined' && self.capsid && self.$) {
-  // If the env is browser and cc and $ is already defined and this plugin isn't applied yet
-  // Then applies the plugin here.
+  // If the env is browser and capsid and $ is already defined
+  // Then applies the plugin
   init(self.capsid, self.$)
+} else {
+  throw new Error('capsid or jquery not defined')
 }
