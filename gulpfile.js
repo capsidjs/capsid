@@ -14,6 +14,7 @@ const paths = {
   src: {
     index: 'src/index.js',
     jqueryPlugin: 'src/plugins/jquery-plugin.js',
+    outsideEventsPlugin: 'src/plugins/outside-events-plugin.js',
     debugPlugin: 'src/plugins/debug-plugin.js'
   },
   dist: 'dist'
@@ -80,4 +81,18 @@ gulp.task('debug-plugin', () => build({
   modes: ['production']
 }))
 
-gulp.task('dist', ['browser', 'cjs', 'jquery-plugin', 'debug-plugin'])
+gulp.task('outside-events-plugin', () => build({
+  input: paths.src.outsideEventsPlugin,
+  format: 'iife',
+  output: 'capsid-outside-events.js',
+  minify: true,
+  modes: ['production', 'development']
+}))
+
+gulp.task('dist', [
+  'browser',
+  'cjs',
+  'jquery-plugin',
+  'debug-plugin',
+  'outside-events-plugin'
+])
