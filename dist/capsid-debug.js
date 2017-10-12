@@ -17,24 +17,50 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       case 'event':
         onEventMessage(message);
         break;
+      case 'outside-event':
+        onOutsideEventMessage(message);
+        break;
       default:
         console.log('Unknown message: ' + JSON.stringify(message));
     }
   };
 
-  var onEventMessage = function onEventMessage(_ref) {
-    var el = _ref.el,
-        coelem = _ref.coelem,
-        e = _ref.e;
+  /**
+   * Gets the bold colored style.
+   */
+  var boldColor = function boldColor(color) {
+    return 'color: ' + color + '; font-weight: bold;';
+  };
+
+  /**
+   * Gets the displayable component name.
+   */
+  var getComponentName = function getComponentName(coelem) {
     var constructor = coelem.constructor;
 
-    var event = '' + e.type;
-    var component = '' + (constructor[COMPONENT_NAME_KEY] || constructor.name);
+    return '' + (constructor[COMPONENT_NAME_KEY] || constructor.name);
+  };
 
-    var eventStyle = 'color: magenta; font-weight: bold;';
-    var componentStyle = 'color: green; font-weight: bold;';
+  var onEventMessage = function onEventMessage(_ref) {
+    var coelem = _ref.coelem,
+        e = _ref.e;
 
-    console.groupCollapsed('%c' + event + ' %con %c' + component, eventStyle, '', componentStyle);
+    var event = e.type;
+    var component = getComponentName(coelem);
+
+    console.groupCollapsed('%c' + event + ' %con %c' + component, boldColor('#f012be'), '', boldColor('#2ecc40'));
+    console.log(e);
+    console.groupEnd();
+  };
+
+  var onOutsideEventMessage = function onOutsideEventMessage(_ref2) {
+    var coelem = _ref2.coelem,
+        e = _ref2.e;
+
+    var event = e.type;
+    var component = getComponentName(coelem);
+
+    console.groupCollapsed('%coutside ' + event + ' %con %c' + component, boldColor('#39cccc'), '', boldColor('#2ecc40'));
     console.log(e);
     console.groupEnd();
   };

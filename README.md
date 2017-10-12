@@ -106,7 +106,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.17.0/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.18.0/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -726,7 +726,8 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
-- 2017-10-01   v0.17.0  Add debug plugin.
+- 2017-10-12   v0.18.0  Add Outside Events plugin.
+- 2017-10-01   v0.17.0  Add Debug plugin.
 - 2017-09-09   v0.16.0  Rename `@emit` to `@emits` and `@pub` to `@notifies`
 - 2017-09-06   v0.15.1  Change component init sequence.
 - 2017-09-05   v0.15.0  Add `mount` API. Remove `init` API.
