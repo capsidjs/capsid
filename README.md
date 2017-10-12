@@ -659,7 +659,7 @@ def('mirroring', Mirroring)
 
 [See demo on Codepen](https://codepen.io/kt3k/pen/mwgWXN?editors=1010)
 
-## debug plugin
+## Debug plugin
 
 `debug plugin` outputs information useful for debugging capsid app.
 
@@ -682,6 +682,47 @@ Via CDN:
 And you'll get additional debug information in console.
 
 <img src="http://capsidjs.github.io/capsid/asset/ss-debug.png" />
+
+## Outside Events Plugin
+
+### Install
+
+Via npm:
+
+```js
+const capsid = require('capsid')
+require('capsid/outside-events')(capsid)
+```
+
+Via cdn:
+
+```html
+<script src="https://unpkg.com/capsid"></script>
+<script src="https://unpkg.com/capsid/dist/capsid-outside-events.js"></script>
+```
+
+With `outside-events-plugin`, you can bind methods to events *outside* of your coponent's element. (This event need to bubble up to `document`)
+
+```js
+@component('modal')
+class Modal {
+  @on.outside('click')
+  close () {
+    this.el.classList.remove('is-shown')
+  }
+
+  open () {
+    this.el.classList.add('is-shown')
+  }
+}
+```
+
+The above `modal` component gets `is-shown` class removed from the element when the outside of modal is clicked.
+
+#### prior art
+
+- [jQuery outside events](https://github.com/cowboy/jquery-outside-events)
+- [react-onclickoutside](https://github.com/Pomax/react-onclickoutside)
 
 # History
 
