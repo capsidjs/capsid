@@ -51,7 +51,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
     "chai": "^4.1.2",
-    "codecov": "^2.3.0",
+    "codecov": "^3.0.0",
     "dom-gen": "^2.3.0",
     "eslint-plugin-flowtype": "^2.20.0",
     "flow-bin": "^0.57.1",
