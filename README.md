@@ -9,7 +9,7 @@
 
 > Class driven component framework
 
-`capsid` is a framework for creating UI Components based on HTML classes.
+`capsid` is an UI framework for creating components written in JS classes.
 
 `capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello world](https://codepen.io/kt3k/pen/MmYxBB) or [Timer](https://codepen.io/kt3k/pen/YVPoWm) examples.
 
@@ -17,7 +17,7 @@
 
 `capsid` is very different from lately popular frameworks like React or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or vue's markup). `capsid` takes very different approach for creating components. It never creates or updates DOM nodes automatically, but let the framework users do it. `capsid` just helps organizing the event handlers and the DOM nodes relationships.
 
-`capsid` recommends the use of [flux][] design pattern. In `capsid`, you don't need any framework or library to apply flux to your app. You can just use [@emits](https://github.com/capsidjs/capsid#emitseventname) and [@notifies](https://github.com/capsidjs/capsid#notifieseventselector) decorators for making unidirectional data flow among your components.
+`capsid` recommends the use of [flux][] design pattern. In `capsid`, you don't need any framework or library to apply flux pattern to your app. You can just use [@emits](https://github.com/capsidjs/capsid#emitseventname) and [@notifies](https://github.com/capsidjs/capsid#notifieseventselector) decorators for making unidirectional data flow among your components.
 
 # Features
 
@@ -52,7 +52,7 @@ When you *define* the component, then dom elements which has `hello` class is au
 
 # The timer
 
-The timer example:
+The timer example shows how you can store component's states in it:
 
 ```html
 <span class="timer"></span>
@@ -117,6 +117,44 @@ In this case, the library exports the global variable `capsid`.
 ```js
 window.capsid.def('timer', Timer)
 ```
+
+# capsid lifecycle
+
+φ -> [mount] -> mounted -> [discard] -> φ
+
+## capsid lifecycle events
+
+- mount
+  - at `DOMContentLoaded` all elements in the page which have the capsid class-names are mounted by the capsid components
+  - at `mount` event element and coelement (instance of the component class) are coupled and starting working together. See the below for details.
+  - after `DOMContentLoaded`, you need to call `prep` function explicitly to mount capsid components to corresponding elements.
+
+- discard
+  - capsid doesn't provide the special method for unmounting the components. If you stop using a component, then simply remove the corresponding dom from the page. That's the end of the component lifecycle.
+
+## anatomy of [mount]
+
+At [mount] event, many things happen. These are the core feature of capsid.js:
+
+- The component class's `instance` is created.
+- `instance`.el is set to corresponding dom element.
+- event listeners defined by `@on` decorators are attached to the dom element.
+- plugin hooks are invoked if you use any.
+- if `instance` has __init__ method, then `instance.__init__()` is called.
+
+These things happen in this order, which means in `__init__` method you can access the dom element by `this.el` and you can invoke the event handlers by triggering event at `this.el`.
+
+See the source code of initComponent method for details: https://github.com/capsidjs/capsid/blob/master/src/init-component.js#L14-L44
+
+## capsid lifecycle methods
+
+### `constructor`
+
+The constructor is called at the start of mount event. Its instance (coelement) is bound to element by the framework.
+
+### `__init__`
+
+`__init__` is called at the end of the mount event. When it called, dom element, event handlers are ready and available through `this.el`.
 
 # APIs
 
