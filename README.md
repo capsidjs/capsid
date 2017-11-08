@@ -124,12 +124,12 @@ window.capsid.def('timer', Timer)
 
 ## capsid lifecycle events
 
-- mount
+- [mount]
   - at `DOMContentLoaded` all elements in the page which have the capsid class-names are mounted by the capsid components
   - at `mount` event element and coelement (instance of the component class) are coupled and starting working together. See the below for details.
   - after `DOMContentLoaded`, you need to call `prep` function explicitly to mount capsid components to corresponding elements.
 
-- discard
+- [discard]
   - capsid doesn't provide the special method for unmounting the components. If you stop using a component, then simply remove the corresponding dom from the page. That's the end of the component lifecycle.
 
 ## anatomy of [mount]
@@ -154,7 +154,7 @@ The constructor is called at the start of mount event. Its instance (coelement) 
 
 ### `__init__`
 
-`__init__` is called at the end of the mount event. When it called, dom element, event handlers are ready and available through `this.el`.
+`__init__` is called at the end of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
 
 # APIs
 
@@ -164,7 +164,7 @@ const capsid = require('capsid')
 
 - `capsid.def(name, constructor)`
   - Registers class-component.
-- `capsid.prep(name[, element])`
+- `capsid.prep([name], [element])`
   - Initialize class-component on the given range.
 - `capsid.make(name, element)`
   - Initializes the element with the component of the given name and return the coelement instance.
