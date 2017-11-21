@@ -22,24 +22,37 @@ const paths = {
 
 const replaceVars = isProduction => replace({ __DEV__: `${!isProduction}` })
 
-const rollupStream = ({ input, format, name, output, mode }) => rollup({
-  input,
-  format,
-  name,
-  plugins: [flow(), replaceVars(mode === 'production')]
-})
-  .pipe(source(output))
-  .pipe(gulpif(mode !== 'production', rename({ suffix: `.${mode}` })))
+const rollupStream = ({ input, format, name, output, mode }) =>
+  rollup({
+    input,
+    format,
+    name,
+    plugins: [flow(), replaceVars(mode === 'production')]
+  })
+    .pipe(source(output))
+    .pipe(gulpif(mode !== 'production', rename({ suffix: `.${mode}` })))
 
 const build = ({ input, format, name, output, minify, modes }) => {
-  const pipeline = merge.apply(null, modes.map(mode => rollupStream({
-    input, format, name, output, mode
-  })))
+  const pipeline = merge
+    .apply(
+      null,
+      modes.map(mode =>
+        rollupStream({
+          input,
+          format,
+          name,
+          output,
+          mode
+        })
+      )
+    )
     .pipe(buffer())
     .pipe(babel())
     .pipe(gulp.dest(paths.dist))
 
-  if (!minify) { return pipeline }
+  if (!minify) {
+    return pipeline
+  }
 
   return pipeline
     .pipe(uglify())
@@ -47,52 +60,56 @@ const build = ({ input, format, name, output, minify, modes }) => {
     .pipe(gulp.dest(paths.dist))
 }
 
-gulp.task('browser', () => build({
-  input: paths.src.index,
-  format: 'iife',
-  name: 'capsid',
-  output: 'capsid.js',
-  minify: true,
-  modes: ['production', 'development']
-}))
+gulp.task('browser', () =>
+  build({
+    input: paths.src.index,
+    format: 'iife',
+    name: 'capsid',
+    output: 'capsid.js',
+    minify: true,
+    modes: ['production', 'development']
+  })
+)
 
-gulp.task('cjs', () => build({
-  input: paths.src.index,
-  format: 'cjs',
-  output: 'capsid-cjs.js',
-  minify: false,
-  modes: ['production', 'development']
-}))
+gulp.task('cjs', () =>
+  build({
+    input: paths.src.index,
+    format: 'cjs',
+    output: 'capsid-cjs.js',
+    minify: false,
+    modes: ['production', 'development']
+  })
+)
 
-gulp.task('jquery-plugin', () => build({
-  input: paths.src.jqueryPlugin,
-  format: 'iife',
-  output: 'capsid-jquery.js',
-  minify: true,
-  modes: ['production']
-}))
+gulp.task('jquery-plugin', () =>
+  build({
+    input: paths.src.jqueryPlugin,
+    format: 'iife',
+    output: 'capsid-jquery.js',
+    minify: true,
+    modes: ['production']
+  })
+)
 
-gulp.task('debug-plugin', () => build({
-  input: paths.src.debugPlugin,
-  format: 'umd',
-  output: 'capsid-debug.js',
-  name: 'capsidDebugMessage',
-  minify: false,
-  modes: ['production']
-}))
+gulp.task('debug-plugin', () =>
+  build({
+    input: paths.src.debugPlugin,
+    format: 'umd',
+    output: 'capsid-debug.js',
+    name: 'capsidDebugMessage',
+    minify: false,
+    modes: ['production']
+  })
+)
 
-gulp.task('outside-events-plugin', () => build({
-  input: paths.src.outsideEventsPlugin,
-  format: 'iife',
-  output: 'capsid-outside-events.js',
-  minify: true,
-  modes: ['production', 'development']
-}))
+gulp.task('outside-events-plugin', () =>
+  build({
+    input: paths.src.outsideEventsPlugin,
+    format: 'iife',
+    output: 'capsid-outside-events.js',
+    minify: true,
+    modes: ['production', 'development']
+  })
+)
 
-gulp.task('dist', [
-  'browser',
-  'cjs',
-  'jquery-plugin',
-  'debug-plugin',
-  'outside-events-plugin'
-])
+gulp.task('dist', ['browser', 'cjs', 'jquery-plugin', 'debug-plugin', 'outside-events-plugin'])
