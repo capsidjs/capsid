@@ -14,9 +14,10 @@ before(() => {
   capsid.def('bar', Bar)
 })
 
-export const clearComponents = () => Object.keys(capsid.__ccc__).forEach(key => {
-  delete capsid.__ccc__[key]
-})
+export const clearComponents = () =>
+  Object.keys(capsid.__ccc__).forEach(key => {
+    delete capsid.__ccc__[key]
+  })
 
 /**
  * @param {Function} decorator The decorator
