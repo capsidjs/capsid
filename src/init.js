@@ -1,7 +1,7 @@
 // @flow
 
-import ccc from './ccc.js'
-import { checkComponentNameIsValid } from './util/check.js'
+import ccc from "./ccc.js";
+import { checkComponentNameIsValid } from "./util/check.js";
 
 /**
  * Initializes the given element as the class-component.
@@ -9,7 +9,7 @@ import { checkComponentNameIsValid } from './util/check.js'
  * @param el The element to initialize
  */
 export default (name: string, el: HTMLElement) => {
-  checkComponentNameIsValid(name)
+  checkComponentNameIsValid(name);
 
-  ccc[name](el)
-}
+  ccc[name](el);
+};

@@ -1,3 +1,3 @@
-import on from './on.js'
+import on from "./on.js";
 
-export default on('click')
+export default on("click");

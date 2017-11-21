@@ -1,10 +1,10 @@
-import camelToKebab from '../camel-to-kebab'
+import camelToKebab from "../camel-to-kebab";
 
-const assert = require('assert')
+const assert = require("assert");
 
-describe('camelToKebab', () => {
-  it('convert camel case to kebab case', () => {
-    assert(camelToKebab('camelToKebab') === 'camel-to-kebab')
-    assert(camelToKebab('CamelToKebab') === 'camel-to-kebab')
-  })
-})
+describe("camelToKebab", () => {
+  it("convert camel case to kebab case", () => {
+    assert(camelToKebab("camelToKebab") === "camel-to-kebab");
+    assert(camelToKebab("CamelToKebab") === "camel-to-kebab");
+  });
+});

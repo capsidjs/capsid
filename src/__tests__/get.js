@@ -1,23 +1,23 @@
-import assert from 'assert'
-import { get, make, def } from '../index.js'
-import { Foo } from './fixture.js'
-import { clearComponents } from './helper.js'
+import assert from "assert";
+import { get, make, def } from "../index.js";
+import { Foo } from "./fixture.js";
+import { clearComponents } from "./helper.js";
 
-describe('get', () => {
+describe("get", () => {
   before(() => {
-    def('foo', Foo)
-  })
+    def("foo", Foo);
+  });
 
-  after(() => clearComponents())
+  after(() => clearComponents());
 
-  it('gets the coelement instance from the element', () => {
-    const el = document.createElement('div')
+  it("gets the coelement instance from the element", () => {
+    const el = document.createElement("div");
 
-    make('foo', el)
+    make("foo", el);
 
-    const coel = get('foo', el)
+    const coel = get("foo", el);
 
-    assert(coel instanceof Foo)
-    assert(coel.el === el)
-  })
-})
+    assert(coel instanceof Foo);
+    assert(coel.el === el);
+  });
+});

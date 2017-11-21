@@ -1,7 +1,7 @@
 // @flow
 
-import get from './get.js'
-import init from './init.js'
+import get from "./get.js";
+import init from "./init.js";
 
 /**
  * Initializes the given element as the class-component.
@@ -10,7 +10,7 @@ import init from './init.js'
  * @return
  */
 export default (name: string, elm: HTMLElement) => {
-  init(name, elm)
+  init(name, elm);
 
-  return get(name, elm)
-}
+  return get(name, elm);
+};

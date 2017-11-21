@@ -1,6 +1,6 @@
 // @flow
 
-import trigger from '../util/event-trigger.js'
+import trigger from "../util/event-trigger.js";
 
 /**
  * `@emits(event)` decorator
@@ -9,37 +9,45 @@ import trigger from '../util/event-trigger.js'
  * If the method returns the promise, then the event is emitted when it is resolved.
  * @param event The event name
  */
-const emits = (event: string) => (target: Object, key: string, descriptor: Object) => {
-  const method = descriptor.value
+const emits = (event: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
+  const method = descriptor.value;
 
-  descriptor.value = function () {
-    const result = method.apply(this, arguments)
+  descriptor.value = function() {
+    const result = method.apply(this, arguments);
 
-    const emit = x => trigger(this.el, event, true, x)
+    const emit = x => trigger(this.el, event, true, x);
 
     if (result && result.then) {
-      result.then(emit)
+      result.then(emit);
     } else {
-      emit(result)
+      emit(result);
     }
 
-    return result
-  }
-}
+    return result;
+  };
+};
 
 /**
  * `@emit.first(event)` decorator.
  * This decorator adds the event emission at the beginning of the method.
  * @param event The event name
  */
-emits.first = (event: string) => (target: Object, key: string, descriptor: Object) => {
-  const method = descriptor.value
+emits.first = (event: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
+  const method = descriptor.value;
 
-  descriptor.value = function () {
-    trigger(this.el, event, true, arguments[0])
+  descriptor.value = function() {
+    trigger(this.el, event, true, arguments[0]);
 
-    return method.apply(this, arguments)
-  }
-}
+    return method.apply(this, arguments);
+  };
+};
 
-export default emits
+export default emits;

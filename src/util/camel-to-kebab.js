@@ -4,4 +4,5 @@
  * @param camelString The string in camelCase
  * @return The string in kebab-case
  */
-export default (camelString: string): string => camelString.replace(/(?!^)[A-Z]/g, '-$&').toLowerCase()
+export default (camelString: string): string =>
+  camelString.replace(/(?!^)[A-Z]/g, "-$&").toLowerCase();

@@ -1,7 +1,7 @@
 // @flow
 
-import check, { checkComponentNameIsValid } from './util/check.js'
-import { COELEMENT_DATA_KEY_PREFIX } from './util/const.js'
+import check, { checkComponentNameIsValid } from "./util/check.js";
+import { COELEMENT_DATA_KEY_PREFIX } from "./util/const.js";
 
 /**
  * Gets the eoelement instance of the class-component of the given name
@@ -9,11 +9,11 @@ import { COELEMENT_DATA_KEY_PREFIX } from './util/const.js'
  * @param el The element
  */
 export default (name: string, el: HTMLElement) => {
-  checkComponentNameIsValid(name)
+  checkComponentNameIsValid(name);
 
-  const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name]
+  const coelement = (el: any)[COELEMENT_DATA_KEY_PREFIX + name];
 
-  check(coelement, `no coelement named: ${name}, on the dom: ${el.tagName}`)
+  check(coelement, `no coelement named: ${name}, on the dom: ${el.tagName}`);
 
-  return coelement
-}
+  return coelement;
+};

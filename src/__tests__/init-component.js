@@ -1,66 +1,66 @@
-import * as capsid from '../index.js'
-import initComponent from '../init-component.js'
-import assert from 'power-assert'
-import { clearComponents, callDecorator } from './helper.js'
+import * as capsid from "../index.js";
+import initComponent from "../init-component.js";
+import assert from "power-assert";
+import { clearComponents, callDecorator } from "./helper.js";
 
-const { on } = capsid
+const { on } = capsid;
 
-describe('initComponent', () => {
+describe("initComponent", () => {
   afterEach(() => {
-    clearComponents()
-  })
+    clearComponents();
+  });
 
-  it('initializes the element as a component by the given constructor', () => {
+  it("initializes the element as a component by the given constructor", () => {
     class A {}
 
-    const el = document.createElement('div')
-    const coelem = initComponent(A, el)
+    const el = document.createElement("div");
+    const coelem = initComponent(A, el);
 
-    assert(coelem instanceof A)
-    assert.strictEqual(coelem.el, el)
-  })
+    assert(coelem instanceof A);
+    assert.strictEqual(coelem.el, el);
+  });
 
-  it('calls __init__', done => {
+  it("calls __init__", done => {
     class A {
-      __init__ () {
-        assert.strictEqual(this.el, el)
+      __init__() {
+        assert.strictEqual(this.el, el);
 
-        done()
+        done();
       }
     }
 
-    const el = document.createElement('div')
+    const el = document.createElement("div");
 
-    initComponent(A, el)
-  })
+    initComponent(A, el);
+  });
 
-  it('calls static __init__', done => {
+  it("calls static __init__", done => {
     class A {
-      static __init__ () {
-        assert.strictEqual(this.capsid, capsid)
+      static __init__() {
+        assert.strictEqual(this.capsid, capsid);
 
-        done()
+        done();
       }
     }
 
-    initComponent(A, document.createElement('div'))
-  })
+    initComponent(A, document.createElement("div"));
+  });
 
-  describe('__init__', () => {
-    it('runs after @on handlers are set', done => {
+  describe("__init__", () => {
+    it("runs after @on handlers are set", done => {
       class A {
-        __init__ () {
-          this.el.click()
+        __init__() {
+          this.el.click();
         }
 
-        onClick () {
-          done()
+        onClick() {
+          done();
         }
       }
 
-      callDecorator(on.click, A, 'onClick')
+      callDecorator(on.click, A, "onClick");
 
-      initComponent(A, document.createElement('div'))
-    })
-  })
-})
+      initComponent(A, document.createElement("div"));
+    });
+  });
+});

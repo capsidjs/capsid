@@ -1,31 +1,31 @@
-import assert from 'assert'
-import { def, make } from '../index.js'
-import { clearComponents } from './helper'
+import assert from "assert";
+import { def, make } from "../index.js";
+import { clearComponents } from "./helper";
 
-describe('def', () => {
-  after(() => clearComponents())
+describe("def", () => {
+  after(() => clearComponents());
 
-  it('throws an error when the first param is not a string', () => {
+  it("throws an error when the first param is not a string", () => {
     assert.throws(() => {
-      def(null, class A {})
-    }, Error)
-  })
+      def(null, class A {});
+    }, Error);
+  });
 
-  it('throws an error when the second param is not a function', () => {
+  it("throws an error when the second param is not a function", () => {
     assert.throws(() => {
-      def('register-test2', null)
-    }, Error)
-  })
+      def("register-test2", null);
+    }, Error);
+  });
 
-  it('registers the given class by the given name component', () => {
+  it("registers the given class by the given name component", () => {
     class A {}
 
-    def('assign-test2', A)
+    def("assign-test2", A);
 
-    const el = document.createElement('div')
+    const el = document.createElement("div");
 
-    const coelem = make('assign-test2', el)
+    const coelem = make("assign-test2", el);
 
-    assert(coelem instanceof A)
-  })
-})
+    assert(coelem instanceof A);
+  });
+});
