@@ -1,16 +1,15 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, "__esModule", { value: true });
 
-//      
-
+//
 
 /**
  * The mapping from class-component name to its initializer function.
  */
 var ccc = {};
 
-//      
+//
 /**
  * Asserts the given condition holds, otherwise throws.
  * @param assertion The assertion expression
@@ -31,18 +30,21 @@ function check(assertion, message) {
  * @param name The component name
  */
 function checkComponentNameIsValid(name) {
-  check(typeof name === 'string', 'The name should be a string');
-  check(!!ccc[name], 'The coelement of the given name is not registered: ' + name);
+  check(typeof name === "string", "The name should be a string");
+  check(
+    !!ccc[name],
+    "The coelement of the given name is not registered: " + name
+  );
 }
 
-//      
+//
 
-var READY_STATE_CHANGE = 'readystatechange';
+var READY_STATE_CHANGE = "readystatechange";
 var doc = document;
 
-var ready = new Promise(function (resolve) {
+var ready = new Promise(function(resolve) {
   var checkReady = function checkReady() {
-    if (doc.readyState === 'complete') {
+    if (doc.readyState === "complete") {
       resolve();
       doc.removeEventListener(READY_STATE_CHANGE, checkReady);
     }
@@ -55,7 +57,7 @@ var ready = new Promise(function (resolve) {
 
 var documentElement = doc.documentElement;
 
-//      
+//
 /**
  * Initializes the class components of the given name in the range of the given element.
  * @param name The class name
@@ -73,23 +75,25 @@ var prep = function prep(name, el) {
     classNames = [name];
   }
 
-  classNames.map(function (className) {
-    [].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className]);
+  classNames.map(function(className) {
+    [].map.call(
+      (el || doc).querySelectorAll(ccc[className].sel),
+      ccc[className]
+    );
   });
 };
 
-//      
-
+//
 
 var pluginHooks = [];
 
-//      
-var COELEMENT_DATA_KEY_PREFIX = '$D';
-var KEY_EVENT_LISTENERS = '$K';
-var INITIALIZED_KEY = '$I';
-var COMPONENT_NAME_KEY = '$N';
+//
+var COELEMENT_DATA_KEY_PREFIX = "$D";
+var KEY_EVENT_LISTENERS = "$K";
+var INITIALIZED_KEY = "$I";
+var COMPONENT_NAME_KEY = "$N";
 
-//      
+//
 
 var initConstructor = function initConstructor(constructor, name) {
   constructor[INITIALIZED_KEY] = true;
@@ -99,12 +103,12 @@ var initConstructor = function initConstructor(constructor, name) {
   constructor.capsid = capsid;
 
   // If the constructor has the static __init__, then calls it.
-  if (typeof constructor.__init__ === 'function') {
+  if (typeof constructor.__init__ === "function") {
     constructor.__init__();
   }
 };
 
-//      
+//
 
 /**
  * Initialize component.
@@ -129,23 +133,23 @@ var mount = function mount(Constructor, el, name) {
   }
 
   // Initialize event listeners defined by @emit decorator
-  (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
+  (Constructor[KEY_EVENT_LISTENERS] || []).map(function(listenerBinder) {
     listenerBinder(el, coelem);
   });
 
   // Executes plugin hooks
-  pluginHooks.forEach(function (pluginHook) {
+  pluginHooks.forEach(function(pluginHook) {
     pluginHook(el, coelem);
   });
 
-  if (typeof coelem.__init__ === 'function') {
+  if (typeof coelem.__init__ === "function") {
     coelem.__init__();
   }
 
   return coelem;
 };
 
-//      
+//
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -154,10 +158,16 @@ var mount = function mount(Constructor, el, name) {
  * @return The registered component class
  */
 var def = function def(name, Constructor) {
-  check(typeof name === 'string', '`name` of a class component has to be a string.');
-  check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function');
+  check(
+    typeof name === "string",
+    "`name` of a class component has to be a string."
+  );
+  check(
+    typeof Constructor === "function",
+    "`Constructor` of a class component has to be a function"
+  );
 
-  var initClass = name + '-initialized';
+  var initClass = name + "-initialized";
 
   /**
    * Initializes the html element by the configuration.
@@ -175,16 +185,16 @@ var def = function def(name, Constructor) {
   };
 
   // The selector
-  initializer.sel = '.' + name + ':not(.' + initClass + ')';
+  initializer.sel = "." + name + ":not(." + initClass + ")";
 
   ccc[name] = initializer;
 
-  ready.then(function () {
+  ready.then(function() {
     prep(name);
   });
 };
 
-//      
+//
 
 /**
  * Gets the eoelement instance of the class-component of the given name
@@ -196,12 +206,15 @@ var get = function get(name, el) {
 
   var coelement = el[COELEMENT_DATA_KEY_PREFIX + name];
 
-  check(coelement, 'no coelement named: ' + name + ', on the dom: ' + el.tagName);
+  check(
+    coelement,
+    "no coelement named: " + name + ", on the dom: " + el.tagName
+  );
 
   return coelement;
 };
 
-//      
+//
 
 /**
  * Initializes the given element as the class-component.
@@ -214,7 +227,7 @@ var init = function init(name, el) {
   ccc[name](el);
 };
 
-//      
+//
 
 /**
  * Initializes the given element as the class-component.
@@ -232,7 +245,7 @@ var make = function make(name, elm) {
 
 //
 
-//      
+//
 /**
  * The decorator for registering event listener info to the method.
  * @param event The event name
@@ -241,21 +254,27 @@ var make = function make(name, elm) {
  * @param key The decorator target key (decorator interface)
  */
 var on = function on(event) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      at = _ref.at;
+  var _ref =
+      arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    at = _ref.at;
 
-  return function (target, key) {
+  return function(target, key) {
     var Constructor = target.constructor;
 
     /**
      * @param el The element
      * @param coelem The coelement
      */
-    Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
-      el.addEventListener(event, function (e) {
-        if (!at || [].some.call(el.querySelectorAll(at), function (node) {
-          return node === e.target || node.contains(e.target);
-        })) {
+    Constructor[KEY_EVENT_LISTENERS] = (
+      Constructor[KEY_EVENT_LISTENERS] || []
+    ).concat(function(el, coelem) {
+      el.addEventListener(event, function(e) {
+        if (
+          !at ||
+          [].some.call(el.querySelectorAll(at), function(node) {
+            return node === e.target || node.contains(e.target);
+          })
+        ) {
           coelem[key](e);
         }
       });
@@ -263,9 +282,9 @@ var on = function on(event) {
   };
 };
 
-var onClick = on('click');
+var onClick = on("click");
 
-//      
+//
 /**
  * Triggers the event.
  * @param el The element
@@ -276,7 +295,7 @@ var trigger = function trigger(el, type, bubbles, detail) {
   el.dispatchEvent(new CustomEvent(type, { detail: detail, bubbles: bubbles }));
 };
 
-//      
+//
 
 /**
  * `@emits(event)` decorator
@@ -286,10 +305,10 @@ var trigger = function trigger(el, type, bubbles, detail) {
  * @param event The event name
  */
 var emits = function emits(event) {
-  return function (target, key, descriptor) {
+  return function(target, key, descriptor) {
     var method = descriptor.value;
 
-    descriptor.value = function () {
+    descriptor.value = function() {
       var _this = this;
 
       var result = method.apply(this, arguments);
@@ -314,11 +333,11 @@ var emits = function emits(event) {
  * This decorator adds the event emission at the beginning of the method.
  * @param event The event name
  */
-emits.first = function (event) {
-  return function (target, key, descriptor) {
+emits.first = function(event) {
+  return function(target, key, descriptor) {
     var method = descriptor.value;
 
-    descriptor.value = function () {
+    descriptor.value = function() {
       trigger(this.el, event, true, arguments[0]);
 
       return method.apply(this, arguments);
@@ -326,21 +345,24 @@ emits.first = function (event) {
   };
 };
 
-//      
+//
 
-var matches = documentElement.matches || documentElement.webkitMatchesSelector || documentElement.msMatchesSelector;
+var matches =
+  documentElement.matches ||
+  documentElement.webkitMatchesSelector ||
+  documentElement.msMatchesSelector;
 
-//      
+//
 /**
  * Transform camelCase string to kebab-case string
  * @param camelString The string in camelCase
  * @return The string in kebab-case
  */
 var camelToKebab = function camelToKebab(camelString) {
-  return camelString.replace(/(?!^)[A-Z]/g, '-$&').toLowerCase();
+  return camelString.replace(/(?!^)[A-Z]/g, "-$&").toLowerCase();
 };
 
-//      
+//
 
 /**
  * Replaces the getter with the function which accesses the class-component of the given name.
@@ -351,10 +373,10 @@ var camelToKebab = function camelToKebab(camelString) {
  * @param {object} descriptor The property descriptor
  */
 var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
-  return function (target, key, descriptor) {
-    var sel = selector || '.' + name;
+  return function(target, key, descriptor) {
+    var sel = selector || "." + name;
 
-    descriptor.get = function () {
+    descriptor.get = function() {
       if (matches.call(this.el, sel)) {
         return get(name, this.el);
       }
@@ -365,7 +387,15 @@ var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
         return get(name, nodes[0]);
       }
 
-      throw new Error('wired class-component "' + name + '" is not available at ' + this.el.tagName + '(class=[' + this.constructor.name + ']');
+      throw new Error(
+        'wired class-component "' +
+          name +
+          '" is not available at ' +
+          this.el.tagName +
+          "(class=[" +
+          this.constructor.name +
+          "]"
+      );
     };
   };
 };
@@ -374,7 +404,7 @@ var wireByNameAndSelector = function wireByNameAndSelector(name, selector) {
  * Wires the class component of the name of the key to the property of the same name.
  */
 var wireComponent = function wireComponent(target, key, descriptor) {
-  if (typeof target === 'string') {
+  if (typeof target === "string") {
     // If target is a string, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
     return wireByNameAndSelector(target, key);
@@ -384,16 +414,16 @@ var wireComponent = function wireComponent(target, key, descriptor) {
 };
 
 var wireElement = function wireElement(sel) {
-  return function (target, key, descriptor) {
-    descriptor.get = function () {
+  return function(target, key, descriptor) {
+    descriptor.get = function() {
       return this.el.querySelector(sel);
     };
   };
 };
 
 var wireElementAll = function wireElementAll(sel) {
-  return function (target, key, descriptor) {
-    descriptor.get = function () {
+  return function(target, key, descriptor) {
+    descriptor.get = function() {
       return this.el.querySelectorAll(sel);
     };
   };
@@ -402,7 +432,7 @@ var wireElementAll = function wireElementAll(sel) {
 wireComponent.el = wireElement;
 wireComponent.elAll = wireElementAll;
 
-//      
+//
 
 /**
  * The decorator for class component registration.
@@ -412,8 +442,8 @@ wireComponent.elAll = wireElementAll;
  * @return The decorator if the class name is given, undefined if the implementation class is given
  */
 var component = function component(name) {
-  if (typeof name !== 'function') {
-    return function (Cls) {
+  if (typeof name !== "function") {
+    return function(Cls) {
       def(name, Cls);
       return Cls;
     };
@@ -422,23 +452,23 @@ var component = function component(name) {
   return component(camelToKebab(name.name))(name);
 };
 
-//      
+//
 
 /**
  * Adds the function to publish the given event to the descendent elements of the given selector to the decorated method.
  */
 var notifies = function notifies(event, selector) {
-  return function (target, key, descriptor) {
+  return function(target, key, descriptor) {
     var method = descriptor.value;
 
-    descriptor.value = function () {
+    descriptor.value = function() {
       var _this2 = this;
 
       var result = method.apply(this, arguments);
       var forEach = [].forEach;
 
       var emit = function emit(x) {
-        forEach.call(_this2.el.querySelectorAll(selector), function (el) {
+        forEach.call(_this2.el.querySelectorAll(selector), function(el) {
           return trigger(el, event, false, x);
         });
       };
@@ -456,11 +486,10 @@ var notifies = function notifies(event, selector) {
 
 on.click = onClick;
 
-//      
+//
 
 var emit = emits; // alias
 var pub = notifies; // alias
-
 
 var capsid = Object.freeze({
   def: def,

@@ -1,7 +1,7 @@
 // @flow
 
-import def from '../def.js'
-import camelToKebab from '../util/camel-to-kebab.js'
+import def from "../def.js";
+import camelToKebab from "../util/camel-to-kebab.js";
 
 /**
  * The decorator for class component registration.
@@ -11,14 +11,14 @@ import camelToKebab from '../util/camel-to-kebab.js'
  * @return The decorator if the class name is given, undefined if the implementation class is given
  */
 const component = (name: string | Function): any => {
-  if (typeof name !== 'function') {
+  if (typeof name !== "function") {
     return Cls => {
-      def((name: any), Cls)
-      return Cls
-    }
+      def((name: any), Cls);
+      return Cls;
+    };
   }
 
-  return component(camelToKebab(name.name))(name)
-}
+  return component(camelToKebab(name.name))(name);
+};
 
-export default component
+export default component;

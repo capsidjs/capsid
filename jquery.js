@@ -1,1 +1,1 @@
-module.exports = require('./dist/capsid-jquery.js')
+module.exports = require("./dist/capsid-jquery.js");

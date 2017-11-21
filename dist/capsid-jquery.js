@@ -1,14 +1,13 @@
-(function () {
-  'use strict';
+(function() {
+  "use strict";
 
-  //      
-
+  //
 
   /**
    * The mapping from class-component name to its initializer function.
    */
 
-  //      
+  //
   /**
    * Asserts the given condition holds, otherwise throws.
    * @param assertion The assertion expression
@@ -25,7 +24,10 @@
    * @param classNames The class names
    */
   function checkClassNamesAreStringOrNull(classNames) {
-    check(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.');
+    check(
+      typeof classNames === "string" || classNames == null,
+      "classNames must be a string or undefined/null."
+    );
   }
 
   /**
@@ -33,7 +35,7 @@
    * @param name The component name
    */
 
-  //      
+  //
 
   /**
    * Applies the jquery plugin to cc and $
@@ -46,12 +48,16 @@
     var make = capsid.make;
     var wire = capsid.wire;
 
-    var descriptor = { get: function get() {
+    var descriptor = {
+      get: function get() {
         var _this = this;
 
         var dom = this[0];
 
-        check(dom != null, 'cc (capsid context) is unavailable at empty dom selection');
+        check(
+          dom != null,
+          "cc (capsid context) is unavailable at empty dom selection"
+        );
 
         var cc = dom.cc;
 
@@ -61,8 +67,9 @@
            * @param {?string} classNames The class component names
            * @return {jQuery}
            */
-          cc = dom.cc = function (classNames) {
-            checkClassNamesAreStringOrNull(classNames);(classNames || dom.className).split(/\s+/).map(function (className) {
+          cc = dom.cc = function(classNames) {
+            checkClassNamesAreStringOrNull(classNames);
+            (classNames || dom.className).split(/\s+/).map(function(className) {
               if (ccc[className]) {
                 make(className, dom);
               }
@@ -76,45 +83,46 @@
            * @param {string} name The name of the coelement
            * @return {Object}
            */
-          cc.get = function (name) {
+          cc.get = function(name) {
             return _get(name, dom);
           };
 
-          cc.init = function (className) {
+          cc.init = function(className) {
             return cc(className).cc.get(className);
           };
         }
 
         return cc;
-      } };
+      }
+    };
 
     // Defines the special property cc on the jquery prototype.
-    Object.defineProperty($.fn, 'cc', descriptor);
+    Object.defineProperty($.fn, "cc", descriptor);
 
     // Applies jQuery initializer plugin
-    capsid.pluginHooks.push(function (el, coel) {
+    capsid.pluginHooks.push(function(el, coel) {
       coel.$el = $(el);
       coel.elem = coel.$el; // backward compat, will be removed
     });
 
     // Define wire.$el decorator
-    wire.$el = function (sel) {
-      return function (target, key, descriptor) {
-        descriptor.get = function () {
+    wire.$el = function(sel) {
+      return function(target, key, descriptor) {
+        descriptor.get = function() {
           return this.$el.find(sel);
         };
       };
     };
   };
 
-  if (typeof module !== 'undefined' && module.exports) {
+  if (typeof module !== "undefined" && module.exports) {
     // If the env is common js, then exports init.
     module.exports = init;
-  } else if (typeof self !== 'undefined' && self.capsid && self.$) {
+  } else if (typeof self !== "undefined" && self.capsid && self.$) {
     // If the env is browser and capsid and $ is already defined
     // Then applies the plugin
     init(self.capsid, self.$);
   } else {
-    throw new Error('capsid or jquery not defined');
+    throw new Error("capsid or jquery not defined");
   }
 })();

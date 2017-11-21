@@ -1,5 +1,5 @@
 // @flow
 
-import mount from './init-component'
+import mount from "./init-component";
 
-export default mount
+export default mount;

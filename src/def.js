@@ -1,11 +1,11 @@
 // @flow
 
-import ccc from './ccc.js'
-import prep from './prep.js'
-import initComponent from './init-component.js'
+import ccc from "./ccc.js";
+import prep from "./prep.js";
+import initComponent from "./init-component.js";
 
-import check from './util/check.js'
-import { ready } from './util/document'
+import check from "./util/check.js";
+import { ready } from "./util/document";
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -14,10 +14,16 @@ import { ready } from './util/document'
  * @return The registered component class
  */
 const def = (name: string, Constructor: Function) => {
-  check(typeof name === 'string', '`name` of a class component has to be a string.')
-  check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function')
+  check(
+    typeof name === "string",
+    "`name` of a class component has to be a string."
+  );
+  check(
+    typeof Constructor === "function",
+    "`Constructor` of a class component has to be a function"
+  );
 
-  const initClass = `${name}-initialized`
+  const initClass = `${name}-initialized`;
 
   /**
    * Initializes the html element by the configuration.
@@ -25,21 +31,23 @@ const def = (name: string, Constructor: Function) => {
    * @param coelem The dummy parameter, don't use
    */
   const initializer = (el: HTMLElement, coelem: Constructor) => {
-    const classList = el.classList
+    const classList = el.classList;
 
     if (!classList.contains(initClass)) {
-      classList.add(name, initClass)
+      classList.add(name, initClass);
 
-      initComponent(Constructor, el, name)
+      initComponent(Constructor, el, name);
     }
-  }
+  };
 
   // The selector
-  initializer.sel = `.${name}:not(.${initClass})`
+  initializer.sel = `.${name}:not(.${initClass})`;
 
-  ccc[name] = initializer
+  ccc[name] = initializer;
 
-  ready.then(() => { prep(name) })
-}
+  ready.then(() => {
+    prep(name);
+  });
+};
 
-export default def
+export default def;

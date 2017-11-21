@@ -1,8 +1,8 @@
 // @flow
 
-import get from '../get.js'
-import matches from '../util/matches.js'
-import camelToKebab from '../util/camel-to-kebab.js'
+import get from "../get.js";
+import matches from "../util/matches.js";
+import camelToKebab from "../util/camel-to-kebab.js";
 
 /**
  * Replaces the getter with the function which accesses the class-component of the given name.
@@ -12,50 +12,66 @@ import camelToKebab from '../util/camel-to-kebab.js'
  * @param {string} key The name of the property
  * @param {object} descriptor The property descriptor
  */
-const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
-  const sel: string = selector || `.${name}`
+const wireByNameAndSelector = (name: string, selector?: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
+  const sel: string = selector || `.${name}`;
 
-  descriptor.get = function () {
+  descriptor.get = function() {
     if (matches.call(this.el, sel)) {
-      return get(name, this.el)
+      return get(name, this.el);
     }
 
-    const nodes = this.el.querySelectorAll(sel)
+    const nodes = this.el.querySelectorAll(sel);
 
     if (nodes.length) {
-      return get(name, nodes[0])
+      return get(name, nodes[0]);
     }
 
-    throw new Error(`wired class-component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
-  }
-}
+    throw new Error(
+      `wired class-component "${name}" is not available at ${
+        this.el.tagName
+      }(class=[${this.constructor.name}]`
+    );
+  };
+};
 
 /**
  * Wires the class component of the name of the key to the property of the same name.
  */
 const wireComponent = (target: Object, key: string, descriptor: Object) => {
-  if (typeof target === 'string') {
+  if (typeof target === "string") {
     // If target is a string, then we suppose this is called as @wire(componentName, selector) and therefore
     // we need to return the following expression (it works as another decorator).
-    return wireByNameAndSelector(target, key)
+    return wireByNameAndSelector(target, key);
   }
 
-  wireByNameAndSelector(camelToKebab(key))(target, key, descriptor)
-}
+  wireByNameAndSelector(camelToKebab(key))(target, key, descriptor);
+};
 
-const wireElement = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-  descriptor.get = function () {
-    return this.el.querySelector(sel)
-  }
-}
+const wireElement = (sel: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
+  descriptor.get = function() {
+    return this.el.querySelector(sel);
+  };
+};
 
-const wireElementAll = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-  descriptor.get = function () {
-    return this.el.querySelectorAll(sel)
-  }
-}
+const wireElementAll = (sel: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
+  descriptor.get = function() {
+    return this.el.querySelectorAll(sel);
+  };
+};
 
-wireComponent.el = wireElement
-wireComponent.elAll = wireElementAll
+wireComponent.el = wireElement;
+wireComponent.elAll = wireElementAll;
 
-export default wireComponent
+export default wireComponent;
