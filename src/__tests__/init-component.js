@@ -22,7 +22,7 @@ describe('initComponent', () => {
 
   it('calls __init__', done => {
     class A {
-      __init__ () {
+      __init__() {
         assert.strictEqual(this.el, el)
 
         done()
@@ -36,7 +36,7 @@ describe('initComponent', () => {
 
   it('calls static __init__', done => {
     class A {
-      static __init__ () {
+      static __init__() {
         assert.strictEqual(this.capsid, capsid)
 
         done()
@@ -49,11 +49,11 @@ describe('initComponent', () => {
   describe('__init__', () => {
     it('runs after @on handlers are set', done => {
       class A {
-        __init__ () {
+        __init__() {
           this.el.click()
         }
 
-        onClick () {
+        onClick() {
           done()
         }
       }
