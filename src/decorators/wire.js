@@ -15,7 +15,7 @@ import camelToKebab from '../util/camel-to-kebab.js'
 const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
   const sel: string = selector || `.${name}`
 
-  descriptor.get = function () {
+  descriptor.get = function() {
     if (matches.call(this.el, sel)) {
       return get(name, this.el)
     }
@@ -44,13 +44,13 @@ const wireComponent = (target: Object, key: string, descriptor: Object) => {
 }
 
 const wireElement = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-  descriptor.get = function () {
+  descriptor.get = function() {
     return this.el.querySelector(sel)
   }
 }
 
 const wireElementAll = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-  descriptor.get = function () {
+  descriptor.get = function() {
     return this.el.querySelectorAll(sel)
   }
 }
