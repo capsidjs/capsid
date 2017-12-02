@@ -12,19 +12,4 @@ import pluginHooks from './plugin-hooks.js'
 const emit = emits // alias
 const pub = notifies // alias
 
-export {
-  def,
-  prep,
-  make,
-  mount,
-  get,
-  on,
-  emit,
-  emits,
-  wire,
-  component,
-  pub,
-  notifies,
-  __ccc__,
-  pluginHooks
-}
+export { def, prep, make, mount, get, on, emit, emits, wire, component, pub, notifies, __ccc__, pluginHooks }

@@ -8,7 +8,7 @@ describe('outside-events-plugin', () => {
   describe('on.outside', () => {
     it('add outside event handler', done => {
       class Component {
-        handleOutsideClick () {
+        handleOutsideClick() {
           done()
         }
       }

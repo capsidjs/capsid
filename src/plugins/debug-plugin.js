@@ -32,12 +32,7 @@ const onEventMessage = ({ coelem, e }: { coelem: any, e: Event }) => {
   const event = e.type
   const component = getComponentName(coelem)
 
-  console.groupCollapsed(
-    `%c${event} %con %c${component}`,
-    boldColor('#f012be'),
-    '',
-    boldColor('#2ecc40')
-  )
+  console.groupCollapsed(`%c${event} %con %c${component}`, boldColor('#f012be'), '', boldColor('#2ecc40'))
   console.log(e)
   console.groupEnd()
 }
@@ -46,12 +41,7 @@ const onOutsideEventMessage = ({ coelem, e }: { coelem: any, e: Event }) => {
   const event = e.type
   const component = getComponentName(coelem)
 
-  console.groupCollapsed(
-    `%coutside ${event} %con %c${component}`,
-    boldColor('#39cccc'),
-    '',
-    boldColor('#2ecc40')
-  )
+  console.groupCollapsed(`%coutside ${event} %con %c${component}`, boldColor('#39cccc'), '', boldColor('#2ecc40'))
   console.log(e)
   console.groupEnd()
 }
