@@ -32,7 +32,7 @@ const init = (capsid: any): void => {
   }
 
   pluginHooks.push((el: HTMLElement, coelem: any) => {
-    (coelem.constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).map(eventListenerBinder => {
+    ;(coelem.constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).map(eventListenerBinder => {
       eventListenerBinder(el, coelem)
     })
   })

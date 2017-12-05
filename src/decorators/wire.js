@@ -15,7 +15,7 @@ import camelToKebab from '../util/camel-to-kebab.js'
 const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
   const sel: string = selector || `.${name}`
 
-  descriptor.get = function () {
+  descriptor.get = function() {
     if (!this.el) {
       throw new Error(`Component's element is not ready. Probably wired getter called at constructor.(class=[${this.constructor.name}]`)
     }
@@ -48,13 +48,13 @@ const wireComponent = (target: Object, key: string, descriptor: Object) => {
 }
 
 const wireElement = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-  descriptor.get = function () {
+  descriptor.get = function() {
     return this.el.querySelector(sel)
   }
 }
 
 const wireElementAll = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-  descriptor.get = function () {
+  descriptor.get = function() {
     return this.el.querySelectorAll(sel)
   }
 }
