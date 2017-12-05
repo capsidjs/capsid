@@ -764,7 +764,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
-- 2017-12-05   v0.18.1  Add an error message.
+- 2017-12-05   v0.18.3  Add an error message.
 - 2017-10-12   v0.18.0  Add Outside Events plugin.
 - 2017-10-01   v0.17.0  Add Debug plugin.
 - 2017-09-09   v0.16.0  Rename `@emit` to `@emits` and `@pub` to `@notifies`
