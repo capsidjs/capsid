@@ -264,7 +264,25 @@ describe('@wire', () => {
     assert.throws(() => {
       console.log(instance['does-not-exist'])
     }, err => {
-      return err.message === 'wired class-component "does-not-exist" is not available at DIV(class=[Cls0]'
+      return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Cls0]'
+    })
+  })
+
+  it('throws when the component\'s element is not available', () => {
+    class Component {
+      constructor () {
+        console.log(this.subcomponent)
+      }
+
+      get subcomponent () {}
+    }
+
+    callDecorator(wire, Component, 'subcomponent')
+
+    assert.throws(() => {
+      console.log(new Component())
+    }, err => {
+      return err.message === 'Component\'s element is not ready. Probably wired getter called at constructor.(class=[Component]'
     })
   })
 })

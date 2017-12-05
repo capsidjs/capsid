@@ -16,6 +16,10 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
   const sel: string = selector || `.${name}`
 
   descriptor.get = function () {
+    if (!this.el) {
+      throw new Error(`Component's element is not ready. Probably wired getter called at constructor.(class=[${this.constructor.name}]`)
+    }
+
     if (matches.call(this.el, sel)) {
       return get(name, this.el)
     }
@@ -26,7 +30,7 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
       return get(name, nodes[0])
     }
 
-    throw new Error(`wired class-component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
+    throw new Error(`wired component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
   }
 }
 
