@@ -23,11 +23,11 @@ export default (Constructor: Function, el: HTMLElement, name?: string): any => {
 
   if (name) {
     // Assigns coelement to element's "hidden" property
-    (el: any)[COELEMENT_DATA_KEY_PREFIX + name] = coelem
+    ;(el: any)[COELEMENT_DATA_KEY_PREFIX + name] = coelem
   }
 
   // Initialize event listeners defined by @emit decorator
-  (Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
+  ;(Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
     listenerBinder(el, coelem)
   })
 

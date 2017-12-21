@@ -39,7 +39,9 @@ const def = (name: string, Constructor: Function) => {
 
   ccc[name] = initializer
 
-  ready.then(() => { prep(name) })
+  ready.then(() => {
+    prep(name)
+  })
 }
 
 export default def
