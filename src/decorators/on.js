@@ -20,9 +20,12 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
    */
   Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
     el.addEventListener(event, (e: Event): void => {
-      if (!at || [].some.call(el.querySelectorAll(at), node => {
-        return node === e.target || node.contains(e.target)
-      })) {
+      if (
+        !at ||
+        [].some.call(el.querySelectorAll(at), node => {
+          return node === e.target || node.contains(e.target)
+        })
+      ) {
         if (__DEV__) {
           debugMessage({
             type: 'event',

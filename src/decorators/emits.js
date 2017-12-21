@@ -12,7 +12,7 @@ import trigger from '../util/event-trigger.js'
 const emits = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
-  descriptor.value = function () {
+  descriptor.value = function() {
     const result = method.apply(this, arguments)
 
     const emit = x => trigger(this.el, event, true, x)
@@ -35,7 +35,7 @@ const emits = (event: string) => (target: Object, key: string, descriptor: Objec
 emits.first = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
-  descriptor.value = function () {
+  descriptor.value = function() {
     trigger(this.el, event, true, arguments[0])
 
     return method.apply(this, arguments)
