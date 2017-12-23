@@ -18,7 +18,8 @@ export default (message: Object) => {
 /**
  * Gets the bold colored style.
  */
-const boldColor = (color: string): string => `color: ${color}; font-weight: bold;`
+const boldColor = (color: string): string =>
+  `color: ${color}; font-weight: bold;`
 
 /**
  * Gets the displayable component name.

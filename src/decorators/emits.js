@@ -9,7 +9,11 @@ import trigger from '../util/event-trigger.js'
  * If the method returns the promise, then the event is emitted when it is resolved.
  * @param event The event name
  */
-const emits = (event: string) => (target: Object, key: string, descriptor: Object) => {
+const emits = (event: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
   const method = descriptor.value
 
   descriptor.value = function () {
@@ -32,7 +36,11 @@ const emits = (event: string) => (target: Object, key: string, descriptor: Objec
  * This decorator adds the event emission at the beginning of the method.
  * @param event The event name
  */
-emits.first = (event: string) => (target: Object, key: string, descriptor: Object) => {
+emits.first = (event: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
   const method = descriptor.value
 
   descriptor.value = function () {

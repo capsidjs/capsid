@@ -11,18 +11,26 @@ declare var __DEV__: boolean
  * @param target The target prototype (decorator interface)
  * @param key The decorator target key (decorator interface)
  */
-export default (event: string, { at }: { at?: string } = {}) => (target: Object, key: string) => {
+export default (event: string, { at }: { at?: string } = {}) => (
+  target: Object,
+  key: string
+) => {
   const Constructor = target.constructor
 
   /**
    * @param el The element
    * @param coelem The coelement
    */
-  Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
+  Constructor[KEY_EVENT_LISTENERS] = (
+    Constructor[KEY_EVENT_LISTENERS] || []
+  ).concat((el: HTMLElement, coelem: any) => {
     el.addEventListener(event, (e: Event): void => {
-      if (!at || [].some.call(el.querySelectorAll(at), node => {
-        return node === e.target || node.contains(e.target)
-      })) {
+      if (
+        !at ||
+        [].some.call(el.querySelectorAll(at), node => {
+          return node === e.target || node.contains(e.target)
+        })
+      ) {
         if (__DEV__) {
           debugMessage({
             type: 'event',

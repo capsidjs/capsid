@@ -12,12 +12,20 @@ import camelToKebab from '../util/camel-to-kebab.js'
  * @param {string} key The name of the property
  * @param {object} descriptor The property descriptor
  */
-const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
+const wireByNameAndSelector = (name: string, selector?: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
   const sel: string = selector || `.${name}`
 
   descriptor.get = function () {
     if (!this.el) {
-      throw new Error(`Component's element is not ready. Probably wired getter called at constructor.(class=[${this.constructor.name}]`)
+      throw new Error(
+        `Component's element is not ready. Probably wired getter called at constructor.(class=[${
+          this.constructor.name
+        }]`
+      )
     }
 
     if (matches.call(this.el, sel)) {
@@ -30,7 +38,11 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
       return get(name, nodes[0])
     }
 
-    throw new Error(`wired component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
+    throw new Error(
+      `wired component "${name}" is not available at ${
+        this.el.tagName
+      }(class=[${this.constructor.name}]`
+    )
   }
 }
 
@@ -47,13 +59,21 @@ const wireComponent = (target: Object, key: string, descriptor: Object) => {
   wireByNameAndSelector(camelToKebab(key))(target, key, descriptor)
 }
 
-const wireElement = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+const wireElement = (sel: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
   descriptor.get = function () {
     return this.el.querySelector(sel)
   }
 }
 
-const wireElementAll = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+const wireElementAll = (sel: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
   descriptor.get = function () {
     return this.el.querySelectorAll(sel)
   }

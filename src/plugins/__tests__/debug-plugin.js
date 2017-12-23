@@ -17,12 +17,14 @@ describe('debug-plugin', () => {
 
       capsidDebugMessage({ type: 'event', e, coelem })
 
-      td.verify(console.groupCollapsed(
-        '%cclick %con %cfoo',
-        'color: #f012be; font-weight: bold;',
-        '',
-        'color: #2ecc40; font-weight: bold;'
-      ))
+      td.verify(
+        console.groupCollapsed(
+          '%cclick %con %cfoo',
+          'color: #f012be; font-weight: bold;',
+          '',
+          'color: #2ecc40; font-weight: bold;'
+        )
+      )
       td.verify(console.log(e))
       td.verify(console.groupEnd())
     })
@@ -39,12 +41,14 @@ describe('debug-plugin', () => {
 
       capsidDebugMessage({ type: 'outside-event', e, coelem })
 
-      td.verify(console.groupCollapsed(
-        '%coutside click %con %cfoo',
-        'color: #39cccc; font-weight: bold;',
-        '',
-        'color: #2ecc40; font-weight: bold;'
-      ))
+      td.verify(
+        console.groupCollapsed(
+          '%coutside click %con %cfoo',
+          'color: #39cccc; font-weight: bold;',
+          '',
+          'color: #2ecc40; font-weight: bold;'
+        )
+      )
       td.verify(console.log(e))
       td.verify(console.groupEnd())
     })
@@ -56,7 +60,9 @@ describe('debug-plugin', () => {
 
       capsidDebugMessage({ type: 'unknown' })
 
-      td.verify(console.log(`Unknown message: ${JSON.stringify({ type: 'unknown' })}`))
+      td.verify(
+        console.log(`Unknown message: ${JSON.stringify({ type: 'unknown' })}`)
+      )
     })
   })
 })

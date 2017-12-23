@@ -5,7 +5,11 @@ import trigger from '../util/event-trigger.js'
 /**
  * Adds the function to publish the given event to the descendent elements of the given selector to the decorated method.
  */
-export default (event: string, selector: string) => (target: Object, key: string, descriptor: Object) => {
+export default (event: string, selector: string) => (
+  target: Object,
+  key: string,
+  descriptor: Object
+) => {
   const method = descriptor.value
 
   descriptor.value = function () {
@@ -13,7 +17,9 @@ export default (event: string, selector: string) => (target: Object, key: string
     const forEach = [].forEach
 
     const emit = x => {
-      forEach.call(this.el.querySelectorAll(selector), el => trigger(el, event, false, x))
+      forEach.call(this.el.querySelectorAll(selector), el =>
+        trigger(el, event, false, x)
+      )
     }
 
     if (result && result.then) {

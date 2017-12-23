@@ -11,7 +11,9 @@ const init = (capsid: any): void => {
   on.outside = (event: string) => (target: Object, key: string) => {
     const Constructor = target.constructor
 
-    Constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (Constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
+    Constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (
+      Constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []
+    ).concat((el: HTMLElement, coelem: any) => {
       const listener = (e: Event): void => {
         if (el !== e.target && !el.contains((e.target: any))) {
           if (__DEV__) {
@@ -32,9 +34,11 @@ const init = (capsid: any): void => {
   }
 
   pluginHooks.push((el: HTMLElement, coelem: any) => {
-    (coelem.constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).map(eventListenerBinder => {
-      eventListenerBinder(el, coelem)
-    })
+    ;(coelem.constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).map(
+      eventListenerBinder => {
+        eventListenerBinder(el, coelem)
+      }
+    )
   })
 }
 
