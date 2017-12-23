@@ -26,7 +26,7 @@ describe('make', () => {
   describe('in __init__', () => {
     it('can get coelement from el by the name', done => {
       class Component {
-        __init__ () {
+        __init__() {
           expect(get('bar', this.el)).to.equal(this)
 
           done()
