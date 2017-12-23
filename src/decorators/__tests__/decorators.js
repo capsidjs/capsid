@@ -6,7 +6,7 @@ import { clearComponents, callDecorator } from '../../__tests__/helper'
 describe('@on(event)', () => {
   it('registers the method as the event listener of the given event name', done => {
     class OnTest0 {
-      handler () {
+      handler() {
         done()
       }
     }
@@ -20,13 +20,13 @@ describe('@on(event)', () => {
 
   it('registers the method as the event listener for children classes', done => {
     class OnTest1 {
-      handler () {
+      handler() {
         done()
       }
     }
     class OnTest1Child extends OnTest1 {}
     class OnTest1ChildChild extends OnTest1Child {
-      bar () {}
+      bar() {}
     }
 
     callDecorator(on('click'), OnTest1, 'handler')
@@ -43,10 +43,10 @@ describe('@on(event)', () => {
 describe('@on(event, {at: selector})', () => {
   it('registers the method as the event listener of the given event name and selector', done => {
     class OnAtTest0 {
-      foo () {
+      foo() {
         done()
       }
-      bar () {
+      bar() {
         done(new Error('bar should not be called'))
       }
     }
@@ -71,7 +71,7 @@ describe('@on(event, {at: selector})', () => {
 describe('@on.click', () => {
   it('binds method to click event', done => {
     class Component {
-      handler () {
+      handler() {
         done()
       }
     }
@@ -89,7 +89,7 @@ describe('@on.click', () => {
 describe('@emits.first(event)', () => {
   it('makes the method emit the event with the arguments of the method', done => {
     class EmitTest0 {
-      foo () {
+      foo() {
         return 42
       }
     }
@@ -112,7 +112,7 @@ describe('@emits.first(event)', () => {
 
   it('makes the method emit the event, and it bubbles up the dom tree', done => {
     class EmitTest1 {
-      foo () {
+      foo() {
         return 42
       }
     }
@@ -134,7 +134,7 @@ describe('@emits.first(event)', () => {
 describe('@emit(event)', () => {
   it('makes the method emit the event with the returned value', done => {
     class EmitLastTest0 {
-      foo () {
+      foo() {
         return 321
       }
     }
@@ -155,7 +155,7 @@ describe('@emit(event)', () => {
     let promiseResolved = false
 
     class EmitLastTest1 {
-      foo () {
+      foo() {
         return new Promise(resolve => {
           setTimeout(() => {
             promiseResolved = true
@@ -198,7 +198,7 @@ describe('@component', () => {
 describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     class Cls {
-      __init__ () {
+      __init__() {
         this.el.setAttribute('this-is', 'decorated-component')
       }
     }
@@ -222,7 +222,7 @@ describe('@component(className)', () => {
 describe('@wire', () => {
   it('replaces the decorated getter and returns the instance of class-component of the getter name', () => {
     class Cls0 {
-      get ['wire-test0-1'] () {}
+      get ['wire-test0-1']() {}
     }
     class Cls1 {}
     def('wire-test0', Cls0)
@@ -239,7 +239,7 @@ describe('@wire', () => {
 
   it('returns the instance of class-component of the kebab-cased name of the getter name when the getter is in camelCase', () => {
     class Cls0 {
-      get wireTest3Child () {}
+      get wireTest3Child() {}
     }
     class Cls1 {}
     def('wire-test3', Cls0)
@@ -256,7 +256,7 @@ describe('@wire', () => {
 
   it("can get the class component in the same dom as decorated method's class", () => {
     class Cls0 {
-      get ['wire-test2-1'] () {}
+      get ['wire-test2-1']() {}
     }
     class Cls1 {}
     def('wire-test2', Cls0)
@@ -275,7 +275,7 @@ describe('@wire', () => {
 
   it('throws when the element is not available', () => {
     class Cls0 {
-      get ['does-not-exist'] () {}
+      get ['does-not-exist']() {}
     }
 
     def('wire-test4', Cls0)
@@ -296,11 +296,11 @@ describe('@wire', () => {
 
   it("throws when the component's element is not available", () => {
     class Component {
-      constructor () {
+      constructor() {
         console.log(this.subcomponent)
       }
 
-      get subcomponent () {}
+      get subcomponent() {}
     }
 
     callDecorator(wire, Component, 'subcomponent')
@@ -319,7 +319,7 @@ describe('@wire', () => {
 describe('@wire(name, selector)', () => {
   it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
     class Cls0 {
-      get test () {}
+      get test() {}
     }
     class Cls1 {}
     def('wire-test1', Cls0)
@@ -338,7 +338,7 @@ describe('@wire(name, selector)', () => {
 describe('@wire.el(selector)', () => {
   it('wires the element in the component', () => {
     class Component {
-      get elm () {}
+      get elm() {}
     }
 
     def('wire-el-test', Component)
@@ -357,7 +357,7 @@ describe('@wire.elAll(selector)', () => {
 
   it('wires the all elements in the component', () => {
     class Component {
-      get elms () {}
+      get elms() {}
     }
 
     def('comp', Component)
@@ -377,7 +377,7 @@ describe('@notifies(event, selector)', () => {
 
   it('adds function to publish the event to the element of the given selector', () => {
     class Component {
-      publish () {}
+      publish() {}
     }
 
     const CUSTOM_EVENT = 'foo-bar-baz-quz'
@@ -404,7 +404,7 @@ describe('@notifies(event, selector)', () => {
   describe('The decorated method', () => {
     it('publishes events with the return value as detail', done => {
       class Component {
-        publish () {
+        publish() {
           return { foo: 123, bar: 'baz' }
         }
       }
@@ -429,7 +429,7 @@ describe('@notifies(event, selector)', () => {
 
     it('publishes events with the resolved value as detail if it is async function', done => {
       class Component {
-        publish () {
+        publish() {
           return Promise.resolve({ foo: 123, bar: 'baz' })
         }
       }
