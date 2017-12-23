@@ -25,7 +25,7 @@
 - It has **no dependencies**, but plays nice with `jQuery`.
 - **no virtual dom, no templates**
 - **small APIs**: **5 APIs** & **5 decorators**
-- **small size**: **1.4KB** gzipped
+- **small size**: **1.48KB** gzipped
 
 # Hello world
 
@@ -106,7 +106,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.18.3/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.18.4/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>

@@ -46,7 +46,8 @@
     var make = capsid.make;
     var wire = capsid.wire;
 
-    var descriptor = { get: function get() {
+    var descriptor = {
+      get: function get() {
         var _this = this;
 
         var dom = this[0];
@@ -86,7 +87,8 @@
         }
 
         return cc;
-      } };
+      }
+    };
 
     // Defines the special property cc on the jquery prototype.
     Object.defineProperty($.fn, 'cc', descriptor);
