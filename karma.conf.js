@@ -5,12 +5,7 @@ module.exports = config =>
     preprocessors: { 'src/**/*.js': 'browserify' },
     browserify: {
       debug: true,
-      transform: [
-        [
-          'babelify',
-          { presets: ['es2015', 'power-assert'], plugins: ['istanbul'] }
-        ]
-      ]
+      transform: [['babelify', { presets: ['es2015', 'power-assert'], plugins: ['istanbul'] }]]
     },
     reporters: ['progress', 'coverage'],
     coverageReporter: { type: 'lcov' },
