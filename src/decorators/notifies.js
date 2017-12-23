@@ -8,7 +8,7 @@ import trigger from '../util/event-trigger.js'
 export default (event: string, selector: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
-  descriptor.value = function () {
+  descriptor.value = function() {
     const result = method.apply(this, arguments)
     const forEach = [].forEach
 

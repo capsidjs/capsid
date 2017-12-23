@@ -146,7 +146,7 @@ describe('$dom.cc', () => {
   describe('wire.$el', () => {
     it('makes the decorated getter the sub elements selected by jquery with the given selector', () => {
       class Component {
-        get $subelems () {}
+        get $subelems() {}
       }
 
       callDecorator(wire.$el('.abc'), Component, '$subelems')

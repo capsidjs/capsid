@@ -14,7 +14,7 @@ const init = (capsid: any, $: Function): void => {
   const wire = capsid.wire
 
   const descriptor: any = {
-    get: function () {
+    get: function() {
       const dom: HTMLElement = this[0]
 
       check(dom != null, 'cc (capsid context) is unavailable at empty dom selection')
@@ -63,7 +63,7 @@ const init = (capsid: any, $: Function): void => {
 
   // Define wire.$el decorator
   wire.$el = (sel: string) => (target: Object, key: string, descriptor: Object) => {
-    descriptor.get = function () {
+    descriptor.get = function() {
       return this.$el.find(sel)
     }
   }
