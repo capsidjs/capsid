@@ -9,6 +9,7 @@
     "book": "gitbook serve",
     "gh-pages": "npm run clean && gitbook build && gh-pages -o hub -d _book",
     "lint": "standard",
+    "fix": "prettier --write --no-semi --single-quote --print-width 1000 *.js 'src/**/*.js' && standard --fix",
     "flow": "flow",
     "karma": "karma start",
     "test": "run-s lint flow karma",
@@ -17,7 +18,8 @@
     "codecov": "codecov",
     "dist": "gulp dist",
     "size": "gulp browser && gzip-size dist/capsid.min.js",
-    "prepublish": "npm run clean && npm run dist"
+    "prepublish": "npm run clean && npm run dist",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -71,10 +73,12 @@
     "karma-coverage": "^1.1.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.0.1",
+    "lint-staged": "^6.0.0",
     "merge-stream": "^1.0.1",
     "mocha": "^4.0.0",
     "npm-run-all": "^4.1.2",
     "power-assert": "^1.4.1",
+    "prettier": "^1.9.2",
     "rimraf": "^2.5.2",
     "rollup-plugin-flow": "^1.0.1",
     "rollup-plugin-replace": "^2.0.0",
@@ -109,6 +113,13 @@
     "ignore": [
       "/dist",
       "jquery.js"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --no-semi --single-quote --print-width 1000",
+      "standard --fix",
+      "git add"
     ]
   }
 }

@@ -6,17 +6,23 @@ import { clearComponents, callDecorator } from '../../__tests__/helper'
 describe('@on(event)', () => {
   it('registers the method as the event listener of the given event name', done => {
     class OnTest0 {
-      handler () { done() }
+      handler () {
+        done()
+      }
     }
     def('on-test0', OnTest0)
     callDecorator(on('click'), OnTest0, 'handler')
 
-    div().cc('on-test0').trigger('click')
+    div()
+      .cc('on-test0')
+      .trigger('click')
   })
 
   it('registers the method as the event listener for children classes', done => {
     class OnTest1 {
-      handler () { done() }
+      handler () {
+        done()
+      }
     }
     class OnTest1Child extends OnTest1 {}
     class OnTest1ChildChild extends OnTest1Child {
@@ -28,22 +34,28 @@ describe('@on(event)', () => {
 
     def('on-test1-child-child', OnTest1ChildChild)
 
-    div().cc('on-test1-child-child').trigger('click')
+    div()
+      .cc('on-test1-child-child')
+      .trigger('click')
   })
 })
 
 describe('@on(event, {at: selector})', () => {
   it('registers the method as the event listener of the given event name and selector', done => {
     class OnAtTest0 {
-      foo () { done() }
-      bar () { done(new Error('bar should not be called')) }
+      foo () {
+        done()
+      }
+      bar () {
+        done(new Error('bar should not be called'))
+      }
     }
     def('on-at-test0', OnAtTest0)
 
     callDecorator(on('foo-event', { at: '.inner' }), OnAtTest0, 'foo')
     callDecorator(on('bar-event', { at: '.inner' }), OnAtTest0, 'bar')
 
-    const el = div(div({addClass: 'inner'}))[0]
+    const el = div(div({ addClass: 'inner' }))[0]
 
     make('on-at-test0', el)
 
@@ -59,14 +71,18 @@ describe('@on(event, {at: selector})', () => {
 describe('@on.click', () => {
   it('binds method to click event', done => {
     class Component {
-      handler () { done() }
+      handler () {
+        done()
+      }
     }
 
     callDecorator(on.click, Component, 'handler')
 
     def('on-click-test-component', Component)
 
-    div().cc('on-click-test-component').trigger('click')
+    div()
+      .cc('on-click-test-component')
+      .trigger('click')
   })
 })
 
@@ -80,11 +96,14 @@ describe('@emits.first(event)', () => {
     def('emit-test0', EmitTest0)
     callDecorator(emits.first('event-foo'), EmitTest0, 'foo')
 
-    const coelem = make('emit-test0', div().on('event-foo', e => {
-      assert(e.detail.a === 1)
-      assert(e.detail.b === 2)
-      assert(e.detail.c === 3)
-    })[0])
+    const coelem = make(
+      'emit-test0',
+      div().on('event-foo', e => {
+        assert(e.detail.a === 1)
+        assert(e.detail.b === 2)
+        assert(e.detail.c === 3)
+      })[0]
+    )
 
     assert(coelem.foo({ a: 1, b: 2, c: 3 }) === 42)
 
@@ -100,7 +119,9 @@ describe('@emits.first(event)', () => {
     def('emit-test1', EmitTest1)
     callDecorator(emits.first('event-foo'), EmitTest1, 'foo')
 
-    const parent = div().on('event-foo', () => done()).appendTo('body')
+    const parent = div()
+      .on('event-foo', () => done())
+      .appendTo('body')
 
     const coel = make('emit-test1', div().appendTo(parent)[0])
 
@@ -120,11 +141,14 @@ describe('@emit(event)', () => {
     def('emit-last-test0', EmitLastTest0)
     callDecorator(emits('event-foo'), EmitLastTest0, 'foo')
 
-    make('emit-last-test0', div().on('event-foo', (e) => {
-      assert(e.detail === 321)
+    make(
+      'emit-last-test0',
+      div().on('event-foo', e => {
+        assert(e.detail === 321)
 
-      done()
-    })[0]).foo()
+        done()
+      })[0]
+    ).foo()
   })
 
   it('makes the method emit the event with the resolved value after the promise resolved', done => {
@@ -143,12 +167,15 @@ describe('@emit(event)', () => {
     def('emit-last-test1', EmitLastTest1)
     callDecorator(emits('event-foo'), EmitLastTest1, 'foo')
 
-    make('emit-last-test1', div().on('event-foo', (e) => {
-      assert(promiseResolved)
-      assert(e.detail === 123)
+    make(
+      'emit-last-test1',
+      div().on('event-foo', e => {
+        assert(promiseResolved)
+        assert(e.detail === 123)
 
-      done()
-    })[0]).foo()
+        done()
+      })[0]
+    ).foo()
   })
 })
 
@@ -186,8 +213,7 @@ describe('@component(className)', () => {
   })
 
   it('returns the constructor', () => {
-    class Cls1 {
-    }
+    class Cls1 {}
 
     assert(component('decorated-component1')(Cls1) === Cls1)
   })
@@ -198,8 +224,7 @@ describe('@wire', () => {
     class Cls0 {
       get ['wire-test0-1'] () {}
     }
-    class Cls1 {
-    }
+    class Cls1 {}
     def('wire-test0', Cls0)
     def('wire-test0-1', Cls1)
 
@@ -216,8 +241,7 @@ describe('@wire', () => {
     class Cls0 {
       get wireTest3Child () {}
     }
-    class Cls1 {
-    }
+    class Cls1 {}
     def('wire-test3', Cls0)
     def('wire-test3-child', Cls1)
 
@@ -230,12 +254,11 @@ describe('@wire', () => {
     assert(wireTest3.wireTest3Child instanceof Cls1)
   })
 
-  it('can get the class component in the same dom as decorated method\'s class', () => {
+  it("can get the class component in the same dom as decorated method's class", () => {
     class Cls0 {
       get ['wire-test2-1'] () {}
     }
-    class Cls1 {
-    }
+    class Cls1 {}
     def('wire-test2', Cls0)
     def('wire-test2-1', Cls1)
 
@@ -261,14 +284,17 @@ describe('@wire', () => {
 
     const instance = make('wire-test4', div()[0])
 
-    assert.throws(() => {
-      console.log(instance['does-not-exist'])
-    }, err => {
-      return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Cls0]'
-    })
+    assert.throws(
+      () => {
+        console.log(instance['does-not-exist'])
+      },
+      err => {
+        return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Cls0]'
+      }
+    )
   })
 
-  it('throws when the component\'s element is not available', () => {
+  it("throws when the component's element is not available", () => {
     class Component {
       constructor () {
         console.log(this.subcomponent)
@@ -279,11 +305,14 @@ describe('@wire', () => {
 
     callDecorator(wire, Component, 'subcomponent')
 
-    assert.throws(() => {
-      console.log(new Component())
-    }, err => {
-      return err.message === 'Component\'s element is not ready. Probably wired getter called at constructor.(class=[Component]'
-    })
+    assert.throws(
+      () => {
+        console.log(new Component())
+      },
+      err => {
+        return err.message === "Component's element is not ready. Probably wired getter called at constructor.(class=[Component]"
+      }
+    )
   })
 })
 
@@ -292,8 +321,7 @@ describe('@wire(name, selector)', () => {
     class Cls0 {
       get test () {}
     }
-    class Cls1 {
-    }
+    class Cls1 {}
     def('wire-test1', Cls0)
     def('wire-test1-1', Cls1)
 
@@ -349,8 +377,7 @@ describe('@notifies(event, selector)', () => {
 
   it('adds function to publish the event to the element of the given selector', () => {
     class Component {
-      publish () {
-      }
+      publish () {}
     }
 
     const CUSTOM_EVENT = 'foo-bar-baz-quz'
@@ -363,22 +390,7 @@ describe('@notifies(event, selector)', () => {
     const child1 = div({ addClass: 'elm' })
     const child2 = div({ addClass: 'elm' })
 
-    const component = div(
-      child0,
-      div(
-        div(),
-        child1
-      ),
-      div(
-        div(),
-        div(
-          div(
-            child2,
-            div()
-          )
-        )
-      )
-    ).cc.init('component')
+    const component = div(child0, div(div(), child1), div(div(), div(div(child2, div())))).cc.init('component')
 
     const promise0 = new Promise(resolve => child0.on(CUSTOM_EVENT, resolve))
     const promise1 = new Promise(resolve => child1.on(CUSTOM_EVENT, resolve))

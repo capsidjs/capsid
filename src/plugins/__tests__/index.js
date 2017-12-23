@@ -10,7 +10,9 @@ describe('jquery plugin', () => {
   it('sets coelement.$el as the base jquery element', () => {
     def('component', class {})
 
-    const $el = div().addClass('component').appendTo('body')
+    const $el = div()
+      .addClass('component')
+      .appendTo('body')
 
     prep('component')
 
@@ -35,14 +37,18 @@ describe('$dom.cc', () => {
   })
 
   it('initializes the class compenents of the given names', () => {
-    const elem = div().cc('foo').cc('bar')
+    const elem = div()
+      .cc('foo')
+      .cc('bar')
 
     assert(elem.attr('is_foo') === 'true')
     assert(elem.attr('is_bar') === 'true')
   })
 
   it('adds the given class names to the element', () => {
-    const elem = div().cc('foo').cc('bar')
+    const elem = div()
+      .cc('foo')
+      .cc('bar')
 
     assert(elem.hasClass('foo'))
     assert(elem.hasClass('bar'))
@@ -59,14 +65,18 @@ describe('$dom.cc', () => {
   })
 
   it('initializes the class components which the element has the name of', () => {
-    const elem = div().addClass('foo bar').cc()
+    const elem = div()
+      .addClass('foo bar')
+      .cc()
 
     assert(elem.attr('is_foo') === 'true')
     assert(elem.attr('is_bar') === 'true')
   })
 
   it('does nothing if it does not have the class component names', () => {
-    const elem = div().addClass('foo-x bar-x').cc()
+    const elem = div()
+      .addClass('foo-x bar-x')
+      .cc()
 
     assert(elem.attr('is_foo') === undefined)
     assert(elem.attr('is_bar') === undefined)
@@ -104,7 +114,9 @@ describe('$dom.cc', () => {
 
   describe('get', () => {
     it('gets the coelement of the given name', () => {
-      const elem = div().addClass('spam').appendTo('body')
+      const elem = div()
+        .addClass('spam')
+        .appendTo('body')
 
       prep()
 
@@ -113,7 +125,9 @@ describe('$dom.cc', () => {
     })
 
     it('throws an error when the corresponding coelement is unavailable', () => {
-      const elem = div().addClass('does-not-exist').appendTo('body')
+      const elem = div()
+        .addClass('does-not-exist')
+        .appendTo('body')
 
       prep()
 
@@ -139,7 +153,9 @@ describe('$dom.cc', () => {
 
       def('component', Component)
 
-      const component = div(div().addClass('abc'), div().addClass('abc')).appendTo('body').cc.init('component')
+      const component = div(div().addClass('abc'), div().addClass('abc'))
+        .appendTo('body')
+        .cc.init('component')
 
       assert(component.$subelems instanceof $)
       assert(component.$subelems.length === 2)
