@@ -7,21 +7,23 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
-> Class driven component framework
+> A library for component-based DOM programming
 
-`capsid` is an UI framework for creating components written in JS classes.
+`capsid` is a library for doing component-based DOM programming.
 
 `capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello world](https://codepen.io/kt3k/pen/MmYxBB) or [Timer](https://codepen.io/kt3k/pen/YVPoWm) examples.
 
-`capsid` encourages the declarative programming by the use of decorators. See [Button](https://codepen.io/kt3k/pen/RVNOvM) or [Mirroring](https://codepen.io/kt3k/pen/VbvKNp) examples.
+`capsid` uses decorators to help doing declarative DOM programming. See [Button](https://codepen.io/kt3k/pen/RVNOvM) or [Mirroring](https://codepen.io/kt3k/pen/VbvKNp) examples.
 
-`capsid` is very different from lately popular frameworks like React or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or vue's markup). `capsid` takes very different approach for creating components. It never creates or updates DOM nodes automatically, but let the framework users do it. `capsid` just helps organizing the event handlers and the DOM nodes relationships.
+`capsid` is very different from the popular frameworks like React, Angular or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custome markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
 
-`capsid` recommends the use of [flux][] design pattern. In `capsid`, you don't need any framework or library to apply flux pattern to your app. You can just use [@emits](https://github.com/capsidjs/capsid#emitseventname) and [@notifies](https://github.com/capsidjs/capsid#notifieseventselector) decorators for making unidirectional data flow among your components.
+`capsid` is a __view__ library and agnostic about data flow, but there's officially maintained library [evex][], which is like redux for react or vuex for vue.
+
+[evex][] is a pattern to realize [flux][] using DOM Events and also a library to implement [evex][] pattern. Please check [evex][] repository for details.
 
 # Features
 
-- It's an **UI framework**.
+- It's an **UI library**.
 - It has **no dependencies**, but plays nice with `jQuery`.
 - **no virtual dom, no templates**
 - **small APIs**: **5 APIs** & **5 decorators**
@@ -55,38 +57,28 @@ When you *define* the component, then dom elements which has `hello` class is au
 The timer example shows how you can store component's states in it:
 
 ```html
-<span class="timer"></span>
+<span class="clock"></span>
 
 <script src="https://unpkg.com/capsid"></script>
 <script>
-class Timer {
+class Clock {
   __init__ () {
-    this.secondsElapsed = 0
-    this.start()
+    setInterval(() => this.tick(), 10)
   }
 
-  // Starts the timer
-  start () {
-    this.interval = setInterval(() => { this.tick() }, 1000)
-  }
-
-  // Ticks the timer
+  /**
+   * Ticks the label.
+   */
   tick () {
-    this.secondsElapsed++
-    this.el.textContent = `Seconds Elapsed: ${this.secondsElapsed}`
-  }
-
-  // Stops the timer
-  stop () {
-    clearInterval(this.interval)
+    this.el.textContent = new Date().toISOString()
   }
 }
 
-capsid.def('timer', Timer)
+capsid.def('clock', Clock)
 </script>
 ```
 
-See [the working demo](https://codepen.io/kt3k/pen/YVPoWm).
+See [the working demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
 
 # The concept
 
@@ -846,3 +838,4 @@ These projects are similar to capsid in the sense that all those encourage the n
 MIT
 
 [flux]: http://facebook.github.io/flux
+[flux]: http://github.com/capsidjs/evex

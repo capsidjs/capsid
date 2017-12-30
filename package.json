@@ -1,7 +1,7 @@
 {
   "name": "capsid",
   "version": "0.18.4",
-  "description": "Class driven component framework",
+  "description": "A library for component-based DOM programming",
   "main": "index.js",
   "unpkg": "dist/capsid.min.js",
   "scripts": {
