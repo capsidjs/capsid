@@ -54,7 +54,7 @@ capsid.def('hello', Hello)
 
 # Clock Example
 
-The timer example shows how you can store component's states in it:
+The clock example shows how you can store component's states in it:
 
 ```html
 <span class="clock"></span>
@@ -106,10 +106,10 @@ Download [capsid.min.js](https://unpkg.com/capsid@0.18.4/dist/capsid.min.js) The
 <script src="path/to/capsid.js"></script>
 ```
 
-In this case, the library exports the global variable `capsid`.
+In this case, the library exports the global variable `capsid`. You can use it like the below:
 
 ```js
-window.capsid.def('timer', Timer)
+window.capsid.def('my-component', MyComponent)
 ```
 
 # capsid lifecycle
