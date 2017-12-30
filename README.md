@@ -23,11 +23,11 @@
 
 # Features
 
-- It's an **UI library**.
-- It has **no dependencies**, but plays nice with `jQuery`.
-- **no virtual dom, no templates**
+- It's an lightweight **UI library**: (**1.48KB** gzipped)
+- It has **no dependencies**.
+- **no special Markup, just plain JavaScript (+ decorators)**
+- Helps adding **behaviors** (event handlers and init handlers) to certain types of Elements based on **component** definition.
 - **small APIs**: **5 APIs** & **5 decorators**
-- **small size**: **1.48KB** gzipped
 
 # [Hello Example][]
 
