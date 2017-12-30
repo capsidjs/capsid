@@ -842,5 +842,5 @@ MIT
 [flux]: http://facebook.github.io/flux
 [evex]: http://github.com/capsidjs/evex
 [Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
-[Clock Example]:
+[Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
 [Mirroring Example]: https://codepen.io/kt3k/pen/VbvKNp?editors=1010
