@@ -11,9 +11,9 @@
 
 `capsid` is a library for doing component-based DOM programming.
 
-`capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello world](https://codepen.io/kt3k/pen/MmYxBB) or [Timer](https://codepen.io/kt3k/pen/YVPoWm) examples.
+`capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello Example][] or [Clock Example][].
 
-`capsid` uses decorators to help doing declarative DOM programming. See [Button](https://codepen.io/kt3k/pen/RVNOvM) or [Mirroring](https://codepen.io/kt3k/pen/VbvKNp) examples.
+`capsid` uses decorators to help doing declarative DOM programming. See [Mirroring Example][] examples.
 
 `capsid` is very different from the popular frameworks like React, Angular or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custome markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
 
@@ -29,7 +29,7 @@
 - **small APIs**: **5 APIs** & **5 decorators**
 - **small size**: **1.48KB** gzipped
 
-# Hello world
+# Hello Example
 
 The hello world example:
 
@@ -48,11 +48,11 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-[See working example](https://codepen.io/kt3k/pen/MmYxBB?editors=1010)
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically __when document is ready__.
 
-When you *define* the component, then dom elements which has `hello` class is automatically mounted by Hello component.
+[See working example][Hello Example]
 
-# The timer
+# Clock Example
 
 The timer example shows how you can store component's states in it:
 
@@ -77,6 +77,8 @@ class Clock {
 capsid.def('clock', Clock)
 </script>
 ```
+
+`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component when document is ready. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
 
 See [the working demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
 
@@ -838,4 +840,7 @@ These projects are similar to capsid in the sense that all those encourage the n
 MIT
 
 [flux]: http://facebook.github.io/flux
-[flux]: http://github.com/capsidjs/evex
+[evex]: http://github.com/capsidjs/evex
+[Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
+[Clock Example]:
+[Mirroring Example]: https://codepen.io/kt3k/pen/VbvKNp?editors=1010
