@@ -29,9 +29,9 @@
 - **small APIs**: **5 APIs** & **5 decorators**
 - **small size**: **1.48KB** gzipped
 
-# Hello Example
+# [Hello Example][]
 
-The hello world example:
+The hello example shows the minimal usage of capsid.js:
 
 ```html
 <script src="path/to/capsid"></script>
@@ -48,13 +48,13 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically __when document is ready__.
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically __when document is ready__. When initializing the component, `__init__` method is automatically called and therefore `textContent` of the element becomes `Hello, world!`.
 
 [See working example][Hello Example]
 
-# Clock Example
+# [Clock Example][]
 
-The clock example shows how you can store component's states in it:
+The clock example shows how you can implement *a clock* in capsid.js:
 
 ```html
 <span class="clock"></span>
@@ -78,7 +78,7 @@ capsid.def('clock', Clock)
 </script>
 ```
 
-`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component when document is ready. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
+`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component __when document is ready__. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
 
 See [the working demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
 
