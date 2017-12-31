@@ -91,7 +91,7 @@ There are 2 timings for components to be initialized:
 
 Because all components are automatically initialized when document is ready, you don't need care about initialization of elements which exist from the beginning. See [Hello Example][] or [Clock Example][] about this.
 
-If you want to add components after `DOMContentLoaded`, you need to call `capsid.prep()` explicitly, which initialize all the component in the page.
+If you want to add components after `DOMContentLoaded`, you need to call `capsid.prep()` explicitly, which initializes all the component in the page.
 
 ```js
 const addPartOfPage = async () => {
