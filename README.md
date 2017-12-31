@@ -48,7 +48,7 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically __when document is ready__. When initializing the component, `__init__` method is automatically called and therefore `textContent` of the element becomes `Hello, world!`.
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is automatically called and therefore `textContent` of the element becomes `Hello, world!`.
 
 [See working example][Hello Example]
 
@@ -78,9 +78,30 @@ capsid.def('clock', Clock)
 </script>
 ```
 
-`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component __when document is ready__. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
+`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
 
 See [the working demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
+
+# Initialization
+
+There are 2 timings for components to be initialized:
+
+1. [When document is ready][DOMContentLoaded].
+2. When `capsid.prep()` is called.
+
+Because all components are automatically initialized when document is ready, you don't need care about initialization of elements which exist from the beginning. See [Hello Example][] or [Clock Example][] about this.
+
+If you want to add components after `DOMContentLoaded`, you need to call `capsid.prep()` explicitly, which initialize all the component in the page.
+
+```js
+const addPartOfPage = async () => {
+  const { data } = await axios.get('path/to/part-of-page.html')
+
+  certainElemenent.textContent = data
+
+  capsid.prep() // <= this initializes all the elements which are not initialized yet.
+})
+```
 
 # The concept
 
@@ -845,3 +866,4 @@ MIT
 [Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
 [Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
 [Mirroring Example]: https://codepen.io/kt3k/pen/VbvKNp?editors=1010
+[DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
