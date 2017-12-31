@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, get, make, on, emits, component, wire, notifies } from '../../'
+import { def, get, make, on, emits, component, wired, notifies } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
 
 describe('@on(event)', () => {
@@ -131,7 +131,7 @@ describe('@emits.first(event)', () => {
   })
 })
 
-describe('@emit(event)', () => {
+describe('@emits(event)', () => {
   it('makes the method emit the event with the returned value', done => {
     class EmitLastTest0 {
       foo () {
@@ -219,7 +219,7 @@ describe('@component(className)', () => {
   })
 })
 
-describe('@wire', () => {
+describe('@wired.component', () => {
   it('replaces the decorated getter and returns the instance of class-component of the getter name', () => {
     class Cls0 {
       get ['wire-test0-1'] () {}
@@ -228,7 +228,7 @@ describe('@wire', () => {
     def('wire-test0', Cls0)
     def('wire-test0-1', Cls1)
 
-    callDecorator(wire, Cls0, 'wire-test0-1')
+    callDecorator(wired.component, Cls0, 'wire-test0-1')
 
     const el = div().append(make('wire-test0-1', div()[0]).el)[0]
 
@@ -237,7 +237,7 @@ describe('@wire', () => {
     assert(wireTest0['wire-test0-1'] instanceof Cls1)
   })
 
-  it('returns the instance of class-component of the kebab-cased name of the getter name when the getter is in camelCase', () => {
+  it('returns the instance of component of the kebab-cased name of the getter name when the getter is in camelCase', () => {
     class Cls0 {
       get wireTest3Child () {}
     }
@@ -245,7 +245,7 @@ describe('@wire', () => {
     def('wire-test3', Cls0)
     def('wire-test3-child', Cls1)
 
-    callDecorator(wire, Cls0, 'wireTest3Child')
+    callDecorator(wired.component, Cls0, 'wireTest3Child')
 
     const el = div().append(make('wire-test3-child', div()[0]).el)[0]
 
@@ -262,7 +262,7 @@ describe('@wire', () => {
     def('wire-test2', Cls0)
     def('wire-test2-1', Cls1)
 
-    callDecorator(wire, Cls0, 'wire-test2-1')
+    callDecorator(wired.component, Cls0, 'wire-test2-1')
 
     const el = div()[0]
 
@@ -280,7 +280,7 @@ describe('@wire', () => {
 
     def('wire-test4', Cls0)
 
-    callDecorator(wire, Cls0, 'does-not-exist')
+    callDecorator(wired.component, Cls0, 'does-not-exist')
 
     const instance = make('wire-test4', div()[0])
 
@@ -303,7 +303,7 @@ describe('@wire', () => {
       get subcomponent () {}
     }
 
-    callDecorator(wire, Component, 'subcomponent')
+    callDecorator(wired.component, Component, 'subcomponent')
 
     assert.throws(
       () => {
@@ -316,7 +316,7 @@ describe('@wire', () => {
   })
 })
 
-describe('@wire(name, selector)', () => {
+describe('@wired.component(name, selector)', () => {
   it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
     class Cls0 {
       get test () {}
@@ -325,7 +325,7 @@ describe('@wire(name, selector)', () => {
     def('wire-test1', Cls0)
     def('wire-test1-1', Cls1)
 
-    callDecorator(wire('wire-test1-1', '.foo'), Cls0, 'test')
+    callDecorator(wired.component('wire-test1-1', '.foo'), Cls0, 'test')
 
     const el = div().append(make('wire-test1-1', div().addClass('foo')[0]).el)[0]
 
@@ -335,14 +335,14 @@ describe('@wire(name, selector)', () => {
   })
 })
 
-describe('@wire.el(selector)', () => {
+describe('@wired(selector)', () => {
   it('wires the element in the component', () => {
     class Component {
       get elm () {}
     }
 
     def('wire-el-test', Component)
-    callDecorator(wire.el('.elm'), Component, 'elm')
+    callDecorator(wired('.elm'), Component, 'elm')
 
     const el = div().append(div().addClass('elm'))[0]
 
@@ -352,7 +352,7 @@ describe('@wire.el(selector)', () => {
   })
 })
 
-describe('@wire.elAll(selector)', () => {
+describe('@wired.all(selector)', () => {
   afterEach(() => clearComponents())
 
   it('wires the all elements in the component', () => {
@@ -361,7 +361,7 @@ describe('@wire.elAll(selector)', () => {
     }
 
     def('comp', Component)
-    callDecorator(wire.elAll('.elm'), Component, 'elms')
+    callDecorator(wired.all('.elm'), Component, 'elms')
 
     const el = div().append(div().addClass('elm'), div().addClass('elm'))[0]
 
