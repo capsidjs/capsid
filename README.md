@@ -13,7 +13,7 @@
 
 `capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello Example][] or [Clock Example][].
 
-`capsid` uses decorators to help doing declarative DOM programming. See [Mirroring Example][] examples.
+`capsid` uses decorators to help doing declarative DOM programming. See [Mirroring Example][].
 
 `capsid` is very different from the popular frameworks like React, Angular or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custome markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
 
@@ -23,7 +23,7 @@
 
 # Features
 
-- It's an lightweight **UI library**: (**1.48KB** gzipped)
+- It's an lightweight **UI library**: (**1.51KB** gzipped)
 - It has **no dependencies**.
 - **no special Markup, just plain JavaScript (+ decorators)**
 - Helps adding **behaviors** (event handlers and init handlers) to certain types of Elements based on **component** definition.
