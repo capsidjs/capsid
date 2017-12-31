@@ -62,4 +62,9 @@ const wireElementAll = (sel: string) => (target: Object, key: string, descriptor
 wireComponent.el = wireElement
 wireComponent.elAll = wireElementAll
 
+const wired = wireElement
+wired.all = wireElementAll
+wired.component = wireComponent
+
 export default wireComponent
+export { wired }

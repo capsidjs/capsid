@@ -5,6 +5,6 @@ on.click = onClick
 
 export { on }
 export { default as emits } from './emits.js'
-export { default as wire } from './wire.js'
+export { default as wire, wired } from './wire.js'
 export { default as component } from './component.js'
 export { default as notifies } from './notifies.js'
