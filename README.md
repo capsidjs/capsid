@@ -438,7 +438,7 @@ If the method returns a promise, then the event is triggered after the promise i
 const { emits, def } = require('capsid')
 
 class Manager {
-  @emits.last('manager.ended')
+  @emits('manager.ended')
   start () {
     ...definitions...
 
@@ -451,16 +451,16 @@ def('manager', Manager)
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as `detail` of the event object.
 
-## `@wire`
+## `@wired.component`
 
-`@wire` is a getter decorator. If a getter is decorated by this, it returns the class component of the name of the decorated method.
+`@wired.component` is a getter decorator. If a getter is decorated by this, it returns the class component of the name of the decorated method.
 
 ```js
-const { wire, component } = require('class-component')
+const { wired, component } = require('capsid')
 
 @component
 class Foo {
-  @wire get bar () {}
+  @wired.component get bar () {}
 
   processBar () {
     this.bar.process()
@@ -485,14 +485,14 @@ $('.foo').cc.get('foo').processBar()
 
 And the above prints `processing bar!`.
 
-When the decorated getter name is in `CamelCase`, then it's replaced by the `kebab-cased` version. For example, the expression `@wire get primaryButton` wires to `primary-button` component, not to `primaryButton` component. If you need to wire it to `primaryButton` component, then use the one below.
+When the decorated getter name is in `CamelCase`, then it's replaced by the `kebab-cased` version. For example, the expression `@wired.component get primaryButton` wires to `primary-button` component, not to `primaryButton` component. If you need to wire it to `primaryButton` component, then use the one below.
 
-## `@wire(className)`
+## `@wired.component(className)`
 
 This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
 
 ```js
-const { wire, component } = require('capsid')
+const { wired, component } = require('capsid')
 
 @component
 class Foo {
@@ -517,15 +517,15 @@ $('.foo').cc.get('foo').it.process()
 
 And this prints `processing long name component`.
 
-`@wire` and `@wire(name)` decorators are convenient when you nest the class components and parents ask children do the jobs.
+`@wired.component` and `@wired.component(name)` decorators are convenient when you nest the components.
 
-## @wire.el(selector) get element () {}
+## @wired(selector) get element () {}
 
 - @param {string} selector The selector to look up the element in the component
 
 This wires the element selected by the given selector to the decorated getter. This is similar to `@wire` decorator, but it wires HTMLElmenent, not capsid component.
 
-## @wire.elAll(selector) get elements () {}
+## @wired.all(selector) get elements () {}
 
 - @param {string} selector The selector to look up the elements in the component
 
