@@ -406,6 +406,10 @@ var capsid = function (exports) {
   wireComponent.el = wireElement;
   wireComponent.elAll = wireElementAll;
 
+  var wired = wireElement;
+  wired.all = wireElementAll;
+  wired.component = wireComponent;
+
   //      
 
   /**
@@ -476,6 +480,7 @@ var capsid = function (exports) {
     emit: emit,
     emits: emits,
     wire: wireComponent,
+    wired: wired,
     component: component,
     pub: pub,
     notifies: notifies,
@@ -492,6 +497,7 @@ var capsid = function (exports) {
   exports.emit = emit;
   exports.emits = emits;
   exports.wire = wireComponent;
+  exports.wired = wired;
   exports.component = component;
   exports.pub = pub;
   exports.notifies = notifies;

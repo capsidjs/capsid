@@ -406,6 +406,10 @@ var wireElementAll = function wireElementAll(sel) {
 wireComponent.el = wireElement;
 wireComponent.elAll = wireElementAll;
 
+var wired = wireElement;
+wired.all = wireElementAll;
+wired.component = wireComponent;
+
 //      
 
 /**
@@ -476,6 +480,7 @@ var capsid = Object.freeze({
   emit: emit,
   emits: emits,
   wire: wireComponent,
+  wired: wired,
   component: component,
   pub: pub,
   notifies: notifies,
@@ -492,6 +497,7 @@ exports.on = on;
 exports.emit = emit;
 exports.emits = emits;
 exports.wire = wireComponent;
+exports.wired = wired;
 exports.component = component;
 exports.pub = pub;
 exports.notifies = notifies;
