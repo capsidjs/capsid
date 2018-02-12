@@ -15,7 +15,7 @@
 
 `capsid` uses decorators to help doing declarative DOM programming. See [Mirroring Example][].
 
-`capsid` is very different from the popular frameworks like React, Angular or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custome markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
+`capsid` is very different from the popular frameworks like React, Angular or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custom markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
 
 `capsid` is a __view__ library and agnostic about data flow, but there's officially maintained library [evex][], which is like redux for react or vuex for vue.
 
@@ -23,11 +23,11 @@
 
 # Features
 
-- It's an lightweight **UI library**: (**1.51KB** gzipped)
+- It's a lightweight **UI library**: (**1.51KB** gzipped)
 - It has **no dependencies**.
-- **no special Markup, just plain JavaScript (+ decorators)**
+- **No special Markup, just plain JavaScript (+ decorators)**
 - Helps adding **behaviors** (event handlers and init handlers) to certain types of Elements based on **component** definition.
-- **small APIs**: **5 APIs** & **5 decorators**
+- **Small APIs**: **5 APIs** & **5 decorators**
 
 # [Hello Example][]
 
@@ -89,7 +89,7 @@ There are 2 timings for components to be initialized:
 1. [When document is ready][DOMContentLoaded].
 2. When `capsid.prep()` is called.
 
-Because all components are automatically initialized when document is ready, you don't need care about initialization of elements which exist from the beginning. See [Hello Example][] or [Clock Example][] about this.
+Because all components are automatically initialized when document is ready, you don't need to care about initialization of elements which exist from the beginning. See [Hello Example][] or [Clock Example][] about this.
 
 If you want to add components after `DOMContentLoaded`, you need to call `capsid.prep()` explicitly, which initializes all the component in the page.
 
@@ -141,7 +141,7 @@ window.capsid.def('my-component', MyComponent)
 
 - [mount]
   - at `DOMContentLoaded` all elements in the page which have the capsid class-names are mounted by the capsid components
-  - at `mount` event element and coelement (instance of the component class) are coupled and starting working together. See the below for details.
+  - at `mount` event element and coelement (instance of the component class) are coupled and starting working together. See below for details.
   - after `DOMContentLoaded`, you need to call `prep` function explicitly to mount capsid components to corresponding elements.
 
 - [discard]
