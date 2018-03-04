@@ -15,7 +15,7 @@
 
 `capsid` uses decorators to help doing declarative DOM programming. See [Mirroring Example][].
 
-`capsid` is very different from the popular frameworks like React, Angular or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custom markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
+`capsid` is very different from the popular frameworks like React or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custom markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
 
 `capsid` is a __view__ library and agnostic about data flow, but there's officially maintained library [evex][], which is like redux for react or vuex for vue.
 
