@@ -230,6 +230,22 @@ var capsid = function (exports) {
 
   //
 
+  //      
+
+  /**
+   * Installs the capsid module or plugin.
+   *
+   * @param {CapsidModule} capsidModule
+   * @param {object} options
+   */
+  var install$$1 = function install$$1(capsidModule, options) {
+    if (capsidModule.install) {
+      throw new Error('The given capsid module does not have `install` method. Please check the install call.');
+    }
+
+    capsidModule.install(capsid, options || {});
+  };
+
   //
 
   //      
@@ -476,6 +492,7 @@ var capsid = function (exports) {
     make: make,
     mount: mount,
     get: get,
+    install: install$$1,
     on: on,
     emit: emit,
     emits: emits,
@@ -493,6 +510,7 @@ var capsid = function (exports) {
   exports.make = make;
   exports.mount = mount;
   exports.get = get;
+  exports.install = install$$1;
   exports.on = on;
   exports.emit = emit;
   exports.emits = emits;

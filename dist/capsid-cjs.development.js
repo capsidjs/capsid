@@ -232,6 +232,22 @@ var make = function make(name, elm) {
 
 //      
 
+/**
+ * Installs the capsid module or plugin.
+ *
+ * @param {CapsidModule} capsidModule
+ * @param {object} options
+ */
+var install$$1 = function install$$1(capsidModule, options) {
+  if (capsidModule.install) {
+    throw new Error('The given capsid module does not have `install` method. Please check the install call.');
+  }
+
+  capsidModule.install(capsid, options || {});
+};
+
+//      
+
 
 var debugMessage = function debugMessage(message) {
   if (typeof capsidDebugMessage === 'function') {
@@ -492,6 +508,7 @@ var capsid = Object.freeze({
   make: make,
   mount: mount,
   get: get,
+  install: install$$1,
   on: on,
   emit: emit,
   emits: emits,
@@ -509,6 +526,7 @@ exports.prep = prep;
 exports.make = make;
 exports.mount = mount;
 exports.get = get;
+exports.install = install$$1;
 exports.on = on;
 exports.emit = emit;
 exports.emits = emits;
