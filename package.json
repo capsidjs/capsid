@@ -5,7 +5,7 @@
   "main": "index.js",
   "unpkg": "dist/capsid.min.js",
   "scripts": {
-    "clean": "rimraf _book coverage",
+    "clean": "rimraf _book coverage dist/*.js",
     "book": "gitbook serve",
     "gh-pages": "npm run clean && gitbook build && gh-pages -o hub -d _book",
     "lint": "standard",
