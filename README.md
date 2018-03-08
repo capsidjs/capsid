@@ -9,25 +9,22 @@
 
 > A library for component-based DOM programming
 
-`capsid` is a library for doing component-based DOM programming.
+`capsid` is a library for component-based DOM programming.
 
 `capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello Example][] or [Clock Example][].
 
-`capsid` uses decorators to help doing declarative DOM programming. See [Mirroring Example][].
+`capsid` uses decorators to define Event handlers or emitters declaratively. See [Mirroring Example][].
 
-`capsid` is very different from the popular frameworks like React or Vue. Those frameworks update DOM nodes based on markups written in their DSL (jsx or custom markup). `capsid` doesn't define its own markup DSL. Rather `capsid` helps adding behaviors (like event handlers) to certain type of DOM Nodes based on component definitions.
+For state management, `capsid` has a [flux][] variant, [evex][], which implements [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
 
-`capsid` is a __view__ library and agnostic about data flow, but there's officially maintained library [evex][], which is like redux for react or vuex for vue.
+# :sparkles: Features
 
-[evex][] is a pattern to realize [flux][] using DOM Events and also a library to implement [evex][] pattern. Please check [evex][] repository for details.
-
-# Features
-
-- It's a lightweight **UI library**: (**1.51KB** gzipped)
-- It has **no dependencies**.
-- **No special Markup, just plain JavaScript (+ decorators)**
-- Helps adding **behaviors** (event handlers and init handlers) to certain types of Elements based on **component** definition.
-- **Small APIs**: **5 APIs** & **5 decorators**
+- **UI Event library**
+- :leaves: Lightweight: **~1.6KB**
+- :sunglasses: **no dependencies**
+- :sunny: **Plain JavaScript (+ ESNext decorators)**
+- :bento: Adds **behaviors** (event handlers and lifecycle handlers) to certain types of Elements based on **component** definition.
+- :lollipop: **6 APIs** & **5 decorators**
 
 # [Hello Example][]
 
@@ -174,19 +171,21 @@ The constructor is called at the start of mount event. Its instance (coelement) 
 # APIs
 
 ```js
-const capsid = require('capsid')
+const { def, prep, make, mount, get, install } = require('capsid')
 ```
 
-- `capsid.def(name, constructor)`
+- `def(name, constructor)`
   - Registers class-component.
-- `capsid.prep([name], [element])`
+- `prep([name], [element])`
   - Initialize class-component on the given range.
-- `capsid.make(name, element)`
+- `make(name, element)`
   - Initializes the element with the component of the given name and return the coelement instance.
-- `capsid.mount(Constructor, element)`
+- `mount(Constructor, element)`
   - Initializes the element with the component of the given class and return the coelement.
-- `capsid.get(name, element)`
+- `get(name, element)`
   - Gets the coelement instance from the given element.
+- `install(capsidModule, options)`
+  - installs the capsid module with the options.
 
 ## `capsid` namespace
 
@@ -266,25 +265,45 @@ const timer = capsid.get('timer', dom)
 
 The above gets `Timer` class instance (coelement) from dom. In this case, dom need to be initialized as `timer` class-component before this call.
 
+### `capsid.install(capsidModule, options)`
+
+- @param {CapsidModule} capsidModule The module to install
+- @param {Object} options The options to pass to the module
+
+This installs the capsid module.
+
+```js
+capsid.install(require('capsid-popper'), { name: 'my-app-popper' })
+```
+
+See [capsid-module][] repository for details.
 
 # Decorators
+
+```js
+const { component, on, emits, wired, notifies } = require('capsid')
 
 There are 5 types of decorators.
 
 - `@component`
-  - registers components.
+  - *class decorator*
+  - registers as a capsid components.
   - optionally `@component(name)`
-- `@on(event, {at})`
-  - registers event listeners.
+- `@on(event, { at })`
+  - *method decorator*
+  - registers as an event listener on the component.
   - `@on.click` is also available, a shorthand for `@on('click')`.
 - `@emits(event)`
-  - adds function to triggers the event.
+  - *method decorator*
+  - makes the decorated method an event emitter.
   - optionally `@emits.first(event)`
-- `@wire`
-  - wires the given compenents/elements to the decorated getter.
-  - optionally `@wire(name, [selector])` `@wire.el` `@wire.elAll`
+- `@wired(selector)`
+  - *getter decorator*
+  - wires the elements to the decorated getter by the given selector.
+  - optionally `@wired.component(name, [selector])` `@wired.all(selector)`
 - `@notifies`
-  - adds function to publish events to given descendent elements.
+  - *method decorator*
+  - makes the decorated method an event broadcaster.
 
 ## `@component(className)`
 
@@ -779,6 +798,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-03-08   v0.20.0  Add install function.
 - 2017-12-31   v0.19.0  Add wired, wired.all and wired.component decorators.
 - 2017-12-05   v0.18.3  Add an error message.
 - 2017-10-12   v0.18.0  Add Outside Events plugin.
