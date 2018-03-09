@@ -13,7 +13,7 @@ type CapsidModule = {
  * @param {object} options
  */
 export default (capsidModule: CapsidModule, options: Object) => {
-  if (capsidModule.install) {
+  if (typeof capsidModule.install !== 'function') {
     throw new Error('The given capsid module does not have `install` method. Please check the install call.')
   }
 
