@@ -1,3 +1,5 @@
+// @flow
+
 import capsidDebugMessage from '../debug-plugin'
 import td from 'testdouble'
 

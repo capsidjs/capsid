@@ -1,3 +1,4 @@
+// @flow
 import camelToKebab from '../camel-to-kebab'
 
 const assert = require('assert')

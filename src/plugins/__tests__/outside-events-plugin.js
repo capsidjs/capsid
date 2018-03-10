@@ -1,8 +1,9 @@
+// @flow
 import { callDecorator } from '../../__tests__/helper.js'
 import outsideEventsPlugin from '../outside-events-plugin.js'
 import { on, mount, pluginHooks } from '../../index.js'
 
-outsideEventsPlugin({ on, pluginHooks })
+(outsideEventsPlugin: any)({ on, pluginHooks })
 
 describe('outside-events-plugin', () => {
   describe('on.outside', () => {
@@ -19,7 +20,7 @@ describe('outside-events-plugin', () => {
 
       mount(Component, div)
 
-      document.body.click()
+      if (document.body) document.body.click()
     })
   })
 })
