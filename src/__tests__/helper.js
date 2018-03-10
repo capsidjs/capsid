@@ -1,3 +1,5 @@
+// @flow
+
 import $ from 'jquery'
 import * as capsid from '../index.js'
 import cj from '../plugins/jquery-plugin.js'
@@ -7,7 +9,7 @@ global.$ = $
 global.__DEV__ = true
 global.capsidDebugMessage = () => {}
 
-cj(capsid, $)
+;(cj: any)(capsid, $)
 
 before(() => {
   capsid.def('foo', Foo)
@@ -24,7 +26,7 @@ export const clearComponents = () =>
  * @param {Function} cls The class
  * @param {string} key The key of the method to decorate
  */
-export const callDecorator = (decorator, cls, key) => {
+export const callDecorator = (decorator: Function, cls: Function, key: string) => {
   const descriptor = Object.getOwnPropertyDescriptor(cls.prototype, key)
   const result = decorator(cls.prototype, key, descriptor)
   Object.defineProperty(cls.prototype, key, result || descriptor)

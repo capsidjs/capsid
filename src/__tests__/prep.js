@@ -1,3 +1,5 @@
+// @flow
+
 import assert from 'assert'
 import { prep, def } from '../index.js'
 import { Foo } from './fixture'
@@ -9,7 +11,9 @@ describe('prep', () => {
   })
 
   beforeEach(() => {
-    document.body.innerHTML = ''
+    if (document.body) {
+      document.body.innerHTML = ''
+    }
   })
 
   after(() => clearComponents())
@@ -17,7 +21,10 @@ describe('prep', () => {
   it('initializes the class component of the given name', () => {
     const el = document.createElement('div')
     el.setAttribute('class', 'foo')
-    document.body.appendChild(el)
+
+    if (document.body) {
+      document.body.appendChild(el)
+    }
 
     prep('foo')
 

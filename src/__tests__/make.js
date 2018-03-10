@@ -1,5 +1,6 @@
+// @flow
+
 import assert from 'assert'
-import { expect } from 'chai'
 import { make, def, get } from '../index.js'
 import { Foo } from './fixture.js'
 import { clearComponents } from './helper.js'
@@ -26,8 +27,10 @@ describe('make', () => {
   describe('in __init__', () => {
     it('can get coelement from el by the name', done => {
       class Component {
+        el: HTMLElement
+
         __init__ () {
-          expect(get('bar', this.el)).to.equal(this)
+          assert.strictEqual(get('bar', this.el), this)
 
           done()
         }
