@@ -29,5 +29,5 @@ export const clearComponents = () =>
 export const callDecorator = (decorator: Function, cls: Function, key: string) => {
   const descriptor = Object.getOwnPropertyDescriptor(cls.prototype, key)
   const result = decorator(cls.prototype, key, descriptor)
-  Object.defineProperty(cls.prototype, key, result || descriptor)
+  Object.defineProperty(cls.prototype, key, result || descriptor || {})
 }
