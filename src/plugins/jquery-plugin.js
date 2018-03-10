@@ -7,7 +7,7 @@ import check, { checkClassNamesAreStringOrNull } from '../util/check.js'
  * @param cc The class-component function
  * @param $ The jQuery function
  */
-const init = (capsid: any, $: Function): void => {
+const init: Function = (capsid: any, $: Function): void => {
   const ccc = capsid.__ccc__
   const get = capsid.get
   const make = capsid.make

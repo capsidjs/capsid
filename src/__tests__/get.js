@@ -1,3 +1,5 @@
+// @flow
+
 import assert from 'assert'
 import { get, make, def } from '../index.js'
 import { Foo } from './fixture.js'

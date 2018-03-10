@@ -1,6 +1,8 @@
+// @flow
+
 import * as capsid from '../index.js'
 import initComponent from '../init-component.js'
-import assert from 'power-assert'
+import assert from 'assert'
 import { clearComponents, callDecorator } from './helper.js'
 
 const { on } = capsid
@@ -22,6 +24,8 @@ describe('initComponent', () => {
 
   it('calls __init__', done => {
     class A {
+      el: HTMLElement
+
       __init__ () {
         assert.strictEqual(this.el, el)
 
@@ -36,6 +40,8 @@ describe('initComponent', () => {
 
   it('calls static __init__', done => {
     class A {
+      static capsid: Object
+
       static __init__ () {
         assert.strictEqual(this.capsid, capsid)
 
@@ -49,6 +55,8 @@ describe('initComponent', () => {
   describe('__init__', () => {
     it('runs after @on handlers are set', done => {
       class A {
+        el: HTMLElement
+
         __init__ () {
           this.el.click()
         }

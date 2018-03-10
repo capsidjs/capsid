@@ -1,3 +1,5 @@
+// @flow
+
 import assert from 'assert'
 import { def, make } from '../index.js'
 import { clearComponents } from './helper'
@@ -7,13 +9,13 @@ describe('def', () => {
 
   it('throws an error when the first param is not a string', () => {
     assert.throws(() => {
-      def(null, class A {})
+      def((null: any), class A {})
     }, Error)
   })
 
   it('throws an error when the second param is not a function', () => {
     assert.throws(() => {
-      def('register-test2', null)
+      def('register-test2', (null: any))
     }, Error)
   })
 

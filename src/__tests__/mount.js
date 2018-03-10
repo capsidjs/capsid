@@ -1,18 +1,22 @@
+// @flow
+
 import { mount } from '../index.js'
-import { expect } from 'chai'
+import assert from 'assert'
 
 describe('mount', () => {
-  it('initializes the element by the given component class', () => {
+  it('initializes the element by the given component class', done => {
     class Component {
+      el: HTMLElement
+
       __init__ () {
-        this.el.foo = 1
+        assert.strictEqual(this.el, div)
+
+        done()
       }
     }
 
     const div = document.createElement('div')
 
     mount(Component, div)
-
-    expect(div.foo).to.equal(1)
   })
 })
