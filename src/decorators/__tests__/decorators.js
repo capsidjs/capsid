@@ -1,3 +1,5 @@
+// @flow
+
 import assert from 'assert'
 import { div } from 'dom-gen'
 import { def, get, make, on, emits, component, wired, notifies } from '../../'
@@ -59,12 +61,12 @@ describe('@on(event, {at: selector})', () => {
 
     make('on-at-test0', el)
 
-    document.body.appendChild(el)
+    if (document.body) document.body.appendChild(el)
 
     el.dispatchEvent(new CustomEvent('bar-event', { bubbles: true }))
     el.querySelector('.inner').dispatchEvent(new CustomEvent('foo-event', { bubbles: true }))
 
-    document.body.removeChild(el)
+    if (document.body) document.body.removeChild(el)
   })
 })
 
@@ -198,6 +200,8 @@ describe('@component', () => {
 describe('@component(className)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     class Cls {
+      el: HTMLElement
+
       __init__ () {
         this.el.setAttribute('this-is', 'decorated-component')
       }
@@ -220,21 +224,25 @@ describe('@component(className)', () => {
 })
 
 describe('@wired.component', () => {
+  afterEach(() => clearComponents())
+
   it('replaces the decorated getter and returns the instance of class-component of the getter name', () => {
-    class Cls0 {
-      get ['wire-test0-1'] () {}
+    class Foo {
+      get bar () {}
     }
-    class Cls1 {}
-    def('wire-test0', Cls0)
-    def('wire-test0-1', Cls1)
 
-    callDecorator(wired.component, Cls0, 'wire-test0-1')
+    class Bar {}
 
-    const el = div().append(make('wire-test0-1', div()[0]).el)[0]
+    def('foo', Foo)
+    def('bar', Bar)
 
-    const wireTest0 = make('wire-test0', el)
+    callDecorator(wired.component, Foo, 'bar')
 
-    assert(wireTest0['wire-test0-1'] instanceof Cls1)
+    const el = div().append(make('bar', div()[0]).el)[0]
+
+    const wireTest0 = make('foo', el)
+
+    assert(wireTest0.bar instanceof Bar)
   })
 
   it('returns the instance of component of the kebab-cased name of the getter name when the getter is in camelCase', () => {
@@ -255,38 +263,38 @@ describe('@wired.component', () => {
   })
 
   it("can get the class component in the same dom as decorated method's class", () => {
-    class Cls0 {
-      get ['wire-test2-1'] () {}
+    class Foo {
+      get bar () {}
     }
-    class Cls1 {}
-    def('wire-test2', Cls0)
-    def('wire-test2-1', Cls1)
+    class Bar {}
+    def('foo', Foo)
+    def('bar', Bar)
 
-    callDecorator(wired.component, Cls0, 'wire-test2-1')
+    callDecorator(wired.component, Foo, 'bar')
 
     const el = div()[0]
 
-    make('wire-test2-1', el)
-    const wireTest0 = make('wire-test2', el)
+    make('bar', el)
+    const foo = make('Foo', el)
 
-    assert(wireTest0['wire-test2-1'] instanceof Cls1)
-    assert(wireTest0['wire-test2-1'] === get('wire-test2-1', el))
+    assert(foo.bar instanceof Bar)
+    assert(foo.bar === get('bar', el))
   })
 
   it('throws when the element is not available', () => {
-    class Cls0 {
-      get ['does-not-exist'] () {}
+    class Foo {
+      get doesNotExist () {}
     }
 
-    def('wire-test4', Cls0)
+    def('foo', Foo)
 
-    callDecorator(wired.component, Cls0, 'does-not-exist')
+    callDecorator(wired.component, Foo, 'doesNotExist')
 
-    const instance = make('wire-test4', div()[0])
+    const foo = make('foo', div()[0])
 
     assert.throws(
       () => {
-        console.log(instance['does-not-exist'])
+        console.log(foo.doesNotExist)
       },
       err => {
         return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Cls0]'
