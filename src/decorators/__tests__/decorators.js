@@ -275,7 +275,7 @@ describe('@wired.component', () => {
     const el = div()[0]
 
     make('bar', el)
-    const foo = make('Foo', el)
+    const foo = make('foo', el)
 
     assert(foo.bar instanceof Bar)
     assert(foo.bar === get('bar', el))
@@ -297,7 +297,7 @@ describe('@wired.component', () => {
         console.log(foo.doesNotExist)
       },
       err => {
-        return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Cls0]'
+        return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Foo]'
       }
     )
   })
