@@ -1,3 +1,4 @@
+// @flow
 import { def, prep, wire } from '../../'
 import assert from 'assert'
 import { div } from 'dom-gen'
@@ -138,7 +139,7 @@ describe('$dom.cc', () => {
 
     it('throws an error when the elem is empty dom selectioin', () => {
       assert.throws(() => {
-        $('#nothing').cc.get('something')
+        div().find('.nothing').cc.get('something')
       })
     })
   })
