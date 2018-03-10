@@ -112,6 +112,7 @@
     ],
     "ignore": [
       "/dist",
+      "/flow-typed",
       "jquery.js"
     ]
   },
