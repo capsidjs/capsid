@@ -19,21 +19,16 @@
 
 ### Examples
 * Basic
-  * [Hello](examples/hello.md)
-  * [The Button](examples/toggle.md)
   * [Timer](examples/timer.md)
   * [Counter](examples/counter.md)
-  * [Toggle Button](examples/toggle.md)
+  * [Mirroring](exaxmples/mirroring.md)
   * [Modal](examples/modal.md)
 * Advanced
-  * [Youtube list](examples/youtube.md)
-  * [TodoList](examples/todo-list.md)
+  * [TodoMVC](examples/todo-mvc.md)
 * [List of Demos](demo/index.md)
 
 ### Basics
 * [Component and Coelement](basics/component.md)
-* [MVP](basics/mvp.md)
-* [vs Backbone](basics/backbone.md)
 
 ### API Reference
 * [Core](api/core.md)
@@ -41,16 +36,20 @@
   * [prep](api/core.md#prep)
   * [get](api/core.md#get)
   * [make](api/core.md#make)
-  * [make](api/core.md#mount)
+  * [mount](api/core.md#mount)
+  * [install](api/core.md#install)
 * [Decorators](api/decorators.md)
   * [@on](api/decorators.md#on)
-  * [@wire](api/decorators.md#wire)
+  * [@wired](api/decorators.md#wired)
   * [@emits](api/decorators.md#emits)
   * [@notifies](api/decorators.md#notifies)
   * [@component](api/decorators.md#component)
 
 ### Plugins
+* [How-to](plugins/plugin.md)
 * [jQuery plugin](plugins/jquery.md)
+* [Outside events plugin](plugins/outside-events.md)
 
 ### Testing Guide
-* [Unit Testing with karma](testing/karma.md)
+* [Set up testing with jsdom](testing/jsdom.md)
+* [Set up testing with karma](testing/karma.md)
