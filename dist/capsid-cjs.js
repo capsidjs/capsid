@@ -157,7 +157,7 @@ var def = function def(name, Constructor) {
   check(typeof name === 'string', '`name` of a class component has to be a string.');
   check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function');
 
-  var initClass = name + '-initialized';
+  var initClass = name + '-\uD83D\uDC8A';
 
   /**
    * Initializes the html element by the configuration.

@@ -118,7 +118,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.20.2/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.20.3/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -798,6 +798,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-04-04   v0.20.3  Change initialized class name.
 - 2018-03-08   v0.20.0  Add install function.
 - 2017-12-31   v0.19.0  Add wired, wired.all and wired.component decorators.
 - 2017-12-05   v0.18.3  Add an error message.
