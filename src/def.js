@@ -17,7 +17,7 @@ const def = (name: string, Constructor: Function) => {
   check(typeof name === 'string', '`name` of a class component has to be a string.')
   check(typeof Constructor === 'function', '`Constructor` of a class component has to be a function')
 
-  const initClass = `${name}-initialized`
+  const initClass = `${name}-💊`
 
   /**
    * Initializes the html element by the configuration.
