@@ -7,7 +7,7 @@
   "files": [
     "dist",
     "jquery.js",
-    "outside-event.js",
+    "outside-events.js",
     "debug.js"
   ],
   "scripts": {
