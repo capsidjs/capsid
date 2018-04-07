@@ -4,6 +4,12 @@
   "description": "A library for component-based DOM programming",
   "main": "index.js",
   "unpkg": "dist/capsid.min.js",
+  "files": [
+    "dist",
+    "jquery.js",
+    "outside-event.js",
+    "debug.js"
+  ],
   "scripts": {
     "clean": "rimraf _book coverage dist/*.js",
     "book": "gitbook serve",
