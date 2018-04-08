@@ -20,11 +20,11 @@ For state management, `capsid` has a [flux][] variant, [evex][], which implement
 # :sparkles: Features
 
 - **UI Event library**
-- :leaves: Lightweight: **~1.6KB**
+- :leaves: Lightweight: **~1.7KB**
 - :sunglasses: **no dependencies**
 - :sunny: **Plain JavaScript (+ ESNext decorators)**
 - :bento: Adds **behaviors** (event handlers and lifecycle handlers) to certain types of Elements based on **component** definition.
-- :lollipop: **6 APIs** & **5 decorators**
+- :lollipop: **7 APIs** & **5 decorators**
 
 # [Hello Example][]
 
@@ -127,24 +127,24 @@ Download [capsid.min.js](https://unpkg.com/capsid@0.20.5/dist/capsid.min.js) The
 In this case, the library exports the global variable `capsid`. You can use it like the below:
 
 ```js
-window.capsid.def('my-component', MyComponent)
+capsid.def('my-component', MyComponent)
 ```
 
 # capsid lifecycle
 
-φ -> [mount] -> mounted -> [discard] -> φ
+normal element -> [mount] -> capsid component -> [unmount] -> normal element
 
 ## capsid lifecycle events
 
 - [mount]
-  - at `DOMContentLoaded` all elements in the page which have the capsid class-names are mounted by the capsid components
-  - at `mount` event element and coelement (instance of the component class) are coupled and starting working together. See below for details.
-  - after `DOMContentLoaded`, you need to call `prep` function explicitly to mount capsid components to corresponding elements.
+  - Elements of classes which are registered to capsid are mounted at `DOMContentLoaded`.
+  - Element and coelement are coupled and start working together.
+  - You need to call `prep()` to mount components after `DOMContentLoaded`.
 
-- [discard]
-  - capsid doesn't provide the special method for unmounting the components. If you stop using a component, then simply remove the corresponding dom from the page. That's the end of the component lifecycle.
+- [unmount]
+  - You need to call `unmount(class, element)` to unmount component.
 
-## anatomy of [mount]
+## Explanation of [mount]
 
 At [mount] event, many things happen. These are the core feature of capsid.js:
 
@@ -166,12 +166,26 @@ The constructor is called at the start of mount event. Its instance (coelement) 
 
 ### `__init__`
 
-`__init__` is called at the end of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
+`__init__()` is called at the end of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
+
+Note: This going to change to `__mount__`.
+
+### `__unmount__`
+
+`__unmount__()` is called when component is unmounted.
 
 # APIs
 
 ```js
-const { def, prep, make, mount, get, install } = require('capsid')
+const {
+  def,
+  prep,
+  make,
+  mount,
+  unmount,
+  get,
+  install
+} = require('capsid')
 ```
 
 - `def(name, constructor)`
@@ -182,14 +196,14 @@ const { def, prep, make, mount, get, install } = require('capsid')
   - Initializes the element with the component of the given name and return the coelement instance.
 - `mount(Constructor, element)`
   - Initializes the element with the component of the given class and return the coelement.
+- `unmount(name, element)`
+  - unmount the component from the element by its name.
 - `get(name, element)`
   - Gets the coelement instance from the given element.
 - `install(capsidModule, options)`
   - installs the capsid module with the options.
 
-## `capsid` namespace
-
-### `capsid.def(name, constructor)`
+## `def(name, constructor)`
 
 - @param {string} name The class name of the component
 - @param {Function} constructor The constructor of the coelement of the component
@@ -210,14 +224,14 @@ capsid.def('todo-item', TodoItem)
 <li class="todo-item"></li>
 ```
 
-### `capsid.prep([name], [element])`
+## `prep([name], [element])`
 
 - @param {string} [name] The capsid component name to intialize
 - @param {HTMLElement} [element] The range to initialize
 
 This initializes the capsid components of the given name under the given element. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
 
-### `capsid.make(name, element)`
+## `make(name, element)`
 
 - @param {string} name The capsid component name to initialize
 - @param {HTMLElement} element The element to initialize
@@ -229,7 +243,7 @@ Initializes the element as the capsid component and returns the coelement instan
 const timer = make('timer', dom)
 ```
 
-### `capsid.mount(Constructor, element)`
+## `mount(Constructor, element)`
 
 - @param {Function} Constructor The constructor which defines the capsid component
 - @param {HTMLElemen} element The element to mount the component
@@ -249,23 +263,44 @@ capsid.mount(Component, div)
 div.foo === 1 # => true
 ```
 
-This API is mainly for module authors. If you need to create an unnamed component, then use this API.
+Usually you don't need to use this API. If you're writing library using capsid, you might sometimes need to create an unnamed component and need this API then.
 
-### `capsid.get(name, element)`
+## `unmount(name, element)`
+
+- @param {string} name The component name
+- @param {HTMLElement} element The element
+
+Unmounts the component of the given name from the element.
+
+Example:
+
+```js
+@component('foo')
+class Foo {
+  @on('input')
+  remove () {
+    unmount('foo', this.el)
+  }
+}
+```
+
+The above example unmounts itself when it receives `input` event.
+
+## `get(name, element)`
 
 - @param {string} name The capsid component name to get
 - @param {HTMLElement} element The element
 - @return The coelement instance
 
-Gets the coelement instance from the element.
+Gets the component instance from the element.
 
 ```js
-const timer = capsid.get('timer', dom)
+const timer = capsid.get('timer', el)
 ```
 
-The above gets `Timer` class instance (coelement) from dom. In this case, dom need to be initialized as `timer` class-component before this call.
+The above gets timer coelement from `el`, which is instance of `Timer` class.
 
-### `capsid.install(capsidModule, options)`
+### `install(capsidModule[, options])`
 
 - @param {CapsidModule} capsidModule The module to install
 - @param {Object} options The options to pass to the module
@@ -281,7 +316,14 @@ See [capsid-module][] repository for details.
 # Decorators
 
 ```js
-const { component, on, emits, wired, notifies } = require('capsid')
+const {
+  component,
+  on,
+  emits,
+  wired,
+  notifies
+} = require('capsid')
+```
 
 There are 5 types of decorators.
 
@@ -798,6 +840,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-04-08   v0.21.0  Add `unmount`.
 - 2018-04-04   v0.20.3  Change initialized class name.
 - 2018-03-08   v0.20.0  Add install function.
 - 2017-12-31   v0.19.0  Add wired, wired.all and wired.component decorators.

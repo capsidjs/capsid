@@ -2811,9 +2811,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.67.1:
-  version "0.67.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.67.1.tgz#eabb7197cce870ac9442cfd04251c7ddc30377db"
+flow-bin@^0.69.0:
+  version "0.69.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.69.0.tgz#053159a684a6051fcbf0b71a2eb19a9679082da6"
 
 flow-remove-types@^1.1.0:
   version "1.2.3"
@@ -2965,6 +2965,10 @@ gaze@^0.5.1:
   resolved "https://registry.yarnpkg.com/gaze/-/gaze-0.5.2.tgz#40b709537d24d1d45767db5a908689dfe69ac44f"
   dependencies:
     globule "~0.1.0"
+
+genel@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/genel/-/genel-1.1.1.tgz#76f2096cf479d201e562a6c9def248694ececa0c"
 
 generate-function@^2.0.0:
   version "2.0.0"

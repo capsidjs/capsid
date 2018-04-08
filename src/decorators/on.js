@@ -19,7 +19,7 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
    * @param coelem The coelement
    */
   Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
-    el.addEventListener(event, (e: Event): void => {
+    const listener = (e: Event): void => {
       if (
         !at ||
         [].some.call(el.querySelectorAll(at), node => {
@@ -37,6 +37,20 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
 
         coelem[key](e)
       }
-    })
+    }
+
+    /**
+     * Removes the event listener.
+     */
+    listener.remove = () => {
+      el.removeEventListener(event, listener)
+    }
+
+    /**
+     * Store event listeners to remove it later.
+     */
+    ;(el: any)[KEY_EVENT_LISTENERS] = ((el: any)[KEY_EVENT_LISTENERS] || []).concat(listener)
+
+    el.addEventListener(event, listener)
   })
 }
