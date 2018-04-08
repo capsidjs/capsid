@@ -914,12 +914,10 @@ The purpose of capsid is to encapsulate the details of its contents just like ca
 
 `co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` etc. Coelement is the other aspect of `element` and it works together in the 1-to-1 relationship and in the same lifecycle with the element.
 
-# (maybe) Similar Project
+# (possibly) similar projects
 
 - [DOM99](https://github.com/GrosSacASac/DOM99)
 - [RE:DOM](https://redom.js.org/)
-
-These projects are similar to capsid in the sense that all those encourage the native dom handling, instead of the usage of virtual dom.
 
 # Examples
 
