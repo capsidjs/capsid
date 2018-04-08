@@ -23,7 +23,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 - :leaves: Lightweight: **~1.7KB**
 - :sunglasses: **no dependencies**
 - :sunny: **Plain JavaScript (+ ESNext decorators)**
-- :bento: Adds **behaviors** (event handlers and lifecycle handlers) to certain types of Elements based on **component** definition.
+- :bento: Adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on **component** definition.
 - :lollipop: **7 APIs** & **5 decorators**
 
 # :wave: [Hello Example][]
