@@ -47,7 +47,7 @@ capsid.def('hello', Hello)
 
 `capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is automatically called and in this case `textContent` of the element becomes `Hello, world!`.
 
-[See working example][Hello Example]
+[See the demo][Hello Example]
 
 # [Clock Example][]
 
@@ -77,7 +77,7 @@ capsid.def('clock', Clock)
 
 `capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
 
-See [the working demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
+[See the demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
 
 # Initialization
 
@@ -936,6 +936,7 @@ MIT
 [evex]: http://github.com/capsidjs/evex
 [Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
 [Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
+[Counter Example]: https://codepen.io/kt3k/pen/KorYPr?editors=1010
 [Mirroring Example]: https://codepen.io/kt3k/pen/VbvKNp?editors=1010
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 [Random Walking Particles Example]: https://codepen.io/kt3k/pen/opWJVx
