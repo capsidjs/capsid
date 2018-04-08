@@ -7,19 +7,19 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
-> A library for component-based DOM programming
+> Component-based DOM programming
 
 `capsid` is a library for component-based DOM programming.
 
 `capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello Example][] or [Clock Example][].
 
-`capsid` uses decorators to define Event handlers or emitters declaratively. See [Mirroring Example][].
+`capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][].
 
-For state management, `capsid` has a [flux][] variant, [evex][], which implements [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
+For state management, `capsid` has [evex][], which implements [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
 
 # :sparkles: Features
 
-- **UI Event library**
+- **Component-based DOM programming library**
 - :leaves: Lightweight: **~1.7KB**
 - :sunglasses: **no dependencies**
 - :sunny: **Plain JavaScript (+ ESNext decorators)**
@@ -31,7 +31,7 @@ For state management, `capsid` has a [flux][] variant, [evex][], which implement
 The hello example shows the minimal usage of capsid.js:
 
 ```html
-<script src="path/to/capsid"></script>
+<script src="https://unpkg.com/capsid"></script>
 <script>
 class Hello {
   __init__ () {
@@ -45,7 +45,7 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is automatically called and therefore `textContent` of the element becomes `Hello, world!`.
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is automatically called and in this case `textContent` of the element becomes `Hello, world!`.
 
 [See working example][Hello Example]
 
@@ -54,8 +54,6 @@ capsid.def('hello', Hello)
 The clock example shows how you can implement *a clock* in capsid.js:
 
 ```html
-<span class="clock"></span>
-
 <script src="https://unpkg.com/capsid"></script>
 <script>
 class Clock {
@@ -73,6 +71,8 @@ class Clock {
 
 capsid.def('clock', Clock)
 </script>
+
+<span class="clock"></span>
 ```
 
 `capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
