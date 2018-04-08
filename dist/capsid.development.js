@@ -232,6 +232,23 @@ var capsid = function (exports) {
 
   //      
 
+  var unmount = function unmount(name, el) {
+    var coel = get(name, el);
+
+    if (typeof coel.__unmount__ === 'function') {
+      coel.__unmount__();
+    }
+
+    el.classList.remove(name, name + '-\uD83D\uDC8A');(el[KEY_EVENT_LISTENERS] || []).forEach(function (listener) {
+      listener.remove();
+    });
+
+    delete el[COELEMENT_DATA_KEY_PREFIX + name];
+    delete coel.el;
+  };
+
+  //      
+
   /**
    * Installs the capsid module or plugin.
    *
@@ -275,7 +292,7 @@ var capsid = function (exports) {
        * @param coelem The coelement
        */
       Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
-        el.addEventListener(event, function (e) {
+        var listener = function listener(e) {
           if (!at || [].some.call(el.querySelectorAll(at), function (node) {
             return node === e.target || node.contains(e.target);
           })) {
@@ -290,7 +307,21 @@ var capsid = function (exports) {
 
             coelem[key](e);
           }
-        });
+        };
+
+        /**
+         * Removes the event listener.
+         */
+        listener.remove = function () {
+          el.removeEventListener(event, listener);
+        }
+
+        /**
+         * Store event listeners to remove it later.
+         */
+        ;el[KEY_EVENT_LISTENERS] = (el[KEY_EVENT_LISTENERS] || []).concat(listener);
+
+        el.addEventListener(event, listener);
       });
     };
   };
@@ -507,6 +538,7 @@ var capsid = function (exports) {
     prep: prep,
     make: make,
     mount: mount,
+    unmount: unmount,
     get: get,
     install: install$$1,
     on: on,
@@ -525,6 +557,7 @@ var capsid = function (exports) {
   exports.prep = prep;
   exports.make = make;
   exports.mount = mount;
+  exports.unmount = unmount;
   exports.get = get;
   exports.install = install$$1;
   exports.on = on;
