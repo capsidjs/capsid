@@ -11,11 +11,11 @@
 
 `capsid` is a library for component-based DOM programming.
 
-`capsid` doesn't generate DOM nodes. Rather, it binds behaviors to existing DOM nodes. See [Hello Example][] or [Clock Example][].
+`capsid` gives behaviors to the classes of html elements based on the component defitions. See [Hello Example][] or [Clock Example][].
 
-`capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][].
+`capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][] and [Counter Example][].
 
-For state management, `capsid` has [evex][], which implements [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
+For state management, `capsid` has [evex][], which is the variation of [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
 
 # :sparkles: Features
 
@@ -45,13 +45,13 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` automatically [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is automatically called and in this case `textContent` of the element becomes `Hello, world!`.
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` with `hello` component [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
 
 [See the demo][Hello Example]
 
 # [Clock Example][]
 
-The clock example shows how you can implement *a clock* in capsid.js:
+The clock example shows how you can create *a clock* in capsid.js:
 
 ```html
 <script src="https://unpkg.com/capsid"></script>
@@ -75,28 +75,28 @@ capsid.def('clock', Clock)
 <span class="clock"></span>
 ```
 
-`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__init__` method is automatically called and therefore clock starts ticking then.
+`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__init__` method is called and then clock starts ticking.
 
 [See the demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
 
 # Initialization
 
-There are 2 timings for components to be initialized:
+There are 2 ways to initialize components:
 
-1. [When document is ready][DOMContentLoaded].
-2. When `capsid.prep()` is called.
+1. [When document is ready][DOMContentLoaded] (automatic).
+2. When `capsid.prep()` is called (manual).
 
-Because all components are automatically initialized when document is ready, you don't need to care about initialization of elements which exist from the beginning. See [Hello Example][] or [Clock Example][] about this.
+Because all components are initialized automatically when document is ready, you don't need to care about initialization of elements which you put before document is ready. See [Hello Example][] or [Clock Example][] for example.
 
-If you want to add components after `DOMContentLoaded`, you need to call `capsid.prep()` explicitly, which initializes all the component in the page.
+If you want to add components after document is ready (for example, after ajax requests), you need to call `capsid.prep()` explicitly when they are added into the page.
 
 ```js
 const addPartOfPage = async () => {
-  const { data } = await axios.get('path/to/part-of-page.html')
+  const { html } = await axios.get('path/to/something.html')
 
-  certainElemenent.textContent = data
+  containerElemenent.innerHTML = html
 
-  capsid.prep() // <= this initializes all the elements which are not initialized yet.
+  capsid.prep() // <= this initializes all the elements which are not yet initialized.
 })
 ```
 
@@ -124,7 +124,7 @@ Download [capsid.min.js](https://unpkg.com/capsid@0.21.0/dist/capsid.min.js) The
 <script src="path/to/capsid.js"></script>
 ```
 
-In this case, the library exports the global variable `capsid`. You can use it like the below:
+In this case, the library exports the global variable `capsid`.
 
 ```js
 capsid.def('my-component', MyComponent)
@@ -925,6 +925,7 @@ These projects are similar to capsid in the sense that all those encourage the n
 
 - [Hello Example][]
 - [Clock Example][]
+- [Counter Example][]
 - [Mirroring Example][]
 - [Random Walking Particles Example][]
 
