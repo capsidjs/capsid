@@ -11,9 +11,9 @@
 
 `capsid` is a library for component-based DOM programming.
 
-`capsid` gives behaviors to the classes of html elements based on the component definitions. See [Hello Example][] or [Clock Example][].
+`capsid` gives behaviors to the classes of html elements based on the component definitions. See :wave: [Hello Example][] or :stopwatch: [Clock Example][].
 
-`capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][] and [Counter Example][].
+`capsid` uses decorators for defining event handlers and event emitters declaratively. See :butterfly: [Mirroring Example][] and :one: [Counter Example][].
 
 For state management, `capsid` has [evex][], which is the variation of [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
 
@@ -26,7 +26,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 - :bento: Adds **behaviors** (event handlers and lifecycle handlers) to certain types of Elements based on **component** definition.
 - :lollipop: **7 APIs** & **5 decorators**
 
-# [Hello Example][]
+# :wave: [Hello Example][]
 
 The hello example shows the minimal usage of capsid.js:
 
@@ -49,7 +49,7 @@ capsid.def('hello', Hello)
 
 [See the demo][Hello Example]
 
-# [Clock Example][]
+# :stopwatch: [Clock Example][]
 
 The clock example shows how you can create *a clock* in capsid.js:
 
@@ -923,10 +923,10 @@ These projects are similar to capsid in the sense that all those encourage the n
 
 # Examples
 
-- [Hello Example][]
-- [Clock Example][]
-- [Counter Example][]
-- [Mirroring Example][]
+- :wave: [Hello Example][]
+- :stopwatch: [Clock Example][]
+- :one: [Counter Example][]
+- :butterfly: [Mirroring Example][]
 - [Random Walking Particles Example][]
 
 # License
