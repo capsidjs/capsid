@@ -11,7 +11,7 @@
 
 `capsid` is a library for component-based DOM programming.
 
-`capsid` gives behaviors to the classes of html elements based on the component defitions. See [Hello Example][] or [Clock Example][].
+`capsid` gives behaviors to the classes of html elements based on the component definitions. See [Hello Example][] or [Clock Example][].
 
 `capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][] and [Counter Example][].
 
