@@ -11,9 +11,9 @@
 
 `capsid` is a library for component-based DOM programming.
 
-`capsid` gives behaviors to the classes of html elements based on the component definitions. See :wave: [Hello Example][] or :stopwatch: [Clock Example][].
+`capsid` gives behaviors to the classes of html elements based on the component definitions. See [Hello Example][] :wave: or [Clock Example][] :stopwatch:.
 
-`capsid` uses decorators for defining event handlers and event emitters declaratively. See :butterfly: [Mirroring Example][] and :one: [Counter Example][].
+`capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][] :butterfly: and [Counter Example][] :level_slider:.
 
 For state management, `capsid` has [evex][], which is the variation of [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
 
@@ -923,7 +923,7 @@ The purpose of capsid is to encapsulate the details of its contents just like ca
 
 - :wave: [Hello Example][]
 - :stopwatch: [Clock Example][]
-- :one: [Counter Example][]
+- :level_slider: [Counter Example][]
 - :butterfly: [Mirroring Example][]
 - [Random Walking Particles Example][]
 
