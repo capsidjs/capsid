@@ -940,3 +940,4 @@ MIT
 [Mirroring Example]: https://codepen.io/kt3k/pen/VbvKNp?editors=1010
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 [Random Walking Particles Example]: https://codepen.io/kt3k/pen/opWJVx
+[capsid-module]: https://github.com/capsidjs/capsid-module
