@@ -138,8 +138,13 @@ var mount = function mount(Constructor, el, name) {
     pluginHook(el, coelem);
   });
 
+  // Backward compat
   if (typeof coelem.__init__ === 'function') {
     coelem.__init__();
+  }
+
+  if (typeof coelem.__mount__ === 'function') {
+    coelem.__mount__();
   }
 
   return coelem;
