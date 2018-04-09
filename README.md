@@ -170,9 +170,9 @@ The constructor is called at the start of `mount`ing. You cannot access `this.el
 
 `__unmount__()` is called when component is unmounted. If your component put resources on global space, you should discard them here to avoid memory leak.
 
-# The concept
+# Coelement
 
-See [Component and Coelement](http://capsidjs.github.io/capsid/basics/component.html) section of the document.
+The concept of 'coelement' is explained at [Component and Coelement](http://capsidjs.github.io/capsid/basics/component.html) section of the document site.
 
 # APIs
 
