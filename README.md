@@ -919,6 +919,8 @@ The purpose of capsid is to encapsulate the details of its contents just like ca
 
 - [DOM99](https://github.com/GrosSacASac/DOM99)
 - [RE:DOM](https://redom.js.org/)
+- [butterknife](https://github.com/JakeWharton/butterknife)
+  - `butterknife` is a library for Android development. The syntax and some ideas are similar to capsid.
 
 # Examples
 
