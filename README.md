@@ -86,9 +86,9 @@ There are 2 ways to initialize components:
 1. [When document is ready][DOMContentLoaded] (automatic).
 2. When `capsid.prep()` is called (manual).
 
-Because all components are initialized automatically when document is ready, you don't need to care about initialization of elements which you put before document is ready. See [Hello Example][] or [Clock Example][] for example.
+All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
 
-If you want to add components after document is ready (for example, after ajax requests), you need to call `capsid.prep()` explicitly when they are added into the page.
+If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
 
 ```js
 const addPartOfPage = async () => {
@@ -99,10 +99,6 @@ const addPartOfPage = async () => {
   capsid.prep() // <= this initializes all the elements which are not yet initialized.
 })
 ```
-
-# The concept
-
-See [Component and Coelement](http://capsidjs.github.io/capsid/basics/component.html) section of the document.
 
 # :cd: Install
 
@@ -130,49 +126,53 @@ In this case, the library exports the global variable `capsid`.
 capsid.def('my-component', MyComponent)
 ```
 
-# capsid lifecycle
+# Capsid Lifecycle
 
-normal element -> [mount] -> capsid component -> [unmount] -> normal element
+φ -> [mount] -> component -> [unmount] -> φ
 
 ## capsid lifecycle events
 
-- [mount]
-  - Elements of classes which are registered to capsid are mounted at `DOMContentLoaded`.
-  - Element and coelement are coupled and start working together.
-  - You need to call `prep()` to mount components after `DOMContentLoaded`.
+There are 2 lifecycle events in capsid: `mount` and `unmount`.
 
-- [unmount]
-  - You need to call `unmount(class, element)` to unmount component.
+- `mount`
+  - HTML elements are mounted by the components.
+  - An element is coupled with the corresponding coelement and they start working together.
+  - The timing of `mount` is either `DOMContentLoaded` or `capsid.prep()`.
 
-## Explanation of [mount]
+- `unmount`
+  - An element is decouple with the coelement.
+  - All events are removed and coelement is discarded.
+  - You need to call `unmount(class, element)` to unmount the component.
 
-At [mount] event, many things happen. These are the core feature of capsid.js:
+## Explanation of `mount`
 
-- The component class's `instance` is created.
+At `mount` event, these things happen.
+
+- The component class's `instance` (coelement) is created.
 - `instance`.el is set to corresponding dom element.
 - event listeners defined by `@on` decorators are attached to the dom element.
 - plugin hooks are invoked if you use any.
 - if `instance` has __mount__ method, then `instance.__mount__()` is called.
 
-These things happen in this order, which means in `__mount__` method you can access the dom element by `this.el` and you can invoke the event handlers by triggering event at `this.el`.
+The above happens in this order. Therefore you can access `this.el` and you can invoke the events at `this.el` in `__mount__` method.
 
-See the source code of initComponent method for details: https://github.com/capsidjs/capsid/blob/master/src/init-component.js#L14-L44
-
-## capsid lifecycle methods
+## Lifecycle Methods
 
 ### `constructor`
 
-The constructor is called at the start of mount event. Its instance (coelement) is bound to element by the framework.
+The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with html, `__mount__` is more appropriate place.
 
 ### `__mount__`
 
-`__mount__()` is called at the end of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
-
-Note: This going to change to `__mount__`.
+`__mount__()` is called at the **end** of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
 
 ### `__unmount__`
 
-`__unmount__()` is called when component is unmounted.
+`__unmount__()` is called when component is unmounted. If your component put resources on global space, you should discard them here to avoid memory leak.
+
+# The concept
+
+See [Component and Coelement](http://capsidjs.github.io/capsid/basics/component.html) section of the document.
 
 # APIs
 
