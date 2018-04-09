@@ -6,7 +6,7 @@ In `capsid`, the first thing you need to do is defining a component. You can def
 
 ```js
 class Hello {
-  __init__ () {
+  __mount__ () {
     this.el.textContent = 'hello'
   }
 }
@@ -22,13 +22,13 @@ To use a component, you can put HTML elements which has the class attribute whic
 
 For example, if you want to use `hello` component, then you writes `<span class="hello"></span>` in html and this `span` tag works as `hello` component.
 
-## What is `__init__` in `hello` example?
+## What is `__mount__` in `hello` example?
 
 Look at the first example again.
 
 ```js
 class Hello {
-  __init__ () {
+  __mount__ () {
     this.el.textContext = 'hello'
   }
 }
@@ -36,7 +36,7 @@ class Hello {
 capsid.def('hello', Hello)
 ```
 
-What is `__init__`? `__init__` is the function which is invoked once per each element when it is initialized as component. In the above example, `this.el.textContext = 'hello'` is called each time when the component initialized.
+What is `__mount__`? `__mount__` is the function which is invoked once per each element when it is initialized as component. In the above example, `this.el.textContext = 'hello'` is called each time when the component initialized.
 
 ## What is `this.el` in `hello` example?
 

@@ -28,7 +28,7 @@ The above is equivalent of:
 ```js
 class FooButton {
 
-  __init__ () {
+  __mount__ () {
     this.el.addEventListener('click', e => {
       this.onClick(e)
     })

@@ -3,7 +3,7 @@
 export class Foo {
   el: HTMLElement
 
-  __init__ () {
+  __mount__ () {
     this.el.setAttribute('is_foo', 'true')
   }
 }
@@ -11,7 +11,7 @@ export class Foo {
 export class Bar {
   el: HTMLElement
 
-  __init__ () {
+  __mount__ () {
     this.el.setAttribute('is_bar', 'true')
   }
 }
@@ -19,7 +19,7 @@ export class Bar {
 export class Spam {
   $el: any
 
-  __init__ () {
+  __mount__ () {
     this.$el.attr('is_spam', 'true')
     this.$el.toggleClass('spam-toggle-test')
   }

@@ -27,7 +27,7 @@ Download [https://unpkg.com/capsid](https://unpkg.com/capsid) and load it in the
 <script src="https://unpkg.com/capsid"></script>
 <script>
 class Hello {
-  __init__ () {
+  __mount__ () {
     this.el.textContent = 'Hello, world!'
   }
 }

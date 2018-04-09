@@ -202,7 +202,7 @@ describe('@component(className)', () => {
     class Cls {
       el: HTMLElement
 
-      __init__ () {
+      __mount__ () {
         this.el.setAttribute('this-is', 'decorated-component')
       }
     }

@@ -34,7 +34,7 @@ The hello example shows the minimal usage of capsid.js:
 <script src="https://unpkg.com/capsid"></script>
 <script>
 class Hello {
-  __init__ () {
+  __mount__ () {
     this.el.textContent = 'Hello, world!'
   }
 }
@@ -45,7 +45,7 @@ capsid.def('hello', Hello)
 <span class="hello"></span>
 ```
 
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` with `hello` component [when document is ready][DOMContentLoaded]. When initializing the component, `__init__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` with `hello` component [when document is ready][DOMContentLoaded]. When initializing the component, `__mount__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
 
 [See the demo][Hello Example]
 
@@ -57,7 +57,7 @@ The clock example shows how you can create *a clock* in capsid.js:
 <script src="https://unpkg.com/capsid"></script>
 <script>
 class Clock {
-  __init__ () {
+  __mount__ () {
     setInterval(() => this.tick(), 10)
   }
 
@@ -75,7 +75,7 @@ capsid.def('clock', Clock)
 <span class="clock"></span>
 ```
 
-`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__init__` method is called and then clock starts ticking.
+`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__mount__` method is called and then clock starts ticking.
 
 [See the demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
 
@@ -152,9 +152,9 @@ At [mount] event, many things happen. These are the core feature of capsid.js:
 - `instance`.el is set to corresponding dom element.
 - event listeners defined by `@on` decorators are attached to the dom element.
 - plugin hooks are invoked if you use any.
-- if `instance` has __init__ method, then `instance.__init__()` is called.
+- if `instance` has __mount__ method, then `instance.__mount__()` is called.
 
-These things happen in this order, which means in `__init__` method you can access the dom element by `this.el` and you can invoke the event handlers by triggering event at `this.el`.
+These things happen in this order, which means in `__mount__` method you can access the dom element by `this.el` and you can invoke the event handlers by triggering event at `this.el`.
 
 See the source code of initComponent method for details: https://github.com/capsidjs/capsid/blob/master/src/init-component.js#L14-L44
 
@@ -164,9 +164,9 @@ See the source code of initComponent method for details: https://github.com/caps
 
 The constructor is called at the start of mount event. Its instance (coelement) is bound to element by the framework.
 
-### `__init__`
+### `__mount__`
 
-`__init__()` is called at the end of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
+`__mount__()` is called at the end of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
 
 Note: This going to change to `__mount__`.
 
@@ -253,7 +253,7 @@ Initializes the element with the component of the given class and return the coe
 
 ```js
 class Component {
-  __init__ () {
+  __mount__ () {
     this.el.foo = 1
   }
 }
@@ -402,7 +402,7 @@ The above is equivalent of:
 
 ```js
 class FooButton {
-  __init__ () {
+  __mount__ () {
     this.el.addEventListener('click', e => {
       this.onClick(e)
     })
@@ -672,7 +672,7 @@ The hello world example with jQuery plugin is like the below:
 <script src="https://unpkg.com/capsid/dist/capsid-jquery.js"></script>
 <script>
 class Hello {
-  __init__ () {
+  __mount__ () {
     this.$el.text('Hello, world!')
   }
 }
@@ -840,6 +840,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-04-09   v0.22.0  Rename __init__ to __mount__.
 - 2018-04-08   v0.21.0  Add `unmount`.
 - 2018-04-04   v0.20.3  Change initialized class name.
 - 2018-03-08   v0.20.0  Add install function.

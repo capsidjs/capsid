@@ -24,12 +24,12 @@ describe('make', () => {
     assert(make('foo', document.createElement('div')) instanceof Foo)
   })
 
-  describe('in __init__', () => {
+  describe('in __mount__', () => {
     it('can get coelement from el by the name', done => {
       class Component {
         el: HTMLElement
 
-        __init__ () {
+        __mount__ () {
           assert.strictEqual(get('bar', this.el), this)
 
           done()

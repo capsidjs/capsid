@@ -22,11 +22,11 @@ describe('initComponent', () => {
     assert.strictEqual(coelem.el, el)
   })
 
-  it('calls __init__', done => {
+  it('calls __mount__', done => {
     class A {
       el: HTMLElement
 
-      __init__ () {
+      __mount__ () {
         assert.strictEqual(this.el, el)
 
         done()
@@ -52,12 +52,12 @@ describe('initComponent', () => {
     initComponent(A, document.createElement('div'))
   })
 
-  describe('__init__', () => {
+  describe('__mount__', () => {
     it('runs after @on handlers are set', done => {
       class A {
         el: HTMLElement
 
-        __init__ () {
+        __mount__ () {
           this.el.click()
         }
 

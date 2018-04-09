@@ -10,7 +10,7 @@ timer.js:
 <script src="path/to/capsid.js"></script>
 <script>
 class Timer {
-  __init__ () {
+  __mount__ () {
     this.secondsElapsed = 0
     this.start()
   }

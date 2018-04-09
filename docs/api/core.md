@@ -20,7 +20,7 @@ Example:
 <script>
 class TodoItem {
 
-  __init__ () {
+  __mount__ () {
     // something
   }
 
@@ -131,7 +131,7 @@ Initializes the element with the component of the given class and return the coe
 
 ```js
 class Component {
-  __init__ () {
+  __mount__ () {
     this.el.foo = 1
   }
 }
