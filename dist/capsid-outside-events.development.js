@@ -27,7 +27,9 @@
             if (el !== e.target && !el.contains(e.target)) {
               {
                 debugMessage({
-                  type: 'outside-event',
+                  type: 'event',
+                  module: 'outside-events',
+                  color: '#39cccc',
                   el: el,
                   e: e,
                   coelem: coelem

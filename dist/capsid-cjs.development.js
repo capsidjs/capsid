@@ -304,6 +304,8 @@ var on = function on(event) {
           {
             debugMessage({
               type: 'event',
+              module: '💊',
+              color: '#e0407b',
               e: e,
               el: el,
               coelem: coelem

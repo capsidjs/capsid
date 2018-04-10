@@ -17,9 +17,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       case 'event':
         onEventMessage(message);
         break;
-      case 'outside-event':
-        onOutsideEventMessage(message);
-        break;
       default:
         console.log('Unknown message: ' + JSON.stringify(message));
     }
@@ -43,24 +40,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   var onEventMessage = function onEventMessage(_ref) {
     var coelem = _ref.coelem,
-        e = _ref.e;
+        e = _ref.e,
+        module = _ref.module,
+        color = _ref.color;
 
     var event = e.type;
     var component = getComponentName(coelem);
+    color = color || '#f012be';
 
-    console.groupCollapsed('%c' + event + ' %con %c' + component, boldColor('#f012be'), '', boldColor('#2ecc40'));
-    console.log(e);
-    console.groupEnd();
-  };
-
-  var onOutsideEventMessage = function onOutsideEventMessage(_ref2) {
-    var coelem = _ref2.coelem,
-        e = _ref2.e;
-
-    var event = e.type;
-    var component = getComponentName(coelem);
-
-    console.groupCollapsed('%coutside ' + event + ' %con %c' + component, boldColor('#39cccc'), '', boldColor('#2ecc40'));
+    console.groupCollapsed('[' + module + '] %c' + event + ' %con %c' + component, boldColor('#f012be'), '', boldColor('#2ecc40'));
     console.log(e);
     console.groupEnd();
   };

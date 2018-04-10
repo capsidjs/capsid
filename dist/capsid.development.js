@@ -304,6 +304,8 @@ var capsid = function (exports) {
             {
               debugMessage({
                 type: 'event',
+                module: '💊',
+                color: '#e0407b',
                 e: e,
                 el: el,
                 coelem: coelem
