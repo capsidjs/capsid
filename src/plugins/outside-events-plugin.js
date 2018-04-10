@@ -16,7 +16,9 @@ const init = (capsid: any): void => {
         if (el !== e.target && !el.contains((e.target: any))) {
           if (__DEV__) {
             debugMessage({
-              type: 'outside-event',
+              type: 'event',
+              module: 'outside-events',
+              color: '#39cccc',
               el,
               e,
               coelem

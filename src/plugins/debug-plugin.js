@@ -7,9 +7,6 @@ export default (message: Object) => {
     case 'event':
       onEventMessage(message)
       break
-    case 'outside-event':
-      onOutsideEventMessage(message)
-      break
     default:
       console.log(`Unknown message: ${JSON.stringify(message)}`)
   }
@@ -28,20 +25,12 @@ const getComponentName = (coelem: any): string => {
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
 }
 
-const onEventMessage = ({ coelem, e }: { coelem: any, e: Event }) => {
+const onEventMessage = ({ coelem, e, module, color }: { coelem: any, e: Event }) => {
   const event = e.type
   const component = getComponentName(coelem)
+  color = color || '#f012be'
 
-  console.groupCollapsed(`%c${event} %con %c${component}`, boldColor('#f012be'), '', boldColor('#2ecc40'))
-  console.log(e)
-  console.groupEnd()
-}
-
-const onOutsideEventMessage = ({ coelem, e }: { coelem: any, e: Event }) => {
-  const event = e.type
-  const component = getComponentName(coelem)
-
-  console.groupCollapsed(`%coutside ${event} %con %c${component}`, boldColor('#39cccc'), '', boldColor('#2ecc40'))
+  console.groupCollapsed(`[${module}] %c${event} %con %c${component}`, boldColor('#f012be'), '', boldColor('#2ecc40'))
   console.log(e)
   console.groupEnd()
 }

@@ -29,6 +29,8 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
         if (__DEV__) {
           debugMessage({
             type: 'event',
+            module: '💊',
+            color: '#e0407b',
             e,
             el,
             coelem
