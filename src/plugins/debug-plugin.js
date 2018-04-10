@@ -25,7 +25,7 @@ const getComponentName = (coelem: any): string => {
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
 }
 
-const onEventMessage = ({ coelem, e, module, color }: { coelem: any, e: Event }) => {
+const onEventMessage = ({ coelem, e, module, color }: { coelem: any, e: Event, module: string, color: string }) => {
   const event = e.type
   const component = getComponentName(coelem)
   color = color || '#f012be'
