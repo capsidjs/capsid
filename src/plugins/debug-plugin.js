@@ -30,7 +30,7 @@ const onEventMessage = ({ coelem, e, module, color }: { coelem: any, e: Event, m
   const component = getComponentName(coelem)
   color = color || '#f012be'
 
-  console.groupCollapsed(`[${module}] %c${event} %con %c${component}`, boldColor('#f012be'), '', boldColor('#2ecc40'))
+  console.groupCollapsed(`${module}> %c${event}%c on %c${component}`, boldColor(color), '', boldColor('#2ecc40'))
   console.log(e)
   console.groupEnd()
 }

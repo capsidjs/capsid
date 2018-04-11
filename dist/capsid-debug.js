@@ -48,7 +48,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var component = getComponentName(coelem);
     color = color || '#f012be';
 
-    console.groupCollapsed('[' + module + '] %c' + event + ' %con %c' + component, boldColor('#f012be'), '', boldColor('#2ecc40'));
+    console.groupCollapsed(module + '> %c' + event + '%c on %c' + component, boldColor(color), '', boldColor('#2ecc40'));
     console.log(e);
     console.groupEnd();
   };
