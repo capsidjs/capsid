@@ -1,6 +1,6 @@
 {
   "name": "capsid",
-  "version": "0.23.2",
+  "version": "0.23.3",
   "description": "Component-based DOM programming",
   "main": "index.js",
   "unpkg": "dist/capsid.min.js",
