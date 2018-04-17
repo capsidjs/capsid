@@ -19,7 +19,7 @@ describe('debug-plugin', () => {
 
       capsidDebugMessage({ type: 'event', e, coelem, module: 'module' })
 
-      td.verify(console.groupCollapsed('[module] %cclick %con %cfoo', 'color: #f012be; font-weight: bold;', '', 'color: #2ecc40; font-weight: bold;'))
+      td.verify(console.groupCollapsed('module> %cclick%c on %cfoo', 'color: #f012be; font-weight: bold;', '', 'color: #1a80cc; font-weight: bold;'))
       td.verify(console.log(e))
       td.verify(console.groupEnd())
     })
