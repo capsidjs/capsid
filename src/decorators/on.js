@@ -1,5 +1,5 @@
 // @flow
-import { KEY_EVENT_LISTENERS } from '../util/const.js'
+import { KEY_EVENT_LISTENERS, COMPONENT_NAME_KEY } from '../util/const.js'
 import debugMessage from '../util/debug-message.js'
 
 declare var __DEV__: boolean
@@ -51,7 +51,7 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
     /**
      * Store event listeners to remove it later.
      */
-    ;(el: any)[KEY_EVENT_LISTENERS] = ((el: any)[KEY_EVENT_LISTENERS] || []).concat(listener)
+    ;(el: any)[KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY]] = ((el: any)[KEY_EVENT_LISTENERS] || []).concat(listener)
 
     el.addEventListener(event, listener)
   })
