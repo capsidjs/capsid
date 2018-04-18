@@ -244,7 +244,7 @@ var capsid = function (exports) {
       coel.__unmount__();
     }
 
-    el.classList.remove(name, name + '-\uD83D\uDC8A');(el[KEY_EVENT_LISTENERS] || []).forEach(function (listener) {
+    el.classList.remove(name, name + '-\uD83D\uDC8A');(el[KEY_EVENT_LISTENERS + name] || []).forEach(function (listener) {
       listener.remove();
     });
 
@@ -308,7 +308,7 @@ var capsid = function (exports) {
         /**
          * Store event listeners to remove it later.
          */
-        ;el[KEY_EVENT_LISTENERS] = (el[KEY_EVENT_LISTENERS] || []).concat(listener);
+        ;el[KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY]] = (el[KEY_EVENT_LISTENERS] || []).concat(listener);
 
         el.addEventListener(event, listener);
       });

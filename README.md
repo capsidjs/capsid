@@ -113,7 +113,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.23.3/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.23.4/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -839,6 +839,8 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-04-18   v0.23.4  Fix unmount bug.
+- 2018-04-10   v0.23.0  Change debug format.
 - 2018-04-09   v0.22.0  Rename __init__ to __mount__.
 - 2018-04-08   v0.21.0  Add `unmount`.
 - 2018-04-04   v0.20.3  Change initialized class name.
