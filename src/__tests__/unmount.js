@@ -51,4 +51,26 @@ describe('unmount', () => {
 
     unmount('foo', el)
   })
+
+  it('does not unmount listeners of different component which mounted on the same element', done => {
+    class Foo {}
+    class Bar {
+      method () {
+        done()
+      }
+    }
+
+    callDecorator(on.click, Bar, 'method')
+
+    def('foo', Foo)
+    def('bar', Bar)
+
+    const el = genel.div``
+
+    make('foo', el)
+    make('bar', el)
+    unmount('foo', el)
+
+    el.click()
+  })
 })
