@@ -304,33 +304,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="examples/hello.md">
-            
-                <span>
-            
-                    
-                    Hello
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.1.2" data-path="examples/toggle.html">
-            
-                <a href="examples/toggle.html">
-            
-                    
-                    The Button
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.1.3" data-path="examples/timer.html">
+        <li class="chapter " data-level="3.1.1" data-path="examples/timer.html">
             
                 <a href="examples/timer.html">
             
@@ -343,7 +317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="examples/counter.html">
+        <li class="chapter " data-level="3.1.2" data-path="examples/counter.html">
             
                 <a href="examples/counter.html">
             
@@ -356,12 +330,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.5" data-path="examples/toggle.html">
+        <li class="chapter " data-level="3.1.3" data-path="exaxmples/mirroring.md">
             
-                <a href="examples/toggle.html">
+                <span>
             
                     
-                    Toggle Button
+                    Mirroring
             
                 </a>
             
@@ -369,7 +343,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.6" data-path="examples/modal.html">
+        <li class="chapter " data-level="3.1.4" data-path="examples/modal.html">
             
                 <a href="examples/modal.html">
             
@@ -401,25 +375,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.2.1" data-path="examples/youtube.html">
+        <li class="chapter " data-level="3.2.1" data-path="examples/todo-mvc.md">
             
-                <a href="examples/youtube.html">
-            
-                    
-                    Youtube list
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.2" data-path="examples/todo-list.html">
-            
-                <a href="examples/todo-list.html">
+                <span>
             
                     
-                    TodoList
+                    TodoMVC
             
                 </a>
             
@@ -458,32 +419,6 @@
             
                     
                     Component and Coelement
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2" data-path="basics/mvp.html">
-            
-                <a href="basics/mvp.html">
-            
-                    
-                    MVP
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3" data-path="basics/backbone.html">
-            
-                <a href="basics/backbone.html">
-            
-                    
-                    vs Backbone
             
                 </a>
             
@@ -569,7 +504,20 @@
                 <a href="api/core.html#mount">
             
                     
-                    make
+                    mount
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.6" data-path="api/core.html">
+            
+                <a href="api/core.html#install">
+            
+                    
+                    install
             
                 </a>
             
@@ -611,10 +559,10 @@
     
         <li class="chapter " data-level="5.2.2" data-path="api/decorators.html">
             
-                <a href="api/decorators.html#wire">
+                <a href="api/decorators.html#wired">
             
                     
-                    @wire
+                    @wired
             
                 </a>
             
@@ -673,12 +621,38 @@
         
         
     
-        <li class="chapter " data-level="6.1" data-path="plugins/jquery.html">
+        <li class="chapter " data-level="6.1" data-path="plugins/plugin.md">
+            
+                <span>
+            
+                    
+                    How-to
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="plugins/jquery.html">
             
                 <a href="plugins/jquery.html">
             
                     
                     jQuery plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="plugins/outside-events.md">
+            
+                <span>
+            
+                    
+                    Outside events plugin
             
                 </a>
             
@@ -693,12 +667,25 @@
         
         
     
-        <li class="chapter " data-level="7.1" data-path="testing/karma.html">
+        <li class="chapter " data-level="7.1" data-path="testing/jsdom.md">
+            
+                <span>
+            
+                    
+                    Set up testing with jsdom
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="testing/karma.html">
             
                 <a href="testing/karma.html">
             
                     
-                    Unit Testing with karma
+                    Set up testing with karma
             
                 </a>
             
@@ -755,7 +742,7 @@
 <h2 id="defining-a-component">Defining a component</h2>
 <p>In <code>capsid</code>, the first thing you need to do is defining a component. You can define a component in capsid by JavaScript class and <code>def</code> function.</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> </span>{
-  __init__ () {
+  __mount__ () {
     <span class="hljs-keyword">this</span>.el.textContent = <span class="hljs-string">&apos;hello&apos;</span>
   }
 }
@@ -766,17 +753,17 @@ capsid.def(<span class="hljs-string">&apos;hello&apos;</span>, Hello)
 <h2 id="using-a-component">Using a component</h2>
 <p>To use a component, you can put HTML elements which has the class attribute which has the same name to the component.</p>
 <p>For example, if you want to use <code>hello</code> component, then you writes <code>&lt;span class=&quot;hello&quot;&gt;&lt;/span&gt;</code> in html and this <code>span</code> tag works as <code>hello</code> component.</p>
-<h2 id="what-is-init-in-hello-example">What is <code>__init__</code> in <code>hello</code> example?</h2>
+<h2 id="what-is-mount-in-hello-example">What is <code>__mount__</code> in <code>hello</code> example?</h2>
 <p>Look at the first example again.</p>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> </span>{
-  __init__ () {
+  __mount__ () {
     <span class="hljs-keyword">this</span>.el.textContext = <span class="hljs-string">&apos;hello&apos;</span>
   }
 }
 
 capsid.def(<span class="hljs-string">&apos;hello&apos;</span>, Hello)
 </code></pre>
-<p>What is <code>__init__</code>? <code>__init__</code> is the function which is invoked once per each element when it is initialized as component. In the above example, <code>this.el.textContext = &apos;hello&apos;</code> is called each time when the component initialized.</p>
+<p>What is <code>__mount__</code>? <code>__mount__</code> is the function which is invoked once per each element when it is initialized as component. In the above example, <code>this.el.textContext = &apos;hello&apos;</code> is called each time when the component initialized.</p>
 <h2 id="what-is-thisel-in-hello-example">What is <code>this.el</code> in <code>hello</code> example?</h2>
 <p>Well, <code>this.el</code> is the element (i.e. HTML DOM node) which the component has mounted.</p>
 <p>For example, you defined <code>hello</code> component and placed <code>&lt;span class=&quot;hello&quot;&gt;&lt;/span&gt;</code> in a page. Then <code>hello</code> component mounts to that <code>span</code> tag and <code>this.el</code> is <code>span</code> tag itself in this case.</p>
@@ -824,7 +811,7 @@ capsid.def(<span class="hljs-string">&apos;hello&apos;</span>, Hello)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting started","level":"2.1","depth":1,"next":{"title":"Basic","level":"2.2","depth":1,"ref":"","articles":[{"title":"Define components","level":"2.2.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},{"title":"Event handling","level":"2.2.2","depth":2,"path":"guides/event.md","ref":"guides/event.md","articles":[]},{"title":"Pass info to parents","level":"2.2.3","depth":2,"path":"guides/pass-info-to-parents.md","ref":"guides/pass-info-to-parents.md","articles":[]},{"title":"Nesting components","level":"2.2.4","depth":2,"path":"guides/nesting.md","ref":"guides/nesting.md","articles":[]},{"title":"Declaring children","level":"2.2.5","depth":2,"path":"guides/children.md","ref":"guides/children.md","articles":[]}]},"previous":{"title":"Install","level":"1.1.1","depth":2,"anchor":"#install","path":"README.md","ref":"README.md#install","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"getting-started.md","mtime":"2017-09-18T09:01:08.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-01T06:01:59.870Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting started","level":"2.1","depth":1,"next":{"title":"Basic","level":"2.2","depth":1,"ref":"","articles":[{"title":"Define components","level":"2.2.1","depth":2,"path":"guides/define.md","ref":"guides/define.md","articles":[]},{"title":"Event handling","level":"2.2.2","depth":2,"path":"guides/event.md","ref":"guides/event.md","articles":[]},{"title":"Pass info to parents","level":"2.2.3","depth":2,"path":"guides/pass-info-to-parents.md","ref":"guides/pass-info-to-parents.md","articles":[]},{"title":"Nesting components","level":"2.2.4","depth":2,"path":"guides/nesting.md","ref":"guides/nesting.md","articles":[]},{"title":"Declaring children","level":"2.2.5","depth":2,"path":"guides/children.md","ref":"guides/children.md","articles":[]}]},"previous":{"title":"Install","level":"1.1.1","depth":2,"anchor":"#install","path":"README.md","ref":"README.md#install","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"anchorjs":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Capsid Document","gitbook":"*"},"file":{"path":"getting-started.md","mtime":"2018-04-27T14:28:57.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-27T14:33:38.117Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -834,7 +821,7 @@ capsid.def(<span class="hljs-string">&apos;hello&apos;</span>, Hello)
     <script src="gitbook/theme.js"></script>
     
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
         
     
         
