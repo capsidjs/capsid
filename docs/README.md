@@ -1,60 +1,56 @@
 # <img src="asset/capsid.svg" />
 
-[![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/capsidjs/capsid)
-[![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![bitHound Overall Score](https://www.bithound.io/github/capsidjs/capsid/badges/score.svg)](https://www.bithound.io/github/capsidjs/capsid)
+[![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/ca
+psidjs/capsid)
+[![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://co
+decov.io/github/capsidjs/capsid?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io
+/)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
-[![GitHub stars](https://img.shields.io/github/stars/capsidjs/capsid.svg?style=social&label=Star)](https://github.com/capsidjs/capsid)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/li
+censes/MIT)
 
-> Class driven component framework
+> Component-based DOM programming
 
-`capsid` is an UI framework for browsers. It helps organizing your JavaScript code in component-based programming style.
+`capsid` is a library for component-based DOM programming.
 
-### Basic features
+# :sparkles: Features
 
-- It's an **UI framework**.
-- It has **no dependencies**, but plays nice with `jQuery`.
-- **no virtual dom, no templates**
-- **small APIs**: 5 apis & 5 decorators
-- **small size**: **1.4KB** gzipped
+- **Component-based DOM programming library**
+- :leaves: Lightweight: **~1.7KB**
+- :sunglasses: **no dependencies**
+- :sunny: **Plain JavaScript (+ ESNext decorators)**
+- :bento: Adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on
+ **component** definition.
+ - :lollipop: **7 APIs** & **5 decorators**
 
 ### Install
 
-Download [https://unpkg.com/capsid](https://unpkg.com/capsid) and load it in the page:
+# :cd: Install
 
-```html
-<script src="https://unpkg.com/capsid"></script>
-<script>
-class Hello {
-  __mount__ () {
-    this.el.textContent = 'Hello, world!'
-  }
-}
+## Via npm
 
-capsid.def('hello', Hello)
-</script>
+    npm install --save capsid
 
-<span class="hello"></span>
-```
-
-[See the working demo](https://codepen.io/kt3k/pen/MmYxBB?editors=1010).
-
-Or you can install via npm:
-
-    npm install capsid --save-dev
-
-And require `capsid` module:
+then:
 
 ```js
-const { def } = require('capsid')
-
-class Hello {...}
-
-def('hello', Hello)
+const capsid = require('capsid')
 ```
 
-**Note**: You need to set up webpack/browserify/rollup in the this case.
+## Via file
+
+Download [capsid.min.js](https://unpkg.com/capsid@0.23.4/dist/capsid.min.js) Then:
+
+```html
+<script src="path/to/capsid.js"></script>
+```
+
+In this case, the library exports the global variable `capsid`.
+
+```js
+capsid.def('my-component', MyComponent)
+```
 
 ### License
 
