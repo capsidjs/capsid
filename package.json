@@ -13,7 +13,7 @@
   "scripts": {
     "clean": "rimraf _book coverage dist/*.js",
     "book": "gitbook serve",
-    "gh-pages": "npm run clean && gitbook build && gh-pages -o hub -d _book",
+    "gh-pages": "npm run clean && gitbook build && gh-pages -d _book",
     "lint": "standard",
     "fix": "prettier --write --no-semi --single-quote --print-width 1000 *.js 'src/**/*.js' && standard --fix",
     "flow": "flow",
