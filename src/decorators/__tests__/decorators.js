@@ -6,45 +6,49 @@ import { def, get, make, on, emits, component, wired, notifies } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
 
 describe('@on(event)', () => {
+  afterEach(() => clearComponents())
+
   it('registers the method as the event listener of the given event name', done => {
-    class OnTest0 {
+    class Component {
       handler () {
         done()
       }
     }
-    def('on-test0', OnTest0)
-    callDecorator(on('click'), OnTest0, 'handler')
+    def('component', Component)
+    callDecorator(on('click'), Component, 'handler')
 
     div()
-      .cc('on-test0')
+      .cc('component')
       .trigger('click')
   })
 
   it('registers the method as the event listener for children classes', done => {
-    class OnTest1 {
+    class Foo {
       handler () {
         done()
       }
     }
-    class OnTest1Child extends OnTest1 {}
-    class OnTest1ChildChild extends OnTest1Child {
-      bar () {}
+    class Bar extends Foo {}
+    class Baz extends Bar {
+      baz () {}
     }
 
-    callDecorator(on('click'), OnTest1, 'handler')
-    callDecorator(on('bar'), OnTest1ChildChild, 'bar')
+    callDecorator(on('click'), Foo, 'handler')
+    callDecorator(on('baz'), Baz, 'baz')
 
-    def('on-test1-child-child', OnTest1ChildChild)
+    def('baz', Baz)
 
     div()
-      .cc('on-test1-child-child')
+      .cc('baz')
       .trigger('click')
   })
 })
 
 describe('@on(event, {at: selector})', () => {
+  afterEach(() => clearComponents())
+
   it('registers the method as the event listener of the given event name and selector', done => {
-    class OnAtTest0 {
+    class Foo {
       foo () {
         done()
       }
@@ -52,14 +56,14 @@ describe('@on(event, {at: selector})', () => {
         done(new Error('bar should not be called'))
       }
     }
-    def('on-at-test0', OnAtTest0)
+    def('foo', Foo)
 
-    callDecorator(on('foo-event', { at: '.inner' }), OnAtTest0, 'foo')
-    callDecorator(on('bar-event', { at: '.inner' }), OnAtTest0, 'bar')
+    callDecorator(on('foo-event', { at: '.inner' }), Foo, 'foo')
+    callDecorator(on('bar-event', { at: '.inner' }), Foo, 'bar')
 
     const el = div(div({ addClass: 'inner' }))[0]
 
-    make('on-at-test0', el)
+    make('foo', el)
 
     if (document.body) document.body.appendChild(el)
 
@@ -71,6 +75,8 @@ describe('@on(event, {at: selector})', () => {
 })
 
 describe('@on.click', () => {
+  afterEach(() => clearComponents())
+
   it('binds method to click event', done => {
     class Component {
       handler () {
@@ -80,26 +86,28 @@ describe('@on.click', () => {
 
     callDecorator(on.click, Component, 'handler')
 
-    def('on-click-test-component', Component)
+    def('foo', Component)
 
     div()
-      .cc('on-click-test-component')
+      .cc('foo')
       .trigger('click')
   })
 })
 
 describe('@emits.first(event)', () => {
+  afterEach(() => clearComponents())
+
   it('makes the method emit the event with the arguments of the method', done => {
-    class EmitTest0 {
+    class Component {
       foo () {
         return 42
       }
     }
-    def('emit-test0', EmitTest0)
-    callDecorator(emits.first('event-foo'), EmitTest0, 'foo')
+    def('component', Component)
+    callDecorator(emits.first('event-foo'), Component, 'foo')
 
     const coelem = make(
-      'emit-test0',
+      'component',
       div().on('event-foo', e => {
         assert(e.detail.a === 1)
         assert(e.detail.b === 2)
@@ -113,19 +121,19 @@ describe('@emits.first(event)', () => {
   })
 
   it('makes the method emit the event, and it bubbles up the dom tree', done => {
-    class EmitTest1 {
+    class Component {
       foo () {
         return 42
       }
     }
-    def('emit-test1', EmitTest1)
-    callDecorator(emits.first('event-foo'), EmitTest1, 'foo')
+    def('component', Component)
+    callDecorator(emits.first('event-foo'), Component, 'foo')
 
     const parent = div()
       .on('event-foo', () => done())
       .appendTo('body')
 
-    const coel = make('emit-test1', div().appendTo(parent)[0])
+    const coel = make('component', div().appendTo(parent)[0])
 
     coel.foo()
 
@@ -134,17 +142,19 @@ describe('@emits.first(event)', () => {
 })
 
 describe('@emits(event)', () => {
+  afterEach(() => clearComponents())
+
   it('makes the method emit the event with the returned value', done => {
-    class EmitLastTest0 {
+    class Component {
       foo () {
         return 321
       }
     }
-    def('emit-last-test0', EmitLastTest0)
-    callDecorator(emits('event-foo'), EmitLastTest0, 'foo')
+    def('component', Component)
+    callDecorator(emits('event-foo'), Component, 'foo')
 
     make(
-      'emit-last-test0',
+      'component',
       div().on('event-foo', e => {
         assert(e.detail === 321)
 
@@ -156,7 +166,7 @@ describe('@emits(event)', () => {
   it('makes the method emit the event with the resolved value after the promise resolved', done => {
     let promiseResolved = false
 
-    class EmitLastTest1 {
+    class Component {
       foo () {
         return new Promise(resolve => {
           setTimeout(() => {
@@ -166,11 +176,11 @@ describe('@emits(event)', () => {
         })
       }
     }
-    def('emit-last-test1', EmitLastTest1)
-    callDecorator(emits('event-foo'), EmitLastTest1, 'foo')
+    def('component', Component)
+    callDecorator(emits('event-foo'), Component, 'foo')
 
     make(
-      'emit-last-test1',
+      'component',
       div().on('event-foo', e => {
         assert(promiseResolved)
         assert(e.detail === 123)
@@ -182,6 +192,8 @@ describe('@emits(event)', () => {
 })
 
 describe('@component', () => {
+  afterEach(() => clearComponents())
+
   it('registers the component with the kebab cased component name', () => {
     class FooBarBaz {}
 
@@ -198,8 +210,10 @@ describe('@component', () => {
 })
 
 describe('@component(className)', () => {
+  afterEach(() => clearComponents())
+
   it('works as a class decorator and registers the class as a class component of the given name', () => {
-    class Cls {
+    class Foo {
       el: HTMLElement
 
       __mount__ () {
@@ -207,7 +221,7 @@ describe('@component(className)', () => {
       }
     }
 
-    component('decorated-component')(Cls)
+    component('decorated-component')(Foo)
 
     const el = div()[0]
 
@@ -217,9 +231,9 @@ describe('@component(className)', () => {
   })
 
   it('returns the constructor', () => {
-    class Cls1 {}
+    class Foo {}
 
-    assert(component('decorated-component1')(Cls1) === Cls1)
+    assert(component('foo')(Foo) === Foo)
   })
 })
 
@@ -325,6 +339,8 @@ describe('@wired.component', () => {
 })
 
 describe('@wired.component(name, selector)', () => {
+  afterEach(() => clearComponents())
+
   it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
     class Cls0 {
       get test () {}
@@ -344,6 +360,8 @@ describe('@wired.component(name, selector)', () => {
 })
 
 describe('@wired(selector)', () => {
+  afterEach(() => clearComponents())
+
   it('wires the element in the component', () => {
     class Component {
       get elm () {}
