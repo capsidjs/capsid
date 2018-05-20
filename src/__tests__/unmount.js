@@ -16,6 +16,7 @@ describe('unmount', () => {
     }
 
     callDecorator(on.click, Foo, 'method')
+    callDecorator(on('foo'), Foo, 'method')
 
     def('foo', Foo)
 
@@ -32,6 +33,7 @@ describe('unmount', () => {
     assert.strictEqual(coel.el, undefined)
 
     el.click()
+    el.dispatchEvent(new CustomEvent('foo'))
 
     setTimeout(() => done(), 200)
   })

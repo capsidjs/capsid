@@ -19,6 +19,8 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
    * @param coelem The coelement
    */
   Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
+    const keyEventListeners = KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY]
+
     const listener = (e: Event): void => {
       if (
         !at ||
@@ -51,7 +53,7 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
     /**
      * Store event listeners to remove it later.
      */
-    ;(el: any)[KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY]] = ((el: any)[KEY_EVENT_LISTENERS] || []).concat(listener)
+    ;(el: any)[keyEventListeners] = ((el: any)[keyEventListeners] || []).concat(listener)
 
     el.addEventListener(event, listener)
   })
