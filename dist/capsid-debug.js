@@ -8,7 +8,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   //      
 
 
-  var COMPONENT_NAME_KEY = '$N';
+  var COMPONENT_NAME_KEY = 'N$';
 
   //      
 

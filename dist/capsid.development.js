@@ -84,10 +84,10 @@ var capsid = function (exports) {
   var pluginHooks = [];
 
   //      
-  var COELEMENT_DATA_KEY_PREFIX = '$D';
-  var KEY_EVENT_LISTENERS = '$K';
-  var INITIALIZED_KEY = '$I';
-  var COMPONENT_NAME_KEY = '$N';
+  var COELEMENT_DATA_KEY_PREFIX = 'C$';
+  var KEY_EVENT_LISTENERS = 'K$';
+  var INITIALIZED_KEY = 'I$';
+  var COMPONENT_NAME_KEY = 'N$';
 
   //      
 
@@ -297,6 +297,8 @@ var capsid = function (exports) {
        * @param coelem The coelement
        */
       Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
+        var keyEventListeners = KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY];
+
         var listener = function listener(e) {
           if (!at || [].some.call(el.querySelectorAll(at), function (node) {
             return node === e.target || node.contains(e.target);
@@ -326,7 +328,7 @@ var capsid = function (exports) {
         /**
          * Store event listeners to remove it later.
          */
-        ;el[KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY]] = (el[KEY_EVENT_LISTENERS] || []).concat(listener);
+        ;el[keyEventListeners] = (el[keyEventListeners] || []).concat(listener);
 
         el.addEventListener(event, listener);
       });
