@@ -94,6 +94,41 @@ describe('@on.click', () => {
   })
 })
 
+describe('@on.click.at', () => {
+  afterEach(() => clearComponents())
+
+  it('binds method to click event at the given element', () => {
+    let res = 0
+
+    class Component {
+      foo () {
+        res += 1
+      }
+      bar () {
+        res += 2
+      }
+    }
+
+    callDecorator(on.click.at('.foo'), Component, 'foo')
+    callDecorator(on.click.at('.bar'), Component, 'bar')
+
+    def('foo', Component)
+
+    const el = div().cc('foo')
+
+    el.html(`
+      <p class="foo"></p>
+      <p class="bar"></p>
+    `)
+
+    el
+      .find('.foo')
+      .trigger('click')
+
+    assert(res === 1)
+  })
+})
+
 describe('@emits.first(event)', () => {
   afterEach(() => clearComponents())
 
