@@ -339,6 +339,14 @@ var onClick = on('click');
 
 //      
 /**
+ * @param {string} at The selector
+ */
+var onClickAt = function onClickAt(at) {
+  return on('click', { at: at });
+};
+
+//      
+/**
  * Triggers the event.
  * @param el The element
  * @param type The event type
@@ -535,6 +543,7 @@ var notifies = function notifies(event, selector) {
 };
 
 on.click = onClick;
+on.click.at = onClickAt;
 
 //      
 

@@ -113,7 +113,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.23.5/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.24.0/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -333,7 +333,8 @@ There are 5 types of decorators.
 - `@on(event, { at })`
   - *method decorator*
   - registers as an event listener on the component.
-  - `@on.click` is also available, a shorthand for `@on('click')`.
+  - `@on.click` is a shorthand for `@on('click')`.
+  - `@on.click.at(selector)` is a shorthand for `@on('click', { at: selector })`.
 - `@emits(event)`
   - *method decorator*
   - makes the decorated method an event emitter.
@@ -437,6 +438,28 @@ In the above example, `onBtnClick` method listens to the click event of the `.bt
 ## `@on.click`
 
 `@on.click` is a shorthand for `@on('click')`.
+
+```js
+class Foo {
+  @on.click
+  onClick {
+    // handling of the click of the Foo component
+  }
+}
+```
+
+## `@on.click.at(selector)`
+
+`@on.click.at(selector)` is a shorthand for `@on('click', { at: selector })`
+
+```js
+class Foo {
+  @on.click.at('.edit-button')
+  onClickAtEditButton () {
+    // handling of the click of the edit button
+  }
+}
+```
 
 ## `@emits.first(startEvent)`
 
@@ -839,6 +862,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-06-22   v0.24.0  Add `@on.click.at`.
 - 2018-05-20   v0.23.5  Fix unmount bug.
 - 2018-04-18   v0.23.4  Fix unmount bug.
 - 2018-04-10   v0.23.0  Change debug format.
