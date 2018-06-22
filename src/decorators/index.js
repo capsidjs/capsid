@@ -1,9 +1,8 @@
-import onClick from './on.click.js'
-import onClickAt from './on.click.at.js'
 import on from './on.js'
+import useHandler from './on.use-handler.js'
 
-on.click = onClick
-on.click.at = onClickAt
+on.useHandler = useHandler
+on.useHandler('click')
 
 export { on }
 export { default as emits } from './emits.js'

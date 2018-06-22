@@ -461,6 +461,19 @@ class Foo {
 }
 ```
 
+**NOTE:** You can add this type of short hand by calling `on.useHandler(eventName)`.
+
+```js
+on.useHandler('change')
+
+class Foo {
+  @on.change.at('.title-input') // <= This is enabled by the above useHandler call.
+  onChangeAtTitleInput () {
+    // handles the change event of title input field.
+  }
+}
+```
+
 ## `@emits.first(startEvent)`
 
 `@emits.first()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
@@ -862,6 +875,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-06-22   v0.25.0  Add `@on.useHandler`.
 - 2018-06-22   v0.24.0  Add `@on.click.at`.
 - 2018-05-20   v0.23.5  Fix unmount bug.
 - 2018-04-18   v0.23.4  Fix unmount bug.
