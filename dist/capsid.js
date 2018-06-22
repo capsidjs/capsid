@@ -317,14 +317,15 @@ var capsid = function (exports) {
     };
   };
 
-  var onClick = on('click');
-
-  //      
   /**
-   * @param {string} at The selector
+   * Registers the on[eventName] and on[eventName].at decorators.
+   * @param {string} handlerName
    */
-  var onClickAt = function onClickAt(at) {
-    return on('click', { at: at });
+  var useHandler = function useHandler(handlerName) {
+    on[handlerName] = on(handlerName);
+    on[handlerName].at = function (selector) {
+      return on(handlerName, { at: selector });
+    };
   };
 
   //      
@@ -524,8 +525,8 @@ var capsid = function (exports) {
     };
   };
 
-  on.click = onClick;
-  on.click.at = onClickAt;
+  on.useHandler = useHandler;
+  on.useHandler('click');
 
   //      
 
