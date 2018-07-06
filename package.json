@@ -72,7 +72,7 @@
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
-    "gzip-size-cli": "^2.1.0",
+    "gzip-size-cli": "^3.0.0",
     "jquery": "^3.0.0",
     "karma": "^2.0.0",
     "karma-browserify": "^5.2.0",
