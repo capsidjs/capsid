@@ -64,7 +64,7 @@
     "codecov": "^3.0.0",
     "dom-gen": "^2.3.0",
     "eslint-plugin-flowtype": "^2.20.0",
-    "flow-bin": "^0.75.0",
+    "flow-bin": "^0.76.0",
     "genel": "^1.1.1",
     "gh-pages": "^1.0.0",
     "gulp": "^3.9.1",
