@@ -48,35 +48,38 @@ capsid.def('hello', Hello)
 
 [See the demo][Hello Example]
 
-# :stopwatch: [Clock Example][]
+# :butterfly: [Mirroring Example][]
 
-The clock example shows how you can create *a clock* in capsid.js:
+The mirroring example shows how you can mirror the input to a different dom in capsid.js.
 
 ```html
 <script src="https://unpkg.com/capsid"></script>
 <script>
-class Clock {
-  __mount__ () {
-    setInterval(() => this.tick(), 10)
-  }
+const { def, on, wired } = capsid
 
-  /**
-   * Ticks the label.
-   */
-  tick () {
-    this.el.textContent = new Date().toISOString()
+class Mirroring {
+  @wired('.dest') get dest () {}
+  @wired('.src') get src () {}
+
+  @on('input') onReceiveData (e) {
+    this.dest.textContent = this.src.value
   }
 }
 
-capsid.def('clock', Clock)
+def('mirroring', Mirroring)
 </script>
 
-<span class="clock"></span>
+<div class="mirroring">
+  <p>
+    <input class="src" placeholder="Type something here" />
+  </p>
+  <p class="dest"></p>
+</div>
 ```
 
-`capsid.def('clock', Clock)` defines `clock` component and it initializes `<span class="clock"></span>` as `clock` component [when document is ready][DOMContentLoaded]. When it initializes, `__mount__` method is called and then clock starts ticking.
+With the above example, the input value of `.src` is copied to `.dest` on each input event.
 
-[See the demo](https://codepen.io/kt3k/pen/YVPoWm?editors=1010).
+[See the demo][Mirroring Example]
 
 # Initialization
 
