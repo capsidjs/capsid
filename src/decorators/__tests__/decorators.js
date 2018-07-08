@@ -8,6 +8,19 @@ import { clearComponents, callDecorator } from '../../__tests__/helper'
 describe('@on(event)', () => {
   afterEach(() => clearComponents())
 
+  it('throws when the event is empty', () => {
+    class Component {
+      handler () {
+      }
+    }
+
+    def('component', Component)
+    assert.throws(() => {
+      callDecorator(on(undefined), Component, 'handler') // This sometimes happens when the user use a variable for event names.
+    }, /Empty event handler is given: constructor=Component key=handler/
+    )
+  })
+
   it('registers the method as the event listener of the given event name', done => {
     class Component {
       handler () {
@@ -178,6 +191,18 @@ describe('@emits.first(event)', () => {
 
 describe('@emits(event)', () => {
   afterEach(() => clearComponents())
+
+  it('throws when the empty event is given', () => {
+    class Component {
+      emitter () {}
+    }
+
+    def('component', Component)
+
+    assert.throws(() => {
+      callDecorator(emits(undefined), Component, 'emitter')
+    }, /Unable to emits an empty event: constructor=Component key=emitter/)
+  })
 
   it('makes the method emit the event with the returned value', done => {
     class Component {
@@ -435,6 +460,18 @@ describe('@wired.all(selector)', () => {
 
 describe('@notifies(event, selector)', () => {
   afterEach(() => clearComponents())
+
+  it('throws error when empty event is given', () => {
+    class Component {
+      method () {}
+    }
+
+    def('component', Component)
+
+    assert.throws(() => {
+      callDecorator(notifies(undefined, '.elm'), Component, 'method')
+    }, /Unable to notify empty event: constructor=Component key=method/)
+  })
 
   it('adds function to publish the event to the element of the given selector', () => {
     class Component {

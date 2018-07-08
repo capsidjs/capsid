@@ -14,6 +14,10 @@ declare var __DEV__: boolean
 export default (event: string, { at }: { at?: string } = {}) => (target: Object, key: string) => {
   const Constructor = target.constructor
 
+  if (!event) {
+    throw new Error(`Empty event handler is given: constructor=${Constructor.name} key=${key}`)
+  }
+
   /**
    * @param el The element
    * @param coelem The coelement

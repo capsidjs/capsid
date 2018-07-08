@@ -12,6 +12,10 @@ import trigger from '../util/event-trigger.js'
 const emits = (event: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
+  if (!event) {
+    throw new Error(`Unable to emits an empty event: constructor=${(target.constructor && target.constructor.name) || '?'} key=${key}`)
+  }
+
   descriptor.value = function () {
     const result = method.apply(this, arguments)
 

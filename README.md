@@ -19,7 +19,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 # :sparkles: Features
 
 - **Component-based DOM programming library**
-- :leaves: Lightweight: **~1.7KB**
+- :leaves: Lightweight: **~1.83KB**
 - :sunglasses: **no dependencies**
 - :sunny: **Plain JavaScript (+ ESNext decorators)**
 - :bento: Adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on **component** definition.

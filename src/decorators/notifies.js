@@ -8,6 +8,10 @@ import trigger from '../util/event-trigger.js'
 export default (event: string, selector: string) => (target: Object, key: string, descriptor: Object) => {
   const method = descriptor.value
 
+  if (!event) {
+    throw new Error(`Unable to notify empty event: constructor=${(target.constructor && target.constructor.name) || '?'} key=${key}`)
+  }
+
   descriptor.value = function () {
     const result = method.apply(this, arguments)
     const forEach = [].forEach
