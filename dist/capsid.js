@@ -285,6 +285,10 @@ var capsid = function (exports) {
     return function (target, key) {
       var Constructor = target.constructor;
 
+      if (!event) {
+        throw new Error('Empty event handler is given: constructor=' + Constructor.name + ' key=' + key);
+      }
+
       /**
        * @param el The element
        * @param coelem The coelement
@@ -351,6 +355,10 @@ var capsid = function (exports) {
   var emits = function emits(event) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
+
+      if (!event) {
+        throw new Error('Unable to emits an empty event: constructor=' + (target.constructor && target.constructor.name || '?') + ' key=' + key);
+      }
 
       descriptor.value = function () {
         var _this = this;
@@ -501,6 +509,10 @@ var capsid = function (exports) {
   var notifies = function notifies(event, selector) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
+
+      if (!event) {
+        throw new Error('Unable to notify empty event: constructor=' + (target.constructor && target.constructor.name || '?') + ' key=' + key);
+      }
 
       descriptor.value = function () {
         var _this2 = this;

@@ -1,5 +1,5 @@
 ---
-version: 0.25.0
+version: 0.26.0
 commit: ':bookmark: chore(version): bump to v%.%.%'
 files:
   package.json: '"version": "%.%.%"'
