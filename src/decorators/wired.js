@@ -3,6 +3,7 @@
 import get from '../get.js'
 import matches from '../util/matches.js'
 import camelToKebab from '../util/camel-to-kebab.js'
+import check from '../util/check.js'
 
 /**
  * Replaces the getter with the function which accesses the class-component of the given name.
@@ -16,9 +17,7 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
   const sel: string = selector || `.${name}`
 
   descriptor.get = function () {
-    if (!this.el) {
-      throw new Error(`Component's element is not ready. Probably wired getter called at constructor.(class=[${this.constructor.name}]`)
-    }
+    check(!!this.el, `Component's element is not ready. Probably wired getter called at constructor.(class=[${this.constructor.name}]`)
 
     if (matches.call(this.el, sel)) {
       return get(name, this.el)
@@ -26,11 +25,9 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
 
     const nodes = this.el.querySelectorAll(sel)
 
-    if (nodes.length) {
-      return get(name, nodes[0])
-    }
+    check(nodes.length > 0, `wired component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
 
-    throw new Error(`wired component "${name}" is not available at ${this.el.tagName}(class=[${this.constructor.name}]`)
+    return get(name, nodes[0])
   }
 }
 
