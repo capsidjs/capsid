@@ -1,6 +1,7 @@
 // @flow
 import { KEY_EVENT_LISTENERS, COMPONENT_NAME_KEY } from '../util/const.js'
 import debugMessage from '../util/debug-message.js'
+import check from '../util/check.js'
 
 declare var __DEV__: boolean
 
@@ -14,9 +15,7 @@ declare var __DEV__: boolean
 export default (event: string, { at }: { at?: string } = {}) => (target: Object, key: string) => {
   const Constructor = target.constructor
 
-  if (!event) {
-    throw new Error(`Empty event handler is given: constructor=${Constructor.name} key=${key}`)
-  }
+  check(!!event, `Empty event handler is given: constructor=${Constructor.name} key=${key}`)
 
   /**
    * @param el The element
