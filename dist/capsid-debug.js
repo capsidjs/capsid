@@ -50,6 +50,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     console.groupCollapsed(module + '> %c' + event + '%c on %c' + component, boldColor(color), '', boldColor('#1a80cc'));
     console.log(e);
+
+    if (e.target) {
+      console.log(e.target);
+    }
+
+    if (coelem.el) {
+      console.log(coelem.el);
+    }
+
     console.groupEnd();
   };
 

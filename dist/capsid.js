@@ -261,9 +261,7 @@ var capsid = function (exports) {
    * @param {object} options
    */
   var install$$1 = function install$$1(capsidModule, options) {
-    if (typeof capsidModule.install !== 'function') {
-      throw new Error('The given capsid module does not have `install` method. Please check the install call.');
-    }
+    check(typeof capsidModule.install === 'function', 'The given capsid module does not have `install` method. Please check the install call.');
 
     capsidModule.install(capsid, options || {});
   };
@@ -285,9 +283,7 @@ var capsid = function (exports) {
     return function (target, key) {
       var Constructor = target.constructor;
 
-      if (!event) {
-        throw new Error('Empty event handler is given: constructor=' + Constructor.name + ' key=' + key);
-      }
+      check(!!event, 'Empty event handler is given: constructor=' + Constructor.name + ' key=' + key);
 
       /**
        * @param el The element
@@ -356,9 +352,7 @@ var capsid = function (exports) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
-      if (!event) {
-        throw new Error('Unable to emits an empty event: constructor=' + (target.constructor && target.constructor.name || '?') + ' key=' + key);
-      }
+      check(!!event, 'Unable to emits an empty event: constructor=' + (target.constructor && target.constructor.name || '?') + ' key=' + key);
 
       descriptor.value = function () {
         var _this = this;
@@ -426,9 +420,7 @@ var capsid = function (exports) {
       var sel = selector || '.' + name;
 
       descriptor.get = function () {
-        if (!this.el) {
-          throw new Error('Component\'s element is not ready. Probably wired getter called at constructor.(class=[' + this.constructor.name + ']');
-        }
+        check(!!this.el, 'Component\'s element is not ready. Probably wired getter called at constructor.(class=[' + this.constructor.name + ']');
 
         if (matches.call(this.el, sel)) {
           return get(name, this.el);
@@ -436,11 +428,9 @@ var capsid = function (exports) {
 
         var nodes = this.el.querySelectorAll(sel);
 
-        if (nodes.length) {
-          return get(name, nodes[0]);
-        }
+        check(nodes.length > 0, 'wired component "' + name + '" is not available at ' + this.el.tagName + '(class=[' + this.constructor.name + ']');
 
-        throw new Error('wired component "' + name + '" is not available at ' + this.el.tagName + '(class=[' + this.constructor.name + ']');
+        return get(name, nodes[0]);
       };
     };
   };
@@ -510,9 +500,7 @@ var capsid = function (exports) {
     return function (target, key, descriptor) {
       var method = descriptor.value;
 
-      if (!event) {
-        throw new Error('Unable to notify empty event: constructor=' + (target.constructor && target.constructor.name || '?') + ' key=' + key);
-      }
+      check(!!event, 'Unable to notify empty event: constructor=' + (target.constructor && target.constructor.name || '?') + ' key=' + key);
 
       descriptor.value = function () {
         var _this2 = this;
