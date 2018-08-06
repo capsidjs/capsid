@@ -35,7 +35,33 @@ describe('unmount', () => {
     el.click()
     el.dispatchEvent(new CustomEvent('foo'))
 
-    setTimeout(() => done(), 200)
+    setTimeout(() => done(), 100)
+  })
+
+  it('unmounts anscestor class\'s event handler correctly', done => {
+    class Foo {
+      method () {
+        done(new Error('event handler called!'))
+      }
+    }
+
+    class Bar extends Foo {
+    }
+
+    callDecorator(on.click, Foo, 'method')
+    callDecorator(on('foo'), Foo, 'method')
+
+    def('bar', Bar)
+
+    const el = genel.div``
+    make('bar', el)
+
+    unmount('bar', el)
+
+    el.click()
+    el.dispatchEvent(new CustomEvent('foo'))
+
+    setTimeout(() => done(), 100)
   })
 
   it('calls __unmount__ if exists', done => {

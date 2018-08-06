@@ -1,5 +1,5 @@
 // @flow
-import { KEY_EVENT_LISTENERS, COMPONENT_NAME_KEY } from '../util/const.js'
+import { KEY_EVENT_LISTENERS } from '../util/const.js'
 import debugMessage from '../util/debug-message.js'
 import check from '../util/check.js'
 
@@ -20,9 +20,10 @@ export default (event: string, { at }: { at?: string } = {}) => (target: Object,
   /**
    * @param el The element
    * @param coelem The coelement
+   * @param name The component name
    */
-  Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any) => {
-    const keyEventListeners = KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY]
+  Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any, name: string) => {
+    const keyEventListeners = KEY_EVENT_LISTENERS + name
 
     const listener = (e: Event): void => {
       if (
