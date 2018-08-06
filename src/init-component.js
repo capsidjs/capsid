@@ -28,7 +28,7 @@ export default (Constructor: Function, el: HTMLElement, name?: string): any => {
 
   // Initialize event listeners defined by @emit decorator
   ;(Constructor[KEY_EVENT_LISTENERS] || []).map(listenerBinder => {
-    listenerBinder(el, coelem)
+    listenerBinder(el, coelem, name)
   })
 
   // Executes plugin hooks
