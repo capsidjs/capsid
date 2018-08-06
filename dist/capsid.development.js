@@ -130,7 +130,7 @@ var capsid = function (exports) {
 
     // Initialize event listeners defined by @emit decorator
     (Constructor[KEY_EVENT_LISTENERS] || []).map(function (listenerBinder) {
-      listenerBinder(el, coelem);
+      listenerBinder(el, coelem, name);
     });
 
     // Executes plugin hooks
@@ -295,9 +295,10 @@ var capsid = function (exports) {
       /**
        * @param el The element
        * @param coelem The coelement
+       * @param name The component name
        */
-      Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem) {
-        var keyEventListeners = KEY_EVENT_LISTENERS + Constructor[COMPONENT_NAME_KEY];
+      Constructor[KEY_EVENT_LISTENERS] = (Constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem, name) {
+        var keyEventListeners = KEY_EVENT_LISTENERS + name;
 
         var listener = function listener(e) {
           if (!at || [].some.call(el.querySelectorAll(at), function (node) {
