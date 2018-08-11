@@ -5,7 +5,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
-> Component-based DOM programming
+> :pill: Component-based DOM programming
 
 `capsid` is a library for component-based DOM programming.
 
