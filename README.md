@@ -972,7 +972,6 @@ The purpose of capsid is to encapsulate the details of its contents just like ca
 - :stopwatch: [Clock Example][]
 - :level_slider: [Counter Example][]
 - :butterfly: [Mirroring Example][]
-- [Random Walking Particles Example][]
 
 # License
 
@@ -982,8 +981,7 @@ MIT
 [evex]: http://github.com/capsidjs/evex
 [Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
 [Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
-[Counter Example]: https://codepen.io/kt3k/pen/KorYPr?editors=1010
-[Mirroring Example]: https://codepen.io/kt3k/pen/VbvKNp?editors=1010
+[Counter Example]: https://codesandbox.io/s/7m7r3qoojx
+[Mirroring Example]: https://codesandbox.io/s/yky5y55j9v
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
-[Random Walking Particles Example]: https://codepen.io/kt3k/pen/opWJVx
 [capsid-module]: https://github.com/capsidjs/capsid-module
