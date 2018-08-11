@@ -51,10 +51,8 @@ capsid.def('hello', Hello)
 
 The mirroring example shows how you can mirror the input to a different dom in capsid.js.
 
-```html
-<script src="https://unpkg.com/capsid"></script>
-<script>
-const { def, on, wired } = capsid
+```js
+const { def, on, wired } = require('capsid')
 
 class Mirroring {
   @wired('.dest') get dest () {}
@@ -66,8 +64,9 @@ class Mirroring {
 }
 
 def('mirroring', Mirroring)
-</script>
+```
 
+```html
 <div class="mirroring">
   <p>
     <input class="src" placeholder="Type something here" />
