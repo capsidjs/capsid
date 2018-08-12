@@ -11,9 +11,7 @@
     "debug.js"
   ],
   "scripts": {
-    "clean": "rimraf _book coverage dist/*.js",
-    "book": "gitbook serve",
-    "gh-pages": "npm run clean && gitbook build && gh-pages -d _book",
+    "clean": "rimraf coverage dist/*.js",
     "lint": "standard",
     "fix": "prettier --write --no-semi --single-quote --print-width 1000 *.js 'src/**/*.js' && standard --fix",
     "flow": "flow",
@@ -66,7 +64,6 @@
     "eslint-plugin-flowtype": "^2.20.0",
     "flow-bin": "^0.78.0",
     "genel": "^1.1.1",
-    "gh-pages": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-if": "^2.0.2",
