@@ -79,27 +79,6 @@ With the above example, the input value of `.src` is copied to `.dest` on each i
 
 [See the demo][Mirroring Example]
 
-# Initialization
-
-There are 2 ways to initialize components:
-
-1. [When document is ready][DOMContentLoaded] (automatic).
-2. When `capsid.prep()` is called (manual).
-
-All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
-
-If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
-
-```js
-const addPartOfPage = async () => {
-  const { html } = await axios.get('path/to/something.html')
-
-  containerElemenent.innerHTML = html
-
-  capsid.prep() // <= this initializes all the elements which are not yet initialized.
-})
-```
-
 # :cd: Install
 
 ## Via npm
@@ -124,6 +103,26 @@ In this case, the library exports the global variable `capsid`.
 
 ```js
 capsid.def('my-component', MyComponent)
+```
+# Initialization
+
+There are 2 ways to initialize components:
+
+1. [When document is ready][DOMContentLoaded] (automatic).
+2. When `capsid.prep()` is called (manual).
+
+All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
+
+If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
+
+```js
+const addPartOfPage = async () => {
+  const { html } = await axios.get('path/to/something.html')
+
+  containerElemenent.innerHTML = html
+
+  capsid.prep() // <= this initializes all the elements which are not yet initialized.
+})
 ```
 
 # Capsid Lifecycle
