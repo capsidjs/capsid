@@ -50,7 +50,7 @@
   "homepage": "https://github.com/capsidjs/capsid",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.0",
+    "babel-eslint": "^9.0.0",
     "babel-plugin-espower": "^2.2.0",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
