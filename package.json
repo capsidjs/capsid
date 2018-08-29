@@ -65,7 +65,7 @@
     "flow-bin": "^0.79.0",
     "genel": "^1.1.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
