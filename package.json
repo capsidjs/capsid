@@ -51,7 +51,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.0",
     "babel-plugin-espower": "^3.0.0",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
