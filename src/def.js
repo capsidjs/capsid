@@ -24,7 +24,7 @@ const def = (name: string, Constructor: Function) => {
    * @param el The html element
    * @param coelem The dummy parameter, don't use
    */
-  const initializer = (el: HTMLElement, coelem: Constructor) => {
+  const initializer = (el: HTMLElement, coelem: typeof Constructor) => {
     const classList = el.classList
 
     if (!classList.contains(initClass)) {
