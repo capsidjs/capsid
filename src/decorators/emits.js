@@ -10,12 +10,15 @@ import check from '../util/check.js'
  * If the method returns the promise, then the event is emitted when it is resolved.
  * @param event The event name
  */
-const emits = (event: string) => (target: Object, key: string, descriptor: Object) => {
-  const method = descriptor.value
+const emits = (event: string) => (descriptor: Object) => {
+  const method = descriptor.descriptor.value
+  const key = descriptor.key
 
-  check(!!event, `Unable to emits an empty event: constructor=${(target.constructor && target.constructor.name) || '?'} key=${key}`)
+  descriptor.finisher = constructor => {
+    check(!!event, `Unable to emits an empty event: constructor=${(constructor && constructor.name) || '?'} key=${key}`)
+  }
 
-  descriptor.value = function () {
+  descriptor.descriptor.value = function () {
     const result = method.apply(this, arguments)
 
     const emit = x => trigger(this.el, event, true, x)
