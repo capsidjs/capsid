@@ -326,10 +326,9 @@ const {
 
 There are 5 types of decorators.
 
-- `@component`
+- `@component(name)`
   - *class decorator*
   - registers as a capsid components.
-  - optionally `@component(name)`
 - `@on(event, { at })`
   - *method decorator*
   - registers as an event listener on the component.
