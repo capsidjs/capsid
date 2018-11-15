@@ -5,6 +5,8 @@ import matches from '../util/matches.js'
 import check from '../util/check.js'
 
 /**
+ * Wires the class component of the name of the key to the property of the same name.
+ *
  * Replaces the getter with the function which accesses the class-component of the given name.
  * @param {string} name The class component name
  * @param {string} [selector] The selector to access class component dom. Optional. Default is '.[name]'.
@@ -12,7 +14,7 @@ import check from '../util/check.js'
  * @param {string} key The name of the property
  * @param {object} descriptor The property descriptor
  */
-const wireByNameAndSelector = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
+const wireComponent = (name: string, selector?: string) => (target: Object, key: string, descriptor: Object) => {
   const sel: string = selector || `.${name}`
 
   descriptor.get = function () {
@@ -30,13 +32,6 @@ const wireByNameAndSelector = (name: string, selector?: string) => (target: Obje
   }
 }
 
-/**
- * Wires the class component of the name of the key to the property of the same name.
- */
-const wireComponent = (name: string, selector?: string) => {
-  return wireByNameAndSelector(name, selector)
-}
-
 const wireElement = (sel: string) => (target: Object, key: string, descriptor: Object) => {
   descriptor.get = function () {
     return this.el.querySelector(sel)
@@ -49,12 +44,8 @@ const wireElementAll = (sel: string) => (target: Object, key: string, descriptor
   }
 }
 
-wireComponent.el = wireElement
-wireComponent.elAll = wireElementAll
-
 const wired = wireElement
 wired.all = wireElementAll
 wired.component = wireComponent
 
-export default wireComponent
-export { wired }
+export default wired

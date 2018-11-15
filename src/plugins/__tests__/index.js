@@ -1,8 +1,8 @@
 // @flow
-import { def, prep, wire } from '../../'
+import { def, prep } from '../../'
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { clearComponents, callDecorator } from '../../__tests__/helper'
+import { clearComponents } from '../../__tests__/helper'
 import { Foo, Bar, Spam } from '../../__tests__/fixture'
 
 describe('jquery plugin', () => {
@@ -144,7 +144,8 @@ describe('$dom.cc', () => {
     })
   })
 
-  describe('wire.$el', () => {
+  /*
+  describe('$wired', () => {
     it('makes the decorated getter the sub elements selected by jquery with the given selector', () => {
       class Component {
         get $subelems () {}
@@ -162,4 +163,5 @@ describe('$dom.cc', () => {
       assert(component.$subelems.length === 2)
     })
   })
+  */
 })
