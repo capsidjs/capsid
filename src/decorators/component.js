@@ -1,24 +1,23 @@
 // @flow
 
 import def from '../def.js'
-import camelToKebab from '../util/camel-to-kebab.js'
+import check from '../util/check.js'
 
 /**
  * The decorator for class component registration.
  *
- * if `name` is function, then use it as class itself and the component name is kebabized version of its name.
+ * if `name` is function, then use it as class itself and the component name is kebab-cased version of its name.
  * @param name The class name or the implementation class itself
  * @return The decorator if the class name is given, undefined if the implementation class is given
  */
-const component = (name: string | Function): any => {
-  if (typeof name !== 'function') {
-    return Cls => {
-      def((name: any), Cls)
-      return Cls
+const component = (name: string): any => {
+  check(!!name, 'Component name must be non-empty')
+
+  return desc => {
+    desc.finisher = Cls => {
+      def(name, Cls)
     }
   }
-
-  return component(camelToKebab(name.name))(name)
 }
 
 export default component

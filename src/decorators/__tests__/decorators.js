@@ -2,8 +2,9 @@
 
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, get, make, on, emits, component, wired, notifies } from '../../'
+import { def, make, on, emits, component, wired, notifies } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
+import { callClassDecorator } from './helper'
 
 describe('@on(event)', () => {
   afterEach(() => clearComponents())
@@ -251,25 +252,7 @@ describe('@emits(event)', () => {
   })
 })
 
-describe('@component', () => {
-  afterEach(() => clearComponents())
-
-  it('registers the component with the kebab cased component name', () => {
-    class FooBarBaz {}
-
-    component(FooBarBaz)
-
-    assert(make('foo-bar-baz', div()[0]) instanceof FooBarBaz)
-  })
-
-  it('returns the constructor', () => {
-    class FooBarBaz1 {}
-
-    assert(component(FooBarBaz1) === FooBarBaz1)
-  })
-})
-
-describe('@component(className)', () => {
+describe('@component(name)', () => {
   afterEach(() => clearComponents())
 
   it('works as a class decorator and registers the class as a class component of the given name', () => {
@@ -281,120 +264,13 @@ describe('@component(className)', () => {
       }
     }
 
-    component('decorated-component')(Foo)
+    callClassDecorator(component('decorated-component'), Foo)
 
     const el = div()[0]
 
     make('decorated-component', el)
 
     assert(el.getAttribute('this-is') === 'decorated-component')
-  })
-
-  it('returns the constructor', () => {
-    class Foo {}
-
-    assert(component('foo')(Foo) === Foo)
-  })
-})
-
-describe('@wired.component', () => {
-  afterEach(() => clearComponents())
-
-  it('replaces the decorated getter and returns the instance of class-component of the getter name', () => {
-    class Foo {
-      get bar () {}
-    }
-
-    class Bar {}
-
-    def('foo', Foo)
-    def('bar', Bar)
-
-    callDecorator(wired.component, Foo, 'bar')
-
-    const el = div().append(make('bar', div()[0]).el)[0]
-
-    const wireTest0 = make('foo', el)
-
-    assert(wireTest0.bar instanceof Bar)
-  })
-
-  it('returns the instance of component of the kebab-cased name of the getter name when the getter is in camelCase', () => {
-    class Cls0 {
-      get wireTest3Child () {}
-    }
-    class Cls1 {}
-    def('wire-test3', Cls0)
-    def('wire-test3-child', Cls1)
-
-    callDecorator(wired.component, Cls0, 'wireTest3Child')
-
-    const el = div().append(make('wire-test3-child', div()[0]).el)[0]
-
-    const wireTest3 = make('wire-test3', el)
-
-    assert(wireTest3.wireTest3Child instanceof Cls1)
-  })
-
-  it("can get the class component in the same dom as decorated method's class", () => {
-    class Foo {
-      get bar () {}
-    }
-    class Bar {}
-    def('foo', Foo)
-    def('bar', Bar)
-
-    callDecorator(wired.component, Foo, 'bar')
-
-    const el = div()[0]
-
-    make('bar', el)
-    const foo = make('foo', el)
-
-    assert(foo.bar instanceof Bar)
-    assert(foo.bar === get('bar', el))
-  })
-
-  it('throws when the element is not available', () => {
-    class Foo {
-      get doesNotExist () {}
-    }
-
-    def('foo', Foo)
-
-    callDecorator(wired.component, Foo, 'doesNotExist')
-
-    const foo = make('foo', div()[0])
-
-    assert.throws(
-      () => {
-        console.log(foo.doesNotExist)
-      },
-      err => {
-        return err.message === 'wired component "does-not-exist" is not available at DIV(class=[Foo]'
-      }
-    )
-  })
-
-  it("throws when the component's element is not available", () => {
-    class Component {
-      constructor () {
-        console.log(this.subcomponent)
-      }
-
-      get subcomponent () {}
-    }
-
-    callDecorator(wired.component, Component, 'subcomponent')
-
-    assert.throws(
-      () => {
-        console.log(new Component())
-      },
-      err => {
-        return err.message === "Component's element is not ready. Probably wired getter called at constructor.(class=[Component]"
-      }
-    )
   })
 })
 
