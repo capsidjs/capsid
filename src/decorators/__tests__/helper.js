@@ -13,7 +13,7 @@ export const callClassDecorator = (classDecorator, constructor) => {
   return descriptor.finisher.call(null, constructor) || constructor
 }
 
-export const callMethodDecorator = (methodDecorator, key, constructor) => {
+export const callMethodDecorator = (methodDecorator, constructor, key) => {
   let descriptor = {
     kind: 'method',
     key,
@@ -23,14 +23,18 @@ export const callMethodDecorator = (methodDecorator, key, constructor) => {
 
   descriptor = methodDecorator(descriptor) || descriptor
 
+  if (descriptor.descriptor) {
+    Object.defineProperty(constructor.prototype, key, descriptor.descriptor)
+  }
+
   if (!descriptor.finisher) {
     return
   }
 
-  descriptor.finisher.call(null, constructor) || constructor
+  descriptor.finisher.call(null, constructor)
 }
 
-export const callFieldDecorator = (fieldDecorator, key, constructor) => {
+export const callFieldDecorator = (fieldDecorator, constructor, key) => {
   let descriptor = {
     kind: 'field',
     key,
@@ -43,5 +47,5 @@ export const callFieldDecorator = (fieldDecorator, key, constructor) => {
     return
   }
 
-  descriptor.finisher.call(null, constructor) || constructor
+  descriptor.finisher.call(null, constructor)
 }

@@ -4,7 +4,7 @@ import assert from 'assert'
 import { div } from 'dom-gen'
 import { def, make, on, emits, component, wired, notifies } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
-import { callClassDecorator } from './helper'
+import { callClassDecorator, callMethodDecorator } from './helper'
 
 describe('@on(event)', () => {
   afterEach(() => clearComponents())
@@ -154,7 +154,7 @@ describe('@emits(event)', () => {
     def('component', Component)
 
     assert.throws(() => {
-      callDecorator(emits(undefined), Component, 'emitter')
+      callMethodDecorator(emits(undefined), Component, 'emitter')
     }, /Unable to emits an empty event: constructor=Component key=emitter/)
   })
 
@@ -165,7 +165,7 @@ describe('@emits(event)', () => {
       }
     }
     def('component', Component)
-    callDecorator(emits('event-foo'), Component, 'foo')
+    callMethodDecorator(emits('event-foo'), Component, 'foo')
 
     make(
       'component',
@@ -191,7 +191,7 @@ describe('@emits(event)', () => {
       }
     }
     def('component', Component)
-    callDecorator(emits('event-foo'), Component, 'foo')
+    callMethodDecorator(emits('event-foo'), Component, 'foo')
 
     make(
       'component',
