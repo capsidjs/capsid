@@ -143,53 +143,6 @@ describe('@on.click.at', () => {
   })
 })
 
-describe('@emits.first(event)', () => {
-  afterEach(() => clearComponents())
-
-  it('makes the method emit the event with the arguments of the method', done => {
-    class Component {
-      foo () {
-        return 42
-      }
-    }
-    def('component', Component)
-    callDecorator(emits.first('event-foo'), Component, 'foo')
-
-    const coelem = make(
-      'component',
-      div().on('event-foo', e => {
-        assert(e.detail.a === 1)
-        assert(e.detail.b === 2)
-        assert(e.detail.c === 3)
-      })[0]
-    )
-
-    assert(coelem.foo({ a: 1, b: 2, c: 3 }) === 42)
-
-    done()
-  })
-
-  it('makes the method emit the event, and it bubbles up the dom tree', done => {
-    class Component {
-      foo () {
-        return 42
-      }
-    }
-    def('component', Component)
-    callDecorator(emits.first('event-foo'), Component, 'foo')
-
-    const parent = div()
-      .on('event-foo', () => done())
-      .appendTo('body')
-
-    const coel = make('component', div().appendTo(parent)[0])
-
-    coel.foo()
-
-    parent.remove()
-  })
-})
-
 describe('@emits(event)', () => {
   afterEach(() => clearComponents())
 

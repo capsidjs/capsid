@@ -30,19 +30,4 @@ const emits = (event: string) => (target: Object, key: string, descriptor: Objec
   }
 }
 
-/**
- * `@emit.first(event)` decorator.
- * This decorator adds the event emission at the beginning of the method.
- * @param event The event name
- */
-emits.first = (event: string) => (target: Object, key: string, descriptor: Object) => {
-  const method = descriptor.value
-
-  descriptor.value = function () {
-    trigger(this.el, event, true, arguments[0])
-
-    return method.apply(this, arguments)
-  }
-}
-
 export default emits

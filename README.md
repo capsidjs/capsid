@@ -18,7 +18,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 # :sparkles: Features
 
 - **Component-based DOM programming library**
-- :leaves: Lightweight: **~1.75KB**
+- :leaves: Lightweight: **~1.73KB**
 - :sunglasses: **no dependencies**
 - :sunny: **Plain JavaScript (+ ESNext decorators)**
 - :bento: Adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on **component** definition.
@@ -337,7 +337,6 @@ There are 5 types of decorators.
 - `@emits(event)`
   - *method decorator*
   - makes the decorated method an event emitter.
-  - optionally `@emits.first(event)`
 - `@wired(selector)`
   - *getter decorator*
   - wires the elements to the decorated getter by the given selector.
