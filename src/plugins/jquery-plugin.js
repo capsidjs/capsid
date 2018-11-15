@@ -11,7 +11,6 @@ const init: Function = (capsid: any, $: Function): void => {
   const ccc = capsid.__ccc__
   const get = capsid.get
   const make = capsid.make
-  const wire = capsid.wire
 
   const descriptor: any = {
     get: function () {
@@ -62,7 +61,7 @@ const init: Function = (capsid: any, $: Function): void => {
   })
 
   // Define wire.$el decorator
-  wire.$el = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+  capsid.$wired = (sel: string) => (target: Object, key: string, descriptor: Object) => {
     descriptor.get = function () {
       return this.$el.find(sel)
     }

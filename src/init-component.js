@@ -36,11 +36,6 @@ export default (Constructor: Function, el: HTMLElement, name?: string): any => {
     pluginHook(el, coelem)
   })
 
-  // Backward compat
-  if (typeof coelem.__init__ === 'function') {
-    coelem.__init__()
-  }
-
   if (typeof coelem.__mount__ === 'function') {
     coelem.__mount__()
   }
