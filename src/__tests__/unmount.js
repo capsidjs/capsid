@@ -1,6 +1,7 @@
 import { def, get, unmount, make, on } from '../index.js'
 import genel from 'genel'
-import { clearComponents, callDecorator } from './helper.js'
+import { clearComponents } from './helper.js'
+import { callMethodDecorator } from '../decorators/__tests__/helper.js'
 import assert from 'assert'
 
 describe('unmount', () => {
@@ -15,8 +16,8 @@ describe('unmount', () => {
       }
     }
 
-    callDecorator(on.click, Foo, 'method')
-    callDecorator(on('foo'), Foo, 'method')
+    callMethodDecorator(on.click, Foo, 'method')
+    callMethodDecorator(on('foo'), Foo, 'method')
 
     def('foo', Foo)
 
@@ -48,8 +49,8 @@ describe('unmount', () => {
     class Bar extends Foo {
     }
 
-    callDecorator(on.click, Foo, 'method')
-    callDecorator(on('foo'), Foo, 'method')
+    callMethodDecorator(on.click, Foo, 'method')
+    callMethodDecorator(on('foo'), Foo, 'method')
 
     def('bar', Bar)
 
@@ -88,7 +89,7 @@ describe('unmount', () => {
       }
     }
 
-    callDecorator(on.click, Bar, 'method')
+    callMethodDecorator(on.click, Bar, 'method')
 
     def('foo', Foo)
     def('bar', Bar)

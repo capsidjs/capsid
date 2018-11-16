@@ -3,7 +3,8 @@
 import * as capsid from '../index.js'
 import initComponent from '../init-component.js'
 import assert from 'assert'
-import { clearComponents, callDecorator } from './helper.js'
+import { clearComponents } from './helper.js'
+import { callMethodDecorator } from '../decorators/__tests__/helper.js'
 
 const { on } = capsid
 
@@ -66,7 +67,7 @@ describe('initComponent', () => {
         }
       }
 
-      callDecorator(on.click, A, 'onClick')
+      callMethodDecorator(on.click, A, 'onClick')
 
       initComponent(A, document.createElement('div'))
     })
