@@ -15,7 +15,7 @@ const emits = (event: string) => (descriptor: Object) => {
   const key = descriptor.key
 
   descriptor.finisher = constructor => {
-    check(!!event, `Unable to emits an empty event: constructor=${(constructor && constructor.name) || '?'} key=${key}`)
+    check(!!event, `Unable to emits an empty event: constructor=${constructor.name} key=${key}`)
   }
 
   descriptor.descriptor.value = function () {

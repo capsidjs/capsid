@@ -2,7 +2,7 @@
 
 import assert from 'assert'
 import { div } from 'dom-gen'
-import { def, make, on, emits, component, wired, notifies } from '../../'
+import { def, make, on, emits, component, wired } from '../../'
 import { clearComponents, callDecorator } from '../../__tests__/helper'
 import { callClassDecorator, callMethodDecorator } from './helper'
 
@@ -284,99 +284,5 @@ describe('@wired.all(selector)', () => {
     assert(component.elms.length === 2)
     assert(component.elms[0] === el.firstChild)
     assert(component.elms[1] === el.lastChild)
-  })
-})
-
-describe('@notifies(event, selector)', () => {
-  afterEach(() => clearComponents())
-
-  it('throws error when empty event is given', () => {
-    class Component {
-      method () {}
-    }
-
-    def('component', Component)
-
-    assert.throws(() => {
-      callDecorator(notifies(undefined, '.elm'), Component, 'method')
-    }, /Unable to notify empty event: constructor=Component key=method/)
-  })
-
-  it('adds function to publish the event to the element of the given selector', () => {
-    class Component {
-      publish () {}
-    }
-
-    const CUSTOM_EVENT = 'foo-bar-baz-quz'
-
-    def('component', Component)
-
-    callDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
-
-    const child0 = div({ addClass: 'elm' })
-    const child1 = div({ addClass: 'elm' })
-    const child2 = div({ addClass: 'elm' })
-
-    const component = div(child0, div(div(), child1), div(div(), div(div(child2, div())))).cc.init('component')
-
-    const promise0 = new Promise(resolve => child0.on(CUSTOM_EVENT, resolve))
-    const promise1 = new Promise(resolve => child1.on(CUSTOM_EVENT, resolve))
-    const promise2 = new Promise(resolve => child2.on(CUSTOM_EVENT, resolve))
-
-    component.publish()
-
-    return Promise.all([promise0, promise1, promise2])
-  })
-
-  describe('The decorated method', () => {
-    it('publishes events with the return value as detail', done => {
-      class Component {
-        publish () {
-          return { foo: 123, bar: 'baz' }
-        }
-      }
-
-      const CUSTOM_EVENT = 'foo-bar-baz-quz'
-
-      def('component', Component)
-
-      callDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
-
-      const child = div({ addClass: 'elm' })
-
-      const component = div(child).cc.init('component')
-
-      child.on(CUSTOM_EVENT, e => {
-        assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
-        done()
-      })
-
-      component.publish()
-    })
-
-    it('publishes events with the resolved value as detail if it is async function', done => {
-      class Component {
-        publish () {
-          return Promise.resolve({ foo: 123, bar: 'baz' })
-        }
-      }
-
-      const CUSTOM_EVENT = 'foo-bar-baz-quz'
-
-      def('component', Component)
-
-      callDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
-
-      const child = div({ addClass: 'elm' })
-
-      const component = div(child).cc.init('component')
-
-      child.on(CUSTOM_EVENT, e => {
-        assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
-        done()
-      })
-
-      component.publish()
-    })
   })
 })
