@@ -6,12 +6,16 @@ import check from '../util/check.js'
 /**
  * Adds the function to publish the given event to the descendent elements of the given selector to the decorated method.
  */
-export default (event: string, selector: string) => (target: Object, key: string, descriptor: Object) => {
-  const method = descriptor.value
+export default (event: string, selector: string) => (descriptor: Object) => {
+  const key = descriptor.key
+  const d = descriptor.descriptor
+  const method = d.value
 
-  check(!!event, `Unable to notify empty event: constructor=${(target.constructor && target.constructor.name) || '?'} key=${key}`)
+  descriptor.finisher = constructor => {
+    check(!!event, `Unable to notify empty event: constructor=${constructor.name} key=${key}`)
+  }
 
-  descriptor.value = function () {
+  d.value = function () {
     const result = method.apply(this, arguments)
     const forEach = [].forEach
 
