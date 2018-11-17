@@ -1,7 +1,7 @@
 // @flow
 
 import assert from 'assert'
-import { div } from 'dom-gen'
+import genel from 'genel'
 import { def, make, on } from '../../'
 import { clearComponents } from '../../__tests__/helper'
 import { callMethodDecorator } from './helper'
@@ -15,6 +15,7 @@ describe('@on(event)', () => {
     }
 
     def('component', Component)
+
     assert.throws(() => {
       callMethodDecorator(on(undefined), Component, 'handler') // This sometimes happens when the user use a variable for event names.
     }, /Empty event handler is given: constructor=Component key=handler/)
@@ -22,37 +23,36 @@ describe('@on(event)', () => {
 
   it('registers the method as the event listener of the given event name', done => {
     class Component {
+      @on('click')
       handler () {
         done()
       }
     }
-    def('component', Component)
-    callMethodDecorator(on('click'), Component, 'handler')
 
-    div()
-      .cc('component')
-      .trigger('click')
+    def('component', Component)
+
+    const el = genel.div``
+
+    make('component', el)
+
+    el.click()
   })
 
   it('registers the method as the event listener for children classes', done => {
     class Foo {
+      @on('click')
       handler () {
         done()
       }
     }
     class Bar extends Foo {}
-    class Baz extends Bar {
-      baz () {}
-    }
-
-    callMethodDecorator(on('click'), Foo, 'handler')
-    callMethodDecorator(on('baz'), Baz, 'baz')
+    class Baz extends Bar {}
 
     def('baz', Baz)
 
-    div()
-      .cc('baz')
-      .trigger('click')
+    const el = genel.div``
+    make('baz', el)
+    el.click()
   })
 })
 
@@ -61,19 +61,20 @@ describe('@on(event, {at: selector})', () => {
 
   it('registers the method as the event listener of the given event name and selector', done => {
     class Foo {
+      @on('foo-event', { at: '.inner' })
       foo () {
         done()
       }
+      @on('bar-event', { at: '.inner' })
       bar () {
         done(new Error('bar should not be called'))
       }
     }
     def('foo', Foo)
 
-    callMethodDecorator(on('foo-event', { at: '.inner' }), Foo, 'foo')
-    callMethodDecorator(on('bar-event', { at: '.inner' }), Foo, 'bar')
-
-    const el = div(div({ addClass: 'inner' }))[0]
+    const el = genel.div`
+      <div class="inner"></div>
+    `
 
     make('foo', el)
 
@@ -93,18 +94,17 @@ describe('@on.click', () => {
 
   it('binds method to click event', done => {
     class Component {
+      @on.click
       handler () {
         done()
       }
     }
 
-    callMethodDecorator(on.click, Component, 'handler')
-
     def('foo', Component)
 
-    div()
-      .cc('foo')
-      .trigger('click')
+    const el = genel.div``
+    make('foo', el)
+    el.click()
   })
 })
 
@@ -115,27 +115,26 @@ describe('@on.click.at', () => {
     let res = 0
 
     class Component {
+      @on.click.at('.foo')
       foo () {
         res += 1
       }
+      @on.click.at('.bar')
       bar () {
         res += 2
       }
     }
 
-    callMethodDecorator(on.click.at('.foo'), Component, 'foo')
-    callMethodDecorator(on.click.at('.bar'), Component, 'bar')
-
     def('foo', Component)
 
-    const el = div().cc('foo')
-
-    el.html(`
+    const el = genel.div`
       <p class="foo"></p>
       <p class="bar"></p>
-    `)
+    `
 
-    el.find('.foo').trigger('click')
+    make('foo', el)
+
+    el.querySelector('.foo').click()
 
     assert(res === 1)
   })
