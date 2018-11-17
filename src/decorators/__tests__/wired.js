@@ -1,7 +1,7 @@
 // @flow
 
 import assert from 'assert'
-import { div } from 'dom-gen'
+import genel from 'genel'
 import { def, make, wired } from '../../'
 import { clearComponents } from '../../__tests__/helper.js'
 
@@ -17,11 +17,17 @@ describe('@wired.component(name, selector)', () => {
     def('wire-test1', Cls0)
     def('wire-test1-1', Cls1)
 
-    const el = div().append(
-      make('wire-test1-1', div().addClass('foo')[0]).el
-    )[0]
+    const el0 = genel.div``
+    const wireTest1 = make('wire-test1', el0)
 
-    const wireTest1 = make('wire-test1', el)
+    const el1 = genel.div`
+    `
+    const el2 = genel.div``
+    make('wire-test1-1', el2)
+    el2.classList.add('foo')
+
+    el0.appendChild(el1)
+    el1.appendChild(el2)
 
     assert(wireTest1.test instanceof Cls1)
   })
@@ -37,7 +43,9 @@ describe('@wired(selector)', () => {
 
     def('wire-el-test', Component)
 
-    const el = div().append(div().addClass('elm'))[0]
+    const el = genel.div`
+      <div class="elm"></div>
+    `
 
     const component = make('wire-el-test', el)
     assert(component.elm instanceof HTMLElement)
@@ -55,7 +63,10 @@ describe('@wired.all(selector)', () => {
 
     def('comp', Component)
 
-    const el = div().append(div().addClass('elm'), div().addClass('elm'))[0]
+    const el = genel.div`
+      <div class="elm"></div>
+      <div class="elm"></div>
+    `
 
     const component = make('comp', el)
     assert(component.elms.length === 2)

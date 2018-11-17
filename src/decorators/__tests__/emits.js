@@ -1,7 +1,7 @@
 // @flow
 
 import assert from 'assert'
-import { div } from 'dom-gen'
+import genel from 'genel'
 import { def, make, emits } from '../../'
 import { clearComponents } from '../../__tests__/helper'
 import { callMethodDecorator } from './helper'
@@ -23,27 +23,30 @@ describe('@emits(event)', () => {
 
   it('makes the method emit the event with the returned value', done => {
     class Component {
+      @emits('event-foo')
       foo () {
         return 321
       }
     }
+
     def('component', Component)
-    callMethodDecorator(emits('event-foo'), Component, 'foo')
 
-    make(
-      'component',
-      div().on('event-foo', e => {
-        assert(e.detail === 321)
+    const el = genel.div``
 
-        done()
-      })[0]
-    ).foo()
+    el.addEventListener('event-foo', e => {
+      assert(e.detail === 321)
+
+      done()
+    })
+
+    make('component', el).foo()
   })
 
   it('makes the method emit the event with the resolved value after the promise resolved', done => {
     let promiseResolved = false
 
     class Component {
+      @emits('event-foo')
       foo () {
         return new Promise(resolve => {
           setTimeout(() => {
@@ -54,16 +57,16 @@ describe('@emits(event)', () => {
       }
     }
     def('component', Component)
-    callMethodDecorator(emits('event-foo'), Component, 'foo')
 
-    make(
-      'component',
-      div().on('event-foo', e => {
-        assert(promiseResolved)
-        assert(e.detail === 123)
+    const el = genel.div``
 
-        done()
-      })[0]
-    ).foo()
+    el.addEventListener('event-foo', e => {
+      assert(promiseResolved)
+      assert(e.detail === 123)
+
+      done()
+    })
+
+    make('component', el).foo()
   })
 })

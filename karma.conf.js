@@ -10,7 +10,14 @@ module.exports = config =>
           'babelify',
           {
             presets: ['@babel/preset-env', 'power-assert'],
-            plugins: ['istanbul', ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: false }], '@babel/plugin-proposal-class-properties']
+            plugins: [
+              'istanbul',
+              [
+                '@babel/plugin-proposal-decorators',
+                { decoratorsBeforeExport: false }
+              ],
+              '@babel/plugin-proposal-class-properties'
+            ]
           }
         ]
       ]
