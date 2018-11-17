@@ -11,4 +11,19 @@ import { on, emits, wired, component, notifies } from './decorators/index.js'
 import __ccc__ from './ccc.js'
 import pluginHooks from './plugin-hooks.js'
 
-export { def, prep, make, mount, unmount, get, install, on, emits, wired, component, notifies, __ccc__, pluginHooks }
+export {
+  def,
+  prep,
+  make,
+  mount,
+  unmount,
+  get,
+  install,
+  on,
+  emits,
+  wired,
+  component,
+  notifies,
+  __ccc__,
+  pluginHooks
+}

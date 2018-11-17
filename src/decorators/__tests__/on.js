@@ -11,15 +11,13 @@ describe('@on(event)', () => {
 
   it('throws when the event is empty', () => {
     class Component {
-      handler () {
-      }
+      handler () {}
     }
 
     def('component', Component)
     assert.throws(() => {
       callMethodDecorator(on(undefined), Component, 'handler') // This sometimes happens when the user use a variable for event names.
-    }, /Empty event handler is given: constructor=Component key=handler/
-    )
+    }, /Empty event handler is given: constructor=Component key=handler/)
   })
 
   it('registers the method as the event listener of the given event name', done => {
@@ -82,7 +80,9 @@ describe('@on(event, {at: selector})', () => {
     if (document.body) document.body.appendChild(el)
 
     el.dispatchEvent(new CustomEvent('bar-event', { bubbles: true }))
-    el.querySelector('.inner').dispatchEvent(new CustomEvent('foo-event', { bubbles: true }))
+    el
+      .querySelector('.inner')
+      .dispatchEvent(new CustomEvent('foo-event', { bubbles: true }))
 
     if (document.body) document.body.removeChild(el)
   })
@@ -135,9 +135,7 @@ describe('@on.click.at', () => {
       <p class="bar"></p>
     `)
 
-    el
-      .find('.foo')
-      .trigger('click')
+    el.find('.foo').trigger('click')
 
     assert(res === 1)
   })

@@ -21,6 +21,9 @@ export default (name?: string, el?: HTMLElement): void => {
   }
 
   classNames.map(className => {
-    ;[].map.call((el || doc).querySelectorAll(ccc[className].sel), ccc[className])
+    ;[].map.call(
+      (el || doc).querySelectorAll(ccc[className].sel),
+      ccc[className]
+    )
   })
 }

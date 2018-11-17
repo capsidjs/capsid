@@ -11,7 +11,6 @@ export default (name: string, el: HTMLElement): void => {
   }
 
   el.classList.remove(name, `${name}-💊`)
-
   ;((el: any)[KEY_EVENT_LISTENERS + name] || []).forEach(listener => {
     listener.remove()
   })

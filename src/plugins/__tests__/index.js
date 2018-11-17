@@ -139,7 +139,9 @@ describe('$dom.cc', () => {
 
     it('throws an error when the elem is empty dom selectioin', () => {
       assert.throws(() => {
-        div().find('.nothing').cc.get('something')
+        div()
+          .find('.nothing')
+          .cc.get('something')
       })
     })
   })

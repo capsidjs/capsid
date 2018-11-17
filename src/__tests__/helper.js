@@ -8,7 +8,6 @@ import { Foo, Bar } from './fixture.js'
 global.$ = $
 global.__DEV__ = true
 global.capsidDebugMessage = () => {}
-
 ;(cj: any)(capsid, $)
 
 before(() => {
@@ -26,7 +25,11 @@ export const clearComponents = () =>
  * @param {Function} cls The class
  * @param {string} key The key of the method to decorate
  */
-export const callDecorator = (decorator: Function, cls: Function, key: string) => {
+export const callDecorator = (
+  decorator: Function,
+  cls: Function,
+  key: string
+) => {
   const descriptor = Object.getOwnPropertyDescriptor(cls.prototype, key)
   const result = decorator(cls.prototype, key, descriptor)
   Object.defineProperty(cls.prototype, key, result || descriptor || {})

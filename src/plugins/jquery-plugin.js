@@ -16,7 +16,10 @@ const init: Function = (capsid: any, $: Function): void => {
     get: function () {
       const dom: HTMLElement = this[0]
 
-      check(dom != null, 'cc (capsid context) is unavailable at empty dom selection')
+      check(
+        dom != null,
+        'cc (capsid context) is unavailable at empty dom selection'
+      )
 
       let cc = (dom: any).cc
 
@@ -61,7 +64,11 @@ const init: Function = (capsid: any, $: Function): void => {
   })
 
   // Define wire.$el decorator
-  capsid.$wired = (sel: string) => (target: Object, key: string, descriptor: Object) => {
+  capsid.$wired = (sel: string) => (
+    target: Object,
+    key: string,
+    descriptor: Object
+  ) => {
     descriptor.get = function () {
       return this.$el.find(sel)
     }

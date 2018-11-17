@@ -11,17 +11,24 @@ declare var __DEV__: boolean
  * @param at The selector
  * @param descriptor The method descriptor
  */
-export default (event: string, { at }: { at?: string } = {}) => (descriptor: Object) => {
+export default (event: string, { at }: { at?: string } = {}) => (
+  descriptor: Object
+) => {
   const key = descriptor.key
 
   descriptor.finisher = (constructor: Function) => {
-    check(!!event, `Empty event handler is given: constructor=${constructor.name} key=${key}`)
+    check(
+      !!event,
+      `Empty event handler is given: constructor=${constructor.name} key=${key}`
+    )
     /**
      * @param el The element
      * @param coelem The coelement
      * @param name The component name
      */
-    constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat((el: HTMLElement, coelem: any, name: string) => {
+    constructor[KEY_EVENT_LISTENERS] = (
+      constructor[KEY_EVENT_LISTENERS] || []
+    ).concat((el: HTMLElement, coelem: any, name: string) => {
       const keyEventListeners = KEY_EVENT_LISTENERS + name
 
       const listener = (e: Event): void => {
@@ -56,7 +63,9 @@ export default (event: string, { at }: { at?: string } = {}) => (descriptor: Obj
       /**
        * Store event listeners to remove it later.
        */
-      ;(el: any)[keyEventListeners] = ((el: any)[keyEventListeners] || []).concat(listener)
+      ;(el: any)[keyEventListeners] = (
+        (el: any)[keyEventListeners] || []
+      ).concat(listener)
 
       el.addEventListener(event, listener)
     })
