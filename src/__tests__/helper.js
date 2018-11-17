@@ -19,18 +19,3 @@ export const clearComponents = () =>
   Object.keys(capsid.__ccc__).forEach(key => {
     delete capsid.__ccc__[key]
   })
-
-/**
- * @param {Function} decorator The decorator
- * @param {Function} cls The class
- * @param {string} key The key of the method to decorate
- */
-export const callDecorator = (
-  decorator: Function,
-  cls: Function,
-  key: string
-) => {
-  const descriptor = Object.getOwnPropertyDescriptor(cls.prototype, key)
-  const result = decorator(cls.prototype, key, descriptor)
-  Object.defineProperty(cls.prototype, key, result || descriptor || {})
-}
