@@ -1,4 +1,5 @@
 // @flow
+
 import debugMessage from '../util/debug-message.js'
 
 declare var __DEV__: boolean
@@ -8,31 +9,32 @@ const KEY_OUTSIDE_EVENT_LISTENERS = '#O'
 const init = (capsid: any): void => {
   const { on, pluginHooks } = capsid
 
-  on.outside = (event: string) => (target: Object, key: string) => {
-    const Constructor = target.constructor
+  on.outside = (event: string) => (descriptor: Object) => {
+    const key = descriptor.key
+    descriptor.finisher = constructor => {
+      constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (
+        constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []
+      ).concat((el: HTMLElement, coelem: any) => {
+        const listener = (e: Event): void => {
+          if (el !== e.target && !el.contains((e.target: any))) {
+            if (__DEV__) {
+              debugMessage({
+                type: 'event',
+                module: 'outside-events',
+                color: '#39cccc',
+                el,
+                e,
+                coelem
+              })
+            }
 
-    Constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (
-      Constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []
-    ).concat((el: HTMLElement, coelem: any) => {
-      const listener = (e: Event): void => {
-        if (el !== e.target && !el.contains((e.target: any))) {
-          if (__DEV__) {
-            debugMessage({
-              type: 'event',
-              module: 'outside-events',
-              color: '#39cccc',
-              el,
-              e,
-              coelem
-            })
+            coelem[key](e)
           }
-
-          coelem[key](e)
         }
-      }
 
-      document.addEventListener(event, listener)
-    })
+        document.addEventListener(event, listener)
+      })
+    }
   }
 
   pluginHooks.push((el: HTMLElement, coelem: any) => {

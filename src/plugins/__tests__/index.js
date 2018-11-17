@@ -145,25 +145,4 @@ describe('$dom.cc', () => {
       })
     })
   })
-
-  /*
-  describe('$wired', () => {
-    it('makes the decorated getter the sub elements selected by jquery with the given selector', () => {
-      class Component {
-        get $subelems () {}
-      }
-
-      callDecorator(wire.$el('.abc'), Component, '$subelems')
-
-      def('component', Component)
-
-      const component = div(div().addClass('abc'), div().addClass('abc'))
-        .appendTo('body')
-        .cc.init('component')
-
-      assert(component.$subelems instanceof $)
-      assert(component.$subelems.length === 2)
-    })
-  })
-  */
 })

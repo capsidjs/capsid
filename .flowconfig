@@ -1,2 +1,4 @@
 [ignore]
 .*/node_modules/.*
+[options]
+esproposal.decorators=ignore

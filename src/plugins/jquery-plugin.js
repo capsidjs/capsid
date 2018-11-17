@@ -62,17 +62,6 @@ const init: Function = (capsid: any, $: Function): void => {
     coel.$el = $(el)
     coel.elem = coel.$el // backward compat, will be removed
   })
-
-  // Define wire.$el decorator
-  capsid.$wired = (sel: string) => (
-    target: Object,
-    key: string,
-    descriptor: Object
-  ) => {
-    descriptor.get = function () {
-      return this.$el.find(sel)
-    }
-  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {
