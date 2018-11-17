@@ -112,4 +112,10 @@ gulp.task('outside-events-plugin', () =>
   })
 )
 
-gulp.task('dist', ['browser', 'cjs', 'jquery-plugin', 'debug-plugin', 'outside-events-plugin'])
+gulp.task('dist', [
+  'browser',
+  'cjs',
+  'jquery-plugin',
+  'debug-plugin',
+  'outside-events-plugin'
+])

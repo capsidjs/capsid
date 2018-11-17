@@ -55,9 +55,15 @@ describe('@notifies(event, selector)', () => {
     const child2 = el.querySelector('.child2')
     const component = make('component', el)
 
-    const promise0 = new Promise(resolve => child0.addEventListener(CUSTOM_EVENT, resolve))
-    const promise1 = new Promise(resolve => child1.addEventListener(CUSTOM_EVENT, resolve))
-    const promise2 = new Promise(resolve => child2.addEventListener(CUSTOM_EVENT, resolve))
+    const promise0 = new Promise(resolve =>
+      child0.addEventListener(CUSTOM_EVENT, resolve)
+    )
+    const promise1 = new Promise(resolve =>
+      child1.addEventListener(CUSTOM_EVENT, resolve)
+    )
+    const promise2 = new Promise(resolve =>
+      child2.addEventListener(CUSTOM_EVENT, resolve)
+    )
 
     component.publish()
 

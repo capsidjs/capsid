@@ -39,15 +39,14 @@ describe('unmount', () => {
     setTimeout(() => done(), 100)
   })
 
-  it('unmounts anscestor class\'s event handler correctly', done => {
+  it("unmounts anscestor class's event handler correctly", done => {
     class Foo {
       method () {
         done(new Error('event handler called!'))
       }
     }
 
-    class Bar extends Foo {
-    }
+    class Bar extends Foo {}
 
     callMethodDecorator(on.click, Foo, 'method')
     callMethodDecorator(on('foo'), Foo, 'method')

@@ -15,7 +15,10 @@ export default function check (assertion: boolean, message: string): void {
  * @param classNames The class names
  */
 export function checkClassNamesAreStringOrNull (classNames: any): void {
-  check(typeof classNames === 'string' || classNames == null, 'classNames must be a string or undefined/null.')
+  check(
+    typeof classNames === 'string' || classNames == null,
+    'classNames must be a string or undefined/null.'
+  )
 }
 
 /**
@@ -24,5 +27,8 @@ export function checkClassNamesAreStringOrNull (classNames: any): void {
  */
 export function checkComponentNameIsValid (name: any): void {
   check(typeof name === 'string', 'The name should be a string')
-  check(!!ccc[name], `The coelement of the given name is not registered: ${name}`)
+  check(
+    !!ccc[name],
+    `The coelement of the given name is not registered: ${name}`
+  )
 }

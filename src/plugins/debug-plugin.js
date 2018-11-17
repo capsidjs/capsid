@@ -15,7 +15,8 @@ export default (message: Object) => {
 /**
  * Gets the bold colored style.
  */
-const boldColor = (color: string): string => `color: ${color}; font-weight: bold;`
+const boldColor = (color: string): string =>
+  `color: ${color}; font-weight: bold;`
 
 /**
  * Gets the displayable component name.
@@ -25,12 +26,27 @@ const getComponentName = (coelem: any): string => {
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
 }
 
-const onEventMessage = ({ coelem, e, module, color }: { coelem: any, e: Event, module: string, color: string }) => {
+const onEventMessage = ({
+  coelem,
+  e,
+  module,
+  color
+}: {
+  coelem: any,
+  e: Event,
+  module: string,
+  color: string
+}) => {
   const event = e.type
   const component = getComponentName(coelem)
   color = color || '#f012be'
 
-  console.groupCollapsed(`${module}> %c${event}%c on %c${component}`, boldColor(color), '', boldColor('#1a80cc'))
+  console.groupCollapsed(
+    `${module}> %c${event}%c on %c${component}`,
+    boldColor(color),
+    '',
+    boldColor('#1a80cc')
+  )
   console.log(e)
 
   if (e.target) {

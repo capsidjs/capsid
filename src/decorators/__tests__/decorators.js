@@ -3,8 +3,11 @@
 import assert from 'assert'
 import { div } from 'dom-gen'
 import { def, make, emits, component, wired } from '../../'
-import { clearComponents, callDecorator } from '../../__tests__/helper'
-import { callClassDecorator, callMethodDecorator } from './helper'
+import { clearComponents } from '../../__tests__/helper'
+import {
+  callClassDecorator,
+  callMethodDecorator
+} from './helper'
 
 describe('@emits(event)', () => {
   afterEach(() => clearComponents())
@@ -95,15 +98,16 @@ describe('@wired.component(name, selector)', () => {
 
   it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
     class Cls0 {
-      get test () {}
+      @wired.component('wire-test1-1', '.foo')
+      test = {}
     }
     class Cls1 {}
     def('wire-test1', Cls0)
     def('wire-test1-1', Cls1)
 
-    callDecorator(wired.component('wire-test1-1', '.foo'), Cls0, 'test')
-
-    const el = div().append(make('wire-test1-1', div().addClass('foo')[0]).el)[0]
+    const el = div().append(
+      make('wire-test1-1', div().addClass('foo')[0]).el
+    )[0]
 
     const wireTest1 = make('wire-test1', el)
 
@@ -116,11 +120,11 @@ describe('@wired(selector)', () => {
 
   it('wires the element in the component', () => {
     class Component {
-      get elm () {}
+      @wired('.elm')
+      elm = {}
     }
 
     def('wire-el-test', Component)
-    callDecorator(wired('.elm'), Component, 'elm')
 
     const el = div().append(div().addClass('elm'))[0]
 
@@ -135,11 +139,11 @@ describe('@wired.all(selector)', () => {
 
   it('wires the all elements in the component', () => {
     class Component {
-      get elms () {}
+      @wired.all('.elm')
+      elms = []
     }
 
     def('comp', Component)
-    callDecorator(wired.all('.elm'), Component, 'elms')
 
     const el = div().append(div().addClass('elm'), div().addClass('elm'))[0]
 

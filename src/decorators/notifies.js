@@ -12,7 +12,10 @@ export default (event: string, selector: string) => (descriptor: Object) => {
   const method = d.value
 
   descriptor.finisher = constructor => {
-    check(!!event, `Unable to notify empty event: constructor=${constructor.name} key=${key}`)
+    check(
+      !!event,
+      `Unable to notify empty event: constructor=${constructor.name} key=${key}`
+    )
   }
 
   d.value = function () {
@@ -20,7 +23,9 @@ export default (event: string, selector: string) => (descriptor: Object) => {
     const forEach = [].forEach
 
     const emit = x => {
-      forEach.call(this.el.querySelectorAll(selector), el => trigger(el, event, false, x))
+      forEach.call(this.el.querySelectorAll(selector), el =>
+        trigger(el, event, false, x)
+      )
     }
 
     if (result && result.then) {
