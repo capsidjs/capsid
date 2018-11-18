@@ -4,33 +4,30 @@ import assert from 'assert'
 import genel from 'genel'
 import { def, make, notifies } from '../../'
 import { clearComponents } from '../../__tests__/helper'
-import { callMethodDecorator } from './helper'
 
 describe('@notifies(event, selector)', () => {
   afterEach(() => clearComponents())
 
   it('throws error when empty event is given', () => {
-    class Component {
-      method () {}
-    }
-
-    def('component', Component)
-
     assert.throws(() => {
-      callMethodDecorator(notifies(undefined, '.elm'), Component, 'method')
+      class Component {
+        @notifies(undefined, '.elm')
+        method () {}
+      }
+
+      def('component', Component)
     }, /Unable to notify empty event: constructor=Component key=method/)
   })
 
   it('adds function to publish the event to the element of the given selector', () => {
+    const CUSTOM_EVENT = 'foo-bar-baz-quz'
+
     class Component {
+      @notifies(CUSTOM_EVENT, '.elm')
       publish () {}
     }
 
-    const CUSTOM_EVENT = 'foo-bar-baz-quz'
-
     def('component', Component)
-
-    callMethodDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
 
     const el = genel.div`
       <div class="elm child0"></div>
@@ -72,17 +69,16 @@ describe('@notifies(event, selector)', () => {
 
   describe('The decorated method', () => {
     it('publishes events with the return value as detail', done => {
+      const CUSTOM_EVENT = 'foo-bar-baz-quz'
+
       class Component {
+        @notifies(CUSTOM_EVENT, '.elm')
         publish () {
           return { foo: 123, bar: 'baz' }
         }
       }
 
-      const CUSTOM_EVENT = 'foo-bar-baz-quz'
-
       def('component', Component)
-
-      callMethodDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
 
       const el = genel.div`
         <div class="child elm">
@@ -101,17 +97,16 @@ describe('@notifies(event, selector)', () => {
     })
 
     it('publishes events with the resolved value as detail if it is async function', done => {
+      const CUSTOM_EVENT = 'foo-bar-baz-quz'
+
       class Component {
+        @notifies(CUSTOM_EVENT, '.elm')
         publish () {
           return Promise.resolve({ foo: 123, bar: 'baz' })
         }
       }
 
-      const CUSTOM_EVENT = 'foo-bar-baz-quz'
-
       def('component', Component)
-
-      callMethodDecorator(notifies(CUSTOM_EVENT, '.elm'), Component, 'publish')
 
       const el = genel.div`
         <div class="child elm"></div>

@@ -4,20 +4,17 @@ import assert from 'assert'
 import genel from 'genel'
 import { def, make, emits } from '../../'
 import { clearComponents } from '../../__tests__/helper'
-import { callMethodDecorator } from './helper'
 
 describe('@emits(event)', () => {
   afterEach(() => clearComponents())
 
   it('throws when the empty event is given', () => {
-    class Component {
-      emitter () {}
-    }
-
-    def('component', Component)
-
     assert.throws(() => {
-      callMethodDecorator(emits(undefined), Component, 'emitter')
+      class Component {
+        @emits(undefined)
+        emitter () {}
+      }
+      console.log(Component)
     }, /Unable to emits an empty event: constructor=Component key=emitter/)
   })
 
