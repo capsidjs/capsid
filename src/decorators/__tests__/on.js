@@ -4,20 +4,18 @@ import assert from 'assert'
 import genel from 'genel'
 import { def, make, on } from '../../'
 import { clearComponents } from '../../__tests__/helper'
-import { callMethodDecorator } from './helper'
 
 describe('@on(event)', () => {
   afterEach(() => clearComponents())
 
   it('throws when the event is empty', () => {
-    class Component {
-      handler () {}
-    }
-
-    def('component', Component)
-
     assert.throws(() => {
-      callMethodDecorator(on(undefined), Component, 'handler') // This sometimes happens when the user use a variable for event names.
+      class Component {
+        @on(undefined)
+        handler () {}
+      }
+
+      def('component', Component)
     }, /Empty event handler is given: constructor=Component key=handler/)
   })
 

@@ -1,7 +1,6 @@
 import { def, get, unmount, make, on } from '../index.js'
 import genel from 'genel'
 import { clearComponents } from './helper.js'
-import { callMethodDecorator } from '../decorators/__tests__/helper.js'
 import assert from 'assert'
 
 describe('unmount', () => {
@@ -11,13 +10,12 @@ describe('unmount', () => {
 
   it('removes class name, reference and event handlers', done => {
     class Foo {
+      @on.click
+      @on('foo')
       method () {
         done(new Error('event handler called!'))
       }
     }
-
-    callMethodDecorator(on.click, Foo, 'method')
-    callMethodDecorator(on('foo'), Foo, 'method')
 
     def('foo', Foo)
 
@@ -41,15 +39,14 @@ describe('unmount', () => {
 
   it("unmounts anscestor class's event handler correctly", done => {
     class Foo {
+      @on.click
+      @on('foo')
       method () {
         done(new Error('event handler called!'))
       }
     }
 
     class Bar extends Foo {}
-
-    callMethodDecorator(on.click, Foo, 'method')
-    callMethodDecorator(on('foo'), Foo, 'method')
 
     def('bar', Bar)
 
@@ -83,12 +80,11 @@ describe('unmount', () => {
   it('does not unmount listeners of different component which mounted on the same element', done => {
     class Foo {}
     class Bar {
+      @on.click
       method () {
         done()
       }
     }
-
-    callMethodDecorator(on.click, Bar, 'method')
 
     def('foo', Foo)
     def('bar', Bar)
