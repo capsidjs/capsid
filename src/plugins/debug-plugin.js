@@ -2,13 +2,15 @@
 
 import { COMPONENT_NAME_KEY } from '../util/const'
 
-export default (message: Object) => {
-  switch (message.type) {
-    case 'event':
-      onEventMessage(message)
-      break
-    default:
-      console.log(`Unknown message: ${JSON.stringify(message)}`)
+const install = () => {
+  global.capsidDebugMessage = (message: Object) => {
+    switch (message.type) {
+      case 'event':
+        onEventMessage(message)
+        break
+      default:
+        console.log(`Unknown message: ${JSON.stringify(message)}`)
+    }
   }
 }
 
@@ -59,3 +61,5 @@ const onEventMessage = ({
 
   console.groupEnd()
 }
+
+export default { install }
