@@ -1,11 +1,16 @@
 // @flow
 
-import capsidDebugMessage from '../debug-plugin'
+import debugPlugin from '../debug-plugin'
 import td from 'testdouble'
 
 describe('debug-plugin', () => {
+  beforeEach(() => {
+    debugPlugin.install()
+  })
+
   afterEach(() => {
     td.reset()
+    delete global.capsidDebugMessage
   })
 
   describe('with event type message', () => {
@@ -17,7 +22,7 @@ describe('debug-plugin', () => {
       td.replace(console, 'log')
       td.replace(console, 'groupEnd')
 
-      capsidDebugMessage({ type: 'event', e, coelem, module: 'module' })
+      global.capsidDebugMessage({ type: 'event', e, coelem, module: 'module' })
 
       td.verify(
         console.groupCollapsed(
@@ -36,7 +41,7 @@ describe('debug-plugin', () => {
     it('logs error message', () => {
       td.replace(console, 'log')
 
-      capsidDebugMessage({ type: 'unknown' })
+      global.capsidDebugMessage({ type: 'unknown' })
 
       td.verify(
         console.log(`Unknown message: ${JSON.stringify({ type: 'unknown' })}`)

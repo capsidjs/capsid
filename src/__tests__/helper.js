@@ -7,7 +7,6 @@ import { Foo, Bar } from './fixture.js'
 
 global.$ = $
 global.__DEV__ = true
-global.capsidDebugMessage = () => {}
 ;(cj: any)(capsid, $)
 
 before(() => {
