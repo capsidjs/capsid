@@ -96,7 +96,7 @@ gulp.task('debug-plugin', () =>
     input: paths.src.debugPlugin,
     format: 'umd',
     output: 'capsid-debug.js',
-    name: 'capsidDebugMessage',
+    name: 'capsidDebugPlugin',
     minify: false,
     modes: ['production']
   })
