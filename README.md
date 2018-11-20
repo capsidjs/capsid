@@ -815,17 +815,17 @@ def('mirroring', Mirroring)
 Via npm:
 
 ```js
+const capsid = require('capsid')
 capsid.install(require('capsid/debug'))
 ```
 
 Via CDN:
 
 ```html
+<script src="https://unpkg.com/capsid"></script>
 <script src="https://unpkg.com/capsid/dist/capsid-debug.js"></script>
 <script>capsid.install(capsidDebugPlugin)</script>
 ```
-
-(Note: the script above needs to be loaded **before** capsid.js)
 
 And you'll get additional debug information in console.
 
