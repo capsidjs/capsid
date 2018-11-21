@@ -2,11 +2,10 @@ const gulp = require('gulp')
 const gulpif = require('gulp-if')
 const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
-const babel = require('gulp-babel')
 const rename = require('gulp-rename')
 const rollup = require('rollup-stream')
 const uglify = require('gulp-uglify')
-const flow = require('rollup-plugin-flow')
+const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
 const merge = require('merge-stream')
 
@@ -26,7 +25,7 @@ const rollupStream = ({ input, format, name, output, mode }) =>
     input,
     format,
     name,
-    plugins: [flow(), replaceVars(mode === 'production')]
+    plugins: [babel(), replaceVars(mode === 'production')]
   })
     .pipe(source(output))
     .pipe(gulpif(mode !== 'production', rename({ suffix: `.${mode}` })))
@@ -46,7 +45,6 @@ const build = ({ input, format, name, output, minify, modes }) => {
       )
     )
     .pipe(buffer())
-    .pipe(babel())
     .pipe(gulp.dest(paths.dist))
 
   if (!minify) {
@@ -94,7 +92,7 @@ gulp.task('debug-plugin', () =>
 gulp.task('outside-events-plugin', () =>
   build({
     input: paths.src.outsideEventsPlugin,
-    format: 'iife',
+    format: 'umd',
     output: 'capsid-outside-events.js',
     name: 'capsidOutsideEventsPlugin',
     minify: true,
