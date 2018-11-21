@@ -4,6 +4,7 @@
 [![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
+![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip)
 
 > :pill: Component-based DOM programming
 
@@ -18,7 +19,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 # :sparkles: Features
 
 - **Component-based DOM programming library**
-- :leaves: Lightweight: **~1.7KB**
+- :leaves: Lightweight: ![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip)
 - :sunglasses: **no dependencies**
 - :sunny: **Plain JavaScript (+ ESNext decorators)**
 - :bento: Adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on **component** definition.
