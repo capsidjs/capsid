@@ -6,7 +6,6 @@
   "unpkg": "dist/capsid.min.js",
   "files": [
     "dist",
-    "jquery.js",
     "outside-events.js",
     "debug.js"
   ],
@@ -61,7 +60,6 @@
     "babelify": "^10.0.0",
     "browserify": "^16.0.0",
     "codecov": "^3.0.0",
-    "dom-gen": "^2.3.0",
     "eslint-plugin-flowtype": "^3.0.0",
     "flow-bin": "^0.86.0",
     "genel": "^1.1.1",
@@ -72,7 +70,6 @@
     "gulp-uglify": "^3.0.0",
     "gzip-size-cli": "^3.0.0",
     "husky": "^1.1.4",
-    "jquery": "^3.0.0",
     "karma": "^3.0.0",
     "karma-browserify": "^5.2.0",
     "karma-chrome-launcher": "^2.0.0",
@@ -109,13 +106,11 @@
     "parser": "babel-eslint",
     "env": [
       "browser",
-      "jquery",
       "mocha"
     ],
     "ignore": [
       "/dist",
       "/flow-typed",
-      "jquery.js",
       "/website"
     ]
   },

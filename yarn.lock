@@ -2168,10 +2168,6 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-dom-gen@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/dom-gen/-/dom-gen-2.3.0.tgz#194f0dce2b68ce4b5af19f98c08301845cc53015"
-
 dom-serialize@^2.2.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/dom-serialize/-/dom-serialize-2.2.1.tgz#562ae8999f44be5ea3076f5419dcd59eb43ac95b"
@@ -4011,10 +4007,6 @@ jest-validate@^23.5.0:
     jest-get-type "^22.1.0"
     leven "^2.1.0"
     pretty-format "^23.6.0"
-
-jquery@^3.0.0:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
 js-levenshtein@^1.1.3:
   version "1.1.3"
