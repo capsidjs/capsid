@@ -6,7 +6,7 @@ declare var __DEV__: boolean
 
 const KEY_OUTSIDE_EVENT_LISTENERS = '#O'
 
-const init = (capsid: any): void => {
+const install = (capsid: any) => {
   const { on, pluginHooks } = capsid
 
   on.outside = (event: string) => (descriptor: Object) => {
@@ -46,11 +46,4 @@ const init = (capsid: any): void => {
   })
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-  // If the env is common js, then exports init.
-  module.exports = init
-} else if (typeof self !== 'undefined' && self.capsid && self.$) {
-  // If the env is browser and capsid is already defined
-  // Then applies the plugin
-  init(self.capsid)
-}
+export default { install }

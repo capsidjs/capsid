@@ -96,6 +96,7 @@ gulp.task('outside-events-plugin', () =>
     input: paths.src.outsideEventsPlugin,
     format: 'iife',
     output: 'capsid-outside-events.js',
+    name: 'capsidOutsideEventsPlugin',
     minify: true,
     modes: ['production', 'development']
   })

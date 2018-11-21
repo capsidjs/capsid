@@ -1,9 +1,12 @@
 // @flow
 import outsideEventsPlugin from '../outside-events-plugin.js'
-import { on, mount, pluginHooks } from '../../index.js'
-  ;(outsideEventsPlugin: any)({ on, pluginHooks })
+import { install, on, mount } from '../../index.js'
 
 describe('outside-events-plugin', () => {
+  before(() => {
+    install(outsideEventsPlugin)
+  })
+
   describe('on.outside', () => {
     it('add outside event handler', done => {
       class Component {

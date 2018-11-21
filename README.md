@@ -692,7 +692,7 @@ Via npm:
 
 ```js
 const capsid = require('capsid')
-require('capsid/outside-events')(capsid)
+capsid.install(require('capsid/outside-events'))
 ```
 
 Via cdn:
@@ -700,6 +700,9 @@ Via cdn:
 ```html
 <script src="https://unpkg.com/capsid"></script>
 <script src="https://unpkg.com/capsid/dist/capsid-outside-events.js"></script>
+<script>
+capsid.install(capsidOutsideEventsPlugin)
+</script>
 ```
 
 With `outside-events-plugin`, you can bind methods to events *outside* of your coponent's element. (This event need to bubble up to `document`)
