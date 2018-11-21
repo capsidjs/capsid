@@ -13,7 +13,6 @@ const merge = require('merge-stream')
 const paths = {
   src: {
     index: 'src/index.js',
-    jqueryPlugin: 'src/plugins/jquery-plugin.js',
     outsideEventsPlugin: 'src/plugins/outside-events-plugin.js',
     debugPlugin: 'src/plugins/debug-plugin.js'
   },
@@ -81,16 +80,6 @@ gulp.task('cjs', () =>
   })
 )
 
-gulp.task('jquery-plugin', () =>
-  build({
-    input: paths.src.jqueryPlugin,
-    format: 'iife',
-    output: 'capsid-jquery.js',
-    minify: true,
-    modes: ['production']
-  })
-)
-
 gulp.task('debug-plugin', () =>
   build({
     input: paths.src.debugPlugin,
@@ -112,10 +101,4 @@ gulp.task('outside-events-plugin', () =>
   })
 )
 
-gulp.task('dist', [
-  'browser',
-  'cjs',
-  'jquery-plugin',
-  'debug-plugin',
-  'outside-events-plugin'
-])
+gulp.task('dist', ['browser', 'cjs', 'debug-plugin', 'outside-events-plugin'])
