@@ -66,7 +66,7 @@
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0",
+    "gulp-terser": "^1.1.5",
     "gzip-size-cli": "^3.0.0",
     "husky": "^1.1.4",
     "karma": "^3.0.0",

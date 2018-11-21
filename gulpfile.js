@@ -4,7 +4,7 @@ const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
 const rename = require('gulp-rename')
 const rollup = require('rollup-stream')
-const uglify = require('gulp-uglify')
+const terser = require('gulp-terser')
 const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
 const merge = require('merge-stream')
@@ -52,7 +52,7 @@ const build = ({ input, format, name, output, minify, modes }) => {
   }
 
   return pipeline
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(paths.dist))
 }
