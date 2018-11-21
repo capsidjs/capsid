@@ -1,11 +1,12 @@
 // @flow
 
-import debugPlugin from '../debug-plugin'
+import { install } from '../../index.js'
+import debugPlugin from '../debug-plugin.js'
 import td from 'testdouble'
 
 describe('debug-plugin', () => {
   beforeEach(() => {
-    debugPlugin.install()
+    install(debugPlugin)
   })
 
   afterEach(() => {
