@@ -94,7 +94,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.28.0/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.28.1/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -731,6 +731,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2018-11-22   v0.28.0  Switch to new decorator. Remove jquery-plugin.
 - 2018-08-07   v0.26.1  Fix bug of unmount and on handler.
 - 2018-07-12   v0.26.0  Add debug log contents.
 - 2018-06-22   v0.25.0  Add `@on.useHandler`.
