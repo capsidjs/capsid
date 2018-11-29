@@ -11,7 +11,10 @@ import check from '../util/check.js'
  * @return The decorator if the class name is given, undefined if the implementation class is given
  */
 const component = (name: string): any => {
-  check(!!name, 'Component name must be non-empty')
+  check(
+    typeof name === 'string' && !!name,
+    'Component name must be a non-empty string'
+  )
 
   return desc => {
     desc.finisher = Cls => {
