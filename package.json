@@ -70,7 +70,7 @@
     "gzip-size-cli": "^3.0.0",
     "husky": "^1.1.4",
     "karma": "^3.0.0",
-    "karma-browserify": "^5.2.0",
+    "karma-browserify": "^6.0.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.0",
     "karma-firefox-launcher": "^1.0.0",
