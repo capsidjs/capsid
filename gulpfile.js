@@ -1,19 +1,21 @@
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
+const rename = require('gulp-rename')
+const terser = require('gulp-terser')
 const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
-const rename = require('gulp-rename')
-const rollup = require('rollup-stream')
-const terser = require('gulp-terser')
-const babel = require('rollup-plugin-babel')
-const replace = require('rollup-plugin-replace')
 const merge = require('merge-stream')
+
+const rollup = require('rollup-stream')
+// const babel = require('rollup-plugin-babel')
+const replace = require('rollup-plugin-replace')
+const typescript = require('rollup-plugin-typescript')
 
 const paths = {
   src: {
-    index: 'src/index.js',
-    outsideEventsPlugin: 'src/plugins/outside-events-plugin.js',
-    debugPlugin: 'src/plugins/debug-plugin.js'
+    index: 'src/index.ts',
+    outsideEventsPlugin: 'src/plugins/outside-events-plugin.ts',
+    debugPlugin: 'src/plugins/debug-plugin.ts'
   },
   dist: 'dist'
 }
@@ -25,7 +27,7 @@ const rollupStream = ({ input, format, name, output, mode }) =>
     input,
     format,
     name,
-    plugins: [babel(), replaceVars(mode === 'production')]
+    plugins: [typescript(), replaceVars(mode === 'production')]
   })
     .pipe(source(output))
     .pipe(gulpif(mode !== 'production', rename({ suffix: `.${mode}` })))
