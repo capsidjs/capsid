@@ -6,61 +6,41 @@
 
 var COMPONENT_NAME_KEY = 'N$';
 
-var install = function install() {
-  global.capsidDebugMessage = function (message) {
-    switch (message.type) {
-      case 'event':
-        onEventMessage(message);
-        break;
-
-      default:
-        console.log("Unknown message: ".concat(JSON.stringify(message)));
+var install = function () {
+    
+    global.capsidDebugMessage = function (message) {
+        switch (message.type) {
+            case 'event':
+                onEventMessage(message);
+                break;
+            default:
+                console.log("Unknown message: " + JSON.stringify(message));
+        }
+    };
+};
+var boldColor = function (color) {
+    return "color: " + color + "; font-weight: bold;";
+};
+var getComponentName = function (coelem) {
+    var constructor = coelem.constructor;
+    return "" + (constructor[COMPONENT_NAME_KEY] || constructor.name);
+};
+var defaultEventColor = '#f012be';
+var onEventMessage = function (_a) {
+    var coelem = _a.coelem, e = _a.e, module = _a.module, color = _a.color;
+    var event = e.type;
+    var component = getComponentName(coelem);
+    console.groupCollapsed(module + "> %c" + event + "%c on %c" + component, boldColor(color || defaultEventColor), '', boldColor('#1a80cc'));
+    console.log(e);
+    if (e.target) {
+        console.log(e.target);
     }
-  };
+    if (coelem.el) {
+        console.log(coelem.el);
+    }
+    console.groupEnd();
 };
-/**
- * Gets the bold colored style.
- */
-
-
-var boldColor = function boldColor(color) {
-  return "color: ".concat(color, "; font-weight: bold;");
-};
-/**
- * Gets the displayable component name.
- */
-
-
-var getComponentName = function getComponentName(coelem) {
-  var constructor = coelem.constructor;
-  return "".concat(constructor[COMPONENT_NAME_KEY] || constructor.name);
-};
-
-var onEventMessage = function onEventMessage(_ref) {
-  var coelem = _ref.coelem,
-      e = _ref.e,
-      module = _ref.module,
-      color = _ref.color;
-  var event = e.type;
-  var component = getComponentName(coelem);
-  color = color || '#f012be';
-  console.groupCollapsed("".concat(module, "> %c").concat(event, "%c on %c").concat(component), boldColor(color), '', boldColor('#1a80cc'));
-  console.log(e);
-
-  if (e.target) {
-    console.log(e.target);
-  }
-
-  if (coelem.el) {
-    console.log(coelem.el);
-  }
-
-  console.groupEnd();
-};
-
-var debugPlugin = {
-  install: install
-};
+var debugPlugin = { install: install };
 
 return debugPlugin;
 
