@@ -1,6 +1,6 @@
 declare var capsidDebugMessage: any
 
-export default (message: Object) => {
+export default (message: object) => {
   if (typeof capsidDebugMessage === 'function') {
     capsidDebugMessage(message)
   }

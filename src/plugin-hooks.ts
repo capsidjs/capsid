@@ -1,3 +1,5 @@
-type PluginHook = { (el: HTMLElement, coel: any): void }
+interface PluginHook {
+  (el: HTMLElement, coel: any): void
+}
 const pluginHooks: PluginHook[] = []
 export default pluginHooks

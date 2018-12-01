@@ -27,7 +27,7 @@ describe('make', () => {
       class Component {
         el: HTMLElement
 
-        __mount__ () {
+        __mount__() {
           assert.strictEqual(get('bar', this.el), this)
 
           done()

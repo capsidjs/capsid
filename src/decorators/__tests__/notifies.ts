@@ -10,7 +10,9 @@ describe('@notifies(event, selector)', () => {
     assert.throws(() => {
       class Component {
         @notifies(undefined, '.elm')
-        method () {}
+        method() {
+          console.log()
+        }
       }
 
       def('component', Component)
@@ -22,7 +24,9 @@ describe('@notifies(event, selector)', () => {
 
     class Component {
       @notifies(CUSTOM_EVENT, '.elm')
-      publish () {}
+      publish() {
+        console.log()
+      }
     }
 
     def('component', Component)
@@ -71,7 +75,7 @@ describe('@notifies(event, selector)', () => {
 
       class Component {
         @notifies(CUSTOM_EVENT, '.elm')
-        publish () {
+        publish() {
           return { foo: 123, bar: 'baz' }
         }
       }
@@ -99,7 +103,7 @@ describe('@notifies(event, selector)', () => {
 
       class Component {
         @notifies(CUSTOM_EVENT, '.elm')
-        publish () {
+        publish() {
           return Promise.resolve({ foo: 123, bar: 'baz' })
         }
       }

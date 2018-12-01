@@ -10,7 +10,7 @@ describe('outside-events-plugin', () => {
     it('add outside event handler', done => {
       class Component {
         @on.outside('click')
-        handleOutsideClick () {
+        handleOutsideClick() {
           done()
         }
       }
@@ -19,7 +19,9 @@ describe('outside-events-plugin', () => {
 
       mount(Component, div)
 
-      if (document.body) document.body.click()
+      if (document.body) {
+        document.body.click()
+      }
     })
   })
 })

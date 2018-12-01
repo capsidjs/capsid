@@ -12,7 +12,7 @@ describe('unmount', () => {
     class Foo {
       @on.click
       @on('foo')
-      method () {
+      method() {
         done(new Error('event handler called!'))
       }
     }
@@ -41,7 +41,7 @@ describe('unmount', () => {
     class Foo {
       @on.click
       @on('foo')
-      method () {
+      method() {
         done(new Error('event handler called!'))
       }
     }
@@ -63,7 +63,7 @@ describe('unmount', () => {
 
   it('calls __unmount__ if exists', done => {
     class Foo {
-      __unmount__ () {
+      __unmount__() {
         done()
       }
     }
@@ -81,7 +81,7 @@ describe('unmount', () => {
     class Foo {}
     class Bar {
       @on.click
-      method () {
+      method() {
         done()
       }
     }

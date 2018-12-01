@@ -10,7 +10,9 @@ describe('@on(event)', () => {
     assert.throws(() => {
       class Component {
         @on(undefined)
-        handler () {}
+        handler() {
+          console.log()
+        }
       }
 
       def('component', Component)
@@ -20,7 +22,7 @@ describe('@on(event)', () => {
   it('registers the method as the event listener of the given event name', done => {
     class Component {
       @on('click')
-      handler () {
+      handler() {
         done()
       }
     }
@@ -37,7 +39,7 @@ describe('@on(event)', () => {
   it('registers the method as the event listener for children classes', done => {
     class Foo {
       @on('click')
-      handler () {
+      handler() {
         done()
       }
     }
@@ -58,11 +60,11 @@ describe('@on(event, {at: selector})', () => {
   it('registers the method as the event listener of the given event name and selector', done => {
     class Foo {
       @on('foo-event', { at: '.inner' })
-      foo () {
+      foo() {
         done()
       }
       @on('bar-event', { at: '.inner' })
-      bar () {
+      bar() {
         done(new Error('bar should not be called'))
       }
     }
@@ -74,14 +76,18 @@ describe('@on(event, {at: selector})', () => {
 
     make('foo', el)
 
-    if (document.body) document.body.appendChild(el)
+    if (document.body) {
+      document.body.appendChild(el)
+    }
 
     el.dispatchEvent(new CustomEvent('bar-event', { bubbles: true }))
     el
       .querySelector('.inner')
       .dispatchEvent(new CustomEvent('foo-event', { bubbles: true }))
 
-    if (document.body) document.body.removeChild(el)
+    if (document.body) {
+      document.body.removeChild(el)
+    }
   })
 })
 
@@ -91,7 +97,7 @@ describe('@on.click', () => {
   it('binds method to click event', done => {
     class Component {
       @on.click
-      handler () {
+      handler() {
         done()
       }
     }
@@ -112,25 +118,28 @@ describe('@on.click.at', () => {
 
     class Component {
       @on.click.at('.foo')
-      foo () {
+      foo() {
         res += 1
       }
       @on.click.at('.bar')
-      bar () {
+      bar() {
         res += 2
       }
     }
 
-    def('foo', Component)
+    def('component', Component)
 
     const el = genel.div`
       <p class="foo"></p>
       <p class="bar"></p>
     `
 
-    make('foo', el)
+    make('component', el)
+    const foo = el.querySelector('.foo')
 
-    ;(el.querySelector('.foo') as HTMLElement).click()
+    if (foo instanceof HTMLElement) {
+      foo.click()
+    }
 
     assert(res === 1)
   })

@@ -6,13 +6,14 @@
   "unpkg": "dist/capsid.min.js",
   "files": [
     "dist",
+    "index.js",
     "outside-events.js",
     "debug.js"
   ],
   "scripts": {
     "clean": "rimraf coverage dist/*.js",
-    "lint": "standard",
-    "fix": "prettier --write --no-semi --single-quote *.js 'src/**/*.js' && standard --fix",
+    "lint": "lynt --typescript",
+    "fix": "prettier --write --no-semi --single-quote *.js 'src/**/*.ts'",
     "type": "tsc --noEmit -p .",
     "karma": "karma start",
     "test": "run-s lint type karma",
@@ -32,10 +33,8 @@
     "element",
     "coelement",
     "capsid",
-    "class-component",
     "MVC",
     "MVP",
-    "PAC",
     "frontend",
     "UI",
     "framework"
@@ -47,7 +46,6 @@
   },
   "homepage": "https://github.com/capsidjs/capsid",
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.6",
@@ -55,8 +53,6 @@
     "@babel/preset-env": "^7.0.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.10",
-    "babel-eslint": "^10.0.1",
-    "babel-plugin-espower": "^3.0.0",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-power-assert": "^3.0.0-beta.1",
     "babelify": "^10.0.0",
@@ -75,19 +71,17 @@
     "karma-coverage": "^1.1.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.0.1",
-    "karma-rollup-preprocessor": "^6.1.1",
     "lint-staged": "^8.0.5",
+    "lynt": "^0.5.4",
     "merge-stream": "^1.0.1",
     "mocha": "^5.0.0",
     "npm-run-all": "^4.1.2",
     "power-assert": "^1.4.1",
     "prettier": "^1.9.2",
     "rimraf": "^2.5.2",
-    "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-typescript": "^1.0.0",
     "rollup-stream": "^1.18.0",
-    "standard": "^12.0.0",
     "testdouble": "^3.9.1",
     "typescript": "^3.2.1",
     "vinyl-buffer": "^1.0.1",
@@ -104,21 +98,10 @@
       "@babel/plugin-transform-typescript"
     ]
   },
-  "standard": {
-    "parser": "babel-eslint",
-    "env": [
-      "browser",
-      "mocha"
-    ],
-    "ignore": [
-      "/dist",
-      "/website"
-    ]
-  },
   "lint-staged": {
     "*.{js,ts}": [
       "prettier --write --no-semi --single-quote",
-      "standard --fix",
+      "lynt --typescript",
       "git add"
     ]
   }

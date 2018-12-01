@@ -6,7 +6,7 @@ describe('mount', () => {
     class Component {
       el: HTMLElement
 
-      __mount__ () {
+      __mount__() {
         assert.strictEqual(this.el, div)
 
         done()

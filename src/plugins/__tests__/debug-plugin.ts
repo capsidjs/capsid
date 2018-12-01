@@ -20,8 +20,12 @@ describe('debug-plugin', () => {
       td.replace(console, 'groupCollapsed')
       td.replace(console, 'log')
       td.replace(console, 'groupEnd')
-
-      ;(global as any).capsidDebugMessage({ type: 'event', e, coelem, module: 'module' })
+      ;(global as any).capsidDebugMessage({
+        type: 'event',
+        e,
+        coelem,
+        module: 'module'
+      })
 
       td.verify(
         console.groupCollapsed(
@@ -39,7 +43,6 @@ describe('debug-plugin', () => {
   describe('with unknown typee message', () => {
     it('logs error message', () => {
       td.replace(console, 'log')
-
       ;(global as any).capsidDebugMessage({ type: 'unknown' })
 
       td.verify(

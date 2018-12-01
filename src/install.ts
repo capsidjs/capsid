@@ -1,7 +1,7 @@
 import * as capsid from './index'
 import check from './util/check'
 
-type CapsidModule = {
+interface CapsidModule {
   install: Function
 }
 
@@ -11,7 +11,7 @@ type CapsidModule = {
  * @param {CapsidModule} capsidModule
  * @param {object} options
  */
-export default (capsidModule: CapsidModule, options?: Object) => {
+export default (capsidModule: CapsidModule, options?: object) => {
   check(
     typeof capsidModule.install === 'function',
     'The given capsid module does not have `install` method. Please check the install call.'
