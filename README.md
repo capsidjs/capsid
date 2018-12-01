@@ -633,7 +633,7 @@ This wires the all elements selected by the given selector to the decorated gett
 
 `@notifies` is a method decorator. It adds the function to publishes the event to its descendant elements at the end of the decorated method.
 
-```
+```js
 @component
 class Component {
   @notifies('user-saved', '.is-user-observer')
@@ -647,7 +647,7 @@ In the above, when you call `saveUser` method, it publishes `user-saved` event t
 
 For example, if the dom tree is like the below:
 
-```
+```html
 <div class="component">
   <input class="is-user-observer">
   <label class="is-user-observer"></label>
