@@ -24,7 +24,7 @@ describe('initComponent', () => {
     class A {
       el: HTMLElement
 
-      __mount__ () {
+      __mount__() {
         assert.strictEqual(this.el, el)
 
         done()
@@ -38,9 +38,9 @@ describe('initComponent', () => {
 
   it('calls static __init__', done => {
     class A {
-      static capsid: Object
+      static capsid: object
 
-      static __init__ () {
+      static __init__() {
         assert.strictEqual(this.capsid, capsid)
 
         done()
@@ -55,12 +55,12 @@ describe('initComponent', () => {
       class A {
         el: HTMLElement
 
-        __mount__ () {
+        __mount__() {
           this.el.click()
         }
 
         @on.click
-        onClick () {
+        onClick() {
           done()
         }
       }

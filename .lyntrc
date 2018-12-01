@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "triple-equals": [true, "allow-null-check"],
+    "no-use-before-declare": false,
+    "no-dynamic-delete": false
+  }
+}

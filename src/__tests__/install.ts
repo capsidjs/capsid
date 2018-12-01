@@ -7,7 +7,7 @@ describe('install', () => {
 
     capsid.install(
       {
-        install (capsidObj: unknown, options0: unknown) {
+        install(capsidObj: unknown, options0: unknown) {
           assert.deepStrictEqual(capsidObj, capsid)
           assert.strictEqual(options0, options)
 
@@ -20,7 +20,7 @@ describe('install', () => {
 
   it('throws when the given module does not have the install method', () => {
     assert.throws(() => {
-      capsid.install(({} as any))
+      capsid.install({} as any)
     }, /The given capsid module does not have `install` method. Please check the install call./)
   })
 })

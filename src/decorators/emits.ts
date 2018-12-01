@@ -1,3 +1,4 @@
+/* tslint:disable:no-invalid-this */
 import trigger from '../util/event-trigger'
 import check from '../util/check'
 
@@ -21,7 +22,7 @@ const emits = (event: string) => (descriptor: any, _: string) => {
     )
   }
 
-  descriptor.descriptor.value = function () {
+  descriptor.descriptor.value = function() {
     const result = method.apply(this, arguments)
 
     const emit = (x: unknown) => trigger(this.el, event, true, x)

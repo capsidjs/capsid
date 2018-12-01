@@ -11,7 +11,7 @@ describe('@component(name)', () => {
     class Foo {
       el: HTMLElement
 
-      __mount__ () {
+      __mount__() {
         this.el.setAttribute('this-is', 'decorated-component')
       }
     }

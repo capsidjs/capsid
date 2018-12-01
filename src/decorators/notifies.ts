@@ -1,10 +1,14 @@
+/* tslint:disable:no-invalid-this */
 import trigger from '../util/event-trigger'
 import check from '../util/check'
 
 /**
  * Adds the function to publish the given event to the descendent elements of the given selector to the decorated method.
  */
-export default (event: string, selector: string) => (descriptor: any, _: string) => {
+export default (event: string, selector: string) => (
+  descriptor: any,
+  _: string
+) => {
   const key = descriptor.key
   const d = descriptor.descriptor
   const method = d.value
@@ -16,7 +20,7 @@ export default (event: string, selector: string) => (descriptor: any, _: string)
     )
   }
 
-  d.value = function () {
+  d.value = function() {
     const result = method.apply(this, arguments)
     const forEach = [].forEach
 

@@ -1,3 +1,4 @@
+/* tslint:disable:no-invalid-this */
 import get from '../get'
 import matches from '../util/matches'
 import check from '../util/check'
@@ -11,14 +12,15 @@ import check from '../util/check'
  * @param descriptor The method element descriptor
  */
 const wiredComponent = (name: string, selector?: string) => (
-  descriptor: any, _: string,
+  descriptor: any,
+  _: string
 ) => {
   const sel: string = selector || `.${name}`
   const key = descriptor.key
   descriptor.placement = 'prototype'
   descriptor.finisher = (constructor: Function) => {
     Object.defineProperty(constructor.prototype, key, {
-      get () {
+      get() {
         check(
           !!this.el,
           `Component's element is not ready. Probably wired getter called at constructor.(class=[${
@@ -50,7 +52,7 @@ const wired = (sel: string) => (descriptor: any, _: string) => {
   descriptor.placement = 'prototype'
   descriptor.finisher = (constructor: Function) => {
     Object.defineProperty(constructor.prototype, key, {
-      get () {
+      get() {
         return this.el.querySelector(sel)
       }
     })
@@ -62,7 +64,7 @@ const wiredAll = (sel: string) => (descriptor: any, _: string) => {
   descriptor.placement = 'prototype'
   descriptor.finisher = (constructor: Function) => {
     Object.defineProperty(constructor.prototype, key, {
-      get () {
+      get() {
         return this.el.querySelectorAll(sel)
       }
     })

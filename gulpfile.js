@@ -7,7 +7,6 @@ const buffer = require('vinyl-buffer')
 const merge = require('merge-stream')
 
 const rollup = require('rollup-stream')
-// const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
 const typescript = require('rollup-plugin-typescript')
 

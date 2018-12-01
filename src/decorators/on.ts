@@ -34,7 +34,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
         if (
           !at ||
           [].some.call(el.querySelectorAll(at), (node: Node) => {
-            return node === e.target || node.contains((e.target as Node))
+            return node === e.target || node.contains(e.target as Node)
           })
         ) {
           if (__DEV__) {

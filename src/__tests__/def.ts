@@ -7,13 +7,13 @@ describe('def', () => {
 
   it('throws an error when the first param is not a string', () => {
     assert.throws(() => {
-      def((null as any), class A {})
+      def(null as any, class A {})
     }, Error)
   })
 
   it('throws an error when the second param is not a function', () => {
     assert.throws(() => {
-      def('register-test2', (null as any))
+      def('register-test2', null as any)
     }, Error)
   })
 

@@ -10,7 +10,9 @@ describe('@emits(event)', () => {
     assert.throws(() => {
       class Component {
         @emits(undefined)
-        emitter () {}
+        emitter() {
+          console.log()
+        }
       }
       console.log(Component)
     }, /Unable to emits an empty event: constructor=Component key=emitter/)
@@ -19,7 +21,7 @@ describe('@emits(event)', () => {
   it('makes the method emit the event with the returned value', done => {
     class Component {
       @emits('event-foo')
-      foo () {
+      foo() {
         return 321
       }
     }
@@ -42,7 +44,7 @@ describe('@emits(event)', () => {
 
     class Component {
       @emits('event-foo')
-      foo () {
+      foo() {
         return new Promise(resolve => {
           setTimeout(() => {
             promiseResolved = true

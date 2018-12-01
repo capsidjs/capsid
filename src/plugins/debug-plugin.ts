@@ -1,7 +1,7 @@
 import { COMPONENT_NAME_KEY } from '../util/const'
 
 const install = () => {
-  (global as any).capsidDebugMessage = (message: any) => {
+  ;(global as any).capsidDebugMessage = (message: any) => {
     switch (message.type) {
       case 'event':
         onEventMessage(message)
@@ -26,24 +26,25 @@ const getComponentName = (coelem: any): string => {
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
 }
 
+const defaultEventColor = '#f012be'
+
 const onEventMessage = ({
   coelem,
   e,
   module,
   color
 }: {
-  coelem: any,
-  e: Event,
-  module: string,
-  color: string
+  coelem: any
+  e: Event
+  module: string
+  color?: string
 }) => {
   const event = e.type
   const component = getComponentName(coelem)
-  color = color || '#f012be'
 
   console.groupCollapsed(
     `${module}> %c${event}%c on %c${component}`,
-    boldColor(color),
+    boldColor(color || defaultEventColor),
     '',
     boldColor('#1a80cc')
   )

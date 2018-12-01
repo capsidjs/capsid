@@ -14,7 +14,7 @@ const install = (capsid: any) => {
         constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []
       ).concat((el: HTMLElement, coelem: any) => {
         const listener = (e: Event): void => {
-          if (el !== e.target && !el.contains((e.target as any))) {
+          if (el !== e.target && !el.contains(e.target as any)) {
             if (__DEV__) {
               debugMessage({
                 type: 'event',
