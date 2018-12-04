@@ -56,8 +56,10 @@ The mirroring example shows how you can mirror the input to a different dom in c
 const { def, on, wired } = require('capsid')
 
 class Mirroring {
-  @wired('.dest') get dest () {}
-  @wired('.src') get src () {}
+  @wired('.dest')
+  dest;
+  @wired('.src')
+  src;
 
   @on('input') onReceiveData (e) {
     this.dest.textContent = this.src.value
@@ -838,6 +840,6 @@ MIT
 [Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
 [Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
 [Counter Example]: https://codesandbox.io/s/7m7r3qoojx
-[Mirroring Example]: https://codesandbox.io/s/yky5y55j9v
+[Mirroring Example]: https://codesandbox.io/s/p7m3xv3mvq
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 [capsid-module]: https://github.com/capsidjs/capsid-module
