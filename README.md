@@ -839,7 +839,7 @@ MIT
 [evex]: http://github.com/capsidjs/evex
 [Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
 [Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
-[Counter Example]: https://codesandbox.io/s/7m7r3qoojx
+[Counter Example]: https://codesandbox.io/s/km023p21nv
 [Mirroring Example]: https://codesandbox.io/s/p7m3xv3mvq
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 [capsid-module]: https://github.com/capsidjs/capsid-module
