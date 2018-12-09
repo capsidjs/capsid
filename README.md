@@ -57,11 +57,12 @@ const { def, on, wired } = require('capsid')
 
 class Mirroring {
   @wired('.dest')
-  dest;
+  dest
   @wired('.src')
-  src;
+  src
 
-  @on('input') onReceiveData (e) {
+  @on('input')
+  onReceiveData (e) {
     this.dest.textContent = this.src.value
   }
 }
@@ -203,7 +204,7 @@ const {
 - `get(name, element)`
   - Gets the coelement instance from the given element.
 - `install(capsidModule, options)`
-  - installs the capsid module with the options.
+  - installs the capsid module with the given options.
 
 ## `def(name, constructor)`
 
@@ -259,6 +260,8 @@ class Component {
     this.el.foo = 1
   }
 }
+
+const div = document.createElement('div')
 
 capsid.mount(Component, div)
 
@@ -341,8 +344,8 @@ There are 5 types of decorators.
   - *method decorator*
   - makes the decorated method an event emitter.
 - `@wired(selector)`
-  - *getter decorator*
-  - wires the elements to the decorated getter by the given selector.
+  - *field decorator*
+  - wires the elements to the decorated field by the given selector.
   - optionally `@wired.component(name, [selector])` `@wired.all(selector)`
 - `@notifies`
   - *method decorator*
@@ -364,20 +367,6 @@ class Timer {
 ```
 
 The above registers `Timer` class as `timer` component.
-
-## `@component`
-
-`@component` is similar to the above. This decorator registers the js class as the class component of the same name. If the js class is in `CamelCase`, then the component name is made `kebab-cased`.
-
-```js
-const { component } = require('capsid')
-
-@component
-class Timer {} // This registers Timer class as `timer` component
-
-@component
-class FooBar {} // This registers FooBar class as `foo-bar` component
-```
 
 ## `@on(eventName)`
 
@@ -475,44 +464,9 @@ class Foo {
 }
 ```
 
-## `@emits.first(startEvent)`
-
-`@emits.first()` is a method decorator. This decorator makes the method trigger the given event at the start of the method. The first parameter of the method is passed as event.detail object.
-
-```js
-const { emits, def } = require('capsid')
-
-class Manager {
-  @emits.first('manager.started')
-  start () {
-    ...definitions...
-  }
-}
-
-def('manager', Manager)
-```
-
-The above `start` method automatically triggers `manager.started` event at the begining of the method process.
-
-The above is equivalent of:
-
-```js
-class Manager {
-  start () {
-    this.el.dispatchEvent(new CustomEvent('manager.started', {
-      bubbles: true,
-      detail: arguments[0]
-    }))
-    ...definitions...
-  }
-}
-
-capsid.def('manager', Manager)
-```
-
 ## `@emits(eventName)`
 
-`@emits(eventName)` is similar to `@emits.first()`, but it triggers the event at the end of the method.
+`@emits(eventName)` triggers the event at the end of the method.
 
 ```js
 const { emits, def } = require('capsid')
@@ -529,7 +483,7 @@ def('manager', Manager)
 
 In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as `detail` of the event object. So you can pass the data from children to parents.
 
-If the method returns a promise, then the event is triggered after the promise is resolved.
+If the method returns a promise, then the event is triggered _after_ the promise is resolved.
 
 ```js
 const { emits, def } = require('capsid')
@@ -548,85 +502,68 @@ def('manager', Manager)
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as `detail` of the event object.
 
-## `@wired.component`
+## `@wired.component(name[, selector])`
 
-`@wired.component` is a getter decorator. If a getter is decorated by this, it returns the class component of the name of the decorated method.
+`@wired.component` is a field decorator. If a field is decorated, it points to the component instance of the given name at the element which is found by the given selector.
 
 ```js
 const { wired, component } = require('capsid')
 
-@component
+@component('foo')
 class Foo {
-  @wired.component get bar () {}
+  @wired.component('bar', '.bar')
+  bar
 
   processBar () {
     this.bar.process()
   }
 }
 
-@component
+@component('bar')
 class Bar {
   process () {
     console.log('processing bar!')
   }
 }
-
-$('body').append('<div class="foo"><div class="bar"></div></div>')
 ```
 
-In the above situation, the getter `bar` of Foo class is wired to `bar` component inside the foo component. Technically accessing `bar` property almost equals to the call of `this.$el.find('.bar').cc.get('bar')`. With the above settings you can call the following:
+In the above situation, the field `bar` of Foo class is wired to `bar` component inside the foo component. With the above settings you can call the following:
 
 ```js
-$('.foo').cc.get('foo').processBar()
+const div = document.createElement('div')
+const foo = make('foo', div)
+foo.processBar()
 ```
 
-And the above prints `processing bar!`.
+And this prints `processing bar!`.
 
-When the decorated getter name is in `CamelCase`, then it's replaced by the `kebab-cased` version. For example, the expression `@wired.component get primaryButton` wires to `primary-button` component, not to `primaryButton` component. If you need to wire it to `primaryButton` component, then use the one below.
+If `selector` is omitted, then `.` + `name` is used for the selector. The above `foo` component can be written like the below:
 
-## `@wired.component(className)`
-
-This is also a getter decorator. The difference is that `@wire(className)` specify the wired class component name explicitly (`className`).
-
-```js
-const { wired, component } = require('capsid')
-
-@component
+```
+@component('foo')
 class Foo {
-  @wire('long-name-component') get it () {}
-}
+  @wired.component('bar')
+  bar
 
-@component
-class LongNameComponent {
-  process () {
-    console.log('processing long name component!')
+  processBar () {
+    this.bar.process()
   }
 }
-
-$('body').append('<div class="foo"><div class="long-name-component"></div></div>')
 ```
 
-With the above settings, you can call the following:
-
-```js
-$('.foo').cc.get('foo').it.process()
-```
-
-And this prints `processing long name component`.
-
-`@wired.component` and `@wired.component(name)` decorators are convenient when you nest the components.
-
-## @wired(selector) get element () {}
+## @wired(selector) field
 
 - @param {string} selector The selector to look up the element in the component
 
-This wires the element selected by the given selector to the decorated getter. This is similar to `@wire` decorator, but it wires HTMLElmenent, not capsid component.
+This wires the decorated field to the element selected by the given selector. The wired element is a unusal dom element (HTMLElement), not a capsid component instance.
 
-## @wired.all(selector) get elements () {}
+If the selector matches to the multiple elements, then the first one is used.
+
+## @wired.all(selector) field
 
 - @param {string} selector The selector to look up the elements in the component
 
-This wires the all elements selected by the given selector to the decorated getter. This is similar to `@wire.elAll` decorator, but it wires all the elements, not the first one.
+This wires the decorated field to the all elements selected by the given selector. This is similar to `@wired` decorator, but it wires all the elements, not the first one.
 
 ## @notifies(event, selector)
 
@@ -636,7 +573,7 @@ This wires the all elements selected by the given selector to the decorated gett
 `@notifies` is a method decorator. It adds the function to publishes the event to its descendant elements at the end of the decorated method.
 
 ```js
-@component
+@component('foo')
 class Component {
   @notifies('user-saved', '.is-user-observer')
   saveUser () {
