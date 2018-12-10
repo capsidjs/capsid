@@ -1,3 +1,3 @@
 // debug plugin cjs entrypoint
 
-global.capsidDebugMessage = require('./dist/capsid-debug')
+module.exports = require('./dist/capsid-debug')
