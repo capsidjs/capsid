@@ -101,4 +101,7 @@ gulp.task('outside-events-plugin', () =>
   })
 )
 
-gulp.task('dist', ['browser', 'cjs', 'debug-plugin', 'outside-events-plugin'])
+gulp.task(
+  'dist',
+  gulp.series(['browser', 'cjs', 'debug-plugin', 'outside-events-plugin'])
+)
