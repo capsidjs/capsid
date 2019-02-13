@@ -7,6 +7,10 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "lib": ["es2015", "dom"],
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "types": [
+          "mocha",
+          "node"
+        ]
     }
 }
