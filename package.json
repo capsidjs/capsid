@@ -64,7 +64,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-terser": "^1.1.5",
     "gzip-size-cli": "^3.0.0",
-    "husky": "^1.1.4",
+    "husky": "^2.0.0",
     "karma": "^4.0.1",
     "karma-browserify": "^6.0.0",
     "karma-chrome-launcher": "^2.0.0",
