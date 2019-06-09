@@ -18,6 +18,12 @@ export default (event: string, selector: string) => (
       !!event,
       `Unable to notify empty event: constructor=${constructor.name} key=${key}`
     )
+    check(
+      !!selector,
+      `Error: Empty selector for @notifies: constructor=${
+        constructor.name
+      } key=${key} event=${event}`
+    )
   }
 
   d.value = function() {

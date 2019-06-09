@@ -19,6 +19,19 @@ describe('@notifies(event, selector)', () => {
     }, /Unable to notify empty event: constructor=Component key=method/)
   })
 
+  it('throws error when empty selector is given', () => {
+    assert.throws(() => {
+      class Component {
+        @notifies('foo', undefined)
+        method() {
+          console.log()
+        }
+      }
+
+      def('component', Component)
+    }, /Error: Empty selector for @notifies: constructor=Component key=method event=foo/)
+  })
+
   it('adds function to publish the event to the element of the given selector', () => {
     const CUSTOM_EVENT = 'foo-bar-baz-quz'
 
