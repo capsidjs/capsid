@@ -253,6 +253,7 @@ var notifies = (function (event, selector) { return function (descriptor, _) {
     var method = d.value;
     descriptor.finisher = function (constructor) {
         check(!!event, "Unable to notify empty event: constructor=" + constructor.name + " key=" + key);
+        check(!!selector, "Error: Empty selector for @notifies: constructor=" + constructor.name + " key=" + key + " event=" + event);
     };
     d.value = function () {
         var _this = this;

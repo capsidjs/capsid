@@ -96,7 +96,7 @@ const capsid = require('capsid')
 
 ## Via file
 
-Download [capsid.min.js](https://unpkg.com/capsid@0.29.1/dist/capsid.min.js) Then:
+Download [capsid.min.js](https://unpkg.com/capsid@0.29.2/dist/capsid.min.js) Then:
 
 ```html
 <script src="path/to/capsid.js"></script>
@@ -669,6 +669,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2019-06-09   v0.29.2  Throw error when empty selector is given (`@notifies`)
 - 2018-12-01   v0.29.0  Switch to TypeScript.
 - 2018-11-22   v0.28.0  Switch to new decorator. Remove jquery-plugin.
 - 2018-08-07   v0.26.1  Fix bug of unmount and on handler.
