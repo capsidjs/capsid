@@ -78,7 +78,7 @@
     "npm-run-all": "^4.1.2",
     "power-assert": "^1.4.1",
     "prettier": "^1.9.2",
-    "rimraf": "^2.5.2",
+    "rimraf": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-typescript": "^1.0.0",
     "rollup-stream": "^1.18.0",
