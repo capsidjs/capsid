@@ -21,7 +21,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 - **Component-based DOM programming library**
 - :leaves: **Small.** ![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip), No dependencies.
 - :sunny: **Easy.** It uses plain JavaScript (+ ESNext decorators)
-- :bento: **Modular.** It adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on **component** definition.
+- :dragon: **Force.** It adds **behaviors** (event handlers and lifecycles) to **classes** of elements based on **component** definition.
 - :lollipop: **Simple.** 7 APIs & 5 decorators
 
 # :wave: [Hello Example][]
