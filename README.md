@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/capsidjs/capsid)
 [![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/capsidjs/capsid.svg)](https://greenkeeper.io/)
+
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 ![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip)
 
