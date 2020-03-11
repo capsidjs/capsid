@@ -171,7 +171,7 @@ The constructor is called at the start of `mount`ing. You cannot access `this.el
 
 # Coelement
 
-The concept of 'coelement' is explained at [Component and Coelement](http://capsidjs.github.io/capsid/basics/component.html) section of the document site.
+Coelement is the instance of Component class, which is attached to html element. You can get coelement from the element using `get` API.
 
 # APIs
 
@@ -610,7 +610,7 @@ class Modal {
 
 The above `modal` component gets `is-shown` class removed from the element when the outside of modal is clicked.
 
-#### prior art
+#### prior art of capsid outside plugin
 
 - [jQuery outside events](https://github.com/cowboy/jquery-outside-events)
 - [react-onclickoutside](https://github.com/Pomax/react-onclickoutside)
@@ -697,17 +697,6 @@ The projects which uses capsid.
 > the protein coat or shell of a virus particle, surrounding the nucleic acid or nucleoprotein core.
 
 The purpose of capsid is to encapsulate the details of its contents just like capsid for virus cells. Its has the same origin *capsa* ("box" in Latin) as the word *capsule*.
-
-## The name 'coelement'
-
-`co-` means the dual or the other aspect of something like `cosine` to `sine` `cotangent` to `tangent` etc. Coelement is the other aspect of `element` and it works together in the 1-to-1 relationship and in the same lifecycle with the element.
-
-# (possibly) similar projects
-
-- [DOM99](https://github.com/GrosSacASac/DOM99)
-- [RE:DOM](https://redom.js.org/)
-- [butterknife](https://github.com/JakeWharton/butterknife)
-  - `butterknife` is a library for Android development. The syntax and some ideas are similar to capsid.
 
 # Examples
 
