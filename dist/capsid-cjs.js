@@ -27,7 +27,6 @@ var ready = new Promise(function (resolve) {
     doc.addEventListener(READY_STATE_CHANGE, checkReady);
     checkReady();
 });
-var documentElement = doc.documentElement;
 
 var prep = (function (name, el) {
     var classNames;
@@ -138,27 +137,25 @@ var install$$1 = (function (capsidModule, options) {
 
 var on = function (event, _a) {
     var at = (_a === void 0 ? {} : _a).at;
-    return function (descriptor) {
-        var key = descriptor.key;
-        descriptor.finisher = function (constructor) {
-            check(!!event, "Empty event handler is given: constructor=" + constructor.name + " key=" + key);
-            constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem, name) {
-                var keyEventListeners = KEY_EVENT_LISTENERS + name;
-                var listener = function (e) {
-                    if (!at ||
-                        [].some.call(el.querySelectorAll(at), function (node) {
-                            return node === e.target || node.contains(e.target);
-                        })) {
-                        coelem[key](e);
-                    }
-                };
-                listener.remove = function () {
-                    el.removeEventListener(event, listener);
-                };
-                el[keyEventListeners] = (el[keyEventListeners] || []).concat(listener);
-                el.addEventListener(event, listener);
-            });
-        };
+    return function (target, key, descriptor) {
+        var constructor = target.constructor;
+        check(!!event, "Empty event handler is given: constructor=" + constructor.name + " key=" + key);
+        constructor[KEY_EVENT_LISTENERS] = (constructor[KEY_EVENT_LISTENERS] || []).concat(function (el, coelem, name) {
+            var keyEventListeners = KEY_EVENT_LISTENERS + name;
+            var listener = function (e) {
+                if (!at ||
+                    [].some.call(el.querySelectorAll(at), function (node) {
+                        return node === e.target || node.contains(e.target);
+                    })) {
+                    coelem[key](e);
+                }
+            };
+            listener.remove = function () {
+                el.removeEventListener(event, listener);
+            };
+            el[keyEventListeners] = (el[keyEventListeners] || []).concat(listener);
+            el.addEventListener(event, listener);
+        });
     };
 };
 
@@ -171,13 +168,11 @@ var trigger = (function (el, type, bubbles, detail) {
     el.dispatchEvent(new CustomEvent(type, { detail: detail, bubbles: bubbles }));
 });
 
-var emits = function (event) { return function (descriptor, _) {
-    var method = descriptor.descriptor.value;
-    var key = descriptor.key;
-    descriptor.finisher = function (constructor) {
-        check(!!event, "Unable to emits an empty event: constructor=" + constructor.name + " key=" + key);
-    };
-    descriptor.descriptor.value = function () {
+var emits = function (event) { return function (target, key, descriptor) {
+    var method = descriptor.value;
+    var constructor = target.constructor;
+    check(!!event, "Unable to emits an empty event: constructor=" + constructor.name + " key=" + key);
+    descriptor.value = function () {
         var _this = this;
         var result = method.apply(this, arguments);
         var emit = function (x) { return trigger(_this.el, event, true, x); };
@@ -191,74 +186,40 @@ var emits = function (event) { return function (descriptor, _) {
     };
 }; };
 
-var matches = documentElement.matches ||
-    documentElement.webkitMatchesSelector ||
-    documentElement.msMatchesSelector;
-
-var wiredComponent = function (name, selector) { return function (descriptor, _) {
-    var sel = selector || "." + name;
-    var key = descriptor.key;
-    descriptor.placement = 'prototype';
-    descriptor.finisher = function (constructor) {
-        Object.defineProperty(constructor.prototype, key, {
-            get: function () {
-                check(!!this.el, "Component's element is not ready. Probably wired getter called at constructor.(class=[" + this.constructor.name + "]");
-                if (matches.call(this.el, sel)) {
-                    return get(name, this.el);
-                }
-                var nodes = this.el.querySelectorAll(sel);
-                check(nodes.length > 0, "wired component \"" + name + "\" is not available at " + this.el.tagName + "(class=[" + this.constructor.name + "]");
-                return get(name, nodes[0]);
-            }
-        });
-    };
+var wired = function (sel) { return function (target, key) {
+    Object.defineProperty(target.constructor.prototype, key, {
+        get: function () {
+            return this.el.querySelector(sel);
+        },
+        configurable: false
+    });
 }; };
-var wired = function (sel) { return function (descriptor, _) {
-    var key = descriptor.key;
-    descriptor.placement = 'prototype';
-    descriptor.finisher = function (constructor) {
-        Object.defineProperty(constructor.prototype, key, {
-            get: function () {
-                return this.el.querySelector(sel);
-            }
-        });
-    };
-}; };
-var wiredAll = function (sel) { return function (descriptor, _) {
-    var key = descriptor.key;
-    descriptor.placement = 'prototype';
-    descriptor.finisher = function (constructor) {
-        Object.defineProperty(constructor.prototype, key, {
-            get: function () {
-                return this.el.querySelectorAll(sel);
-            }
-        });
-    };
+var wiredAll = function (sel) { return function (target, key) {
+    Object.defineProperty(target.constructor.prototype, key, {
+        get: function () {
+            return this.el.querySelectorAll(sel);
+        },
+        configurable: false
+    });
 }; };
 wired.all = wiredAll;
-wired.component = wiredComponent;
 
 var component = function (name) {
     check(typeof name === 'string' && !!name, 'Component name must be a non-empty string');
-    return function (desc) {
-        desc.finisher = function (Cls) {
-            def(name, Cls);
-        };
+    return function (Cls) {
+        def(name, Cls);
     };
 };
 
-var notifies = (function (event, selector) { return function (descriptor, _) {
-    var key = descriptor.key;
-    var d = descriptor.descriptor;
-    var method = d.value;
-    descriptor.finisher = function (constructor) {
-        check(!!event, "Unable to notify empty event: constructor=" + constructor.name + " key=" + key);
-        check(!!selector, "Error: Empty selector for @notifies: constructor=" + constructor.name + " key=" + key + " event=" + event);
-    };
-    d.value = function () {
+var notifies = (function (event, selector) { return function (target, key, descriptor) {
+    var method = descriptor.value;
+    var constructor = target.constructor;
+    check(!!event, "Unable to notify empty event: constructor=" + constructor.name + " key=" + key);
+    check(!!selector, "Error: Empty selector for @notifies: constructor=" + constructor.name + " key=" + key + " event=" + event);
+    descriptor.value = function () {
         var _this = this;
         var result = method.apply(this, arguments);
-        var forEach = [].forEach;
+        var forEach = Array.prototype.forEach;
         var emit = function (x) {
             forEach.call(_this.el.querySelectorAll(selector), function (el) {
                 return trigger(el, event, false, x);

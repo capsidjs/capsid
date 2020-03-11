@@ -13,28 +13,26 @@ var debugMessage = (function (message) {
 var KEY_OUTSIDE_EVENT_LISTENERS = '#O';
 var install = function (capsid) {
     var on = capsid.on, pluginHooks = capsid.pluginHooks;
-    on.outside = function (event) { return function (descriptor) {
-        var key = descriptor.key;
-        descriptor.finisher = function (constructor) {
-            constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).concat(function (el, coelem) {
-                var listener = function (e) {
-                    if (el !== e.target && !el.contains(e.target)) {
-                        {
-                            debugMessage({
-                                type: 'event',
-                                module: 'outside-events',
-                                color: '#39cccc',
-                                el: el,
-                                e: e,
-                                coelem: coelem
-                            });
-                        }
-                        coelem[key](e);
+    on.outside = function (event) { return function (target, key, descriptor) {
+        var constructor = target.constructor;
+        constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).concat(function (el, coelem) {
+            var listener = function (e) {
+                if (el !== e.target && !el.contains(e.target)) {
+                    {
+                        debugMessage({
+                            type: 'event',
+                            module: 'outside-events',
+                            color: '#39cccc',
+                            el: el,
+                            e: e,
+                            coelem: coelem
+                        });
                     }
-                };
-                document.addEventListener(event, listener);
-            });
-        };
+                    coelem[key](e);
+                }
+            };
+            document.addEventListener(event, listener);
+        });
     }; };
     pluginHooks.push(function (el, coelem) {
         
