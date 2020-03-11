@@ -342,7 +342,7 @@ There are 5 types of decorators.
 - `@wired(selector)`
   - *field decorator*
   - wires the elements to the decorated field by the given selector.
-  - optionally `@wired.component(name, [selector])` `@wired.all(selector)`
+  - optionally `@wired.all(selector)`
 - `@notifies`
   - *method decorator*
   - makes the decorated method an event broadcaster.
@@ -497,55 +497,6 @@ def('manager', Manager)
 ```
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as `detail` of the event object.
-
-## `@wired.component(name[, selector])`
-
-`@wired.component` is a field decorator. If a field is decorated, it points to the component instance of the given name at the element which is found by the given selector.
-
-```js
-const { wired, component } = require('capsid')
-
-@component('foo')
-class Foo {
-  @wired.component('bar', '.bar')
-  bar
-
-  processBar () {
-    this.bar.process()
-  }
-}
-
-@component('bar')
-class Bar {
-  process () {
-    console.log('processing bar!')
-  }
-}
-```
-
-In the above situation, the field `bar` of Foo class is wired to `bar` component inside the foo component. With the above settings you can call the following:
-
-```js
-const div = document.createElement('div')
-const foo = make('foo', div)
-foo.processBar()
-```
-
-And this prints `processing bar!`.
-
-If `selector` is omitted, then `.` + `name` is used for the selector. The above `foo` component can be written like the below:
-
-```
-@component('foo')
-class Foo {
-  @wired.component('bar')
-  bar
-
-  processBar () {
-    this.bar.process()
-  }
-}
-```
 
 ## @wired(selector) field
 

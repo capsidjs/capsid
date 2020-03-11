@@ -3,40 +3,12 @@ import * as genel from 'genel'
 import { def, make, wired } from '../../index'
 import { clearComponents } from '../../__tests__/helper'
 
-describe('@wired.component(name, selector)', () => {
-  afterEach(() => clearComponents())
-
-  it('replaces the getter of the decorated descriptor, and it returns the instance of class-component inside the element', () => {
-    class Cls0 {
-      @wired.component('wire-test1-1', '.foo')
-      test = {}
-    }
-    class Cls1 {}
-    def('wire-test1', Cls0)
-    def('wire-test1-1', Cls1)
-
-    const el0 = genel.div``
-    const wireTest1 = make('wire-test1', el0)
-
-    const el1 = genel.div`
-    `
-    const el2 = genel.div``
-    make('wire-test1-1', el2)
-    el2.classList.add('foo')
-
-    el0.appendChild(el1)
-    el1.appendChild(el2)
-
-    assert(wireTest1.test instanceof Cls1)
-  })
-})
-
 describe('@wired(selector)', () => {
   afterEach(() => clearComponents())
 
   it('wires the element in the component', () => {
     class Component {
-      @wired('.elm') elm = {}
+      @wired('.elm') elm: HTMLDivElement
     }
 
     def('wire-el-test', Component)

@@ -46,17 +46,8 @@
   },
   "homepage": "https://github.com/capsidjs/capsid",
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@babel/plugin-transform-typescript": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
     "@types/mocha": "^7.0.0",
     "@types/node": "^13.1.0",
-    "babel-plugin-istanbul": "^6.0.0",
-    "babel-preset-power-assert": "^3.0.0-beta.1",
-    "babelify": "^10.0.0",
-    "browserify": "^16.4.0",
     "codecov": "^3.0.0",
     "genel": "^1.1.1",
     "gulp": "^4.0.0",
@@ -66,11 +57,10 @@
     "gzip-size-cli": "^3.0.0",
     "husky": "^4.0.2",
     "karma": "^4.0.1",
-    "karma-browserify": "^7.0.0",
     "karma-chrome-launcher": "^3.0.0",
-    "karma-coverage": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.0.1",
+    "karma-typescript": "^5.0.0",
     "lint-staged": "^10.0.3",
     "lynt": "^0.5.4",
     "merge-stream": "^2.0.0",
@@ -83,10 +73,9 @@
     "rollup-plugin-typescript": "^1.0.0",
     "rollup-stream": "^1.18.0",
     "testdouble": "^3.9.1",
-    "typescript": "^3.2.1",
+    "typescript": "^3.8.3",
     "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
-    "watchify": "^3.7.0"
+    "vinyl-source-stream": "^2.0.0"
   },
   "babel": {
     "presets": [
