@@ -4,7 +4,11 @@ module.exports = config =>
     files: [ 'src/**/*.ts' ],
     preprocessors: { 'src/**/*.ts': ['karma-typescript'] },
     reporters: ['progress', 'karma-typescript'],
-    // coverageReporter: { type: 'lcov' },
+    karmaTypescriptConfig: {
+      coverageOptions: {
+        exclude: /.*__tests__.*/
+      },
+    },
     browsers: ['Chrome'],
     singleRun: true
   })
