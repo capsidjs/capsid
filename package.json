@@ -31,15 +31,12 @@
   "keywords": [
     "dom",
     "element",
-    "coelement",
     "capsid",
-    "MVC",
-    "MVP",
-    "frontend",
-    "UI",
-    "framework"
+    "mvc",
+    "frontend framework",
+    "ui framework"
   ],
-  "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
+  "author": "Yoshiya Hinosawa",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/capsidjs/capsid/issues"
@@ -76,16 +73,6 @@
     "typescript": "^3.8.3",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env"
-      ]
-    ],
-    "plugins": [
-      "@babel/plugin-transform-typescript"
-    ]
   },
   "lint-staged": {
     "*.{js,ts}": [
