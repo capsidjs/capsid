@@ -3,7 +3,7 @@
 [![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/capsidjs/capsid)
 [![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
-![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip)
+![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip&)
 
 > :pill: Component-based DOM programming
 
@@ -18,7 +18,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 # :sparkles: Features
 
 - **Component-based DOM programming library**
-- :leaves: **Small.** ![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip), No dependencies.
+- :leaves: **Small.** ![size](https://img.badgesize.io/capsidjs/capsid/master/dist/capsid.min.js.svg?compression=gzip&), No dependencies.
 - :bulb: **Sensible.** It gives **behaviors** (event handlers and lifecycles) to **html classes** based on **component** definition.
 - :sunny: **Declarative.** You usually need only **5** decorators `@component`, `@wired`, `@on`, `@emits`, and `@notifies` to build an app.
 
