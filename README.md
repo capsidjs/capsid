@@ -22,29 +22,6 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 - :bulb: **Sensible.** It gives **behaviors** (event handlers and lifecycles) to **html classes** based on **component** definition.
 - :sunny: **Declarative.** You usually need only **5** decorators `@component`, `@wired`, `@on`, `@emits`, and `@notifies` to build an app.
 
-# :wave: [Hello Example][]
-
-The hello example shows the minimal usage of capsid.js:
-
-```html
-<script src="https://unpkg.com/capsid"></script>
-<script>
-class Hello {
-  __mount__ () {
-    this.el.textContent = 'Hello, world!'
-  }
-}
-
-capsid.def('hello', Hello)
-</script>
-
-<span class="hello"></span>
-```
-
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` with `hello` component [when document is ready][DOMContentLoaded]. When initializing the component, `__mount__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
-
-[See the demo][Hello Example]
-
 # :butterfly: [Mirroring Example][]
 
 The mirroring example shows how you can mirror the input to a different dom in capsid.js.
@@ -79,6 +56,30 @@ With the above example, the input value of `.src` is copied to `.dest` on each i
 
 [See the demo][Mirroring Example]
 
+# :wave: [Hello Example][]
+
+The hello example shows the usage of `__mount__` lifecycle:
+
+```html
+<script src="https://unpkg.com/capsid"></script>
+<script>
+class Hello {
+  __mount__ () {
+    this.el.textContent = 'Hello, world!'
+  }
+}
+
+capsid.def('hello', Hello)
+</script>
+
+<span class="hello"></span>
+```
+
+`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` with `hello` component [when document is ready][DOMContentLoaded]. When initializing the component, `__mount__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
+
+[See the demo][Hello Example]
+
+
 # :cd: Install
 
 ## Via npm
@@ -91,19 +92,6 @@ then:
 const capsid = require('capsid')
 ```
 
-## Via file
-
-Download [capsid.min.js](https://unpkg.com/capsid@1.0.0/dist/capsid.min.js) Then:
-
-```html
-<script src="path/to/capsid.js"></script>
-```
-
-In this case, the library exports the global variable `capsid`.
-
-```js
-capsid.def('my-component', MyComponent)
-```
 # Initialization
 
 There are 2 ways to initialize components:
@@ -127,7 +115,7 @@ const addPartOfPage = async () => {
 
 # Capsid Lifecycle
 
-φ -> [mount] -> component -> [unmount] -> φ
+nothing -> [mount] -> component works -> [unmount] -> nothing
 
 ## capsid lifecycle events
 
