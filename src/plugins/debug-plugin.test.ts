@@ -14,8 +14,9 @@ describe('debug-plugin', () => {
 
   describe('with event type message', () => {
     it('logs event and component names', () => {
-      const e = { type: 'click' }
-      const coelem = { constructor: { name: 'foo' } }
+      const el = document.createElement('a')
+      const e = { type: 'click', target: el }
+      const coelem = { constructor: { name: 'foo' }, el }
 
       td.replace(console, 'groupCollapsed')
       td.replace(console, 'log')

@@ -19,11 +19,9 @@ describe('def', () => {
 
   it('registers the given class by the given name component', () => {
     class A {}
-
     def('assign-test2', A)
 
     const el = document.createElement('div')
-
     const coelem = make('assign-test2', el)
 
     assert(coelem instanceof A)

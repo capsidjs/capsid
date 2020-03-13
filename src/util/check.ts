@@ -11,16 +11,6 @@ export default function check(assertion: boolean, message: string): void {
 }
 
 /**
- * @param classNames The class names
- */
-export function checkClassNamesAreStringOrNull(classNames: any): void {
-  check(
-    typeof classNames === 'string' || classNames == null,
-    'classNames must be a string or undefined/null.'
-  )
-}
-
-/**
  * Asserts the given name is a valid component name.
  * @param name The component name
  */

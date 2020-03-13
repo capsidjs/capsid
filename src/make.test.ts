@@ -22,6 +22,23 @@ describe('make', () => {
     assert(make('foo', document.createElement('div')) instanceof Foo)
   })
 
+
+  it('doesn\'t initialize element twice', () => {
+    let a = 0
+    class A {
+      __mount__() {
+        a++
+      }
+    }
+    def('bar', A)
+
+    const el = document.createElement('div')
+    make('bar', el)
+    make('bar', el)
+
+    assert.strictEqual(a, 1)
+  })
+
   describe('in __mount__', () => {
     it('can get coelement from el by the name', done => {
       class Component {

@@ -6,7 +6,15 @@ module.exports = config =>
     reporters: ['progress', 'karma-typescript'],
     karmaTypescriptConfig: {
       coverageOptions: {
-        exclude: /.*__tests__.*/
+        exclude: [
+          /test-fixture\.ts/,
+          /test-helper\.ts/,
+          /.*test\.ts$/,
+          // We don't like to test this sort of thing.
+          /src\/util\/debug-message.ts/,
+          // This file is covered but istanbul reports it isn't covered, so we ignore this.
+          /src\/decorators\/on\.click\.at\.ts/
+        ]
       },
     },
     browsers: ['Chrome'],
