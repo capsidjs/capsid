@@ -62,25 +62,27 @@ class Mirroring {
 
 The hello example shows the usage of `__mount__` lifecycle:
 
-```html
-<script src="https://unpkg.com/capsid"></script>
-<script>
-class Hello {
-  __mount__ () {
-    this.el.textContent = 'Hello, world!'
+```ts
+import { component } from "capsid";
+
+@component("hello")
+export class Hello {
+  el: HTMLElement;
+  __mount__() {
+    this.el.textContent = "Hello, world!";
   }
 }
+```
 
-capsid.def('hello', Hello)
-</script>
-
+```html
 <span class="hello"></span>
 ```
 
-`capsid.def('hello', Hello)` defines `hello` component and it initializes `<span class="hello"></span>` with `hello` component [when document is ready][DOMContentLoaded]. When initializing the component, `__mount__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
+`@component` defines the `hello` component.
+
+When the component initialized, `__mount__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
 
 [See the demo][Hello Example]
-
 
 # :cd: Install
 
@@ -702,7 +704,7 @@ MIT
 
 [flux]: http://facebook.github.io/flux
 [evex]: http://github.com/capsidjs/evex
-[Hello Example]: https://codepen.io/kt3k/pen/MmYxBB?editors=1010
+[Hello Example]: https://codesandbox.io/s/hello-world-capsidjs-example-k5dgl
 [Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
 [Counter Example]: https://codesandbox.io/s/km023p21nv
 [Mirroring Example]: https://codesandbox.io/s/p7m3xv3mvq
