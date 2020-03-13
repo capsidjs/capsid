@@ -5,6 +5,10 @@ module.exports = config =>
     preprocessors: { 'src/**/*.ts': ['karma-typescript'] },
     reporters: ['progress', 'karma-typescript'],
     karmaTypescriptConfig: {
+      reports: {
+        html: 'coverage',
+        lcovonly: 'coverage',
+      },
       coverageOptions: {
         exclude: [
           /test-fixture\.ts/,
