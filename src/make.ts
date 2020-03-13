@@ -1,5 +1,6 @@
 import get from './get'
-import init from './init'
+import { checkComponentNameIsValid } from './util/check'
+import ccc from './ccc'
 
 /**
  * Initializes the given element as the class-component.
@@ -8,7 +9,9 @@ import init from './init'
  * @return
  */
 export default (name: string, elm: HTMLElement) => {
-  init(name, elm)
+  checkComponentNameIsValid(name)
+
+  ccc[name](elm)
 
   return get(name, elm)
 }
