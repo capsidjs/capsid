@@ -4,24 +4,27 @@
   "description": "Component-based DOM programming",
   "main": "index.js",
   "unpkg": "dist/capsid.min.js",
+  "types": "./types",
   "files": [
     "dist",
+    "types",
     "index.js",
     "outside-events.js",
     "debug.js"
   ],
   "scripts": {
-    "clean": "rimraf coverage dist/*.js",
+    "clean": "rimraf coverage dist types",
     "lint": "lynt --typescript",
     "fix": "prettier --write --no-semi --single-quote *.js 'src/**/*.ts'",
-    "type": "tsc --noEmit -p .",
+    "typecheck": "tsc --noEmit -p .",
+    "types": "tsc --declaration --emitDeclarationOnly --declarationDir ./types -p .",
     "karma": "karma start",
-    "test": "run-s lint type karma",
+    "test": "run-s lint typecheck karma",
     "test-firefox": "karma start --browsers Firefox",
     "codecov": "codecov",
     "dist": "gulp dist",
     "size": "gulp browser && gzip-size dist/capsid.min.js",
-    "prepublish": "npm run clean && npm run dist",
+    "prepublish": "npm run clean && npm run dist && npm run types",
     "precommit": "lint-staged"
   },
   "repository": {
