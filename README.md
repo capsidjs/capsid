@@ -705,7 +705,7 @@ MIT
 [flux]: http://facebook.github.io/flux
 [evex]: http://github.com/capsidjs/evex
 [Hello Example]: https://codesandbox.io/s/hello-world-capsidjs-example-k5dgl
-[Clock Example]: https://codepen.io/kt3k/pen/YVPoWm?editors=1010
+[Clock Example]: https://codesandbox.io/s/clock-capsidjs-example-i9d7k
 [Counter Example]: https://codesandbox.io/s/km023p21nv
 [Mirroring Example]: https://codesandbox.io/s/p7m3xv3mvq
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
