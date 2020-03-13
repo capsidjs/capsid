@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 import * as genel from 'genel'
-import { def, make, notifies } from '../../index'
-import { clearComponents } from '../../__tests__/helper'
+import { def, make, notifies } from '../index'
+import { clearComponents } from '../test-helper'
 
 describe('@notifies(event, selector)', () => {
   afterEach(() => clearComponents())

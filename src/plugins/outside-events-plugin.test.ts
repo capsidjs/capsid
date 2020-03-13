@@ -1,5 +1,5 @@
-import outsideEventsPlugin from '../outside-events-plugin'
-import { install, on, mount } from '../../index'
+import outsideEventsPlugin from './outside-events-plugin'
+import { install, on, mount } from '../index'
 
 describe('outside-events-plugin', () => {
   before(() => {

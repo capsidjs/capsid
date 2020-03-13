@@ -1,7 +1,7 @@
 import * as assert from 'assert'
-import { make, def, get } from '../index'
-import { Foo } from './fixture'
-import { clearComponents } from './helper'
+import { make, def, get } from './index'
+import { Foo } from './test-fixture'
+import { clearComponents } from './test-helper'
 
 describe('make', () => {
   before(() => {

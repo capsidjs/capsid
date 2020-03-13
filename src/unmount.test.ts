@@ -1,6 +1,6 @@
-import { def, get, unmount, make, on } from '../index'
+import { def, get, unmount, make, on } from './index'
 import * as genel from 'genel'
-import { clearComponents } from './helper'
+import { clearComponents } from './test-helper'
 import * as assert from 'assert'
 
 describe('unmount', () => {

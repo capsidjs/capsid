@@ -1,5 +1,5 @@
-import { install } from '../../index'
-import debugPlugin from '../debug-plugin'
+import { install } from '../index'
+import debugPlugin from './debug-plugin'
 import * as td from 'testdouble'
 
 describe('debug-plugin', () => {

@@ -1,4 +1,4 @@
-import { mount } from '../index'
+import { mount } from './index'
 import * as assert from 'assert'
 
 describe('mount', () => {

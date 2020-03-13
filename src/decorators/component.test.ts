@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 import * as genel from 'genel'
-import { make, component } from '../../index'
-import { clearComponents } from '../../__tests__/helper'
+import { make, component } from '../index'
+import { clearComponents } from '../test-helper'
 
 describe('@component(name)', () => {
   afterEach(() => clearComponents())

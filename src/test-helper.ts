@@ -1,4 +1,4 @@
-import * as capsid from '../index'
+import * as capsid from './index'
 ;(global as any).__DEV__ = true
 
 export const clearComponents = () =>

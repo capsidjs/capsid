@@ -1,4 +1,4 @@
-import * as capsid from '../index'
+import * as capsid from './index'
 import * as assert from 'assert'
 
 describe('install', () => {

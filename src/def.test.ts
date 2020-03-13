@@ -1,6 +1,6 @@
 import * as assert from 'assert'
-import { def, make } from '../index'
-import { clearComponents } from './helper'
+import { def, make } from './index'
+import { clearComponents } from './test-helper'
 
 describe('def', () => {
   after(() => clearComponents())

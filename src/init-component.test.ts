@@ -1,7 +1,7 @@
-import * as capsid from '../index'
-import initComponent from '../init-component'
+import * as capsid from './index'
+import initComponent from './init-component'
 import * as assert from 'assert'
-import { clearComponents } from './helper'
+import { clearComponents } from './test-helper'
 
 const { on } = capsid
 

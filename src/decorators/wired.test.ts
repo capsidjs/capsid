@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 import * as genel from 'genel'
-import { def, make, wired } from '../../index'
-import { clearComponents } from '../../__tests__/helper'
+import { def, make, wired } from '../index'
+import { clearComponents } from '../test-helper'
 
 describe('@wired(selector)', () => {
   afterEach(() => clearComponents())
