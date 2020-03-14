@@ -631,6 +631,7 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2020-03-15   v1.3.0   Add `@pub` and `@sub` decorators.
 - 2020-03-14   v1.2.0   Add `@is` decorator.
 - 2020-03-13   v1.1.0   Add type declaration.
 - 2020-03-12   v1.0.0   Support TypeScript decorators. Drop babel decorators support.
