@@ -319,7 +319,7 @@ const {
 } = require('capsid')
 ```
 
-There are 5 types of decorators.
+There are 6 types of decorators.
 
 - `@component(name)`
   - *class decorator*
@@ -339,6 +339,9 @@ There are 5 types of decorators.
 - `@notifies`
   - *method decorator*
   - makes the decorated method an event broadcaster.
+- `@is`
+  - *class decorator*
+  - Adds the class name to the given element.
 
 ## `@component(className)`
 
@@ -537,6 +540,24 @@ When `saveUser` is called, then `input` and `label` elements get `user-saved` ev
 
 This decorator is useful for applying [flux][] design pattern to capsid components.
 
+## `@is(...classNames: string[])`
+
+Adds the given class names to the element when it's mounted.
+
+```ts
+@component('foo')
+@is('bar-observer')
+class Foo {
+}
+
+make('foo', document.body)
+
+body.classList.contains('bar-observer')
+// => true
+```
+
+This decorator is useful when a component has several different roles. You can adds the role of the component by specifying `@is('class-name')`.
+
 # Plugins
 
 ## Debug plugin
@@ -610,6 +631,8 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 # History
 
+- 2020-03-14   v1.2.0   Add `@is` decorator.
+- 2020-03-13   v1.1.0   Add type declaration.
 - 2020-03-12   v1.0.0   Support TypeScript decorators. Drop babel decorators support.
 - 2019-06-09   v0.29.2  Throw error when empty selector is given (`@notifies`)
 - 2018-12-01   v0.29.0  Switch to TypeScript.
