@@ -3,7 +3,8 @@ import initConstructor from './init-constructor'
 import {
   KEY_EVENT_LISTENERS,
   INITIALIZED_KEY,
-  COELEMENT_DATA_KEY_PREFIX
+  COELEMENT_DATA_KEY_PREFIX,
+  IS_KEY
 } from './util/const'
 
 /**
@@ -37,6 +38,12 @@ export default (Constructor: any, el: HTMLElement, name?: string): any => {
   pluginHooks.forEach(pluginHook => {
     pluginHook(el, coelem)
   })
+
+  const list = Constructor[IS_KEY]
+
+  if (Array.isArray(list)) {
+    el.classList.add(...list)
+  }
 
   if (typeof coelem.__mount__ === 'function') {
     coelem.__mount__()

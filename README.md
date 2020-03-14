@@ -314,7 +314,8 @@ const {
   on,
   emits,
   wired,
-  notifies
+  notifies,
+  is
 } = require('capsid')
 ```
 

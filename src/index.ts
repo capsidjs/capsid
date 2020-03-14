@@ -5,7 +5,7 @@ import mount from './mount'
 import unmount from './unmount'
 import get from './get'
 import install from './install'
-import { on, emits, wired, component, notifies } from './decorators/index'
+import { on, emits, wired, component, notifies, is } from './decorators/index'
 import __ccc__ from './ccc'
 import pluginHooks from './plugin-hooks'
 
@@ -22,6 +22,7 @@ export {
   wired,
   component,
   notifies,
+  is,
   __ccc__,
   pluginHooks
 }
