@@ -109,7 +109,7 @@ const {
 } = require('capsid')
 ```
 
-There are 6 types of decorators.
+There are 8 types of decorators.
 
 - `@component(name)`
   - *class decorator*
@@ -129,11 +129,17 @@ There are 6 types of decorators.
 - `@notifies`
   - *method decorator*
   - makes the decorated method an event broadcaster.
-- `@is`
+- `@is(name)`
   - *class decorator*
   - Adds the class name to the given element.
+- `@pub(event)`
+  - *methods decorator*
+  - Publishes the event to the elements which have `sub:event` class.
+- `@sub(event)`
+  - *class decorator*
+  - Adds the `sub:event` class to the given element.
 
-## `@component(className)`
+## `@component(name: string)`
 
 capsid.component(className) is class decorator. With this decorator, you can regiter the js class as class component.
 
@@ -150,7 +156,7 @@ class Timer {
 
 The above registers `Timer` class as `timer` component.
 
-## `@on(eventName)`
+## `@on(event: string)`
 
 `@on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
@@ -188,7 +194,7 @@ class FooButton {
 capsid.def('foo-btn', FooButton)
 ```
 
-## `@on(name, { at: selector })`
+## `@on(event: string, { at }: { at: string })`
 
 `@on(name, { at: selector })` is a method decorator. It's similar to `@on`, but it only handles the event from `selector` in the component.
 
@@ -220,7 +226,7 @@ class Foo {
 }
 ```
 
-## `@on.click.at(selector)`
+## `@on.click.at(selector: string)`
 
 `@on.click.at(selector)` is a shorthand for `@on('click', { at: selector })`
 
@@ -246,7 +252,7 @@ class Foo {
 }
 ```
 
-## `@emits(eventName)`
+## `@emits(event: string)`
 
 `@emits(eventName)` triggers the event at the end of the method.
 
@@ -284,7 +290,7 @@ def('manager', Manager)
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as `detail` of the event object.
 
-## @wired(selector) field
+## `@wired(selector: string) field`
 
 - @param {string} selector The selector to look up the element in the component
 
@@ -292,13 +298,13 @@ This wires the decorated field to the element selected by the given selector. Th
 
 If the selector matches to the multiple elements, then the first one is used.
 
-## @wired.all(selector) field
+## `@wired.all(selector: string) field`
 
 - @param {string} selector The selector to look up the elements in the component
 
 This wires the decorated field to the all elements selected by the given selector. This is similar to `@wired` decorator, but it wires all the elements, not the first one.
 
-## @notifies(event, selector)
+## `@notifies(event: string, selector: string)`
 
 - @param {string} event The event type
 - @param {string} selector The selector to notify events
@@ -347,6 +353,37 @@ body.classList.contains('bar-observer')
 ```
 
 This decorator is useful when a component has several different roles. You can adds the role of the component by specifying `@is('class-name')`.
+
+## `@pub(event: string)`
+
+This method decorator dispatches the `event` to the elements which have `sub:event` class. For example, if the method has `@pub('foo')`, then it dispatches `foo` event to the elements which have `sub:foo` class. The dispatched events don't buble up the dom tree.
+
+```ts
+@component('my-comp')
+class MyComp {
+  @pub('foo')
+  method() {
+    // something ...
+  }
+}
+```
+
+The returned value or resolved value of the decorator becomes the `detail` prop of the dispatched custom event.
+
+## `@sub(event: string)`
+
+This class decorator adds the `sub:event` class to the given component. For example if you use `@sub('foo')`, the component have `sub:foo` class, which means this class becomes the subscriber of `foo` event in combination with `@pub('foo')` decorator.
+
+```ts
+@component('my-comp')
+@sub('foo')
+class MyComp {
+  @on('foo')
+  handler() {
+    // ... do something
+  }
+}
+```
 
 # APIs
 
