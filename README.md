@@ -96,216 +96,6 @@ then:
 const capsid = require('capsid')
 ```
 
-# Initialization
-
-There are 2 ways to initialize components:
-
-1. [When document is ready][DOMContentLoaded] (automatic).
-2. When `capsid.prep()` is called (manual).
-
-All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
-
-If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
-
-```js
-const addPartOfPage = async () => {
-  const { html } = await axios.get('path/to/something.html')
-
-  containerElemenent.innerHTML = html
-
-  capsid.prep() // <= this initializes all the elements which are not yet initialized.
-})
-```
-
-# Capsid Lifecycle
-
-nothing -> [mount] -> component works -> [unmount] -> nothing
-
-## capsid lifecycle events
-
-There are 2 lifecycle events in capsid: `mount` and `unmount`.
-
-- `mount`
-  - HTML elements are mounted by the components.
-  - An element is coupled with the corresponding coelement and they start working together.
-  - The timing of `mount` is either `DOMContentLoaded` or `capsid.prep()`.
-
-- `unmount`
-  - An element is decouple with the coelement.
-  - All events are removed and coelement is discarded.
-  - You need to call `unmount(class, element)` to unmount the component.
-
-## Explanation of `mount`
-
-At `mount` event, these things happen.
-
-- The component class's `instance` (coelement) is created.
-- `instance`.el is set to corresponding dom element.
-- event listeners defined by `@on` decorators are attached to the dom element.
-- plugin hooks are invoked if you use any.
-- if `instance` has __mount__ method, then `instance.__mount__()` is called.
-
-The above happens in this order. Therefore you can access `this.el` and you can invoke the events at `this.el` in `__mount__` method.
-
-## Lifecycle Methods
-
-### `constructor`
-
-The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with html, `__mount__` is more appropriate place.
-
-### `__mount__`
-
-`__mount__()` is called at the **end** of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
-
-### `__unmount__`
-
-`__unmount__()` is called when component is unmounted. If your component put resources on global space, you should discard them here to avoid memory leak.
-
-# Coelement
-
-Coelement is the instance of Component class, which is attached to html element. You can get coelement from the element using `get` API.
-
-# APIs
-
-```js
-const {
-  def,
-  prep,
-  make,
-  mount,
-  unmount,
-  get,
-  install
-} = require('capsid')
-```
-
-- `def(name, constructor)`
-  - Registers class-component.
-- `prep([name], [element])`
-  - Initialize class-component on the given range.
-- `make(name, element)`
-  - Initializes the element with the component of the given name and return the coelement instance.
-- `mount(Constructor, element)`
-  - Initializes the element with the component of the given class and return the coelement.
-- `unmount(name, element)`
-  - unmount the component from the element by its name.
-- `get(name, element)`
-  - Gets the coelement instance from the given element.
-- `install(capsidModule, options)`
-  - installs the capsid module with the given options.
-
-## `def(name, constructor)`
-
-- @param {string} name The class name of the component
-- @param {Function} constructor The constructor of the coelement of the component
-
-This registers `constructor` as the constructor of the coelement of the class component of the given name `name`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(name)`.
-
-Example:
-
-```js
-class TodoItem {
-  // ...behaviours...
-}
-
-capsid.def('todo-item', TodoItem)
-```
-
-```html
-<li class="todo-item"></li>
-```
-
-## `prep([name], [element])`
-
-- @param {string} [name] The capsid component name to intialize
-- @param {HTMLElement} [element] The range to initialize
-
-This initializes the capsid components of the given name under the given element. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
-
-## `make(name, element)`
-
-- @param {string} name The capsid component name to initialize
-- @param {HTMLElement} element The element to initialize
-- @return {<Component>} created coelement
-
-Initializes the element as the capsid component and returns the coelement instance.
-
-```js
-const timer = make('timer', dom)
-```
-
-## `mount(Constructor, element)`
-
-- @param {Function} Constructor The constructor which defines the capsid component
-- @param {HTMLElemen} element The element to mount the component
-- @return {<Constructor>} The created coelement
-
-Initializes the element with the component of the given class and return the coelement.
-
-```js
-class Component {
-  __mount__ () {
-    this.el.foo = 1
-  }
-}
-
-const div = document.createElement('div')
-
-capsid.mount(Component, div)
-
-div.foo === 1 # => true
-```
-
-Usually you don't need to use this API. If you're writing library using capsid, you might sometimes need to create an unnamed component and need this API then.
-
-## `unmount(name, element)`
-
-- @param {string} name The component name
-- @param {HTMLElement} element The element
-
-Unmounts the component of the given name from the element.
-
-Example:
-
-```js
-@component('foo')
-class Foo {
-  @on('input')
-  remove () {
-    unmount('foo', this.el)
-  }
-}
-```
-
-The above example unmounts itself when it receives `input` event.
-
-## `get(name, element)`
-
-- @param {string} name The capsid component name to get
-- @param {HTMLElement} element The element
-- @return The coelement instance
-
-Gets the component instance from the element.
-
-```js
-const timer = capsid.get('timer', el)
-```
-
-The above gets timer coelement from `el`, which is instance of `Timer` class.
-
-### `install(capsidModule[, options])`
-
-- @param {CapsidModule} capsidModule The module to install
-- @param {Object} options The options to pass to the module
-
-This installs the capsid module.
-
-```js
-capsid.install(require('capsid-popper'), { name: 'my-app-popper' })
-```
-
-See [capsid-module][] repository for details.
-
 # Decorators
 
 ```js
@@ -558,6 +348,147 @@ body.classList.contains('bar-observer')
 
 This decorator is useful when a component has several different roles. You can adds the role of the component by specifying `@is('class-name')`.
 
+# APIs
+
+```js
+const {
+  def,
+  prep,
+  make,
+  mount,
+  unmount,
+  get,
+  install
+} = require('capsid')
+```
+
+- `def(name, constructor)`
+  - Registers class-component.
+- `prep([name], [element])`
+  - Initialize class-component on the given range.
+- `make(name, element)`
+  - Initializes the element with the component of the given name and return the coelement instance.
+- `mount(Constructor, element)`
+  - Initializes the element with the component of the given class and return the coelement.
+- `unmount(name, element)`
+  - unmount the component from the element by its name.
+- `get(name, element)`
+  - Gets the coelement instance from the given element.
+- `install(capsidModule, options)`
+  - installs the capsid module with the given options.
+
+## `def(name, constructor)`
+
+- @param {string} name The class name of the component
+- @param {Function} constructor The constructor of the coelement of the component
+
+This registers `constructor` as the constructor of the coelement of the class component of the given name `name`. The constructor is called with a jQuery object of the dom as the first parameter and the instance of the coelement is attached to the dom. The instance of coelement can be obtained by calling `elem.cc.get(name)`.
+
+Example:
+
+```js
+class TodoItem {
+  // ...behaviours...
+}
+
+capsid.def('todo-item', TodoItem)
+```
+
+```html
+<li class="todo-item"></li>
+```
+
+## `prep([name], [element])`
+
+- @param {string} [name] The capsid component name to intialize
+- @param {HTMLElement} [element] The range to initialize
+
+This initializes the capsid components of the given name under the given element. If the element is omitted, it initializes in the entire page. If the name is omitted, then it initializes all the registered class components in the given range.
+
+## `make(name, element)`
+
+- @param {string} name The capsid component name to initialize
+- @param {HTMLElement} element The element to initialize
+- @return {<Component>} created coelement
+
+Initializes the element as the capsid component and returns the coelement instance.
+
+```js
+const timer = make('timer', dom)
+```
+
+## `mount(Constructor, element)`
+
+- @param {Function} Constructor The constructor which defines the capsid component
+- @param {HTMLElemen} element The element to mount the component
+- @return {<Constructor>} The created coelement
+
+Initializes the element with the component of the given class and return the coelement.
+
+```js
+class Component {
+  __mount__ () {
+    this.el.foo = 1
+  }
+}
+
+const div = document.createElement('div')
+
+capsid.mount(Component, div)
+
+div.foo === 1 # => true
+```
+
+Usually you don't need to use this API. If you're writing library using capsid, you might sometimes need to create an unnamed component and need this API then.
+
+## `unmount(name, element)`
+
+- @param {string} name The component name
+- @param {HTMLElement} element The element
+
+Unmounts the component of the given name from the element.
+
+Example:
+
+```js
+@component('foo')
+class Foo {
+  @on('input')
+  remove () {
+    unmount('foo', this.el)
+  }
+}
+```
+
+The above example unmounts itself when it receives `input` event.
+
+## `get(name, element)`
+
+- @param {string} name The capsid component name to get
+- @param {HTMLElement} element The element
+- @return The coelement instance
+
+Gets the component instance from the element.
+
+```js
+const timer = capsid.get('timer', el)
+```
+
+The above gets timer coelement from `el`, which is instance of `Timer` class.
+
+### `install(capsidModule[, options])`
+
+- @param {CapsidModule} capsidModule The module to install
+- @param {Object} options The options to pass to the module
+
+This installs the capsid module.
+
+```js
+capsid.install(require('capsid-popper'), { name: 'my-app-popper' })
+```
+
+See [capsid-module][] repository for details.
+
 # Plugins
 
 ## Debug plugin
@@ -628,6 +559,143 @@ The above `modal` component gets `is-shown` class removed from the element when 
 
 - [jQuery outside events](https://github.com/cowboy/jquery-outside-events)
 - [react-onclickoutside](https://github.com/Pomax/react-onclickoutside)
+
+# Initialization
+
+There are 2 ways to initialize components:
+
+1. [When document is ready][DOMContentLoaded] (automatic).
+2. When `capsid.prep()` is called (manual).
+
+All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
+
+If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
+
+```js
+const addPartOfPage = async () => {
+  const { html } = await axios.get('path/to/something.html')
+
+  containerElemenent.innerHTML = html
+
+  capsid.prep() // <= this initializes all the elements which are not yet initialized.
+})
+```
+
+# Capsid Lifecycle
+
+nothing -> [mount] -> component works -> [unmount] -> nothing
+
+## capsid lifecycle events
+
+There are 2 lifecycle events in capsid: `mount` and `unmount`.
+
+- `mount`
+  - HTML elements are mounted by the components.
+  - An element is coupled with the corresponding coelement and they start working together.
+  - The timing of `mount` is either `DOMContentLoaded` or `capsid.prep()`.
+
+- `unmount`
+  - An element is decouple with the coelement.
+  - All events are removed and coelement is discarded.
+  - You need to call `unmount(class, element)` to unmount the component.
+
+## Explanation of `mount`
+
+At `mount` event, these things happen.
+
+- The component class's `instance` (coelement) is created.
+- `instance`.el is set to corresponding dom element.
+- event listeners defined by `@on` decorators are attached to the dom element.
+- plugin hooks are invoked if you use any.
+- if `instance` has __mount__ method, then `instance.__mount__()` is called.
+
+The above happens in this order. Therefore you can access `this.el` and you can invoke the events at `this.el` in `__mount__` method.
+
+## Lifecycle Methods
+
+### `constructor`
+
+The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with html, `__mount__` is more appropriate place.
+
+### `__mount__`
+
+`__mount__()` is called at the **end** of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
+
+### `__unmount__`
+
+`__unmount__()` is called when component is unmounted. If your component put resources on global space, you should discard them here to avoid memory leak.
+
+# Coelement
+
+Coelement is the instance of Component class, which is attached to html element. You can get coelement from the element using `get` API.
+# Initialization
+
+There are 2 ways to initialize components:
+
+1. [When document is ready][DOMContentLoaded] (automatic).
+2. When `capsid.prep()` is called (manual).
+
+All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
+
+If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
+
+```js
+const addPartOfPage = async () => {
+  const { html } = await axios.get('path/to/something.html')
+
+  containerElemenent.innerHTML = html
+
+  capsid.prep() // <= this initializes all the elements which are not yet initialized.
+})
+```
+
+# Capsid Lifecycle
+
+nothing -> [mount] -> component works -> [unmount] -> nothing
+
+## capsid lifecycle events
+
+There are 2 lifecycle events in capsid: `mount` and `unmount`.
+
+- `mount`
+  - HTML elements are mounted by the components.
+  - An element is coupled with the corresponding coelement and they start working together.
+  - The timing of `mount` is either `DOMContentLoaded` or `capsid.prep()`.
+
+- `unmount`
+  - An element is decouple with the coelement.
+  - All events are removed and coelement is discarded.
+  - You need to call `unmount(class, element)` to unmount the component.
+
+## Explanation of `mount`
+
+At `mount` event, these things happen.
+
+- The component class's `instance` (coelement) is created.
+- `instance`.el is set to corresponding dom element.
+- event listeners defined by `@on` decorators are attached to the dom element.
+- plugin hooks are invoked if you use any.
+- if `instance` has __mount__ method, then `instance.__mount__()` is called.
+
+The above happens in this order. Therefore you can access `this.el` and you can invoke the events at `this.el` in `__mount__` method.
+
+## Lifecycle Methods
+
+### `constructor`
+
+The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with html, `__mount__` is more appropriate place.
+
+### `__mount__`
+
+`__mount__()` is called at the **end** of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
+
+### `__unmount__`
+
+`__unmount__()` is called when component is unmounted. If your component put resources on global space, you should discard them here to avoid memory leak.
+
+# Coelement
+
+Coelement is the instance of Component class, which is attached to html element. You can get coelement from the element using `get` API.
 
 # History
 
