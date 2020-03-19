@@ -105,7 +105,9 @@ const {
   emits,
   wired,
   notifies,
-  is
+  is,
+  pub,
+  sub
 } = require('capsid')
 ```
 
