@@ -106,6 +106,7 @@ const {
   wired,
   notifies,
   is,
+  innerHTML,
   pub,
   sub
 } = require('capsid')
@@ -134,6 +135,9 @@ There are 8 types of decorators.
 - `@is(name)`
   - *class decorator*
   - Adds the class name to the given element.
+- `@innerHTML(html: string)`
+  - *class decorator*
+  - Sets the given html string as innerHTML of the element at the mount timing.
 - `@pub(event)`
   - *methods decorator*
   - Publishes the event to the elements which have `sub:event` class.
@@ -350,11 +354,29 @@ class Foo {
 
 make('foo', document.body)
 
-body.classList.contains('bar-observer')
+document.body.classList.contains('bar-observer')
 // => true
 ```
 
 This decorator is useful when a component has several different roles. You can adds the role of the component by specifying `@is('class-name')`.
+
+## `@innerHTML(html: string)`
+
+Sets the given html string as the innerHTML of the element at mount timing.
+
+```ts
+@component('foo')
+@innerHTML(`
+  <p>hello</p>
+`)
+class Foo {
+}
+
+make('foo', document.body)
+
+document.body.innerHTML
+// => <p>hello</p>
+```
 
 ## `@pub(event: string)`
 
