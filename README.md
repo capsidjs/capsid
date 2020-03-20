@@ -29,14 +29,20 @@ The mirroring example shows the basic usages of `@component`, `@wired`, and `@on
 ```js
 const { on, wired, component } = require("capsid");
 
-@component("mirroring") // This registeres the class as a capsid component
+// Declares `mirroring` component.
+// HTML elements which have `mirroring` class will be mounted by this component.
+@component("mirroring")
 class Mirroring {
-  @wired(".dest") // This decorator makes the field equivalent of `get dest () { return this.el.querySelector('.dest'); }`
+  // Wires `dest` property to dom which is selected by `.dest` selector.
+  @wired(".dest")
   dest;
+
+  // Wires `src` property to dom which is selected by `.src` selector.
   @wired(".src")
   src;
 
-  @on("input") // This decorator makes the method into an event listener on the mounted element
+  // Declares `input` event listener
+  @on("input")
   onReceiveData() {
     this.dest.textContent = this.src.value;
   }
@@ -68,6 +74,8 @@ import { component } from "capsid";
 @component("hello")
 export class Hello {
   el: HTMLElement;
+
+  // This method will be called at `mount` lifecycle.
   __mount__() {
     this.el.textContent = "Hello, world!";
   }
