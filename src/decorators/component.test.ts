@@ -9,10 +9,10 @@ describe('@component(name)', () => {
   it('works as a class decorator and registers the class as a class component of the given name', () => {
     @component('decorated-component')
     class Foo {
-      el: HTMLElement
+      el?: HTMLElement
 
       __mount__() {
-        this.el.setAttribute('this-is', 'decorated-component')
+        this.el!.setAttribute('this-is', 'decorated-component')
       }
     }
 

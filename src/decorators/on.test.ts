@@ -82,7 +82,7 @@ describe('@on(event, {at: selector})', () => {
 
     el.dispatchEvent(new CustomEvent('bar-event', { bubbles: true }))
     el
-      .querySelector('.inner')
+      .querySelector('.inner')!
       .dispatchEvent(new CustomEvent('foo-event', { bubbles: true }))
 
     if (document.body) {

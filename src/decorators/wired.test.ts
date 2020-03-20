@@ -8,7 +8,8 @@ describe('@wired(selector)', () => {
 
   it('wires the element in the component', () => {
     class Component {
-      @wired('.elm') elm: HTMLDivElement
+      @wired('.elm')
+      elm?: HTMLDivElement
     }
 
     def('wire-el-test', Component)
@@ -28,7 +29,8 @@ describe('@wired.all(selector)', () => {
 
   it('wires the all elements in the component', () => {
     class Component {
-      @wired.all('.elm') elms: HTMLElement[]
+      @wired.all('.elm')
+      elms?: HTMLElement[]
     }
 
     def('comp', Component)

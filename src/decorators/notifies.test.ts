@@ -9,7 +9,7 @@ describe('@notifies(event, selector)', () => {
   it('throws error when empty event is given', () => {
     assert.throws(() => {
       class Component {
-        @notifies(undefined, '.elm')
+        @notifies(undefined as any, '.elm')
         method() {
           console.log()
         }
@@ -22,7 +22,7 @@ describe('@notifies(event, selector)', () => {
   it('throws error when empty selector is given', () => {
     assert.throws(() => {
       class Component {
-        @notifies('foo', undefined)
+        @notifies('foo', undefined as any)
         method() {
           console.log()
         }
@@ -62,9 +62,9 @@ describe('@notifies(event, selector)', () => {
       </div>
     `
 
-    const child0 = el.querySelector('.child0')
-    const child1 = el.querySelector('.child1')
-    const child2 = el.querySelector('.child2')
+    const child0 = el.querySelector('.child0')!
+    const child1 = el.querySelector('.child1')!
+    const child2 = el.querySelector('.child2')!
     const component = make('component', el)
 
     const promise0 = new Promise(resolve =>
@@ -99,11 +99,11 @@ describe('@notifies(event, selector)', () => {
         <div class="child elm">
       `
 
-      const child = el.querySelector('.child')
+      const child = el.querySelector('.child')!
 
       const component = make('component', el)
 
-      child.addEventListener(CUSTOM_EVENT, (e: CustomEvent) => {
+      child.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
         assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
         done()
       })
@@ -126,11 +126,11 @@ describe('@notifies(event, selector)', () => {
       const el = genel.div`
         <div class="child elm"></div>
       `
-      const child = el.querySelector('.child')
+      const child = el.querySelector('.child')!
 
       const component = make('component', el)
 
-      child.addEventListener(CUSTOM_EVENT, (e: CustomEvent) => {
+      child.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
         assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
         done()
       })

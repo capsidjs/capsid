@@ -9,7 +9,7 @@ describe('@emits(event)', () => {
   it('throws when the empty event is given', () => {
     assert.throws(() => {
       class Component {
-        @emits(undefined)
+        @emits(undefined as any)
         emitter() {
           console.log()
         }
@@ -30,7 +30,7 @@ describe('@emits(event)', () => {
 
     const el = genel.div``
 
-    el.addEventListener('event-foo', (e: CustomEvent) => {
+    el.addEventListener('event-foo' as any, (e: CustomEvent) => {
       assert(e.detail === 321)
 
       done()
@@ -57,7 +57,7 @@ describe('@emits(event)', () => {
 
     const el = genel.div``
 
-    el.addEventListener('event-foo', (e: CustomEvent) => {
+    el.addEventListener('event-foo' as any, (e: CustomEvent) => {
       assert(promiseResolved)
       assert(e.detail === 123)
 

@@ -42,10 +42,10 @@ describe('make', () => {
   describe('in __mount__', () => {
     it('can get coelement from el by the name', done => {
       class Component {
-        el: HTMLElement
+        el?: HTMLElement
 
         __mount__() {
-          assert.strictEqual(get('bar', this.el), this)
+          assert.strictEqual(get('bar', this.el!), this)
 
           done()
         }

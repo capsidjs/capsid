@@ -11,7 +11,7 @@ describe('@pub(event)', () => {
   it('throws error when empty event is given', () => {
     assert.throws(() => {
       class Component {
-        @pub(undefined)
+        @pub(undefined as any)
         method() {
           console.log()
         }
@@ -53,10 +53,10 @@ describe('@pub(event)', () => {
       </div>
     `
 
-    const child0 = el.querySelector('.child0')
-    const child1 = el.querySelector('.child1')
-    const child2 = el.querySelector('.child2')
-    const comp = el.querySelector('.component')
+    const child0 = el.querySelector('.child0')!
+    const child1 = el.querySelector('.child1')!
+    const child2 = el.querySelector('.child2')!
+    const comp = el.querySelector('.component')!
 
     document.body.appendChild(el)
 
@@ -102,13 +102,13 @@ describe('@pub(event)', () => {
 
     prep()
 
-    target.addEventListener(CUSTOM_EVENT, (e: CustomEvent) => {
+    target!.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
       assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
       document.body.removeChild(el)
       done()
     })
 
-    comp.dispatchEvent(new CustomEvent('foo'))
+    comp!.dispatchEvent(new CustomEvent('foo'))
   })
 
   it('publishes events with the resolved value as detail if it is async function', done => {
@@ -129,12 +129,12 @@ describe('@pub(event)', () => {
       <div class="component"></div>
     `
     document.body.appendChild(el)
-    const target = el.querySelector('.target')
-    const comp = el.querySelector('.component')
+    const target = el.querySelector('.target')!
+    const comp = el.querySelector('.component')!
 
     prep()
 
-    target.addEventListener(CUSTOM_EVENT, (e: CustomEvent) => {
+    target.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
       assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
       document.body.removeChild(el)
       done()
