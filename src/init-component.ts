@@ -4,7 +4,7 @@ import {
   KEY_EVENT_LISTENERS,
   INITIALIZED_KEY,
   COELEMENT_DATA_KEY_PREFIX,
-  IS_KEY
+  BEFORE_MOUNT_KEY,
 } from './util/const'
 
 /**
@@ -39,10 +39,10 @@ export default (Constructor: any, el: HTMLElement, name?: string): any => {
     pluginHook(el, coelem)
   })
 
-  const list = Constructor[IS_KEY]
+  const list = Constructor[BEFORE_MOUNT_KEY]
 
   if (Array.isArray(list)) {
-    el.classList.add(...list)
+    list.forEach(cb => { cb(el) })
   }
 
   if (typeof coelem.__mount__ === 'function') {
