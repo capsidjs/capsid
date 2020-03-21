@@ -7,9 +7,4 @@ export default (constructor: any, name?: string) => {
 
   // Expose capsid here
   constructor.capsid = capsid
-
-  // If the constructor has the static __init__, then calls it.
-  if (typeof constructor.__init__ === 'function') {
-    constructor.__init__()
-  }
 }

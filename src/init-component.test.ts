@@ -36,20 +36,6 @@ describe('initComponent', () => {
     initComponent(A, el)
   })
 
-  it('calls static __init__', done => {
-    class A {
-      static capsid: object
-
-      static __init__() {
-        assert.strictEqual(this.capsid, capsid)
-
-        done()
-      }
-    }
-
-    initComponent(A, document.createElement('div'))
-  })
-
   describe('__mount__', () => {
     it('runs after @on handlers are set', done => {
       class A {
