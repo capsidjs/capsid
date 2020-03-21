@@ -1,5 +1,6 @@
 import * as assert from 'assert'
 import * as genel from 'genel'
+import component from './component'
 import pub from './pub'
 import on from './on'
 import { prep, def } from '../index'
