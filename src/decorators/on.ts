@@ -8,12 +8,11 @@ declare var __DEV__: boolean
  * The decorator for registering event listener info to the method.
  * @param event The event name
  * @param at The selector
- * @param descriptor The method descriptor
  */
 const on: any = (event: string, { at }: { at?: string } = {}) => (
   target: any,
   key: string,
-  descriptor: any
+  _: any
 ) => {
   const constructor = target.constructor
   check(
