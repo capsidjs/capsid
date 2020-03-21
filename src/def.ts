@@ -4,7 +4,8 @@ import initComponent from './init-component'
 
 import check from './util/check'
 import { ready } from './util/document'
-import { COMPONENT_NAME_KEY } from './util/const'
+import { COMPONENT_NAME_KEY, COELEMENT_DATA_KEY_PREFIX } from './util/const'
+import { addMountHook } from './add-hidden-item'
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -25,16 +26,17 @@ const def = (name: string, Constructor: Function) => {
   ;(Constructor as any)[COMPONENT_NAME_KEY] = name
   const initClass = `${name}-💊`
 
+  addMountHook(Constructor, (el: HTMLElement, coel: any) => {
+    ;(el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coel
+    el.classList.add(name, initClass)
+  })
+
   /**
    * Initializes the html element by the configuration.
    * @param el The html element
    */
   const initializer = (el: HTMLElement) => {
-    const classList = el.classList
-
-    if (!classList.contains(initClass)) {
-      classList.add(name, initClass)
-
+    if (!el.classList.contains(initClass)) {
       initComponent(Constructor, el)
     }
   }

@@ -2,35 +2,26 @@ import {
   INITIALIZED_KEY,
   COELEMENT_DATA_KEY_PREFIX,
   BEFORE_MOUNT_KEY,
-  COMPONENT_NAME_KEY,
 } from './util/const'
 
 /**
- * Initialize component.
+ * Initialize component by the class constructor.
  * @param Constructor The coelement class
  * @param el The element
- * @param name The coelement name
  * @return The created coelement instance
  */
 export default (Constructor: any, el: HTMLElement): any => {
-  const name = Constructor[COMPONENT_NAME_KEY]
-
   const coel = new Constructor()
 
   // Assigns element to coelement's .el property
   coel.el = el
-
-  if (name) {
-    // Assigns coelement to element's "hidden" property
-    ;(el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coel
-  }
 
   // Initialize `before mount` hooks
   // This includes:
   // - initialization of event handlers
   // - initialization of innerHTML
   // - initialization of class names
-  const list = Constructor[BEFORE_MOUNT_KEY] as unknown
+  const list = Constructor[BEFORE_MOUNT_KEY]
   if (Array.isArray(list)) {
     list.forEach(cb => { cb(el, coel) })
   }
