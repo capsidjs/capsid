@@ -1,6 +1,7 @@
 import { KEY_EVENT_LISTENERS, BEFORE_MOUNT_KEY } from '../util/const'
 import debugMessage from '../util/debug-message'
 import check from '../util/check'
+import addHiddenItem, { addMountHook } from '../add-hidden-item'
 
 declare var __DEV__: boolean
 
@@ -24,9 +25,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
    * @param coelem The coelement
    * @param name The component name
    */
-  constructor[BEFORE_MOUNT_KEY] = (
-    constructor[BEFORE_MOUNT_KEY] || []
-  ).concat((el: HTMLElement, coel: any) => {
+  addMountHook(constructor, (el: HTMLElement, coel: any) => {
     const listener = (e: Event): void => {
       if (
         !at ||
@@ -59,9 +58,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
     /**
      * Store event listeners to remove it later.
      */
-    ;(coel as any)[KEY_EVENT_LISTENERS] = (
-      (coel as any)[KEY_EVENT_LISTENERS] || []
-    ).concat(listener)
+    addHiddenItem(coel, KEY_EVENT_LISTENERS, listener)
 
     el.addEventListener(event, listener)
   })

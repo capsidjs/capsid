@@ -29,11 +29,6 @@ export default (Constructor: any, el: HTMLElement, name?: string): any => {
     ;(el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coel
   }
 
-  // Executes plugin hooks
-  pluginHooks.forEach(pluginHook => {
-    pluginHook(el, coel)
-  })
-
   // Initialize `before mount` hooks
   // This includes:
   // - initialization of event handlers

@@ -2,16 +2,11 @@ import debugMessage from '../util/debug-message'
 
 declare var __DEV__: boolean
 
-const KEY_OUTSIDE_EVENT_LISTENERS = '#O'
-
 const install = (capsid: any) => {
-  const { on, pluginHooks } = capsid
+  const { on, addMountHook } = capsid
 
-  on.outside = (event: string) => (target: any, key: string, descriptor: any) => {
-    const constructor = target.constructor
-    constructor[KEY_OUTSIDE_EVENT_LISTENERS] = (
-      constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []
-    ).concat((el: HTMLElement, coelem: any) => {
+  on.outside = (event: string) => (target: any, key: string, _: any) => {
+    addMountHook(target.constructor, (el: HTMLElement, coelem: any) => {
       const listener = (e: Event): void => {
         if (el !== e.target && !el.contains(e.target as any)) {
           if (__DEV__) {
@@ -32,14 +27,6 @@ const install = (capsid: any) => {
       document.addEventListener(event, listener)
     })
   }
-
-  pluginHooks.push((el: HTMLElement, coelem: any) => {
-    ;(coelem.constructor[KEY_OUTSIDE_EVENT_LISTENERS] || []).map(
-      (eventListenerBinder: Function) => {
-        eventListenerBinder(el, coelem)
-      }
-    )
-  })
 }
 
 export default { install }
