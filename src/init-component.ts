@@ -1,10 +1,8 @@
-import pluginHooks from './plugin-hooks'
-import initConstructor from './init-constructor'
 import {
-  KEY_EVENT_LISTENERS,
   INITIALIZED_KEY,
   COELEMENT_DATA_KEY_PREFIX,
   BEFORE_MOUNT_KEY,
+  COMPONENT_NAME_KEY,
 } from './util/const'
 
 /**
@@ -14,10 +12,8 @@ import {
  * @param name The coelement name
  * @return The created coelement instance
  */
-export default (Constructor: any, el: HTMLElement, name?: string): any => {
-  if (!Constructor[INITIALIZED_KEY]) {
-    initConstructor(Constructor, name)
-  }
+export default (Constructor: any, el: HTMLElement): any => {
+  const name = Constructor[COMPONENT_NAME_KEY]
 
   const coel = new Constructor()
 

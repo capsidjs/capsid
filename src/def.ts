@@ -4,6 +4,7 @@ import initComponent from './init-component'
 
 import check from './util/check'
 import { ready } from './util/document'
+import { COMPONENT_NAME_KEY } from './util/const'
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -21,6 +22,7 @@ const def = (name: string, Constructor: Function) => {
     '`Constructor` of a class component has to be a function'
   )
 
+  ;(Constructor as any)[COMPONENT_NAME_KEY] = name
   const initClass = `${name}-💊`
 
   /**
@@ -33,7 +35,7 @@ const def = (name: string, Constructor: Function) => {
     if (!classList.contains(initClass)) {
       classList.add(name, initClass)
 
-      initComponent(Constructor, el, name)
+      initComponent(Constructor, el)
     }
   }
 
