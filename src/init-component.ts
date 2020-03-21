@@ -19,35 +19,35 @@ export default (Constructor: any, el: HTMLElement, name?: string): any => {
     initConstructor(Constructor, name)
   }
 
-  const coelem = new Constructor()
+  const coel = new Constructor()
 
   // Assigns element to coelement's .el property
-  coelem.el = el
+  coel.el = el
 
   if (name) {
     // Assigns coelement to element's "hidden" property
-    ;(el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coelem
+    ;(el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coel
   }
 
   // Initialize event listeners defined by @emit decorator
   ;(Constructor[KEY_EVENT_LISTENERS] || []).map((listenerBinder: any) => {
-    listenerBinder(el, coelem, name)
+    listenerBinder(el, coel)
   })
 
   // Executes plugin hooks
   pluginHooks.forEach(pluginHook => {
-    pluginHook(el, coelem)
+    pluginHook(el, coel)
   })
 
   const list = Constructor[BEFORE_MOUNT_KEY]
 
   if (Array.isArray(list)) {
-    list.forEach(cb => { cb(el) })
+    list.forEach(cb => { cb(el, coel) })
   }
 
-  if (typeof coelem.__mount__ === 'function') {
-    coelem.__mount__()
+  if (typeof coel.__mount__ === 'function') {
+    coel.__mount__()
   }
 
-  return coelem
+  return coel
 }

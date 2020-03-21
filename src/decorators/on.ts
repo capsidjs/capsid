@@ -26,9 +26,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
    */
   constructor[KEY_EVENT_LISTENERS] = (
     constructor[KEY_EVENT_LISTENERS] || []
-  ).concat((el: HTMLElement, coelem: any, name: string) => {
-    const keyEventListeners = KEY_EVENT_LISTENERS + name
-
+  ).concat((el: HTMLElement, coel: any) => {
     const listener = (e: Event): void => {
       if (
         !at ||
@@ -43,11 +41,11 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
             color: '#e0407b',
             e,
             el,
-            coelem
+            coel
           })
         }
 
-        coelem[key](e)
+        coel[key](e)
       }
     }
 
@@ -61,8 +59,8 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
     /**
      * Store event listeners to remove it later.
      */
-    ;(el as any)[keyEventListeners] = (
-      (el as any)[keyEventListeners] || []
+    ;(coel as any)[KEY_EVENT_LISTENERS] = (
+      (coel as any)[KEY_EVENT_LISTENERS] || []
     ).concat(listener)
 
     el.addEventListener(event, listener)

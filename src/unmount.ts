@@ -9,7 +9,7 @@ export default (name: string, el: HTMLElement): void => {
   }
 
   el.classList.remove(name, `${name}-💊`)
-  ;((el as any)[KEY_EVENT_LISTENERS + name] || []).forEach((listener: any) => {
+  ;((coel as any)[KEY_EVENT_LISTENERS] || []).forEach((listener: any) => {
     listener.remove()
   })
 
