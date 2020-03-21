@@ -8,7 +8,6 @@ import install from './install'
 import { addMountHook } from './add-hidden-item'
 import { on, emits, wired, component, notifies, is, innerHTML, pub, sub } from './decorators/index'
 import __ccc__ from './ccc'
-import pluginHooks from './plugin-hooks'
 
 export {
   def,
@@ -28,6 +27,5 @@ export {
   pub,
   sub,
   addMountHook,
-  __ccc__,
-  pluginHooks
+  __ccc__
 }
