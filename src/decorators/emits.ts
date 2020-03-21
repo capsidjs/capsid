@@ -1,5 +1,5 @@
 /* tslint:disable:no-invalid-this */
-import trigger from '../util/event-trigger'
+import {triggerToElements} from '../util/event-trigger'
 import check from '../util/check'
 
 /**
@@ -22,15 +22,7 @@ const emits = (event: string) => (target: any, key: string, descriptor: any) => 
 
   descriptor.value = function() {
     const result = method.apply(this, arguments)
-
-    const emit = (x: unknown) => trigger(this.el, event, true, x)
-
-    if (result && result.then) {
-      result.then(emit)
-    } else {
-      emit(result)
-    }
-
+    triggerToElements([this.el], event, true, result)
     return result
   }
 }

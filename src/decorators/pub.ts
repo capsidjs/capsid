@@ -1,5 +1,5 @@
 /* tslint:disable:no-invalid-this */
-import trigger from '../util/event-trigger'
+import { triggerToElements } from '../util/event-trigger'
 import check from '../util/check'
 
 /**
@@ -26,20 +26,7 @@ export default (event: string, targetSelector?: string) => (
 
   descriptor.value = function() {
     const result = method.apply(this, arguments)
-    const forEach = Array.prototype.forEach
-
-    const emit = (x: unknown) => {
-      forEach.call(document.querySelectorAll(selector), (el: HTMLElement) =>
-        trigger(el, event, false, x)
-      )
-    }
-
-    if (result && result.then) {
-      result.then(emit)
-    } else {
-      emit(result)
-    }
-
+    triggerToElements([].concat.apply([], document.querySelectorAll(selector) as any), event, false, result)
     return result
   }
 }
