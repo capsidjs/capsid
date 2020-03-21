@@ -66,20 +66,14 @@ class Mirroring {
 
 # :wave: [Hello Example][]
 
-The hello example shows the usage of `__mount__` lifecycle:
+The hello example shows the usage of `innerHTML` decorator:
 
 ```ts
 import { component } from "capsid";
 
 @component("hello")
-export class Hello {
-  el: HTMLElement;
-
-  // This method will be called at `mount` lifecycle.
-  __mount__() {
-    this.el.textContent = "Hello, world!";
-  }
-}
+@innerHTML("Hello, world!")
+export class Hello {}
 ```
 
 ```html
@@ -88,7 +82,7 @@ export class Hello {
 
 `@component` defines the `hello` component.
 
-When the component initialized, `__mount__` method is called and in this case `textContent` of the element becomes `Hello, world!`.
+When the component initialized, the text `Hello, world!` is set to `.innerHTML` of the mounted element.
 
 [See the demo][Hello Example]
 
