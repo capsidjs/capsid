@@ -20,7 +20,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 - **Component-based DOM programming library**
 - :leaves: **Small.** ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), No dependencies.
 - :bulb: **Sensible.** It gives **behaviors** (event handlers and lifecycles) to **html classes** based on **component** definition.
-- :sunny: **Declarative.** You usually need only **5** decorators `@component`, `@wired`, `@on`, `@emits`, and `@notifies` to build an app.
+- :sunny: **Declarative.** You usually need only **6** decorators `@component`, `@wired`, `@on`, `@emits`, `@pub`, and `@sub` to build an app.
 
 # :butterfly: [Mirroring Example][]
 
@@ -112,15 +112,12 @@ const {
   on,
   emits,
   wired,
-  notifies,
   is,
   innerHTML,
   pub,
   sub
 } = require('capsid')
 ```
-
-There are 8 types of decorators.
 
 - `@component(name)`
   - *class decorator*
@@ -137,19 +134,16 @@ There are 8 types of decorators.
   - *field decorator*
   - wires the elements to the decorated field by the given selector.
   - optionally `@wired.all(selector)`
-- `@notifies`
-  - *method decorator*
-  - makes the decorated method an event broadcaster.
 - `@is(name)`
   - *class decorator*
   - Adds the class name to the given element.
 - `@innerHTML(html: string)`
   - *class decorator*
   - Sets the given html string as innerHTML of the element at the mount timing.
-- `@pub(event)`
+- `@pub(event: string, selector?: string)`
   - *methods decorator*
   - Publishes the event to the elements which have `sub:event` class.
-- `@sub(event)`
+- `@sub(event: string)`
   - *class decorator*
   - Adds the `sub:event` class to the given element.
 
@@ -318,38 +312,6 @@ If the selector matches to the multiple elements, then the first one is used.
 
 This wires the decorated field to the all elements selected by the given selector. This is similar to `@wired` decorator, but it wires all the elements, not the first one.
 
-## `@notifies(event: string, selector: string)`
-
-- @param {string} event The event type
-- @param {string} selector The selector to notify events
-
-`@notifies` is a method decorator. It adds the function to publishes the event to its descendant elements at the end of the decorated method.
-
-```js
-@component('foo')
-class Component {
-  @notifies('user-saved', '.is-user-observer')
-  saveUser () {
-    this.save(this.user)
-  }
-}
-```
-
-In the above, when you call `saveUser` method, it publishes `user-saved` event to its descendant `.is-user-observer` elements.
-
-For example, if the dom tree is like the below:
-
-```html
-<div class="component">
-  <input class="is-user-observer">
-  <label class="is-user-observer"></label>
-</div>
-```
-
-When `saveUser` is called, then `input` and `label` elements get `user-saved` event and they can react to the change of the data `user`.
-
-This decorator is useful for applying [flux][] design pattern to capsid components.
-
 ## `@is(...classNames: string[])`
 
 Adds the given class names to the element when it's mounted.
@@ -388,7 +350,7 @@ document.body.innerHTML
 
 ## `@pub(event: string)`
 
-This method decorator dispatches the `event` to the elements which have `sub:event` class. For example, if the method has `@pub('foo')`, then it dispatches `foo` event to the elements which have `sub:foo` class. The dispatched events don't buble up the dom tree.
+The method dispatches the `event` to the elements which have `sub:{event}` class. For example, if the method has `@pub('foo')`, then it dispatches `foo` event to the elements which have `sub:foo` class. The dispatched events don't buble up the dom tree.
 
 ```ts
 @component('my-comp')
@@ -401,6 +363,20 @@ class MyComp {
 ```
 
 The returned value or resolved value of the decorator becomes the `detail` prop of the dispatched custom event.
+
+## `@pub(event: string, selector: string)`
+
+The method dispatches `event` to the given `selector`.
+
+```ts
+@component('my-comp')
+class MyComp {
+  @pub('foo', '#foo-receiver')
+  method() {
+    // something ...
+  }
+}
+```
 
 ## `@sub(event: string)`
 
@@ -701,6 +677,7 @@ Coelement is the instance of Component class, which is attached to html element.
 
 # History
 
+- 2020-03-21   v1.5.0   Extend `@pub` decorator and remove `@notifies`.
 - 2020-03-21   v1.4.0   Add `@innerHTML` decorator.
 - 2020-03-15   v1.3.0   Add `@pub` and `@sub` decorators.
 - 2020-03-14   v1.2.0   Add `@is` decorator.

@@ -143,3 +143,36 @@ describe('@pub(event)', () => {
     comp.dispatchEvent(new CustomEvent('foo'))
   })
 })
+
+describe('@pub(event, selector)', () => {
+  it('publishes events to the given selector', done => {
+    const CUSTOM_EVENT = 'foo-bar'
+
+    @component('component')
+    class Component {
+      @pub(CUSTOM_EVENT, '#foo-bar-receiver')
+      @on('foo')
+      publish() {
+        return { foo: 123, bar: 'baz' }
+      }
+    }
+
+    const el = genel.div`
+      <div class="component">
+      <div class="target" id="foo-bar-receiver">
+    `
+    document.body.appendChild(el)
+    const target = el.querySelector('.target')
+    const comp = el.querySelector('.component')
+
+    prep()
+
+    target!.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
+      assert.deepStrictEqual(e.detail, { foo: 123, bar: 'baz' })
+      document.body.removeChild(el)
+      done()
+    })
+
+    comp!.dispatchEvent(new CustomEvent('foo'))
+  })
+})

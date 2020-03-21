@@ -8,7 +8,6 @@ export { on }
 export { default as emits } from './emits'
 export { default as wired } from './wired'
 export { default as component } from './component'
-export { default as notifies } from './notifies'
 export { default as is } from './is'
 export { default as innerHTML } from './inner-html'
 export { default as pub } from './pub'

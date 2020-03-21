@@ -6,8 +6,10 @@ import check from '../util/check'
  * Publishes the given event to the elements which has `sub:${event}` class.
  * For example `@pub('foo')` publishes the `foo` event to the elements
  * which have `sub:foo` class.
+ * @param event The event name
+ * @param targetSelector? The target selector. Default .sub\:{event}
  */
-export default (event: string) => (
+export default (event: string, targetSelector?: string) => (
   target: any,
   key: string,
   descriptor: any
@@ -20,14 +22,14 @@ export default (event: string) => (
     `Unable to publish empty event: constructor=${constructor.name} key=${key}`
   )
 
-  const targetClass = `sub:${event}`
+  const selector = targetSelector || `.sub\\:${event}`
 
   descriptor.value = function() {
     const result = method.apply(this, arguments)
     const forEach = Array.prototype.forEach
 
     const emit = (x: unknown) => {
-      forEach.call(document.getElementsByClassName(targetClass), (el: HTMLElement) =>
+      forEach.call(document.querySelectorAll(selector), (el: HTMLElement) =>
         trigger(el, event, false, x)
       )
     }
