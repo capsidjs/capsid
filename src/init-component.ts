@@ -1,8 +1,4 @@
-import {
-  INITIALIZED_KEY,
-  COELEMENT_DATA_KEY_PREFIX,
-  BEFORE_MOUNT_KEY
-} from './util/const'
+import { BEFORE_MOUNT_KEY } from './util/const'
 
 /**
  * Initialize component by the class constructor.

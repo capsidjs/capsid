@@ -1,4 +1,4 @@
-import { KEY_EVENT_LISTENERS, BEFORE_MOUNT_KEY } from '../util/const'
+import { KEY_EVENT_LISTENERS } from '../util/const'
 import debugMessage from '../util/debug-message'
 import check from '../util/check'
 import addHiddenItem, { addMountHook } from '../add-hidden-item'

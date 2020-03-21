@@ -1,5 +1,3 @@
-/* tslint:disable:no-invalid-this */
-
 /**
  * Wires the element of the given selector to the property.
  *

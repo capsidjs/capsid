@@ -1,4 +1,3 @@
-/* tslint:disable:no-invalid-this */
 import { triggerToElements } from '../util/event-trigger'
 import check from '../util/check'
 
