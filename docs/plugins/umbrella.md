@@ -1,3 +1,0 @@
-# Umbrella plugin
-
-TBD
