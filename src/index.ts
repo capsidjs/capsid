@@ -6,7 +6,16 @@ import unmount from './unmount'
 import get from './get'
 import install from './install'
 import { addMountHook } from './add-hidden-item'
-import { on, emits, wired, component, is, innerHTML, pub, sub } from './decorators/index'
+import {
+  on,
+  emits,
+  wired,
+  component,
+  is,
+  innerHTML,
+  pub,
+  sub
+} from './decorators/index'
 import __ccc__ from './ccc'
 
 export {

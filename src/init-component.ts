@@ -1,7 +1,7 @@
 import {
   INITIALIZED_KEY,
   COELEMENT_DATA_KEY_PREFIX,
-  BEFORE_MOUNT_KEY,
+  BEFORE_MOUNT_KEY
 } from './util/const'
 
 /**
@@ -23,7 +23,9 @@ export default (Constructor: any, el: HTMLElement): any => {
   // - initialization of class names
   const list = Constructor[BEFORE_MOUNT_KEY]
   if (Array.isArray(list)) {
-    list.forEach(cb => { cb(el, coel) })
+    list.forEach(cb => {
+      cb(el, coel)
+    })
   }
 
   if (typeof coel.__mount__ === 'function') {

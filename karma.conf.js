@@ -1,13 +1,13 @@
 module.exports = config =>
   config.set({
     frameworks: ['karma-typescript', 'mocha'],
-    files: [ 'src/**/*.ts' ],
+    files: ['src/**/*.ts'],
     preprocessors: { 'src/**/*.ts': ['karma-typescript'] },
     reporters: ['progress', 'karma-typescript'],
     karmaTypescriptConfig: {
       reports: {
         html: 'coverage',
-        lcovonly: 'coverage',
+        lcovonly: 'coverage'
       },
       coverageOptions: {
         exclude: [
@@ -19,7 +19,7 @@ module.exports = config =>
           // This file is covered but istanbul reports it isn't covered, so we ignore this.
           /src\/decorators\/on\.click\.at\.ts/
         ]
-      },
+      }
     },
     browsers: ['Chrome'],
     singleRun: true

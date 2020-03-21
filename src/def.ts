@@ -22,7 +22,6 @@ const def = (name: string, Constructor: Function) => {
     typeof Constructor === 'function',
     '`Constructor` of a class component has to be a function'
   )
-
   ;(Constructor as any)[COMPONENT_NAME_KEY] = name
   const initClass = `${name}-💊`
 

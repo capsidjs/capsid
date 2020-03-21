@@ -5,13 +5,14 @@ import make from '../make'
 import { clearComponents } from '../test-helper'
 
 describe('@sub(event)', () => {
-  afterEach(() => { clearComponents() })
+  afterEach(() => {
+    clearComponents()
+  })
 
   it('adds the class names to the element', () => {
     @component('foo')
     @sub('bar')
-    class Foo {
-    }
+    class Foo {}
 
     const el = document.createElement('div')
     const coel = make('foo', el)

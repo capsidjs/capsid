@@ -22,8 +22,7 @@ describe('make', () => {
     assert(make('foo', document.createElement('div')) instanceof Foo)
   })
 
-
-  it('doesn\'t initialize element twice', () => {
+  it("doesn't initialize element twice", () => {
     let a = 0
     class A {
       __mount__() {

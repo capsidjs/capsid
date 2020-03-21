@@ -26,7 +26,12 @@ export default (event: string, targetSelector?: string) => (
 
   descriptor.value = function() {
     const result = method.apply(this, arguments)
-    triggerToElements([].concat.apply([], document.querySelectorAll(selector) as any), event, false, result)
+    triggerToElements(
+      [].concat.apply([], document.querySelectorAll(selector) as any),
+      event,
+      false,
+      result
+    )
     return result
   }
 }

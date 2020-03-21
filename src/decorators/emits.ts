@@ -1,5 +1,5 @@
 /* tslint:disable:no-invalid-this */
-import {triggerToElements} from '../util/event-trigger'
+import { triggerToElements } from '../util/event-trigger'
 import check from '../util/check'
 
 /**
@@ -9,15 +9,17 @@ import check from '../util/check'
  * If the method returns the promise, then the event is emitted when it is resolved.
  * @param event The event name
  */
-const emits = (event: string) => (target: any, key: string, descriptor: any) => {
+const emits = (event: string) => (
+  target: any,
+  key: string,
+  descriptor: any
+) => {
   const method = descriptor.value
   const constructor = target.constructor
 
   check(
     !!event,
-    `Unable to emits an empty event: constructor=${
-      constructor.name
-    } key=${key}`
+    `Unable to emits an empty event: constructor=${constructor.name} key=${key}`
   )
 
   descriptor.value = function() {
