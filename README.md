@@ -652,89 +652,22 @@ const addPartOfPage = async () => {
 
 # Capsid Lifecycle
 
-nothing -> [mount] -> component works -> [unmount] -> nothing
+Capsid has 2 lifecycle events: `mount` and `unmount`.
 
-## capsid lifecycle events
-
-There are 2 lifecycle events in capsid: `mount` and `unmount`.
-
-- `mount`
-  - HTML elements are mounted by the components.
-  - An element is coupled with the corresponding coelement and they start working together.
-  - The timing of `mount` is either `DOMContentLoaded` or `capsid.prep()`.
-
-- `unmount`
-  - An element is decouple with the coelement.
-  - All events are removed and coelement is discarded.
-  - You need to call `unmount(class, element)` to unmount the component.
-
-## Explanation of `mount`
-
-At `mount` event, these things happen.
-
-- The component class's `instance` (coelement) is created.
-- `instance`.el is set to corresponding dom element.
-- event listeners defined by `@on` decorators are attached to the dom element.
-- plugin hooks are invoked if you use any.
-- if `instance` has __mount__ method, then `instance.__mount__()` is called.
-
-The above happens in this order. Therefore you can access `this.el` and you can invoke the events at `this.el` in `__mount__` method.
-
-## Lifecycle Methods
-
-### `constructor`
-
-The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with html, `__mount__` is more appropriate place.
-
-### `__mount__`
-
-`__mount__()` is called at the **end** of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
-
-### `__unmount__`
-
-`__unmount__()` is called when component is unmounted. If your component put resources on global space, you should discard them here to avoid memory leak.
-
-# Coelement
-
-Coelement is the instance of Component class, which is attached to html element. You can get coelement from the element using `get` API.
-# Initialization
-
-There are 2 ways to initialize components:
-
-1. [When document is ready][DOMContentLoaded] (automatic).
-2. When `capsid.prep()` is called (manual).
-
-All components are initialized automatically when document is ready. You don't need to care about those elements which exist before document is ready. See [Hello Example][] or [Clock Example][] for example.
-
-If you add elements after document is ready (for example, after ajax requests), call `capsid.prep()` and that initializes all the components.
-
-```js
-const addPartOfPage = async () => {
-  const { html } = await axios.get('path/to/something.html')
-
-  containerElemenent.innerHTML = html
-
-  capsid.prep() // <= this initializes all the elements which are not yet initialized.
-})
+```
+nothing -> [mount] -> component mounted -> [unmount] -> nothing
 ```
 
-# Capsid Lifecycle
-
-nothing -> [mount] -> component works -> [unmount] -> nothing
-
-## capsid lifecycle events
-
-There are 2 lifecycle events in capsid: `mount` and `unmount`.
+## Lifecycle events
 
 - `mount`
   - HTML elements are mounted by the components.
   - An element is coupled with the corresponding coelement and they start working together.
-  - The timing of `mount` is either `DOMContentLoaded` or `capsid.prep()`.
 
 - `unmount`
   - An element is decouple with the coelement.
   - All events are removed and coelement is discarded.
-  - You need to call `unmount(class, element)` to unmount the component.
+  - You need to call `unmount(class, element)` to trigger the unmount event.
 
 ## Explanation of `mount`
 
@@ -742,8 +675,8 @@ At `mount` event, these things happen.
 
 - The component class's `instance` (coelement) is created.
 - `instance`.el is set to corresponding dom element.
-- event listeners defined by `@on` decorators are attached to the dom element.
-- plugin hooks are invoked if you use any.
+- `before mount`-hooks are invoked.
+  - This includes the initialization of event handlers, class names, innerHTML, and custom plugin's hooks.
 - if `instance` has __mount__ method, then `instance.__mount__()` is called.
 
 The above happens in this order. Therefore you can access `this.el` and you can invoke the events at `this.el` in `__mount__` method.
@@ -752,11 +685,11 @@ The above happens in this order. Therefore you can access `this.el` and you can 
 
 ### `constructor`
 
-The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with html, `__mount__` is more appropriate place.
+The constructor is called at the start of `mount`ing. You cannot access `this.el` here. If you need to interact with `this.el`, use `__mount__` method.
 
 ### `__mount__`
 
-`__mount__()` is called at the **end** of the mount event. When it called, the dom element and event handlers are ready and available through `this.el`.
+`__mount__()` is called at the **end** of the mount event. When it is called, the dom element and event handlers are ready and available through `this.el`.
 
 ### `__unmount__`
 
