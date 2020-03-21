@@ -69,7 +69,7 @@ class Mirroring {
 The hello example shows the usage of `innerHTML` decorator:
 
 ```ts
-import { component } from "capsid";
+import { component, innerHTML } from "capsid";
 
 @component("hello")
 @innerHTML("Hello, world!")
