@@ -29,18 +29,17 @@ export default (Constructor: any, el: HTMLElement, name?: string): any => {
     ;(el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coel
   }
 
-  // Initialize event listeners defined by @emit decorator
-  ;(Constructor[KEY_EVENT_LISTENERS] || []).map((listenerBinder: any) => {
-    listenerBinder(el, coel)
-  })
-
   // Executes plugin hooks
   pluginHooks.forEach(pluginHook => {
     pluginHook(el, coel)
   })
 
-  const list = Constructor[BEFORE_MOUNT_KEY]
-
+  // Initialize `before mount` hooks
+  // This includes:
+  // - initialization of event handlers
+  // - initialization of innerHTML
+  // - initialization of class names
+  const list = Constructor[BEFORE_MOUNT_KEY] as unknown
   if (Array.isArray(list)) {
     list.forEach(cb => { cb(el, coel) })
   }
