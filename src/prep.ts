@@ -8,7 +8,7 @@ import ccc from './ccc'
  * @param el The dom where class componets are initialized
  * @throws when the class name is invalid type.
  */
-export default (name?: string, el?: HTMLElement): void => {
+export default (name?: string | null, el?: Element): void => {
   let classNames
 
   if (!name) {

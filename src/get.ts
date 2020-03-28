@@ -6,7 +6,7 @@ import { COELEMENT_DATA_KEY_PREFIX } from './util/const'
  * @param name The class-component name
  * @param el The element
  */
-export default (name: string, el: HTMLElement) => {
+export default (name: string, el: Element) => {
   checkComponentNameIsValid(name)
 
   const coelement = (el as any)[COELEMENT_DATA_KEY_PREFIX + name]

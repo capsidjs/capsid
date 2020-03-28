@@ -1,3 +1,4 @@
+import prep from '../prep'
 import { addMountHook } from '../add-hidden-item'
 
 /**
@@ -7,5 +8,6 @@ import { addMountHook } from '../add-hidden-item'
 export default (innerHTML: string) => (Cls: Function) => {
   addMountHook(Cls, (el: HTMLElement) => {
     el.innerHTML = innerHTML
+    prep(null, el)
   })
 }
