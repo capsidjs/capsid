@@ -671,6 +671,7 @@ Coelement is the instance of Component class, which is attached to html element.
 
 # History
 
+- 2020-03-28   v1.6.1   Fix debug plugin.
 - 2020-03-28   v1.6.0   Automatic intialization of components inside `@innerHTML`.
 - 2020-03-21   v1.5.0   Extend `@pub` decorator and remove `@notifies`.
 - 2020-03-21   v1.4.0   Add `@innerHTML` decorator.
