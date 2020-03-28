@@ -14,10 +14,10 @@ describe('initComponent', () => {
     class A {}
 
     const el = document.createElement('div')
-    const coelem = initComponent(A, el)
+    const coel = initComponent(A, el)
 
-    assert(coelem instanceof A)
-    assert.strictEqual(coelem.el, el)
+    assert(coel instanceof A)
+    assert.strictEqual(coel.el, el)
   })
 
   it('calls __mount__', done => {

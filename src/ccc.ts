@@ -1,5 +1,5 @@
 interface Initializer {
-  (el: HTMLElement, coelem?: any): void
+  (el: HTMLElement, coel?: any): void
   sel: string
 }
 interface cccType {

@@ -21,26 +21,26 @@ const boldColor = (color: string): string =>
 /**
  * Gets the displayable component name.
  */
-const getComponentName = (coelem: any): string => {
-  const { constructor } = coelem
+const getComponentName = (coel: any): string => {
+  const { constructor } = coel
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`
 }
 
 const defaultEventColor = '#f012be'
 
 const onEventMessage = ({
-  coelem,
+  coel,
   e,
   module,
   color
 }: {
-  coelem: any
+  coel: any
   e: Event
   module: string
   color?: string
 }) => {
   const event = e.type
-  const component = getComponentName(coelem)
+  const component = getComponentName(coel)
 
   console.groupCollapsed(
     `${module}> %c${event}%c on %c${component}`,
@@ -54,8 +54,8 @@ const onEventMessage = ({
     console.log(e.target)
   }
 
-  if (coelem.el) {
-    console.log(coelem.el)
+  if (coel.el) {
+    console.log(coel.el)
   }
 
   console.groupEnd()

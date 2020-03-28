@@ -9,9 +9,9 @@ import { COELEMENT_DATA_KEY_PREFIX } from './util/const'
 export default (name: string, el: Element) => {
   checkComponentNameIsValid(name)
 
-  const coelement = (el as any)[COELEMENT_DATA_KEY_PREFIX + name]
+  const coel = (el as any)[COELEMENT_DATA_KEY_PREFIX + name]
 
-  check(coelement, `no coelement named: ${name}, on the dom: ${el.tagName}`)
+  check(coel, `no coelement named: ${name}, on the dom: ${el.tagName}`)
 
-  return coelement
+  return coel
 }

@@ -6,7 +6,7 @@ const install = (capsid: any) => {
   const { on, addMountHook } = capsid
 
   on.outside = (event: string) => (target: any, key: string, _: any) => {
-    addMountHook(target.constructor, (el: HTMLElement, coelem: any) => {
+    addMountHook(target.constructor, (el: HTMLElement, coel: any) => {
       const listener = (e: Event): void => {
         if (el !== e.target && !el.contains(e.target as any)) {
           if (__DEV__) {
@@ -16,11 +16,11 @@ const install = (capsid: any) => {
               color: '#39cccc',
               el,
               e,
-              coelem
+              coel
             })
           }
 
-          coelem[key](e)
+          coel[key](e)
         }
       }
 

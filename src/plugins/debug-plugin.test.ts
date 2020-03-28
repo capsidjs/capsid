@@ -16,7 +16,7 @@ describe('debug-plugin', () => {
     it('logs event and component names', () => {
       const el = document.createElement('a')
       const e = { type: 'click', target: el }
-      const coelem = { constructor: { name: 'foo' }, el }
+      const coel = { constructor: { name: 'foo' }, el }
 
       td.replace(console, 'groupCollapsed')
       td.replace(console, 'log')
@@ -24,7 +24,7 @@ describe('debug-plugin', () => {
       ;(global as any).capsidDebugMessage({
         type: 'event',
         e,
-        coelem,
+        coel,
         module: 'module'
       })
 

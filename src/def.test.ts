@@ -22,8 +22,8 @@ describe('def', () => {
     def('assign-test2', A)
 
     const el = document.createElement('div')
-    const coelem = make('assign-test2', el)
+    const coel = make('assign-test2', el)
 
-    assert(coelem instanceof A)
+    assert(coel instanceof A)
   })
 })

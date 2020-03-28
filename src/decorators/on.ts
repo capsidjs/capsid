@@ -22,7 +22,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
   )
   /**
    * @param el The element
-   * @param coelem The coelement
+   * @param coel The coelement
    * @param name The component name
    */
   addMountHook(constructor, (el: HTMLElement, coel: any) => {
