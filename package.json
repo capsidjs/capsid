@@ -9,8 +9,8 @@
     "dist",
     "types",
     "index.js",
-    "outside-events.js",
-    "debug.js"
+    "outside",
+    "debug"
   ],
   "scripts": {
     "clean": "rimraf coverage dist types",
