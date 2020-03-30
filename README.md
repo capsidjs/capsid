@@ -27,7 +27,7 @@ For state management, `capsid` has [evex][], which is the variation of [flux][] 
 The mirroring example shows the basic usages of `@component`, `@wired`, and `@on` decorators.
 
 ```js
-const { on, wired, component } = require("capsid");
+import { on, wired, component } import "capsid";
 
 // Declares `mirroring` component.
 // HTML elements which have `mirroring` class will be mounted by this component.
@@ -95,13 +95,15 @@ When the component initialized, the text `Hello, world!` is set to `.innerHTML` 
 then:
 
 ```js
-const capsid = require('capsid')
+import { component } from 'capsid'
 ```
+
+Note: You need TypeScript for using capsid because it depends on TypeScript decorators. You can easily start using TypeScript by using bundlers like [parcel][]
 
 # Decorators
 
 ```js
-const {
+import {
   component,
   on,
   emits,
@@ -110,7 +112,7 @@ const {
   innerHTML,
   pub,
   sub
-} = require('capsid')
+} from 'capsid'
 ```
 
 - `@component(name)`
@@ -148,7 +150,7 @@ capsid.component(className) is class decorator. With this decorator, you can reg
 This is a shorthand of `capsid.def('component', Component)`.
 
 ```js
-const { component } = require('capsid')
+import { component } from 'capsid'
 
 @component('timer')
 class Timer {
@@ -163,8 +165,9 @@ The above registers `Timer` class as `timer` component.
 `@on` is a method decorator. With this decorator, you can register the method as the event handler of the element.
 
 ```js
-const { on } = capsid
+import { on, component } from 'capsid'
 
+@component('foo-btn')
 class FooButton {
 
   @on('click')
@@ -172,8 +175,6 @@ class FooButton {
     ...definitions...
   }
 }
-
-capsid.def('foo-btn', FooButton)
 ```
 
 The above binds `onClick` method to its element's 'click' event automatically.
@@ -201,16 +202,15 @@ capsid.def('foo-btn', FooButton)
 `@on(name, { at: selector })` is a method decorator. It's similar to `@on`, but it only handles the event from `selector` in the component.
 
 ```js
-const { on } = capsid
+import { on, component } from 'capsid'
 
+@component('btn')
 class Btn {
   @on('click', { at: '.btn' })
   onBtnClick (e) {
     ...definitions...
   }
 }
-
-capsid.def('btn', Btn)
 ```
 
 In the above example, `onBtnClick` method listens to the click event of the `.btn` element in the `Btn`'s element.
@@ -259,16 +259,15 @@ class Foo {
 `@emits(eventName)` triggers the event at the end of the method.
 
 ```js
-const { emits, def } = require('capsid')
+import { emits, component } from 'capsid'
 
+@component('manager')
 class Manager {
   @emits('manager.ended')
   start() {
     ...definitions...
   }
 }
-
-def('manager', Manager)
 ```
 
 In the above example, `start` method triggers the `manager.ended` event when it finished. The returns value of the method is passed as `detail` of the event object. So you can pass the data from children to parents.
@@ -276,8 +275,9 @@ In the above example, `start` method triggers the `manager.ended` event when it 
 If the method returns a promise, then the event is triggered _after_ the promise is resolved.
 
 ```js
-const { emits, def } = require('capsid')
+const { emits, component } = require('capsid')
 
+@component('manager')
 class Manager {
   @emits('manager.ended')
   start () {
@@ -286,8 +286,6 @@ class Manager {
     return promise
   }
 }
-
-def('manager', Manager)
 ```
 
 In the above example, `manager.ended` event is triggered after `promise` is resolved. The resolved value of the promise is passed as `detail` of the event object.
@@ -389,8 +387,10 @@ class MyComp {
 
 # APIs
 
+These are advanced APIs of capsid. You usually don't need these APIs for building an app, but these could be useful if you write capsid plugins or reusable capsid modules. These APIs are used for building decorators of capsid.
+
 ```js
-const {
+import {
   def,
   prep,
   make,
@@ -398,7 +398,7 @@ const {
   unmount,
   get,
   install
-} = require('capsid')
+} from 'capsid'
 ```
 
 - `def(name, constructor)`
@@ -539,8 +539,9 @@ See [capsid-module][] repository for details.
 Via npm:
 
 ```js
-const capsid = require('capsid')
-capsid.install(require('capsid/debug'))
+import { install } from 'capsid'
+import debug from 'capsid/debug'
+install(debug)
 ```
 
 Via CDN:
@@ -562,8 +563,9 @@ And you'll get additional debug information in console.
 Via npm:
 
 ```js
-const capsid = require('capsid')
-capsid.install(require('capsid/outside-events'))
+import { install } from 'capsid'
+import outside from 'capsid/outside'
+install(outside)
 ```
 
 Via cdn:
