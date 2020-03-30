@@ -12,5 +12,12 @@
       "mocha",
       "node"
     ]
-  }
+  },
+  "include": [
+    "src/**/*",
+    "./third_party.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
 }
