@@ -18,7 +18,7 @@ describe('@wired(selector)', () => {
       <div class="elm"></div>
     `
 
-    const component = make('wire-el-test', el)
+    const component = make<Component>('wire-el-test', el)
     assert(component.elm instanceof HTMLElement)
     assert(component.elm === el.firstChild)
   })
@@ -40,7 +40,7 @@ describe('@wired.all(selector)', () => {
       <div class="elm"></div>
     `
 
-    const component = make('comp', el)
+    const component = make<Component>('comp', el)
     assert(component.elms.length === 2)
     assert(component.elms[0] === el.firstChild)
     assert(component.elms[1] === el.lastChild)

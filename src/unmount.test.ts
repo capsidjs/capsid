@@ -10,6 +10,8 @@ describe('unmount', () => {
 
   it('removes class name, reference and event handlers', done => {
     class Foo {
+      el?: Element
+
       @on.click
       @on('foo')
       method() {
@@ -20,13 +22,13 @@ describe('unmount', () => {
     def('foo', Foo)
 
     const el = genel.div``
-    const coel = make('foo', el)
+    const coel = make<Foo>('foo', el)
 
     assert(el.classList.contains('foo'))
     assert.strictEqual(coel.el, el)
-    assert.strictEqual(get('foo', el), coel)
+    assert.strictEqual(get<Foo>('foo', el), coel)
 
-    unmount('foo', el)
+    unmount<Foo>('foo', el)
 
     assert(!el.classList.contains('foo'))
     assert.strictEqual(coel.el, undefined)
@@ -51,9 +53,9 @@ describe('unmount', () => {
     def('bar', Bar)
 
     const el = genel.div``
-    make('bar', el)
+    make<Bar>('bar', el)
 
-    unmount('bar', el)
+    unmount<Bar>('bar', el)
 
     el.click()
     el.dispatchEvent(new CustomEvent('foo'))
@@ -72,9 +74,9 @@ describe('unmount', () => {
 
     const el = genel.div``
 
-    make('foo', el)
+    make<Foo>('foo', el)
 
-    unmount('foo', el)
+    unmount<Foo>('foo', el)
   })
 
   it('does not unmount listeners of different component which mounted on the same element', done => {
@@ -91,9 +93,9 @@ describe('unmount', () => {
 
     const el = genel.div``
 
-    make('foo', el)
-    make('bar', el)
-    unmount('foo', el)
+    make<Foo>('foo', el)
+    make<Bar>('bar', el)
+    unmount<Foo>('foo', el)
 
     el.click()
   })

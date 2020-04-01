@@ -8,10 +8,10 @@ import ccc from './ccc'
  * @param el The element to initialize
  * @return
  */
-export default (name: string, elm: HTMLElement) => {
+export default <T>(name: string, elm: HTMLElement) => {
   checkComponentNameIsValid(name)
 
   ccc[name](elm)
 
-  return get(name, elm)
+  return get<T>(name, elm)
 }

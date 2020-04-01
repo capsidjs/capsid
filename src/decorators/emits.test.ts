@@ -36,7 +36,7 @@ describe('@emits(event)', () => {
       done()
     })
 
-    make('component', el).foo()
+    make<Component>('component', el).foo()
   })
 
   it('makes the method emit the event with the resolved value after the promise resolved', done => {
@@ -64,6 +64,6 @@ describe('@emits(event)', () => {
       done()
     })
 
-    make('component', el).foo()
+    make<Component>('component', el).foo()
   })
 })

@@ -13,9 +13,9 @@ describe('get', () => {
   it('gets the coelement instance from the element', () => {
     const el = document.createElement('div')
 
-    make('foo', el)
+    make<Foo>('foo', el)
 
-    const coel = get('foo', el)
+    const coel = get<Foo>('foo', el)
 
     assert(coel instanceof Foo)
     assert(coel.el === el)
