@@ -673,6 +673,7 @@ Coelement is the instance of Component class, which is attached to html element.
 
 # History
 
+- 2020-04-02   v1.7.0   Better make/get/unmount types.
 - 2020-03-30   v1.6.2   Fix submodule export for TypeScript.
 - 2020-03-28   v1.6.1   Fix debug plugin.
 - 2020-03-28   v1.6.0   Automatic intialization of components inside `@innerHTML`.
