@@ -16,8 +16,8 @@ describe('initComponent', () => {
     const el = document.createElement('div')
     const coel = initComponent(A, el)
 
-    assert(coel instanceof A)
     assert.strictEqual(coel.el, el)
+    assert(coel instanceof A)
   })
 
   it('calls __mount__', done => {
