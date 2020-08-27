@@ -1,2 +1,1 @@
-import module from '../types/plugins/debug-plugin'
-export default module
+export * from '../types/plugins/debug-plugin'
