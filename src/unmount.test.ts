@@ -8,7 +8,7 @@ describe('unmount', () => {
     clearComponents()
   })
 
-  it('removes class name, reference and event handlers', done => {
+  it('removes class name, reference and event handlers', (done) => {
     class Foo {
       el?: Element
 
@@ -39,7 +39,7 @@ describe('unmount', () => {
     setTimeout(() => done(), 100)
   })
 
-  it("unmounts anscestor class's event handler correctly", done => {
+  it("unmounts anscestor class's event handler correctly", (done) => {
     class Foo {
       @on.click
       @on('foo')
@@ -63,7 +63,7 @@ describe('unmount', () => {
     setTimeout(() => done(), 100)
   })
 
-  it('calls __unmount__ if exists', done => {
+  it('calls __unmount__ if exists', (done) => {
     class Foo {
       __unmount__() {
         done()
@@ -79,7 +79,7 @@ describe('unmount', () => {
     unmount<Foo>('foo', el)
   })
 
-  it('does not unmount listeners of different component which mounted on the same element', done => {
+  it('does not unmount listeners of different component which mounted on the same element', (done) => {
     class Foo {}
     class Bar {
       @on.click

@@ -25,7 +25,7 @@ describe('debug-plugin', () => {
         type: 'event',
         e,
         coel,
-        module: 'module'
+        module: 'module',
       })
 
       td.verify(

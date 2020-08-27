@@ -14,7 +14,7 @@ import {
   is,
   innerHTML,
   pub,
-  sub
+  sub,
 } from './decorators/index'
 import __ccc__ from './ccc'
 
@@ -35,5 +35,5 @@ export {
   pub,
   sub,
   addMountHook,
-  __ccc__
+  __ccc__,
 }

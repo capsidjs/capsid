@@ -11,7 +11,7 @@ export const triggerToElements = (
   result: any
 ) => {
   const emit = (r: any) => {
-    elements.forEach(el => {
+    elements.forEach((el) => {
       el.dispatchEvent(new CustomEvent(type, { detail: r, bubbles }))
     })
   }

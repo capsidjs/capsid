@@ -39,7 +39,7 @@ describe('make', () => {
   })
 
   describe('in __mount__', () => {
-    it('can get coelement from el by the name', done => {
+    it('can get coelement from el by the name', (done) => {
       class Component {
         el?: HTMLElement
 

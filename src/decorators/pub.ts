@@ -23,7 +23,7 @@ export default (event: string, targetSelector?: string) => (
 
   const selector = targetSelector || `.sub\\:${event}`
 
-  descriptor.value = function() {
+  descriptor.value = function () {
     const result = method.apply(this, arguments)
     triggerToElements(
       [].concat.apply([], document.querySelectorAll(selector) as any),

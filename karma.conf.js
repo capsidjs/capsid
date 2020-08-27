@@ -1,4 +1,4 @@
-module.exports = config =>
+module.exports = (config) =>
   config.set({
     frameworks: ['karma-typescript', 'mocha'],
     files: ['src/**/*.ts'],
@@ -7,7 +7,7 @@ module.exports = config =>
     karmaTypescriptConfig: {
       reports: {
         html: 'coverage',
-        lcovonly: 'coverage'
+        lcovonly: 'coverage',
       },
       coverageOptions: {
         exclude: [
@@ -17,10 +17,10 @@ module.exports = config =>
           // We don't like to test this sort of thing.
           /src\/util\/debug-message.ts/,
           // This file is covered but istanbul reports it isn't covered, so we ignore this.
-          /src\/decorators\/on\.click\.at\.ts/
-        ]
-      }
+          /src\/decorators\/on\.click\.at\.ts/,
+        ],
+      },
     },
     browsers: ['Chrome'],
-    singleRun: true
+    singleRun: true,
   })

@@ -16,7 +16,7 @@ const install = (capsid: any) => {
               color: '#39cccc',
               el,
               e,
-              coel
+              coel,
             })
           }
 

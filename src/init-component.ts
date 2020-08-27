@@ -19,7 +19,7 @@ export default (Constructor: any, el: HTMLElement): any => {
   // - initialization of class names
   const list = Constructor[BEFORE_MOUNT_KEY]
   if (Array.isArray(list)) {
-    list.forEach(cb => {
+    list.forEach((cb) => {
       cb(el, coel)
     })
   }

@@ -19,7 +19,7 @@ export default (name?: string | null, el?: Element): void => {
     classNames = [name]
   }
 
-  classNames.map(className => {
+  classNames.map((className) => {
     ;[].map.call(
       (el || doc).querySelectorAll(ccc[className].sel),
       ccc[className]

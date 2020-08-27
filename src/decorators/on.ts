@@ -40,7 +40,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) => (
             color: '#e0407b',
             e,
             el,
-            coel
+            coel,
           })
         }
 

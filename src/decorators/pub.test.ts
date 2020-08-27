@@ -63,13 +63,13 @@ describe('@pub(event)', () => {
 
     prep()
 
-    const promise0 = new Promise(resolve =>
+    const promise0 = new Promise((resolve) =>
       child0.addEventListener(CUSTOM_EVENT, resolve)
     )
-    const promise1 = new Promise(resolve =>
+    const promise1 = new Promise((resolve) =>
       child1.addEventListener(CUSTOM_EVENT, resolve)
     )
-    const promise2 = new Promise(resolve =>
+    const promise2 = new Promise((resolve) =>
       child2.addEventListener(CUSTOM_EVENT, resolve)
     )
 
@@ -80,7 +80,7 @@ describe('@pub(event)', () => {
     document.body.removeChild(el)
   })
 
-  it('publishes events with the return value as detail', done => {
+  it('publishes events with the return value as detail', (done) => {
     const CUSTOM_EVENT = 'foo-bar'
 
     class Component {
@@ -112,7 +112,7 @@ describe('@pub(event)', () => {
     comp!.dispatchEvent(new CustomEvent('foo'))
   })
 
-  it('publishes events with the resolved value as detail if it is async function', done => {
+  it('publishes events with the resolved value as detail if it is async function', (done) => {
     const CUSTOM_EVENT = 'foo-bar'
 
     class Component {
@@ -146,7 +146,7 @@ describe('@pub(event)', () => {
 })
 
 describe('@pub(event, selector)', () => {
-  it('publishes events to the given selector', done => {
+  it('publishes events to the given selector', (done) => {
     const CUSTOM_EVENT = 'foo-bar'
 
     @component('component')

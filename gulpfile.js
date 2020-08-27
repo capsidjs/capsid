@@ -14,19 +14,19 @@ const paths = {
   src: {
     index: 'src/index.ts',
     outsideEventsPlugin: 'src/plugins/outside-events-plugin.ts',
-    debugPlugin: 'src/plugins/debug-plugin.ts'
+    debugPlugin: 'src/plugins/debug-plugin.ts',
   },
-  dist: 'dist'
+  dist: 'dist',
 }
 
-const replaceVars = isProduction => replace({ __DEV__: `${!isProduction}` })
+const replaceVars = (isProduction) => replace({ __DEV__: `${!isProduction}` })
 
 const rollupStream = ({ input, format, name, output, mode }) =>
   rollup({
     input,
     format,
     name,
-    plugins: [typescript(), replaceVars(mode === 'production')]
+    plugins: [typescript(), replaceVars(mode === 'production')],
   })
     .pipe(source(output))
     .pipe(gulpif(mode !== 'production', rename({ suffix: `.${mode}` })))
@@ -35,13 +35,13 @@ const build = ({ input, format, name, output, minify, modes }) => {
   const pipeline = merge
     .apply(
       null,
-      modes.map(mode =>
+      modes.map((mode) =>
         rollupStream({
           input,
           format,
           name,
           output,
-          mode
+          mode,
         })
       )
     )
@@ -65,7 +65,7 @@ gulp.task('browser', () =>
     name: 'capsid',
     output: 'capsid.js',
     minify: true,
-    modes: ['production', 'development']
+    modes: ['production', 'development'],
   })
 )
 
@@ -75,7 +75,7 @@ gulp.task('cjs', () =>
     format: 'cjs',
     output: 'capsid-cjs.js',
     minify: false,
-    modes: ['production', 'development']
+    modes: ['production', 'development'],
   })
 )
 
@@ -86,7 +86,7 @@ gulp.task('debug-plugin', () =>
     output: 'capsid-debug.js',
     name: 'capsidDebugPlugin',
     minify: false,
-    modes: ['production']
+    modes: ['production'],
   })
 )
 
@@ -97,7 +97,7 @@ gulp.task('outside-events-plugin', () =>
     output: 'capsid-outside-events.js',
     name: 'capsidOutsideEventsPlugin',
     minify: true,
-    modes: ['production', 'development']
+    modes: ['production', 'development'],
   })
 )
 

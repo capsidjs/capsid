@@ -15,7 +15,7 @@ const wired = (sel: string) => (target: any, key: string) => {
     get() {
       return this.el.querySelector(sel)
     },
-    configurable: false
+    configurable: false,
   })
 }
 
@@ -38,7 +38,7 @@ const wiredAll = (sel: string) => (target: any, key: string) => {
     get() {
       return this.el.querySelectorAll(sel)
     },
-    configurable: false
+    configurable: false,
   })
 }
 

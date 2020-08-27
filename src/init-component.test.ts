@@ -20,7 +20,7 @@ describe('initComponent', () => {
     assert(coel instanceof A)
   })
 
-  it('calls __mount__', done => {
+  it('calls __mount__', (done) => {
     class A {
       el?: HTMLElement
 
@@ -37,7 +37,7 @@ describe('initComponent', () => {
   })
 
   describe('__mount__', () => {
-    it('runs after @on handlers are set', done => {
+    it('runs after @on handlers are set', (done) => {
       class A {
         el?: HTMLElement
 

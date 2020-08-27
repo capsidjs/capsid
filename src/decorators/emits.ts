@@ -21,7 +21,7 @@ const emits = (event: string) => (
     `Unable to emits an empty event: constructor=${constructor.name} key=${key}`
   )
 
-  descriptor.value = function() {
+  descriptor.value = function () {
     const result = method.apply(this, arguments)
     triggerToElements([this.el], event, true, result)
     return result

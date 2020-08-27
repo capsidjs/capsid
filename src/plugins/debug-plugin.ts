@@ -32,7 +32,7 @@ const onEventMessage = ({
   coel,
   e,
   module,
-  color
+  color,
 }: {
   coel: any
   e: Event

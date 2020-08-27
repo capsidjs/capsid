@@ -18,7 +18,7 @@ describe('@emits(event)', () => {
     }, /Unable to emits an empty event: constructor=Component key=emitter/)
   })
 
-  it('makes the method emit the event with the returned value', done => {
+  it('makes the method emit the event with the returned value', (done) => {
     class Component {
       @emits('event-foo')
       foo() {
@@ -39,13 +39,13 @@ describe('@emits(event)', () => {
     make<Component>('component', el).foo()
   })
 
-  it('makes the method emit the event with the resolved value after the promise resolved', done => {
+  it('makes the method emit the event with the resolved value after the promise resolved', (done) => {
     let promiseResolved = false
 
     class Component {
       @emits('event-foo')
       foo() {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           setTimeout(() => {
             promiseResolved = true
             resolve(123)

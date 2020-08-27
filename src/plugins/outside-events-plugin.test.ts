@@ -7,7 +7,7 @@ describe('outside-events-plugin', () => {
   })
 
   describe('on.outside', () => {
-    it('add outside event handler', done => {
+    it('add outside event handler', (done) => {
       class Component {
         @on.outside('click')
         handleOutsideClick() {

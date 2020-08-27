@@ -2,7 +2,7 @@ import * as capsid from './index'
 import * as assert from 'assert'
 
 describe('install', () => {
-  it('calls install method of the given module', done => {
+  it('calls install method of the given module', (done) => {
     const options = { foo: 'bar' }
 
     capsid.install(
@@ -12,7 +12,7 @@ describe('install', () => {
           assert.strictEqual(options0, options)
 
           done()
-        }
+        },
       },
       options
     )

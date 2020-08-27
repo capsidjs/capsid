@@ -1,7 +1,7 @@
 const READY_STATE_CHANGE = 'readystatechange'
 const doc = document
 
-export const ready: Promise<void> = new Promise(resolve => {
+export const ready: Promise<void> = new Promise((resolve) => {
   const checkReady = () => {
     if (doc.readyState === 'complete') {
       resolve()

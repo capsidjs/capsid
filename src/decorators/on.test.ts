@@ -19,7 +19,7 @@ describe('@on(event)', () => {
     }, /Empty event handler is given: constructor=Component key=handler/)
   })
 
-  it('registers the method as the event listener of the given event name', done => {
+  it('registers the method as the event listener of the given event name', (done) => {
     class Component {
       @on('click')
       handler() {
@@ -36,7 +36,7 @@ describe('@on(event)', () => {
     el.click()
   })
 
-  it('registers the method as the event listener for children classes', done => {
+  it('registers the method as the event listener for children classes', (done) => {
     class Foo {
       @on('click')
       handler() {
@@ -57,7 +57,7 @@ describe('@on(event)', () => {
 describe('@on(event, {at: selector})', () => {
   afterEach(() => clearComponents())
 
-  it('registers the method as the event listener of the given event name and selector', done => {
+  it('registers the method as the event listener of the given event name and selector', (done) => {
     class Foo {
       @on('foo-event', { at: '.inner' })
       foo() {
@@ -94,7 +94,7 @@ describe('@on(event, {at: selector})', () => {
 describe('@on.click', () => {
   afterEach(() => clearComponents())
 
-  it('binds method to click event', done => {
+  it('binds method to click event', (done) => {
     class Component {
       @on.click
       handler() {
