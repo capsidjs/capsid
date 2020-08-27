@@ -9,18 +9,16 @@
 
 `capsid` is a library for component-based DOM programming.
 
-`capsid` gives behaviors to the classes of html elements based on the component definitions. See [Hello Example][] :wave: or [Clock Example][] :stopwatch:.
+`capsid` mounts `component` to html classes. See [Hello Example][] :wave: or [Clock Example][] :stopwatch:.
 
-`capsid` uses decorators for defining event handlers and event emitters declaratively. See [Mirroring Example][] :butterfly: and [Counter Example][] :level_slider:.
-
-For state management, `capsid` has [evex][], which is the variation of [flux][] design pattern by using DOM events. Please check [evex][] repository for details.
+`capsid` uses decorators for event handlers and dispatchers. This makes `capsid` component programming very declarative and easy to read and understand. See [Mirroring Example][] :butterfly: and [Counter Example][] :level_slider:.
 
 # :sparkles: Features
 
 - **Component-based DOM programming library**
 - :leaves: **Small.** ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), No dependencies.
-- :bulb: **Sensible.** It gives **behaviors** (event handlers and lifecycles) to **html classes** based on **component** definition.
-- :sunny: **Declarative.** You usually need only **6** decorators `@component`, `@wired`, `@on`, `@emits`, `@pub`, and `@sub` to build an app.
+- :bulb: **Sensible.** It mounts **components** (i.e. event handlers and lifecycles) to **html classes**.
+- :sunny: **Declarative.** You need to know only **6** decorators `@component`, `@wired`, `@on`, `@emits`, `@pub`, and `@sub` to build an app.
 
 # :butterfly: [Mirroring Example][]
 
