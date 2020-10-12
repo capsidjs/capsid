@@ -5,20 +5,13 @@
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid)
 
-> :pill: Component-based DOM programming
-
-`capsid` is a library for component-based DOM programming.
-
-`capsid` mounts `component` to html classes. See [Hello Example][] :wave: or [Clock Example][] :stopwatch:.
-
-`capsid` uses decorators for event handlers and dispatchers. This makes `capsid` component programming very declarative and easy to read and understand. See [Mirroring Example][] :butterfly: and [Counter Example][] :level_slider:.
-
-# :sparkles: Features
-
-- **Component-based DOM programming library**
+- **Declarative DOM programming library based on TypeScript decorators**
 - :leaves: **Small.** ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), No dependencies.
-- :bulb: **Sensible.** It mounts **components** (i.e. event handlers and lifecycles) to **html classes**.
+- :bulb: **Simple.** It mounts **components** (i.e. event handlers and lifecycles) to **html classes**.
 - :sunny: **Declarative.** You need to know only **6** decorators `@component`, `@wired`, `@on`, `@emits`, `@pub`, and `@sub` to build an app.
+
+
+`capsid` uses TypeScript decorators for event handlers and dispatchers, and it enables declarative style of DOM programming. See [Mirroring Example][] :butterfly: and [Counter Example][] :level_slider:.
 
 # :butterfly: [Mirroring Example][]
 
@@ -61,28 +54,6 @@ class Mirroring {
 `@wired` wires the element of the selector to the fields. `@on("input")` declares the following method is the `input` event handler. In the event handler `src` value is copied to `dest` content, which results the mirroring of the input values to the textContent of `.dest` paragraph.
 
 [See the demo][Mirroring Example]
-
-# :wave: [Hello Example][]
-
-The hello example shows the usage of `innerHTML` decorator:
-
-```ts
-import { component, innerHTML } from "capsid";
-
-@component("hello")
-@innerHTML("Hello, world!")
-export class Hello {}
-```
-
-```html
-<span class="hello"></span>
-```
-
-`@component` defines the `hello` component.
-
-When the component initialized, the text `Hello, world!` is set to `.innerHTML` of the mounted element.
-
-[See the demo][Hello Example]
 
 # :cd: Install
 
@@ -781,3 +752,4 @@ MIT
 [Mirroring Example]: https://codesandbox.io/s/p7m3xv3mvq
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 [capsid-module]: https://github.com/capsidjs/capsid-module
+[parcel]: https://parceljs.org/
