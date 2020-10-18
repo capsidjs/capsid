@@ -713,6 +713,8 @@ The projects which uses capsid.
 
 - [todomvc](https://github.com/capsidjs/todomvc)
   - [TodoMVC](http://todomvc.com/) in capsid.
+- [todomvc2](https://github.com/capsidjs/todomvc2)
+  - [TodoMVC](http://todomvc.com/) (again) in capsid. This time it has only one capsid component. The source code is significantly shorter than the above.
 - [multiflip](https://github.com/kt3k/multiflip)
 - [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
 - [puncher](https://github.com/kt3k/puncher)
