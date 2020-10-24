@@ -17,7 +17,7 @@
 
 The mirroring example shows the basic usages of `@component`, `@wired`, and `@on` decorators.
 
-```js
+```ts
 import { on, wired, component } import "capsid";
 
 // Declares `mirroring` component.
