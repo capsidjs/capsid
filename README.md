@@ -8,7 +8,7 @@
 - **Declarative DOM programming library based on TypeScript decorators**
 - :leaves: **Small.** ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), No dependencies.
 - :bulb: **Simple.** It mounts **components** (i.e. event handlers and lifecycles) to **html classes**.
-- :sunny: **Declarative.** You need to know only **6** decorators `@component`, `@wired`, `@on`, `@emits`, `@pub`, and `@sub` to build an app.
+- :sunny: **Declarative.** You can write your app with a few decorators (`@component`, `@wired`, `@on`, etc) and Web APIs.
 
 
 `capsid` uses TypeScript decorators for event handlers and dispatchers, and it enables declarative style of DOM programming. See [Mirroring Example][] :butterfly: and [Counter Example][] :level_slider:.
