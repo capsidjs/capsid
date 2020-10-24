@@ -26,16 +26,16 @@ import { on, wired, component } import "capsid";
 class Mirroring {
   // Wires `dest` property to dom which is selected by `.dest` selector.
   @wired(".dest")
-  dest;
+  dest?: HTMLParagraphElement;
 
   // Wires `src` property to dom which is selected by `.src` selector.
   @wired(".src")
-  src;
+  src?: HTMLInputElement;
 
   // Declares `input` event listener
   @on("input")
   onReceiveData() {
-    this.dest.textContent = this.src.value;
+    this.dest!.textContent = this.src!.value;
   }
 }
 ```
