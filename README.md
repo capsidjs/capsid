@@ -6,7 +6,7 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid)
 
 - **Declarative DOM programming library based on TypeScript decorators**
-- :leaves: **Small.** ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), No dependencies.
+- :leaves: **Small.** ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), **No dependencies**.
 - :bulb: **Simple.** It mounts **components** (i.e. event handlers and lifecycles) to **html classes**.
 - :sunny: **Declarative.** You can write your app with a few decorators (`@component`, `@wired`, `@on`, etc) and Web APIs.
 
