@@ -705,40 +705,15 @@ Coelement is the instance of Component class, which is attached to html element.
 - 2016-06-19   v10.0.0   Removed deprecated decorators `@event` and `@trigger`, use `@on` and `@emit` instead.
 - 2016-06-09   v9.2.0    Fixed bug of `@emit().last` decorator.
 
-# The user projects
-
-The projects which uses capsid.
-
-- [todomvc](https://github.com/capsidjs/todomvc)
-  - [TodoMVC](http://todomvc.com/) in capsid.
-- [todomvc2](https://github.com/capsidjs/todomvc2)
-  - [TodoMVC](http://todomvc.com/) (again) in capsid. This time it has only one capsid component. The source code is significantly shorter than the above.
-- [multiflip](https://github.com/kt3k/multiflip)
-- [multiflip-bubble](https://github.com/kt3k/multiflip-bubble)
-- [puncher](https://github.com/kt3k/puncher)
-- [event-hub](https://github.com/capsidjs/event-hub)
-- [spn](https://github.com/kt3k/spn)
-- [view-todo](https://github.com/kt3k/view-todo)
-- [pairs](https://github.com/kt3kstudio/pairs)
-  - Pairs is the primary user project and inspiration source of capsid.
-  - capsid is basically created for developing this project.
-
-# Notes
-
-## The name
-
-> capsid /ˈkapsəd/ n.
->
-> the protein coat or shell of a virus particle, surrounding the nucleic acid or nucleoprotein core.
-
-The purpose of capsid is to encapsulate the details of its contents just like capsid for virus cells. Its has the same origin *capsa* ("box" in Latin) as the word *capsule*.
-
 # Examples
 
 - :wave: [Hello Example][]
 - :stopwatch: [Clock Example][]
 - :level_slider: [Counter Example][]
 - :butterfly: [Mirroring Example][]
+
+- [todomvc2](https://github.com/capsidjs/todomvc2)
+  - [TodoMVC](http://todomvc.com/) in capsid.
 
 # License
 
