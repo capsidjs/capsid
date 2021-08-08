@@ -1,6 +1,6 @@
 import { checkComponentNameIsValid } from './util/check'
 import doc from './util/document'
-import ccc from './ccc'
+import registry from './registry'
 
 /**
  * Initializes the class components of the given name in the range of the given element.
@@ -12,7 +12,7 @@ export default (name?: string | null, el?: Element): void => {
   let classNames
 
   if (!name) {
-    classNames = Object.keys(ccc)
+    classNames = Object.keys(registry)
   } else {
     checkComponentNameIsValid(name)
 
@@ -21,8 +21,8 @@ export default (name?: string | null, el?: Element): void => {
 
   classNames.map((className) => {
     ;[].map.call(
-      (el || doc).querySelectorAll(ccc[className].sel),
-      ccc[className]
+      (el || doc).querySelectorAll(registry[className].sel),
+      registry[className]
     )
   })
 }

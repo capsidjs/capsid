@@ -16,7 +16,7 @@ import {
   pub,
   sub,
 } from './decorators/index'
-import __ccc__ from './ccc'
+import __registry__ from './registry'
 
 export {
   def,
@@ -35,5 +35,5 @@ export {
   pub,
   sub,
   addMountHook,
-  __ccc__,
+  __registry__,
 }

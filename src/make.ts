@@ -1,6 +1,6 @@
 import get from './get'
 import { checkComponentNameIsValid } from './util/check'
-import ccc from './ccc'
+import registry from './registry'
 
 /**
  * Initializes the given element as the class-component.
@@ -11,7 +11,7 @@ import ccc from './ccc'
 export default <T>(name: string, elm: HTMLElement) => {
   checkComponentNameIsValid(name)
 
-  ccc[name](elm)
+  registry[name](elm)
 
   return get<T>(name, elm)
 }

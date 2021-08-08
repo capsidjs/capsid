@@ -1,4 +1,4 @@
-import ccc from '../ccc'
+import registry from '../registry'
 /**
  * Asserts the given condition holds, otherwise throws.
  * @param assertion The assertion expression
@@ -17,7 +17,7 @@ export default function check(assertion: boolean, message: string): void {
 export function checkComponentNameIsValid(name: any): void {
   check(typeof name === 'string', 'The name should be a string')
   check(
-    !!ccc[name],
+    !!registry[name],
     `The coelement of the given name is not registered: ${name}`
   )
 }

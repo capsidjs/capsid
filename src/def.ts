@@ -1,4 +1,4 @@
-import ccc from './ccc'
+import registry from './registry'
 import prep from './prep'
 import initComponent from './init-component'
 
@@ -43,7 +43,7 @@ const def = (name: string, Constructor: Function) => {
   // The selector
   initializer.sel = `.${name}:not(.${initClass})`
 
-  ccc[name] = initializer
+  registry[name] = initializer
 
   ready.then(() => {
     prep(name)
