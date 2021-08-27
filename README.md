@@ -49,7 +49,7 @@ class Mirroring {
 
 `@component("mirroring")` registers the class as the component `mirroring`.
 
-`@wired` wires the element of the selector to the fields. `@on("input")` declares the following method is the `input` event handler. In the event handler `src` value is copied to `dest` content, which results the mirroring of the input values to the textContent of `.dest` paragraph.
+`@wired` binds a dom element to the field which is queried by the given selector. `@on("input")` declares the following method is the `input` event handler. In the event handler `src` value is copied to `dest` content, which results the mirroring of the input values to the textContent of `.dest` paragraph.
 
 [See the demo][Mirroring Example]
 
