@@ -22,7 +22,7 @@
     "test-firefox": "karma start --browsers Firefox",
     "codecov": "codecov",
     "dist": "gulp dist",
-    "size": "gulp browser && gzip-size dist/capsid.min.js",
+    "size": "gulp browser && deno run --allow-read https://deno.land/x/gzip_size@v0.2.2/cli.ts dist/capsid.min.js",
     "prepublish": "npm run clean && npm run dist && npm run types",
     "precommit": "lint-staged"
   },
@@ -53,7 +53,6 @@
     "gulp-if": "^3.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-terser": "^1.1.5",
-    "gzip-size-cli": "^3.0.0",
     "husky": "^4.0.2",
     "karma": "^4.0.1",
     "karma-chrome-launcher": "^3.0.0",
