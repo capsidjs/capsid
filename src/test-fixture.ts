@@ -1,15 +1,15 @@
 export class Foo {
-  el?: HTMLElement
+  el?: HTMLElement;
 
   __mount__() {
-    this.el!.setAttribute('is_foo', 'true')
+    this.el!.setAttribute("is_foo", "true");
   }
 }
 
 export class Bar {
-  el?: HTMLElement
+  el?: HTMLElement;
 
   __mount__() {
-    this.el!.setAttribute('is_bar', 'true')
+    this.el!.setAttribute("is_bar", "true");
   }
 }

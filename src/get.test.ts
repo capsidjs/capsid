@@ -1,23 +1,23 @@
-import * as assert from 'assert'
-import { get, make, def } from './index'
-import { Foo } from './test-fixture'
-import { clearComponents } from './test-helper'
+import * as assert from "assert";
+import { def, get, make } from "./index";
+import { Foo } from "./test-fixture";
+import { clearComponents } from "./test-helper";
 
-describe('get', () => {
+describe("get", () => {
   before(() => {
-    def('foo', Foo)
-  })
+    def("foo", Foo);
+  });
 
-  after(() => clearComponents())
+  after(() => clearComponents());
 
-  it('gets the coelement instance from the element', () => {
-    const el = document.createElement('div')
+  it("gets the coelement instance from the element", () => {
+    const el = document.createElement("div");
 
-    make<Foo>('foo', el)
+    make<Foo>("foo", el);
 
-    const coel = get<Foo>('foo', el)
+    const coel = get<Foo>("foo", el);
 
-    assert(coel instanceof Foo)
-    assert(coel.el === el)
-  })
-})
+    assert(coel instanceof Foo);
+    assert(coel.el === el);
+  });
+});

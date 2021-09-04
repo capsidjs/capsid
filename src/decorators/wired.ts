@@ -10,14 +10,15 @@
  *       }
  *     }
  */
-const wired = (sel: string) => (target: any, key: string) => {
-  Object.defineProperty(target.constructor.prototype, key, {
-    get() {
-      return this.el.querySelector(sel)
-    },
-    configurable: false,
-  })
-}
+const wired = (sel: string) =>
+  (target: any, key: string) => {
+    Object.defineProperty(target.constructor.prototype, key, {
+      get() {
+        return this.el.querySelector(sel);
+      },
+      configurable: false,
+    });
+  };
 
 /**
  * Wires all the elements to the property.
@@ -33,15 +34,16 @@ const wired = (sel: string) => (target: any, key: string) => {
  *       }
  *     }
  */
-const wiredAll = (sel: string) => (target: any, key: string) => {
-  Object.defineProperty(target.constructor.prototype, key, {
-    get() {
-      return this.el.querySelectorAll(sel)
-    },
-    configurable: false,
-  })
-}
+const wiredAll = (sel: string) =>
+  (target: any, key: string) => {
+    Object.defineProperty(target.constructor.prototype, key, {
+      get() {
+        return this.el.querySelectorAll(sel);
+      },
+      configurable: false,
+    });
+  };
 
-wired.all = wiredAll
+wired.all = wiredAll;
 
-export default wired
+export default wired;

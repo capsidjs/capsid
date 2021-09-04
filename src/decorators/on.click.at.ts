@@ -1,6 +1,6 @@
-import on from './on'
+import on from "./on";
 
 /**
  * @param {string} at The selector
  */
-export default (at: string) => on('click', { at })
+export default (at: string) => on("click", { at });

@@ -1,4 +1,4 @@
-import registry from '../registry'
+import registry from "../registry";
 /**
  * Asserts the given condition holds, otherwise throws.
  * @param assertion The assertion expression
@@ -6,7 +6,7 @@ import registry from '../registry'
  */
 export default function check(assertion: boolean, message: string): void {
   if (!assertion) {
-    throw new Error(message)
+    throw new Error(message);
   }
 }
 
@@ -15,9 +15,9 @@ export default function check(assertion: boolean, message: string): void {
  * @param name The component name
  */
 export function checkComponentNameIsValid(name: any): void {
-  check(typeof name === 'string', 'The name should be a string')
+  check(typeof name === "string", "The name should be a string");
   check(
     !!registry[name],
-    `The coelement of the given name is not registered: ${name}`
-  )
+    `The coelement of the given name is not registered: ${name}`,
+  );
 }

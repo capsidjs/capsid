@@ -1,4 +1,4 @@
-import { BEFORE_MOUNT_KEY } from './util/const'
+import { BEFORE_MOUNT_KEY } from "./util/const";
 
 /**
  * Initialize component by the class constructor.
@@ -7,26 +7,26 @@ import { BEFORE_MOUNT_KEY } from './util/const'
  * @return The created coelement instance
  */
 export default (Constructor: any, el: HTMLElement): any => {
-  const coel = new Constructor()
+  const coel = new Constructor();
 
   // Assigns element to coelement's .el property
-  coel.el = el
+  coel.el = el;
 
   // Initialize `before mount` hooks
   // This includes:
   // - initialization of event handlers
   // - initialization of innerHTML
   // - initialization of class names
-  const list = Constructor[BEFORE_MOUNT_KEY]
+  const list = Constructor[BEFORE_MOUNT_KEY];
   if (Array.isArray(list)) {
     list.forEach((cb) => {
-      cb(el, coel)
-    })
+      cb(el, coel);
+    });
   }
 
-  if (typeof coel.__mount__ === 'function') {
-    coel.__mount__()
+  if (typeof coel.__mount__ === "function") {
+    coel.__mount__();
   }
 
-  return coel
-}
+  return coel;
+};

@@ -8,16 +8,16 @@ export const triggerToElements = (
   elements: HTMLElement[],
   type: string,
   bubbles: boolean,
-  result: any
+  result: any,
 ) => {
   const emit = (r: any) => {
     elements.forEach((el) => {
-      el.dispatchEvent(new CustomEvent(type, { detail: r, bubbles }))
-    })
-  }
+      el.dispatchEvent(new CustomEvent(type, { detail: r, bubbles }));
+    });
+  };
   if (result && result.then) {
-    result.then(emit)
+    result.then(emit);
   } else {
-    emit(result)
+    emit(result);
   }
-}
+};

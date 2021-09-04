@@ -1,1 +1,1 @@
-export * from '../types/plugins/debug-plugin'
+export * from "../types/plugins/debug-plugin";

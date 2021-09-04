@@ -1,8 +1,8 @@
-import * as capsid from './index'
-import check from './util/check'
+import * as capsid from "./index";
+import check from "./util/check";
 
 interface CapsidModule {
-  install: Function
+  install: Function;
 }
 
 /**
@@ -13,9 +13,9 @@ interface CapsidModule {
  */
 export default (capsidModule: CapsidModule, options?: object) => {
   check(
-    typeof capsidModule.install === 'function',
-    'The given capsid module does not have `install` method. Please check the install call.'
-  )
+    typeof capsidModule.install === "function",
+    "The given capsid module does not have `install` method. Please check the install call.",
+  );
 
-  capsidModule.install(capsid, options || {})
-}
+  capsidModule.install(capsid, options || {});
+};

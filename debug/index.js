@@ -1,1 +1,1 @@
-module.exports = require('../dist/capsid-debug')
+module.exports = require("../dist/capsid-debug");

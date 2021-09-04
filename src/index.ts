@@ -1,39 +1,39 @@
-import def from './def'
-import prep from './prep'
-import make from './make'
-import mount from './mount'
-import unmount from './unmount'
-import get from './get'
-import install from './install'
-import { addMountHook } from './add-hidden-item'
+import def from "./def";
+import prep from "./prep";
+import make from "./make";
+import mount from "./mount";
+import unmount from "./unmount";
+import get from "./get";
+import install from "./install";
+import { addMountHook } from "./add-hidden-item";
 import {
-  on,
-  emits,
-  wired,
   component,
-  is,
+  emits,
   innerHTML,
+  is,
+  on,
   pub,
   sub,
-} from './decorators/index'
-import __registry__ from './registry'
+  wired,
+} from "./decorators/index";
+import __registry__ from "./registry";
 
 export {
+  __registry__,
+  addMountHook,
+  component,
   def,
-  prep,
+  emits,
+  get,
+  innerHTML,
+  install,
+  is,
   make,
   mount,
-  unmount,
-  get,
-  install,
   on,
-  emits,
-  wired,
-  component,
-  is,
-  innerHTML,
+  prep,
   pub,
   sub,
-  addMountHook,
-  __registry__,
-}
+  unmount,
+  wired,
+};

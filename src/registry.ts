@@ -1,14 +1,14 @@
 interface Initializer {
-  (el: HTMLElement, coel?: any): void
-  sel: string
+  (el: HTMLElement, coel?: any): void;
+  sel: string;
 }
 interface RegistryType {
-  [key: string]: Initializer
+  [key: string]: Initializer;
 }
 
 /**
  * The registry of component initializers.
  */
-const registry: RegistryType = {}
+const registry: RegistryType = {};
 
-export default registry
+export default registry;

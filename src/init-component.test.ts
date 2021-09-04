@@ -1,57 +1,57 @@
-import * as capsid from './index'
-import initComponent from './init-component'
-import * as assert from 'assert'
-import { clearComponents } from './test-helper'
+import * as capsid from "./index";
+import initComponent from "./init-component";
+import * as assert from "assert";
+import { clearComponents } from "./test-helper";
 
-const { on } = capsid
+const { on } = capsid;
 
-describe('initComponent', () => {
+describe("initComponent", () => {
   afterEach(() => {
-    clearComponents()
-  })
+    clearComponents();
+  });
 
-  it('initializes the element as a component by the given constructor', () => {
+  it("initializes the element as a component by the given constructor", () => {
     class A {}
 
-    const el = document.createElement('div')
-    const coel = initComponent(A, el)
+    const el = document.createElement("div");
+    const coel = initComponent(A, el);
 
-    assert.strictEqual(coel.el, el)
-    assert(coel instanceof A)
-  })
+    assert.strictEqual(coel.el, el);
+    assert(coel instanceof A);
+  });
 
-  it('calls __mount__', (done) => {
+  it("calls __mount__", (done) => {
     class A {
-      el?: HTMLElement
+      el?: HTMLElement;
 
       __mount__() {
-        assert.strictEqual(this.el, el)
+        assert.strictEqual(this.el, el);
 
-        done()
+        done();
       }
     }
 
-    const el = document.createElement('div')
+    const el = document.createElement("div");
 
-    initComponent(A, el)
-  })
+    initComponent(A, el);
+  });
 
-  describe('__mount__', () => {
-    it('runs after @on handlers are set', (done) => {
+  describe("__mount__", () => {
+    it("runs after @on handlers are set", (done) => {
       class A {
-        el?: HTMLElement
+        el?: HTMLElement;
 
         __mount__() {
-          this.el!.click()
+          this.el!.click();
         }
 
         @on.click
         onClick() {
-          done()
+          done();
         }
       }
 
-      initComponent(A, document.createElement('div'))
-    })
-  })
-})
+      initComponent(A, document.createElement("div"));
+    });
+  });
+});

@@ -1,7 +1,7 @@
-declare var capsidDebugMessage: any
+declare var capsidDebugMessage: any;
 
 export default (message: object) => {
-  if (typeof capsidDebugMessage === 'function') {
-    capsidDebugMessage(message)
+  if (typeof capsidDebugMessage === "function") {
+    capsidDebugMessage(message);
   }
-}
+};

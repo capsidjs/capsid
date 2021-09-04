@@ -1,3 +1,3 @@
-import on from './on'
+import on from "./on";
 
-export default on('click')
+export default on("click");

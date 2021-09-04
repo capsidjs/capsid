@@ -1,26 +1,26 @@
-import * as assert from 'assert'
-import * as genel from 'genel'
-import { make, component } from '../index'
-import { clearComponents } from '../test-helper'
+import * as assert from "assert";
+import * as genel from "genel";
+import { component, make } from "../index";
+import { clearComponents } from "../test-helper";
 
-describe('@component(name)', () => {
-  afterEach(() => clearComponents())
+describe("@component(name)", () => {
+  afterEach(() => clearComponents());
 
-  it('works as a class decorator and registers the class as a class component of the given name', () => {
-    @component('decorated-component')
+  it("works as a class decorator and registers the class as a class component of the given name", () => {
+    @component("decorated-component")
     class Foo {
-      el?: HTMLElement
+      el?: HTMLElement;
 
       __mount__() {
-        this.el!.setAttribute('this-is', 'decorated-component')
+        this.el!.setAttribute("this-is", "decorated-component");
       }
     }
 
-    const el = genel.div``
+    const el = genel.div``;
 
-    const foo = make('decorated-component', el)
+    const foo = make("decorated-component", el);
 
-    assert(foo instanceof Foo)
-    assert(el.getAttribute('this-is') === 'decorated-component')
-  })
-})
+    assert(foo instanceof Foo);
+    assert(el.getAttribute("this-is") === "decorated-component");
+  });
+});

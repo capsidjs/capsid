@@ -1,1 +1,1 @@
-export * from '../types/plugins/outside-events-plugin'
+export * from "../types/plugins/outside-events-plugin";
