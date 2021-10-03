@@ -13,6 +13,8 @@
   lifecycles) to **html classes**.
 - :sunny: **Declarative.** You can write your app with a few decorators
   (`@component`, `@wired`, `@on`, etc) and Web APIs.
+- **No magic syntax.** Capsid uses standard HTML and TypeScript syntax. No need
+  of learning any magic syntax like Vue, Svelte, etc.
 
 `capsid` uses TypeScript decorators for event handlers and dispatchers, and it
 enables declarative style of DOM programming. See
