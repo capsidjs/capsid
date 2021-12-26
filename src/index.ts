@@ -1,11 +1,11 @@
-import def from "./def";
-import prep from "./prep";
-import make from "./make";
-import mount from "./mount";
-import unmount from "./unmount";
-import get from "./get";
-import install from "./install";
-import { addMountHook } from "./add-hidden-item";
+import def from "./def.ts";
+import prep from "./prep.ts";
+import make from "./make.ts";
+import mount from "./mount.ts";
+import unmount from "./unmount.ts";
+import get from "./get.ts";
+import install from "./install.ts";
+import { addMountHook } from "./add_hidden_item.ts";
 import {
   component,
   emits,
@@ -15,8 +15,8 @@ import {
   pub,
   sub,
   wired,
-} from "./decorators/index";
-import __registry__ from "./registry";
+} from "./decorators/index.ts";
+import __registry__ from "./registry.ts";
 
 export {
   __registry__,

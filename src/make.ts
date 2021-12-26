@@ -1,6 +1,6 @@
-import get from "./get";
-import { checkComponentNameIsValid } from "./util/check";
-import registry from "./registry";
+import get from "./get.ts";
+import { checkComponentNameIsValid } from "./util/check.ts";
+import registry from "./registry.ts";
 
 /**
  * Initializes the given element as the class-component.
@@ -8,10 +8,10 @@ import registry from "./registry";
  * @param el The element to initialize
  * @return
  */
-export default <T>(name: string, elm: HTMLElement) => {
+export default <T>(name: string, el: HTMLElement) => {
   checkComponentNameIsValid(name);
 
-  registry[name](elm);
+  registry[name](el);
 
-  return get<T>(name, elm);
+  return get<T>(name, el);
 };

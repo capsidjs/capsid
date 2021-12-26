@@ -1,11 +1,11 @@
-import registry from "./registry";
-import prep from "./prep";
-import initComponent from "./init-component";
+import registry from "./registry.ts";
+import prep from "./prep.ts";
+import initComponent from "./init_component.ts";
 
-import check from "./util/check";
-import { ready } from "./util/document";
-import { COELEMENT_DATA_KEY_PREFIX, COMPONENT_NAME_KEY } from "./util/const";
-import { addMountHook } from "./add-hidden-item";
+import check from "./util/check.ts";
+import { ready } from "./util/document.ts";
+import { COELEMENT_DATA_KEY_PREFIX, COMPONENT_NAME_KEY } from "./util/const.ts";
+import { addMountHook } from "./add_hidden_item.ts";
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -13,6 +13,7 @@ import { addMountHook } from "./add-hidden-item";
  * @param Constructor The constructor of the class component
  * @return The registered component class
  */
+// deno-lint-ignore ban-types
 const def = (name: string, Constructor: Function) => {
   check(
     typeof name === "string",
@@ -22,12 +23,18 @@ const def = (name: string, Constructor: Function) => {
     typeof Constructor === "function",
     "`Constructor` of a class component has to be a function",
   );
+  // deno-lint-ignore no-explicit-any
   (Constructor as any)[COMPONENT_NAME_KEY] = name;
   const initClass = `${name}-💊`;
 
+  // deno-lint-ignore no-explicit-any
   addMountHook(Constructor, (el: HTMLElement, coel: any) => {
+    // deno-lint-ignore no-explicit-any
     (el as any)[COELEMENT_DATA_KEY_PREFIX + name] = coel;
-    el.classList.add(name, initClass);
+    // FIXME(kt3k): the below can be written as .add(name, initClass)
+    // when deno_dom fixes add class.
+    el.classList.add(name);
+    el.classList.add(initClass);
   });
 
   /**
@@ -45,7 +52,7 @@ const def = (name: string, Constructor: Function) => {
 
   registry[name] = initializer;
 
-  ready.then(() => {
+  ready().then(() => {
     prep(name);
   });
 };

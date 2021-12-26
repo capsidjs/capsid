@@ -1,6 +1,5 @@
-import { checkComponentNameIsValid } from "./util/check";
-import doc from "./util/document";
-import registry from "./registry";
+import { checkComponentNameIsValid } from "./util/check.ts";
+import registry from "./registry.ts";
 
 /**
  * Initializes the class components of the given name in the range of the given element.
@@ -21,7 +20,7 @@ export default (name?: string | null, el?: Element): void => {
 
   classNames.map((className) => {
     [].map.call(
-      (el || doc).querySelectorAll(registry[className].sel),
+      (el || document).querySelectorAll(registry[className].sel),
       registry[className],
     );
   });

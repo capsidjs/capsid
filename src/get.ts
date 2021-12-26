@@ -1,5 +1,5 @@
-import check, { checkComponentNameIsValid } from "./util/check";
-import { COELEMENT_DATA_KEY_PREFIX } from "./util/const";
+import check, { checkComponentNameIsValid } from "./util/check.ts";
+import { COELEMENT_DATA_KEY_PREFIX } from "./util/const.ts";
 
 /**
  * Gets the eoelement instance of the class-component of the given name
@@ -9,6 +9,7 @@ import { COELEMENT_DATA_KEY_PREFIX } from "./util/const";
 export default <T>(name: string, el: Element): T => {
   checkComponentNameIsValid(name);
 
+  // deno-lint-ignore no-explicit-any
   const coel = (el as any)[COELEMENT_DATA_KEY_PREFIX + name] as any;
 
   check(coel, `no coelement named: ${name}, on the dom: ${el.tagName}`);

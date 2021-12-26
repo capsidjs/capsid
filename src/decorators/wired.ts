@@ -11,13 +11,14 @@
  *     }
  */
 const wired = (sel: string) =>
-  (target: any, key: string) => {
-    Object.defineProperty(target.constructor.prototype, key, {
-      get() {
+  // deno-lint-ignore no-explicit-any
+  (_target: any, _key: string): any => {
+    return {
+      get: function () {
         return this.el.querySelector(sel);
       },
       configurable: false,
-    });
+    };
   };
 
 /**
@@ -35,13 +36,13 @@ const wired = (sel: string) =>
  *     }
  */
 const wiredAll = (sel: string) =>
-  (target: any, key: string) => {
-    Object.defineProperty(target.constructor.prototype, key, {
+  // deno-lint-ignore no-explicit-any
+  (_target: any, _key: string): any => {
+    return {
       get() {
         return this.el.querySelectorAll(sel);
       },
-      configurable: false,
-    });
+    };
   };
 
 wired.all = wiredAll;

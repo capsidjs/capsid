@@ -1,5 +1,5 @@
-import { triggerToElements } from "../util/event-trigger";
-import check from "../util/check";
+import { triggerToElements } from "../util/event_trigger.ts";
+import check from "../util/check.ts";
 
 /**
  * Publishes the given event to the elements which has `sub:${event}` class.
@@ -10,8 +10,10 @@ import check from "../util/check";
  */
 export default (event: string, targetSelector?: string) =>
   (
+    // deno-lint-ignore no-explicit-any
     target: any,
     key: string,
+    // deno-lint-ignore no-explicit-any
     descriptor: any,
   ) => {
     const method = descriptor.value;
@@ -27,6 +29,7 @@ export default (event: string, targetSelector?: string) =>
     descriptor.value = function () {
       const result = method.apply(this, arguments);
       triggerToElements(
+        // deno-lint-ignore no-explicit-any
         [].concat.apply([], document.querySelectorAll(selector) as any),
         event,
         false,

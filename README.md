@@ -9,10 +9,10 @@
 - :leaves: **Small.**
   ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), **No
   dependencies**.
-- :sunny: **No magic syntax.** Capsid uses standard HTML and TypeScript syntax. No need
-  of learning any non-standard syntax like Vue, Svelte, JSX, etc.
-- :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event driven
-  programming in a new style.
+- :sunny: **No magic syntax.** Capsid uses standard HTML and TypeScript syntax.
+  No need of learning any non-standard syntax like Vue, Svelte, JSX, etc.
+- :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event
+  driven programming in a new style.
 
 `capsid` uses TypeScript decorators for event handlers and dispatchers, and it
 enables declarative style of DOM programming. See
