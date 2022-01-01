@@ -16,6 +16,7 @@ import {
   wired,
 } from "./decorators/index.ts";
 import check from "./util/check.ts";
+import __registry__ from "./registry.ts";
 
 interface CapsidModule {
   // deno-lint-ignore ban-types
@@ -29,7 +30,7 @@ interface CapsidModule {
  * @param options
  */
 // deno-lint-ignore ban-types
-export default (capsidModule: CapsidModule, options?: object) => {
+const install = (capsidModule: CapsidModule, options?: object) => {
   check(
     typeof capsidModule.install === "function",
     "The given capsid module does not have `install` method. Please check the install call.",
@@ -42,6 +43,7 @@ export default (capsidModule: CapsidModule, options?: object) => {
     mount,
     unmount,
     get,
+    install,
     addMountHook,
     component,
     emits,
@@ -51,5 +53,8 @@ export default (capsidModule: CapsidModule, options?: object) => {
     pub,
     sub,
     wired,
+    __registry__,
   }, options || {});
 };
+
+export default install;
