@@ -1,16 +1,13 @@
 <img src="http://capsidjs.github.io/capsid/asset/capsid.svg" />
 
-[![Circle CI](https://circleci.com/gh/capsidjs/capsid.svg?style=svg)](https://circleci.com/gh/capsidjs/capsid)
-[![codecov.io](https://codecov.io/github/capsidjs/capsid/coverage.svg?branch=master)](https://codecov.io/github/capsidjs/capsid?branch=master)
+[![ci](https://github.com/capsidjs/capsid/actions/workflows/ci.yml/badge.svg)](https://github.com/capsidjs/capsid/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid)
 
 - **Declarative DOM programming library based on TypeScript decorators**
-- :leaves: **Small.**
-  ![npm bundle size](https://img.shields.io/bundlephobia/minzip/capsid), **No
+- :leaves: **Small.** **1.8 kb**, **No
   dependencies**.
-- :sunny: **No magic syntax.** Capsid uses standard HTML and TypeScript syntax.
-  No need of learning any non-standard syntax like Vue, Svelte, JSX, etc.
+- :sunny: **No special syntax.** Capsid uses standard HTML and TypeScript.
+  No need of learning any non-standard syntax like JSX, Vue, Svelte, etc.
 - :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event
   driven programming in a new style.
 

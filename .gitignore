@@ -1,3 +1,5 @@
 /coverage
 /dist
 /cov
+/dist.js
+/dist.min.js
