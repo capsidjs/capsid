@@ -3,8 +3,6 @@ import debugMessage from '../util/debug_message.ts';
 import check from '../util/check.ts';
 import addHiddenItem, { addMountHook } from '../add_hidden_item.ts';
 
-declare let __DEV__: boolean;
-
 /**
  * The decorator for registering event listener info to the method.
  * @param event The event name
@@ -38,6 +36,7 @@ const on: any = (event: string, { at }: { at?: string } = {}) =>
             return node === e.target || node.contains(e.target as Node);
           })
         ) {
+          // TODO(kt3k): selectively inject __DEV__ variable
           const __DEV__ = true;
           if (__DEV__) {
             debugMessage({

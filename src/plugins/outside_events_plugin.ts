@@ -1,7 +1,5 @@
 import debugMessage from '../util/debug_message.ts';
 
-declare let __DEV__: boolean;
-
 // deno-lint-ignore no-explicit-any
 const install = (capsid: any) => {
   const { on, addMountHook } = capsid;
@@ -14,6 +12,8 @@ const install = (capsid: any) => {
         const listener = (e: Event): void => {
           // deno-lint-ignore no-explicit-any
           if (el !== e.target && !el.contains(e.target as any)) {
+            // TODO(kt3k): selectively inject __DEV__ variable
+            const __DEV__ = true;
             if (__DEV__) {
               debugMessage({
                 type: 'event',
