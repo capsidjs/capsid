@@ -4,6 +4,6 @@
   "deno.unstable": true,
   "deno.config": "deno.json",
   "deno.suggest.imports.hosts": {
-    "https://deno.land": false
+    "https://deno.land": true
   }
 }
