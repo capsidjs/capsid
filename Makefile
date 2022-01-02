@@ -31,3 +31,7 @@ min:
 size:
 	$(MAKE) min
 	deno run --allow-read https://deno.land/x/gzip_size@v0.2.3/cli.ts --include-original dist.min.js
+
+.PHONY: dnt
+dnt:
+	deno run -A dnt.ts

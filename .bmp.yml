@@ -2,4 +2,4 @@
 version: 1.7.0
 commit: ":bookmark: chore(version): bump to v%.%.%"
 files:
-  package.json: '"version": "%.%.%"'
+  dnt.ts: 'version: "%.%.%"'
