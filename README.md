@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 - **Declarative DOM programming library based on TypeScript decorators**
-- :leaves: **Small.** **1.8 kb**, **No dependencies**.
+- :leaves: **Small.** **1.79 kb**, **No dependencies**.
 - :sunny: **No special syntax.** Capsid uses standard HTML and TypeScript. No
   need of learning any non-standard syntax like JSX, Vue, Svelte, etc.
 - :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event

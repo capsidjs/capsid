@@ -20,7 +20,7 @@ lint:
 
 .PHONY: dist
 dist:
-	deno bundle --config deno.json src/index.ts > dist.js
+	deno bundle --config deno.json src/mod.ts > dist.js
 
 .PHONY: min
 min:
