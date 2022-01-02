@@ -1,5 +1,5 @@
-import { triggerToElements } from "../util/event-trigger";
-import check from "../util/check";
+import { triggerToElements } from "../util/event_trigger.ts";
+import check from "../util/check.ts";
 
 /**
  * `@emits(event)` decorator
@@ -10,8 +10,10 @@ import check from "../util/check";
  */
 const emits = (event: string) =>
   (
+    // deno-lint-ignore no-explicit-any
     target: any,
     key: string,
+    // deno-lint-ignore no-explicit-any
     descriptor: any,
   ) => {
     const method = descriptor.value;

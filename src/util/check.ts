@@ -1,4 +1,4 @@
-import registry from "../registry";
+import registry from "../registry.ts";
 /**
  * Asserts the given condition holds, otherwise throws.
  * @param assertion The assertion expression
@@ -14,6 +14,7 @@ export default function check(assertion: boolean, message: string): void {
  * Asserts the given name is a valid component name.
  * @param name The component name
  */
+// deno-lint-ignore no-explicit-any
 export function checkComponentNameIsValid(name: any): void {
   check(typeof name === "string", "The name should be a string");
   check(

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.unstable", "dom", "esnext"]
+  },
+  "fmt": {
+    "files": {
+      "exclude": ["node", "dist.js", "dist.min.js"]
+    }
+  },
+  "lint": {
+    "files": {
+      "exclude": ["node", "dist.js", "dist.min.js"]
+    }
+  }
+}

@@ -1,11 +1,6 @@
-# npm
-/node_modules
-npm-debug.log
-
-# coverage
 /coverage
-
-# dist
-/lib
 /dist
-/types
+/cov
+/dist.js
+/dist.min.js
+/node

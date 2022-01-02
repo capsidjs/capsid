@@ -1,4 +1,5 @@
 interface Initializer {
+  // deno-lint-ignore no-explicit-any
   (el: HTMLElement, coel?: any): void;
   sel: string;
 }
