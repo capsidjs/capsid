@@ -1,17 +1,17 @@
-import component from "./component.ts";
-import pub from "./pub.ts";
-import on from "./on.ts";
-import { def, prep } from "../mod.ts";
+import component from './component.ts';
+import pub from './pub.ts';
+import on from './on.ts';
+import { def, prep } from '../mod.ts';
 import {
   assertEquals,
   assertThrows,
   clearComponents,
   deferred,
   genel,
-} from "../test_helper.ts";
+} from '../test_helper.ts';
 
-Deno.test("@pub(event)", async (t) => {
-  await t.step("throws error when empty event is given", () => {
+Deno.test('@pub(event)', async (t) => {
+  await t.step('throws error when empty event is given', () => {
     assertThrows(
       () => {
         class Component {
@@ -22,28 +22,28 @@ Deno.test("@pub(event)", async (t) => {
           }
         }
 
-        def("component", Component);
+        def('component', Component);
       },
       Error,
-      "Unable to publish empty event: constructor=Component key=method",
+      'Unable to publish empty event: constructor=Component key=method',
     );
     clearComponents();
   });
 
   await t.step(
-    "publishes the event to the elements of the sub:event class",
+    'publishes the event to the elements of the sub:event class',
     async () => {
-      const CUSTOM_EVENT = "foo-bar";
+      const CUSTOM_EVENT = 'foo-bar';
 
       class Component {
         @pub(CUSTOM_EVENT)
-        @on("foo")
+        @on('foo')
         publish() {
           console.log();
         }
       }
 
-      def("component", Component);
+      def('component', Component);
 
       const el = genel.div`
       <div class="component"></div>
@@ -64,10 +64,10 @@ Deno.test("@pub(event)", async (t) => {
       </div>
     `;
 
-      const child0 = el.querySelector(".child0")!;
-      const child1 = el.querySelector(".child1")!;
-      const child2 = el.querySelector(".child2")!;
-      const comp = el.querySelector(".component")!;
+      const child0 = el.querySelector('.child0')!;
+      const child1 = el.querySelector('.child1')!;
+      const child2 = el.querySelector('.child2')!;
+      const comp = el.querySelector('.component')!;
 
       document.body.appendChild(el);
 
@@ -83,7 +83,7 @@ Deno.test("@pub(event)", async (t) => {
         child2.addEventListener(CUSTOM_EVENT, resolve)
       );
 
-      comp.dispatchEvent(new CustomEvent("foo"));
+      comp.dispatchEvent(new CustomEvent('foo'));
 
       await Promise.all([promise0, promise1, promise2]);
 
@@ -92,94 +92,94 @@ Deno.test("@pub(event)", async (t) => {
     },
   );
 
-  await t.step("publishes events with the return value as detail", async () => {
+  await t.step('publishes events with the return value as detail', async () => {
     const p = deferred();
-    const CUSTOM_EVENT = "foo-bar";
+    const CUSTOM_EVENT = 'foo-bar';
 
     class Component {
       @pub(CUSTOM_EVENT)
-      @on("foo")
+      @on('foo')
       publish() {
-        return { foo: 123, bar: "baz" };
+        return { foo: 123, bar: 'baz' };
       }
     }
 
-    def("component", Component);
+    def('component', Component);
 
     const el = genel.div`
       <div class="component">
       <div class="sub:foo-bar target">
     `;
     document.body.appendChild(el);
-    const target = el.querySelector(".target");
-    const comp = el.querySelector(".component");
+    const target = el.querySelector('.target');
+    const comp = el.querySelector('.component');
 
     prep();
 
     // deno-lint-ignore no-explicit-any
     target!.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
-      assertEquals(e.detail, { foo: 123, bar: "baz" });
+      assertEquals(e.detail, { foo: 123, bar: 'baz' });
       document.body.removeChild(el);
       p.resolve();
     });
 
-    comp!.dispatchEvent(new CustomEvent("foo"));
+    comp!.dispatchEvent(new CustomEvent('foo'));
     await p;
     clearComponents();
   });
 
   await t.step(
-    "publishes events with the resolved value as detail if it is async function",
+    'publishes events with the resolved value as detail if it is async function',
     async () => {
       const p = deferred();
-      const CUSTOM_EVENT = "foo-bar";
+      const CUSTOM_EVENT = 'foo-bar';
 
       class Component {
         @pub(CUSTOM_EVENT)
-        @on("foo")
+        @on('foo')
         publish() {
-          return Promise.resolve({ foo: 123, bar: "baz" });
+          return Promise.resolve({ foo: 123, bar: 'baz' });
         }
       }
 
-      def("component", Component);
+      def('component', Component);
 
       const el = genel.div`
       <div class="sub:foo-bar target"></div>
       <div class="component"></div>
     `;
       document.body.appendChild(el);
-      const target = el.querySelector(".target")!;
-      const comp = el.querySelector(".component")!;
+      const target = el.querySelector('.target')!;
+      const comp = el.querySelector('.component')!;
 
       prep();
 
       // deno-lint-ignore no-explicit-any
       target.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
-        assertEquals(e.detail, { foo: 123, bar: "baz" });
+        assertEquals(e.detail, { foo: 123, bar: 'baz' });
         document.body.removeChild(el);
         p.resolve();
       });
 
-      comp.dispatchEvent(new CustomEvent("foo"));
+      comp.dispatchEvent(new CustomEvent('foo'));
       await p;
       clearComponents();
     },
   );
 });
 
-Deno.test("@pub(event, selector)", async (t) => {
-  await t.step("publishes events to the given selector", async () => {
+Deno.test('@pub(event, selector)', async (t) => {
+  await t.step('publishes events to the given selector', async () => {
     const p = deferred();
-    const CUSTOM_EVENT = "foo-bar";
+    const CUSTOM_EVENT = 'foo-bar';
 
-    @component("component")
+    @component('component')
     // deno-lint-ignore no-unused-vars
     class Component {
-      @pub(CUSTOM_EVENT, "#foo-bar-receiver")
-      @on("foo")
+      @pub(CUSTOM_EVENT, '#foo-bar-receiver')
+      @on('foo')
       publish() {
-        return { foo: 123, bar: "baz" };
+        return { foo: 123, bar: 'baz' };
       }
     }
 
@@ -188,19 +188,19 @@ Deno.test("@pub(event, selector)", async (t) => {
       <div class="target" id="foo-bar-receiver">
     `;
     document.body.appendChild(el);
-    const target = el.querySelector(".target");
-    const comp = el.querySelector(".component");
+    const target = el.querySelector('.target');
+    const comp = el.querySelector('.component');
 
     prep();
 
     // deno-lint-ignore no-explicit-any
     target!.addEventListener(CUSTOM_EVENT as any, (e: CustomEvent) => {
-      assertEquals(e.detail, { foo: 123, bar: "baz" });
+      assertEquals(e.detail, { foo: 123, bar: 'baz' });
       document.body.removeChild(el);
       p.resolve();
     });
 
-    comp!.dispatchEvent(new CustomEvent("foo"));
+    comp!.dispatchEvent(new CustomEvent('foo'));
     await p;
     clearComponents();
   });

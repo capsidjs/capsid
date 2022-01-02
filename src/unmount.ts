@@ -1,14 +1,14 @@
-import get from "./get.ts";
+import get from './get.ts';
 import {
   COELEMENT_DATA_KEY_PREFIX,
   KEY_EVENT_LISTENERS,
-} from "./util/const.ts";
+} from './util/const.ts';
 
 export default <T>(name: string, el: HTMLElement): void => {
   const coel = get<T>(name, el);
 
   // @ts-ignore use coel.__unmount__
-  if (typeof coel.__unmount__ === "function") {
+  if (typeof coel.__unmount__ === 'function') {
     // @ts-ignore use coel.__unmout__
     coel.__unmount__();
   }

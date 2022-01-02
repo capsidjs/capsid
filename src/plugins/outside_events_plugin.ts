@@ -1,4 +1,4 @@
-import debugMessage from "../util/debug_message.ts";
+import debugMessage from '../util/debug_message.ts';
 
 declare let __DEV__: boolean;
 
@@ -16,9 +16,9 @@ const install = (capsid: any) => {
           if (el !== e.target && !el.contains(e.target as any)) {
             if (__DEV__) {
               debugMessage({
-                type: "event",
-                module: "outside-events",
-                color: "#39cccc",
+                type: 'event',
+                module: 'outside-events',
+                color: '#39cccc',
                 el,
                 e,
                 coel,

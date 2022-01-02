@@ -1,5 +1,5 @@
-import { checkComponentNameIsValid } from "./util/check.ts";
-import registry from "./registry.ts";
+import { checkComponentNameIsValid } from './util/check.ts';
+import registry from './registry.ts';
 
 /**
  * Initializes the class components of the given name in the range of the given element.

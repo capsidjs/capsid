@@ -1,4 +1,4 @@
-import registry from "../registry.ts";
+import registry from '../registry.ts';
 /**
  * Asserts the given condition holds, otherwise throws.
  * @param assertion The assertion expression
@@ -16,7 +16,7 @@ export default function check(assertion: boolean, message: string): void {
  */
 // deno-lint-ignore no-explicit-any
 export function checkComponentNameIsValid(name: any): void {
-  check(typeof name === "string", "The name should be a string");
+  check(typeof name === 'string', 'The name should be a string');
   check(
     !!registry[name],
     `The coelement of the given name is not registered: ${name}`,

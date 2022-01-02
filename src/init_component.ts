@@ -1,4 +1,4 @@
-import { BEFORE_MOUNT_KEY } from "./util/const.ts";
+import { BEFORE_MOUNT_KEY } from './util/const.ts';
 
 /**
  * Initialize component by the class constructor.
@@ -25,7 +25,7 @@ export default (Constructor: any, el: HTMLElement): any => {
     });
   }
 
-  if (typeof coel.__mount__ === "function") {
+  if (typeof coel.__mount__ === 'function') {
     coel.__mount__();
   }
 

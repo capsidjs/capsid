@@ -1,11 +1,11 @@
-import registry from "./registry.ts";
-import prep from "./prep.ts";
-import initComponent from "./init_component.ts";
+import registry from './registry.ts';
+import prep from './prep.ts';
+import initComponent from './init_component.ts';
 
-import check from "./util/check.ts";
-import { ready } from "./util/document.ts";
-import { COELEMENT_DATA_KEY_PREFIX, COMPONENT_NAME_KEY } from "./util/const.ts";
-import { addMountHook } from "./add_hidden_item.ts";
+import check from './util/check.ts';
+import { ready } from './util/document.ts';
+import { COELEMENT_DATA_KEY_PREFIX, COMPONENT_NAME_KEY } from './util/const.ts';
+import { addMountHook } from './add_hidden_item.ts';
 
 /**
  * Registers the class-component for the given name and constructor and returns the constructor.
@@ -16,12 +16,12 @@ import { addMountHook } from "./add_hidden_item.ts";
 // deno-lint-ignore ban-types
 const def = (name: string, Constructor: Function) => {
   check(
-    typeof name === "string",
-    "`name` of a class component has to be a string.",
+    typeof name === 'string',
+    '`name` of a class component has to be a string.',
   );
   check(
-    typeof Constructor === "function",
-    "`Constructor` of a class component has to be a function",
+    typeof Constructor === 'function',
+    '`Constructor` of a class component has to be a function',
   );
   // deno-lint-ignore no-explicit-any
   (Constructor as any)[COMPONENT_NAME_KEY] = name;

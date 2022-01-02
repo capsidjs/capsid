@@ -1,10 +1,10 @@
-import { COMPONENT_NAME_KEY } from "../util/const.ts";
+import { COMPONENT_NAME_KEY } from '../util/const.ts';
 
 const install = () => {
   // deno-lint-ignore no-explicit-any
   (globalThis as any).capsidDebugMessage = (message: any) => {
     switch (message.type) {
-      case "event":
+      case 'event':
         onEventMessage(message);
         break;
       default:
@@ -28,7 +28,7 @@ const getComponentName = (coel: any): string => {
   return `${constructor[COMPONENT_NAME_KEY] || constructor.name}`;
 };
 
-const defaultEventColor = "#f012be";
+const defaultEventColor = '#f012be';
 
 const onEventMessage = ({
   coel,
@@ -48,8 +48,8 @@ const onEventMessage = ({
   console.groupCollapsed(
     `${module}> %c${event}%c on %c${component}`,
     boldColor(color || defaultEventColor),
-    "",
-    boldColor("#1a80cc"),
+    '',
+    boldColor('#1a80cc'),
   );
   console.log(e);
 

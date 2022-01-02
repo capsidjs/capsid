@@ -4,10 +4,9 @@
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 - **Declarative DOM programming library based on TypeScript decorators**
-- :leaves: **Small.** **1.8 kb**, **No
-  dependencies**.
-- :sunny: **No special syntax.** Capsid uses standard HTML and TypeScript.
-  No need of learning any non-standard syntax like JSX, Vue, Svelte, etc.
+- :leaves: **Small.** **1.8 kb**, **No dependencies**.
+- :sunny: **No special syntax.** Capsid uses standard HTML and TypeScript. No
+  need of learning any non-standard syntax like JSX, Vue, Svelte, etc.
 - :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event
   driven programming in a new style.
 
@@ -70,7 +69,7 @@ paragraph.
 then:
 
 ```js
-import { component } from "capsid";
+import { component } from 'capsid';
 ```
 
 Note: You need TypeScript for using capsid because it depends on TypeScript
@@ -80,7 +79,7 @@ decorators. You can easily start using TypeScript by using bundlers like
 # Decorators
 
 ```js
-import { component, emits, innerHTML, is, on, pub, sub, wired } from "capsid";
+import { component, emits, innerHTML, is, on, pub, sub, wired } from 'capsid';
 ```
 
 - `@component(name)`
@@ -292,14 +291,14 @@ not the first one.
 Adds the given class names to the element when it's mounted.
 
 ```ts
-@component("foo")
-@is("bar-observer")
+@component('foo')
+@is('bar-observer')
 class Foo {
 }
 
-make("foo", document.body);
+make('foo', document.body);
 
-document.body.classList.contains("bar-observer");
+document.body.classList.contains('bar-observer');
 // => true
 ```
 
@@ -311,14 +310,14 @@ adds the role of the component by specifying `@is('class-name')`.
 Sets the given html string as the innerHTML of the element at mount timing.
 
 ```ts
-@component("foo")
+@component('foo')
 @innerHTML(`
   <p>hello</p>
 `)
 class Foo {
 }
 
-make("foo", document.body);
+make('foo', document.body);
 
 document.body.innerHTML;
 // => <p>hello</p>
@@ -332,9 +331,9 @@ event to the elements which have `sub:foo` class. The dispatched events don't
 buble up the dom tree.
 
 ```ts
-@component("my-comp")
+@component('my-comp')
 class MyComp {
-  @pub("foo")
+  @pub('foo')
   method() {
     // something ...
   }
@@ -349,9 +348,9 @@ of the dispatched custom event.
 The method dispatches `event` to the given `selector`.
 
 ```ts
-@component("my-comp")
+@component('my-comp')
 class MyComp {
-  @pub("foo", "#foo-receiver")
+  @pub('foo', '#foo-receiver')
   method() {
     // something ...
   }
@@ -366,10 +365,10 @@ means this class becomes the subscriber of `foo` event in combination with
 `@pub('foo')` decorator.
 
 ```ts
-@component("my-comp")
-@sub("foo")
+@component('my-comp')
+@sub('foo')
 class MyComp {
-  @on("foo")
+  @on('foo')
   handler() {
     // ... do something
   }
@@ -383,7 +382,7 @@ building an app, but these could be useful if you write capsid plugins or
 reusable capsid modules. These APIs are used for building decorators of capsid.
 
 ```js
-import { def, get, install, make, mount, prep, unmount } from "capsid";
+import { def, get, install, make, mount, prep, unmount } from 'capsid';
 ```
 
 - `def(name, constructor)`
@@ -422,7 +421,7 @@ class TodoItem {
   // ...behaviours...
 }
 
-capsid.def("todo-item", TodoItem);
+capsid.def('todo-item', TodoItem);
 ```
 
 ```html
@@ -449,7 +448,7 @@ Initializes the element as the capsid component and returns the coelement
 instance.
 
 ```js
-const timer = make("timer", dom);
+const timer = make('timer', dom);
 ```
 
 ## `mount(Constructor, element)`
@@ -509,7 +508,7 @@ The above example unmounts itself when it receives `input` event.
 Gets the component instance from the element.
 
 ```js
-const timer = capsid.get("timer", el);
+const timer = capsid.get('timer', el);
 ```
 
 The above gets timer coelement from `el`, which is instance of `Timer` class.
@@ -522,7 +521,7 @@ The above gets timer coelement from `el`, which is instance of `Timer` class.
 This installs the capsid module.
 
 ```js
-capsid.install(require("capsid-popper"), { name: "my-app-popper" });
+capsid.install(require('capsid-popper'), { name: 'my-app-popper' });
 ```
 
 See [capsid-module][capsid-module] repository for details.
@@ -538,8 +537,8 @@ See [capsid-module][capsid-module] repository for details.
 Via npm:
 
 ```js
-import { install } from "capsid";
-import debug from "capsid/debug";
+import { install } from 'capsid';
+import debug from 'capsid/debug';
 install(debug);
 ```
 
@@ -562,8 +561,8 @@ And you'll get additional debug information in console.
 Via npm:
 
 ```js
-import { install } from "capsid";
-import outside from "capsid/outside";
+import { install } from 'capsid';
+import outside from 'capsid/outside';
 install(outside);
 ```
 

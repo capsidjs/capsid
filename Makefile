@@ -8,15 +8,15 @@ cov:
 
 .PHONY: fmt
 fmt:
-	deno fmt
+	deno fmt --config deno.json
 
 .PHONY: fmt-check
 fmt-check:
-	deno fmt --check
+	deno fmt --check --config deno.json
 
 .PHONY: lint
 lint:
-	deno lint
+	deno lint --config deno.json
 
 .PHONY: dist
 dist:

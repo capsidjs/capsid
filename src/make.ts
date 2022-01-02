@@ -1,6 +1,6 @@
-import get from "./get.ts";
-import { checkComponentNameIsValid } from "./util/check.ts";
-import registry from "./registry.ts";
+import get from './get.ts';
+import { checkComponentNameIsValid } from './util/check.ts';
+import registry from './registry.ts';
 
 /**
  * Initializes the given element as the class-component.

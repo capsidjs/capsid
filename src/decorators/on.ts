@@ -1,7 +1,7 @@
-import { KEY_EVENT_LISTENERS } from "../util/const.ts";
-import debugMessage from "../util/debug_message.ts";
-import check from "../util/check.ts";
-import addHiddenItem, { addMountHook } from "../add_hidden_item.ts";
+import { KEY_EVENT_LISTENERS } from '../util/const.ts';
+import debugMessage from '../util/debug_message.ts';
+import check from '../util/check.ts';
+import addHiddenItem, { addMountHook } from '../add_hidden_item.ts';
 
 declare let __DEV__: boolean;
 
@@ -38,11 +38,12 @@ const on: any = (event: string, { at }: { at?: string } = {}) =>
             return node === e.target || node.contains(e.target as Node);
           })
         ) {
+          const __DEV__ = true;
           if (__DEV__) {
             debugMessage({
-              type: "event",
-              module: "💊",
-              color: "#e0407b",
+              type: 'event',
+              module: '💊',
+              color: '#e0407b',
               e,
               el,
               coel,

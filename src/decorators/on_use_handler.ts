@@ -1,4 +1,4 @@
-import on from "./on.ts";
+import on from './on.ts';
 
 /**
  * Registers the on[eventName] and on[eventName].at decorators.

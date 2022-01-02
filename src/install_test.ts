@@ -1,13 +1,13 @@
-import * as capsid from "./mod.ts";
-import { assertEquals, assertThrows } from "./test_helper.ts";
+import * as capsid from './mod.ts';
+import { assertEquals, assertThrows } from './test_helper.ts';
 
-Deno.test("install", async (t) => {
-  await t.step("calls install method of the given module", async () => {
+Deno.test('install', async (t) => {
+  await t.step('calls install method of the given module', async () => {
     let resolve: () => void;
     const p = new Promise<void>((r) => {
       resolve = r;
     });
-    const options = { foo: "bar" };
+    const options = { foo: 'bar' };
 
     capsid.install(
       {
@@ -24,7 +24,7 @@ Deno.test("install", async (t) => {
   });
 
   await t.step(
-    "throws when the given module does not have the install method",
+    'throws when the given module does not have the install method',
     () => {
       assertThrows(
         () => {
@@ -32,7 +32,7 @@ Deno.test("install", async (t) => {
           capsid.install({} as any);
         },
         Error,
-        "The given capsid module does not have `install` method. Please check the install call.",
+        'The given capsid module does not have `install` method. Please check the install call.',
       );
     },
   );

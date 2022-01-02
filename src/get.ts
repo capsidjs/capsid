@@ -1,5 +1,5 @@
-import check, { checkComponentNameIsValid } from "./util/check.ts";
-import { COELEMENT_DATA_KEY_PREFIX } from "./util/const.ts";
+import check, { checkComponentNameIsValid } from './util/check.ts';
+import { COELEMENT_DATA_KEY_PREFIX } from './util/const.ts';
 
 /**
  * Gets the eoelement instance of the class-component of the given name
