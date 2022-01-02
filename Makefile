@@ -35,3 +35,8 @@ size:
 .PHONY: dnt
 dnt:
 	deno run -A dnt.ts
+
+.PHONY: npm-publish
+npm-publish:
+	$(MAKE) dnt
+	cd node && npm publish
