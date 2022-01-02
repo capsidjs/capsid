@@ -70,6 +70,14 @@ Note: You need TypeScript for using capsid because it depends on TypeScript
 decorators. You can easily start using TypeScript by using bundlers like
 [parcel][parcel]
 
+## Via deno.land/x
+
+If you prefer [Deno](https://deno.land/), you can import capsid via `deno.land/x` registry.
+
+```js
+import { component } from "https://deno.land/x/capsid@v1.8.0/src/mod.ts";
+```
+
 # Decorators
 
 ```js
