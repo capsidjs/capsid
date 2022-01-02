@@ -1,4 +1,4 @@
-import * as capsid from "./index.ts";
+import * as capsid from "./mod.ts";
 import { assertEquals, assertThrows } from "./test_helper.ts";
 
 Deno.test("install", async (t) => {

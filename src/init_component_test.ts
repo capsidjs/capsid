@@ -1,4 +1,4 @@
-import * as capsid from "./index.ts";
+import * as capsid from "./mod.ts";
 import initComponent from "./init_component.ts";
 import { assert, assertEquals, clearComponents } from "./test_helper.ts";
 

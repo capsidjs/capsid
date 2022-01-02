@@ -1,4 +1,4 @@
-import { component, make } from "../index.ts";
+import { component, make } from "../mod.ts";
 import { assert, clearComponents, genel } from "../test_helper.ts";
 
 Deno.test("@component(name)", async (t) => {

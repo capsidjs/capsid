@@ -1,7 +1,7 @@
 import component from "./component.ts";
 import pub from "./pub.ts";
 import on from "./on.ts";
-import { def, prep } from "../index.ts";
+import { def, prep } from "../mod.ts";
 import {
   assertEquals,
   assertThrows,

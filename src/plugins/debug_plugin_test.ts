@@ -1,4 +1,4 @@
-import { install } from "../index.ts";
+import { install } from "../mod.ts";
 import debugPlugin from "./debug_plugin.ts";
 import { td } from "../test_helper.ts";
 

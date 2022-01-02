@@ -1,6 +1,6 @@
 import "../test_helper.ts";
 import outsideEventsPlugin from "./outside_events_plugin.ts";
-import { install, mount, on } from "../index.ts";
+import { install, mount, on } from "../mod.ts";
 
 Deno.test("outside-events-plugin", async (t) => {
   install(outsideEventsPlugin);

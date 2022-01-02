@@ -1,4 +1,4 @@
-import { def, emits, make } from "../index.ts";
+import { def, emits, make } from "../mod.ts";
 import {
   assert,
   assertEquals,

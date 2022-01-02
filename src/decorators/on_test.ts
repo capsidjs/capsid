@@ -1,4 +1,4 @@
-import { def, make, on } from "../index.ts";
+import { def, make, on } from "../mod.ts";
 import {
   assertEquals,
   assertThrows,

@@ -1,4 +1,4 @@
-import { def, prep } from "./index.ts";
+import { def, prep } from "./mod.ts";
 import { Foo } from "./test_fixture.ts";
 import { assertEquals, assertThrows, clearComponents } from "./test_helper.ts";
 

@@ -1,4 +1,4 @@
-import { def, make, wired } from "../index.ts";
+import { def, make, wired } from "../mod.ts";
 import { assertEquals, clearComponents, genel } from "../test_helper.ts";
 
 Deno.test("@wired(selector)", async (t) => {

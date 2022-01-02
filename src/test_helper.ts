@@ -8,7 +8,7 @@ import genel_ from "https://esm.sh/genel";
 // import td from "https://esm.sh/testdouble";
 import "https://unpkg.com/testdouble@3.16.3/dist/testdouble.js";
 import { DOMParser } from "https://raw.githubusercontent.com/b-fuze/deno-dom/9e4814e8d8117d8410fabb726d118e144e49fbf3/deno-dom-wasm.ts";
-import * as capsid from "./index.ts";
+import * as capsid from "./mod.ts";
 
 // deno-lint-ignore no-explicit-any
 const genel = genel_ as any;

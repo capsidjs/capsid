@@ -1,4 +1,4 @@
-import { def, get, make, on, unmount } from "./index.ts";
+import { def, get, make, on, unmount } from "./mod.ts";
 import { assert, assertEquals, clearComponents, genel } from "./test_helper.ts";
 
 Deno.test("unmount", async (t) => {

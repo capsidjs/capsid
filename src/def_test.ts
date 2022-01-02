@@ -1,4 +1,4 @@
-import { def, make } from "./index.ts";
+import { def, make } from "./mod.ts";
 import { assert, assertThrows, clearComponents } from "./test_helper.ts";
 
 Deno.test("def", async (t) => {

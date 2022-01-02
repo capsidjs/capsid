@@ -1,5 +1,5 @@
 import { assertEquals } from "./test_helper.ts";
-import { mount } from "./index.ts";
+import { mount } from "./mod.ts";
 
 Deno.test("mount initializes the element by the given component class", async () => {
   let resolve: () => void;
