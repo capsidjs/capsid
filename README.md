@@ -1,6 +1,7 @@
 <img src="http://capsidjs.github.io/capsid/asset/capsid.svg" />
 
 [![ci](https://github.com/capsidjs/capsid/actions/workflows/ci.yml/badge.svg)](https://github.com/capsidjs/capsid/actions/workflows/ci.yml)
+[![deno.land/x](https://shields.io/badge/deno.land/x-v1.7.1-b.0-green?logo=deno&style=flat)](https://deno.land/x/capsid)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 - **Declarative DOM programming library based on TypeScript decorators**

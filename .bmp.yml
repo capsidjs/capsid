@@ -2,3 +2,4 @@ version: 1.7.1-b.0
 commit: ':bookmark: chore(version): bump to v%.%.%'
 files:
   dnt.ts: 'version: "%.%.%"'
+  README.md: https://shields.io/badge/deno.land/x-v%.%.%-green
