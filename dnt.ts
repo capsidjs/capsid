@@ -16,7 +16,7 @@ await build({
   package: {
     // package.json properties
     name: "your-package",
-    version: "1.7.0",
+    version: "1.7.0-b.0",
     description: "Declarative DOM programming library based on TypeScript decorators",
     license: "MIT",
     repository: {
