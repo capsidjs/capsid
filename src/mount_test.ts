@@ -1,7 +1,7 @@
-import { assertEquals } from './test_helper.ts';
-import { mount } from './mod.ts';
+import { assertEquals } from "./test_helper.ts";
+import { mount } from "./mod.ts";
 
-Deno.test('mount initializes the element by the given component class', async () => {
+Deno.test("mount initializes the element by the given component class", async () => {
   let resolve: () => void;
   const p = new Promise<void>((r) => {
     resolve = r;
@@ -16,7 +16,7 @@ Deno.test('mount initializes the element by the given component class', async ()
     }
   }
 
-  const div = document.createElement('div');
+  const div = document.createElement("div");
 
   mount(Component, div);
   await p;

@@ -1,16 +1,16 @@
-import * as capsid from './mod.ts';
-import initComponent from './init_component.ts';
-import { assert, assertEquals, clearComponents } from './test_helper.ts';
+import * as capsid from "./mod.ts";
+import initComponent from "./init_component.ts";
+import { assert, assertEquals, clearComponents } from "./test_helper.ts";
 
 const { on } = capsid;
 
-Deno.test('initComponent', async (t) => {
+Deno.test("initComponent", async (t) => {
   await t.step(
-    'initializes the element as a component by the given constructor',
+    "initializes the element as a component by the given constructor",
     () => {
       class A {}
 
-      const el = document.createElement('div');
+      const el = document.createElement("div");
       const coel = initComponent(A, el);
 
       assertEquals(coel.el, el);
@@ -18,7 +18,7 @@ Deno.test('initComponent', async (t) => {
     },
   );
 
-  await t.step('calls __mount__', async () => {
+  await t.step("calls __mount__", async () => {
     let resolve: () => void;
     const p = new Promise<void>((r) => {
       resolve = r;
@@ -33,13 +33,13 @@ Deno.test('initComponent', async (t) => {
       }
     }
 
-    const el = document.createElement('div');
+    const el = document.createElement("div");
 
     initComponent(A, el);
     await p;
   });
 
-  await t.step('__mount__ runs after @on handlers are set', async () => {
+  await t.step("__mount__ runs after @on handlers are set", async () => {
     let resolve: () => void;
     const p = new Promise<void>((r) => {
       resolve = r;
@@ -48,7 +48,7 @@ Deno.test('initComponent', async (t) => {
       el?: HTMLElement;
 
       __mount__() {
-        this.el!.dispatchEvent(new CustomEvent('click'));
+        this.el!.dispatchEvent(new CustomEvent("click"));
       }
 
       @on.click
@@ -57,7 +57,7 @@ Deno.test('initComponent', async (t) => {
       }
     }
 
-    initComponent(A, document.createElement('div'));
+    initComponent(A, document.createElement("div"));
     await p;
   });
 

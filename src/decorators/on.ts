@@ -1,7 +1,7 @@
-import { KEY_EVENT_LISTENERS } from '../util/const.ts';
-import debugMessage from '../util/debug_message.ts';
-import check from '../util/check.ts';
-import addHiddenItem, { addMountHook } from '../add_hidden_item.ts';
+import { KEY_EVENT_LISTENERS } from "../util/const.ts";
+import debugMessage from "../util/debug_message.ts";
+import check from "../util/check.ts";
+import addHiddenItem, { addMountHook } from "../add_hidden_item.ts";
 
 /**
  * The decorator for registering event listener info to the method.
@@ -40,9 +40,9 @@ const on: any = (event: string, { at }: { at?: string } = {}) =>
           const __DEV__ = true;
           if (__DEV__) {
             debugMessage({
-              type: 'event',
-              module: '💊',
-              color: '#e0407b',
+              type: "event",
+              module: "💊",
+              color: "#e0407b",
               e,
               el,
               coel,

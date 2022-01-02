@@ -1,4 +1,4 @@
-import { BEFORE_MOUNT_KEY } from './util/const.ts';
+import { BEFORE_MOUNT_KEY } from "./util/const.ts";
 
 // deno-lint-ignore no-explicit-any
 const addHiddenItem = (target: any, key: string, hook: unknown) => {

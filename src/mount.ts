@@ -1,3 +1,3 @@
-import mount from './init_component.ts';
+import mount from "./init_component.ts";
 
 export default mount;

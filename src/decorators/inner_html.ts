@@ -1,5 +1,5 @@
-import prep from '../prep.ts';
-import { addMountHook } from '../add_hidden_item.ts';
+import prep from "../prep.ts";
+import { addMountHook } from "../add_hidden_item.ts";
 
 /**
  * is decorator adds the class names to the given element when it's mounted.

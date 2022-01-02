@@ -1,4 +1,4 @@
-import debugMessage from '../util/debug_message.ts';
+import debugMessage from "../util/debug_message.ts";
 
 // deno-lint-ignore no-explicit-any
 const install = (capsid: any) => {
@@ -16,9 +16,9 @@ const install = (capsid: any) => {
             const __DEV__ = true;
             if (__DEV__) {
               debugMessage({
-                type: 'event',
-                module: 'outside-events',
-                color: '#39cccc',
+                type: "event",
+                module: "outside-events",
+                color: "#39cccc",
                 el,
                 e,
                 coel,

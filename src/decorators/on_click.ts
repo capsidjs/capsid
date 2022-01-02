@@ -1,3 +1,3 @@
-import on from './on.ts';
+import on from "./on.ts";
 
-export default on('click');
+export default on("click");

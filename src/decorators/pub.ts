@@ -1,5 +1,5 @@
-import { triggerToElements } from '../util/event_trigger.ts';
-import check from '../util/check.ts';
+import { triggerToElements } from "../util/event_trigger.ts";
+import check from "../util/check.ts";
 
 /**
  * Publishes the given event to the elements which has `sub:${event}` class.

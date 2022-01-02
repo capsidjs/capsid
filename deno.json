@@ -5,9 +5,6 @@
   "fmt": {
     "files": {
       "exclude": ["node", "dist.js", "dist.min.js"]
-    },
-    "options": {
-      "singleQuote": true
     }
   },
   "lint": {

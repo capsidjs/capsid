@@ -1,4 +1,4 @@
-import { def, emits, make } from '../mod.ts';
+import { def, emits, make } from "../mod.ts";
 import {
   assert,
   assertEquals,
@@ -6,10 +6,10 @@ import {
   clearComponents,
   deferred,
   genel,
-} from '../test_helper.ts';
+} from "../test_helper.ts";
 
-Deno.test('@emits(event)', async (t) => {
-  await t.step('throws when the empty event is given', () => {
+Deno.test("@emits(event)", async (t) => {
+  await t.step("throws when the empty event is given", () => {
     assertThrows(
       () => {
         class Component {
@@ -22,46 +22,46 @@ Deno.test('@emits(event)', async (t) => {
         console.log(Component);
       },
       Error,
-      'Unable to emits an empty event: constructor=Component key=emitter',
+      "Unable to emits an empty event: constructor=Component key=emitter",
     );
     clearComponents();
   });
 
   await t.step(
-    'makes the method emit the event with the returned value',
+    "makes the method emit the event with the returned value",
     async () => {
       const p = deferred();
       class Component {
-        @emits('event-foo')
+        @emits("event-foo")
         foo() {
           return 321;
         }
       }
 
-      def('component', Component);
+      def("component", Component);
 
       const el = genel.div``;
 
       // deno-lint-ignore no-explicit-any
-      el.addEventListener('event-foo' as any, (e: CustomEvent) => {
+      el.addEventListener("event-foo" as any, (e: CustomEvent) => {
         assert(e.detail === 321);
 
         p.resolve();
       });
 
-      make<Component>('component', el).foo();
+      make<Component>("component", el).foo();
       clearComponents();
       await p;
     },
   );
 
   await t.step(
-    'makes the method emit the event with the resolved value after the promise resolved',
+    "makes the method emit the event with the resolved value after the promise resolved",
     async () => {
       const p = deferred();
 
       class Component {
-        @emits('event-foo')
+        @emits("event-foo")
         foo() {
           return new Promise((resolve) => {
             setTimeout(() => {
@@ -70,18 +70,18 @@ Deno.test('@emits(event)', async (t) => {
           });
         }
       }
-      def('component', Component);
+      def("component", Component);
 
       const el = genel.div``;
 
       // deno-lint-ignore no-explicit-any
-      el.addEventListener('event-foo' as any, (e: CustomEvent) => {
+      el.addEventListener("event-foo" as any, (e: CustomEvent) => {
         assertEquals(e.detail, 123);
 
         p.resolve();
       });
 
-      make<Component>('component', el).foo();
+      make<Component>("component", el).foo();
       clearComponents();
 
       await p;
