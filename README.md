@@ -4,22 +4,15 @@
 [![deno.land/x](https://shields.io/badge/deno.land/x-v1.8.0-green?logo=deno&style=flat)](https://deno.land/x/capsid)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
-- **Declarative DOM programming library based on TypeScript decorators**
-- :leaves: **Small.** **1.79 kb**, **No dependencies**.
-- :sunny: **No special syntax.** Capsid uses standard HTML and TypeScript. No
-  need of learning any non-standard syntax like JSX, Vue, Svelte, etc.
+- **Declarative DOM programming library** based on **TypeScript decorators**
+- :leaves: **Small.** **1.79 kb.** **No dependencies.**
+- :sunny: **No special syntax.** Capsid uses **standard** HTML and TypeScript, and it **doesn't** use any **non-standard** syntax like JSX, Vue template, etc.
 - :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event
   driven programming in a new style.
 
-`capsid` uses TypeScript decorators for event handlers and dispatchers, and it
-enables declarative style of DOM programming. See
-[Mirroring Example][Mirroring Example] :butterfly: and
-[Counter Example][Counter Example] :level_slider:.
-
 # :butterfly: [Mirroring Example][Mirroring Example]
 
-The mirroring example shows the basic usages of `@component`, `@wired`, and
-`@on` decorators.
+This example illustrates the basic ideas of `capsid`.
 
 ```ts
 import { on, wired, component } import "capsid";
