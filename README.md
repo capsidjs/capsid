@@ -1,7 +1,7 @@
 <img src="http://capsidjs.github.io/capsid/asset/capsid.svg" />
 
 [![ci](https://github.com/capsidjs/capsid/actions/workflows/ci.yml/badge.svg)](https://github.com/capsidjs/capsid/actions/workflows/ci.yml)
-[![deno.land/x](https://shields.io/badge/deno.land/x-v1.7.1-b.0-green?logo=deno&style=flat)](https://deno.land/x/capsid)
+[![deno.land/x](https://shields.io/badge/deno.land/x-v1.8.0-green?logo=deno&style=flat)](https://deno.land/x/capsid)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 - **Declarative DOM programming library based on TypeScript decorators**
@@ -684,6 +684,7 @@ You can get coelement from the element using `get` API.
 
 # History
 
+- 2022-01-03 v1.8.0 Migrated to Deno. #212
 - 2020-04-02 v1.7.0 Better make/get/unmount types.
 - 2020-03-30 v1.6.2 Fix submodule export for TypeScript.
 - 2020-03-28 v1.6.1 Fix debug plugin.
