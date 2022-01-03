@@ -38,5 +38,6 @@ dnt:
 
 .PHONY: npm-publish
 npm-publish:
+	rm -rf node
 	$(MAKE) dnt
 	cd node && npm publish
