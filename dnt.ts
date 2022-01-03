@@ -7,14 +7,12 @@ await build({
   entryPoints: ["./src/mod.ts"],
   outDir,
   shims: {
-    // see JS docs for overview and more options
-    deno: true,
+    deno: "dev",
   },
   cjs: false,
   typeCheck: false,
   test: false,
   package: {
-    // package.json properties
     name: "capsid",
     version: "1.8.0",
     description:
