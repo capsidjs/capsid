@@ -14,7 +14,7 @@ await build({
   test: false,
   package: {
     name: "capsid",
-    version: "1.8.0",
+    version: "1.8.1",
     description:
       "Declarative DOM programming library based on TypeScript decorators",
     license: "MIT",
