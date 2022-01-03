@@ -6,7 +6,9 @@
 
 - **Declarative DOM programming library** based on **TypeScript decorators**
 - :leaves: **Small.** **1.79 kb.** **No dependencies.**
-- :sunny: **No special syntax.** Capsid uses **standard** HTML and TypeScript, and it **doesn't** use any **non-standard** syntax like JSX, Vue template, etc.
+- :sunny: **No special syntax.** Capsid uses **standard** HTML and TypeScript,
+  and it **doesn't** use any **non-standard** syntax like JSX, Vue template,
+  etc.
 - :bulb: **Simple.** No virtual DOMs. Capsid encourages the traditional event
   driven programming in a new style.
 
@@ -72,7 +74,8 @@ decorators. You can easily start using TypeScript by using bundlers like
 
 ## Via deno.land/x
 
-If you prefer [Deno](https://deno.land/), you can import capsid via `deno.land/x` registry.
+If you prefer [Deno](https://deno.land/), you can import capsid via
+`deno.land/x` registry.
 
 ```js
 import { component } from "https://deno.land/x/capsid@v1.8.0/src/mod.ts";
