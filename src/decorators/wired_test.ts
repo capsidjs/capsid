@@ -2,7 +2,7 @@ import { def, make, wired } from "../mod.ts";
 import { assertEquals, clearComponents, genel } from "../test_helper.ts";
 
 Deno.test("@wired(selector)", async (t) => {
-  await t.step("wires the element in the component", () => {
+  await t.step("wires the element in the component", async () => {
     class Component {
       @wired(".elm")
       elm?: HTMLDivElement;
@@ -17,12 +17,12 @@ Deno.test("@wired(selector)", async (t) => {
     const component = make<Component>("wire-el-test", el);
     assertEquals(component.elm!.nodeName, "DIV");
     assertEquals(component.elm, el.firstChild);
-    clearComponents();
+    await clearComponents();
   });
 });
 
 Deno.test("@wired.all(selector)", async (t) => {
-  await t.step("wires the all elements in the component", () => {
+  await t.step("wires the all elements in the component", async () => {
     class Component {
       @wired.all(".elm")
       elms?: HTMLElement[];
@@ -39,6 +39,6 @@ Deno.test("@wired.all(selector)", async (t) => {
     assertEquals(component.elms!.length, 2);
     assertEquals(component.elms![0], el.firstChild);
     assertEquals(component.elms![1], el.lastChild);
-    clearComponents();
+    await clearComponents();
   });
 });

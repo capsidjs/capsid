@@ -31,7 +31,7 @@ Deno.test("unmount", async (t) => {
     el.dispatchEvent(new CustomEvent("foo"));
 
     await new Promise<void>((resolve) => setTimeout(() => resolve(), 100));
-    clearComponents();
+    await clearComponents();
   });
 
   await t.step(
@@ -58,7 +58,7 @@ Deno.test("unmount", async (t) => {
       el.dispatchEvent(new CustomEvent("foo"));
 
       await new Promise<void>((resolve) => setTimeout(() => resolve(), 100));
-      clearComponents();
+      await clearComponents();
     },
   );
 
@@ -81,7 +81,7 @@ Deno.test("unmount", async (t) => {
 
     unmount<Foo>("foo", el);
     await p;
-    clearComponents();
+    await clearComponents();
   });
 
   await t.step(
@@ -110,7 +110,7 @@ Deno.test("unmount", async (t) => {
 
       el.dispatchEvent(new Event("click"));
       await p;
-      clearComponents();
+      await clearComponents();
     },
   );
 });

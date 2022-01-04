@@ -11,7 +11,7 @@ import {
 } from "../test_helper.ts";
 
 Deno.test("@pub(event)", async (t) => {
-  await t.step("throws error when empty event is given", () => {
+  await t.step("throws error when empty event is given", async () => {
     assertThrows(
       () => {
         class Component {
@@ -27,7 +27,7 @@ Deno.test("@pub(event)", async (t) => {
       Error,
       "Unable to publish empty event: constructor=Component key=method",
     );
-    clearComponents();
+    await clearComponents();
   });
 
   await t.step(
@@ -88,7 +88,7 @@ Deno.test("@pub(event)", async (t) => {
       await Promise.all([promise0, promise1, promise2]);
 
       document.body.removeChild(el);
-      clearComponents();
+      await clearComponents();
     },
   );
 
@@ -125,7 +125,7 @@ Deno.test("@pub(event)", async (t) => {
 
     comp!.dispatchEvent(new CustomEvent("foo"));
     await p;
-    clearComponents();
+    await clearComponents();
   });
 
   await t.step(
@@ -145,9 +145,9 @@ Deno.test("@pub(event)", async (t) => {
       def("component", Component);
 
       const el = genel.div`
-      <div class="sub:foo-bar target"></div>
-      <div class="component"></div>
-    `;
+        <div class="sub:foo-bar target"></div>
+        <div class="component"></div>
+      `;
       document.body.appendChild(el);
       const target = el.querySelector(".target")!;
       const comp = el.querySelector(".component")!;
@@ -163,7 +163,7 @@ Deno.test("@pub(event)", async (t) => {
 
       comp.dispatchEvent(new CustomEvent("foo"));
       await p;
-      clearComponents();
+      await clearComponents();
     },
   );
 });
@@ -202,6 +202,6 @@ Deno.test("@pub(event, selector)", async (t) => {
 
     comp!.dispatchEvent(new CustomEvent("foo"));
     await p;
-    clearComponents();
+    await clearComponents();
   });
 });

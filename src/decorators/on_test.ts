@@ -8,7 +8,7 @@ import {
 } from "../test_helper.ts";
 
 Deno.test("@on(event)", async (t) => {
-  await t.step("throws when the event is empty", () => {
+  await t.step("throws when the event is empty", async () => {
     assertThrows(
       () => {
         class Component {
@@ -23,7 +23,7 @@ Deno.test("@on(event)", async (t) => {
       Error,
       "Empty event handler is given: constructor=Component key=handler",
     );
-    clearComponents();
+    await clearComponents();
   });
 
   await t.step(
@@ -45,7 +45,7 @@ Deno.test("@on(event)", async (t) => {
 
       el.dispatchEvent(new Event("click"));
       await p;
-      clearComponents();
+      await clearComponents();
     },
   );
 
@@ -68,7 +68,7 @@ Deno.test("@on(event)", async (t) => {
       make("baz", el);
       el.dispatchEvent(new Event("click"));
       await p;
-      clearComponents();
+      await clearComponents();
     },
   );
 });
@@ -112,7 +112,7 @@ Deno.test("@on(event, { at: selector })", async (t) => {
         document.body.removeChild(el);
       }
       await p;
-      clearComponents();
+      await clearComponents();
     },
   );
 });
@@ -133,12 +133,12 @@ Deno.test("@on.click", async (t) => {
     make("foo", el);
     el.dispatchEvent(new Event("click"));
     await p;
-    clearComponents();
+    await clearComponents();
   });
 });
 
 Deno.test("@on.click.at", async (t) => {
-  await t.step("binds method to click event at the given element", () => {
+  await t.step("binds method to click event at the given element", async () => {
     let res = 0;
 
     class Component {
@@ -168,6 +168,6 @@ Deno.test("@on.click.at", async (t) => {
     foo.dispatchEvent(new Event("click", { bubbles: true }));
 
     assertEquals(res, 1);
-    clearComponents();
+    await clearComponents();
   });
 });

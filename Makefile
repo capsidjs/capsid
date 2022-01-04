@@ -1,6 +1,6 @@
 .PHONY: test
 test:
-	deno test --config deno.json -A --unstable --no-check
+	deno test --config deno.json -A --unstable --no-check --ignore=node
 
 .PHONY: cov
 cov:

@@ -4,7 +4,7 @@ import { assert, clearComponents, genel } from "../test_helper.ts";
 Deno.test("@component(name)", async (t) => {
   await t.step(
     "works as a class decorator and registers the class as a class component of the given name",
-    () => {
+    async () => {
       @component("decorated-component")
       class Foo {
         el?: HTMLElement;
@@ -21,7 +21,7 @@ Deno.test("@component(name)", async (t) => {
       assert(foo instanceof Foo);
       assert(el.getAttribute("this-is") === "decorated-component");
 
-      clearComponents();
+      await clearComponents();
     },
   );
 });
