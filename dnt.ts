@@ -13,7 +13,6 @@ await build({
     "./src/dom_polyfill_deno.ts": "./src/dom_polyfill_node.ts",
   },
   cjs: false,
-  typeCheck: false,
   test: true,
   package: {
     name: "capsid",
@@ -30,6 +29,7 @@ await build({
     },
     devDependencies: {
       jsdom: "^19.0.0",
+      "@types/jsdom": "^16.2.14",
     },
   },
 });
