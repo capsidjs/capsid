@@ -9,7 +9,7 @@ import {
 } from "../test_helper.ts";
 
 Deno.test("@emits(event)", async (t) => {
-  await t.step("throws when the empty event is given", () => {
+  await t.step("throws when the empty event is given", async () => {
     assertThrows(
       () => {
         class Component {
@@ -24,7 +24,7 @@ Deno.test("@emits(event)", async (t) => {
       Error,
       "Unable to emits an empty event: constructor=Component key=emitter",
     );
-    clearComponents();
+    await clearComponents();
   });
 
   await t.step(
@@ -50,7 +50,7 @@ Deno.test("@emits(event)", async (t) => {
       });
 
       make<Component>("component", el).foo();
-      clearComponents();
+      await clearComponents();
       await p;
     },
   );
@@ -82,8 +82,7 @@ Deno.test("@emits(event)", async (t) => {
       });
 
       make<Component>("component", el).foo();
-      clearComponents();
-
+      await clearComponents();
       await p;
     },
   );

@@ -29,5 +29,5 @@ Deno.test("def", async (t) => {
     assert(coel instanceof A);
   });
 
-  clearComponents();
+  await clearComponents();
 });

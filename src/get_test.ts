@@ -16,5 +16,5 @@ Deno.test("get", async (t) => {
     assert(coel.el === el);
   });
 
-  clearComponents();
+  await clearComponents();
 });

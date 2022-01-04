@@ -4,7 +4,7 @@ import make from "../make.ts";
 import { assert, clearComponents } from "../test_helper.ts";
 
 Deno.test("@sub(event)", async (t) => {
-  await t.step("adds the class names to the element", () => {
+  await t.step("adds the class names to the element", async () => {
     @component("foo")
     @sub("bar")
     class Foo {}
@@ -14,6 +14,6 @@ Deno.test("@sub(event)", async (t) => {
 
     assert(coel instanceof Foo);
     assert(el.classList.contains("sub:bar"));
-    clearComponents();
+    await clearComponents();
   });
 });

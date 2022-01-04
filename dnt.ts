@@ -1,4 +1,4 @@
-import { build } from "https://deno.land/x/dnt@0.11.0/mod.ts";
+import { build } from "https://raw.githubusercontent.com/kt3k/dnt/a20e97cfa0e92a3c688002d2fe838dba2ebb50bb/mod.ts";
 import { join } from "https://deno.land/std@0.119.0/path/mod.ts";
 
 const outDir = "node";
@@ -9,9 +9,12 @@ await build({
   shims: {
     deno: "dev",
   },
+  redirects: {
+    "./src/dom_polyfill_deno.ts": "./src/dom_polyfill_node.ts",
+  },
   cjs: false,
   typeCheck: false,
-  test: false,
+  test: true,
   package: {
     name: "capsid",
     version: "1.8.1",
@@ -24,6 +27,9 @@ await build({
     },
     bugs: {
       url: "https://github.com/capsidjs/capsid/issues",
+    },
+    devDependencies: {
+      jsdom: "^19.0.0",
     },
   },
 });

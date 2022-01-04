@@ -5,7 +5,7 @@ import get from "../get.ts";
 import { assert, clearComponents } from "../test_helper.ts";
 
 Deno.test("@is", async (t) => {
-  await t.step("adds the class names to the element", () => {
+  await t.step("adds the class names to the element", async () => {
     const html = `
       <p>hello</p>
     `;
@@ -18,10 +18,10 @@ Deno.test("@is", async (t) => {
 
     assert(coel instanceof Foo);
     assert(el.innerHTML, html);
-    clearComponents();
+    await clearComponents();
   });
 
-  await t.step("initializes the component inside the innerHTML", () => {
+  await t.step("initializes the component inside the innerHTML", async () => {
     const html = `
       <p class="bar">hello</p>
     `;
@@ -39,6 +39,6 @@ Deno.test("@is", async (t) => {
     const bar = get("bar", el.querySelector(".bar")!);
 
     assert(bar instanceof Bar);
-    clearComponents();
+    await clearComponents();
   });
 });

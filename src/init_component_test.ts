@@ -61,5 +61,5 @@ Deno.test("initComponent", async (t) => {
     await p;
   });
 
-  clearComponents();
+  await clearComponents();
 });

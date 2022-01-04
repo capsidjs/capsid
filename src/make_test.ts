@@ -61,5 +61,5 @@ Deno.test("make", async (t) => {
     },
   );
 
-  clearComponents();
+  await clearComponents();
 });

@@ -53,5 +53,5 @@ Deno.test("prep", async (t) => {
     },
   );
 
-  clearComponents();
+  await clearComponents();
 });
