@@ -14,10 +14,10 @@ const wired = (sel: string) =>
   // deno-lint-ignore no-explicit-any
   (_target: any, _key: string): any => {
     return {
-      get: function () {
+      get() {
         return this.el.querySelector(sel);
       },
-      configurable: false,
+      set() {},
     };
   };
 
