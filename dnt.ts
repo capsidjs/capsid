@@ -11,8 +11,8 @@ await build({
   },
   redirects: {
     "./src/dom_polyfill_deno.ts": "./src/dom_polyfill_node.ts",
+    "./src/td_deno.ts": "./src/td_node.ts",
   },
-  cjs: false,
   test: true,
   package: {
     name: "capsid",
@@ -30,6 +30,7 @@ await build({
     devDependencies: {
       jsdom: "^19.0.0",
       "@types/jsdom": "^16.2.14",
+      testdouble: "^3.16.4",
     },
   },
 });
