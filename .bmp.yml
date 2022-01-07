@@ -1,7 +1,7 @@
-version: 1.8.1
+version: 1.8.2
 commit: ':bookmark: chore(version): bump to v%.%.%'
 files:
   dnt.ts: 'version: "%.%.%"'
   README.md:
     - 'https://shields.io/badge/deno.land/x-v%.%.%-green'
-    - https://deno.land/x/capsid@v%.%.%/mod.ts
+    - 'https://deno.land/x/capsid@v%.%.%/mod.ts'

@@ -1,7 +1,7 @@
 <img src="http://capsidjs.github.io/capsid/asset/capsid.svg" />
 
 [![ci](https://github.com/capsidjs/capsid/actions/workflows/ci.yml/badge.svg)](https://github.com/capsidjs/capsid/actions/workflows/ci.yml)
-[![deno.land/x](https://shields.io/badge/deno.land/x-v1.8.1-green?logo=deno&style=flat)](https://deno.land/x/capsid)
+[![deno.land/x](https://shields.io/badge/deno.land/x-v1.8.2-green?logo=deno&style=flat)](https://deno.land/x/capsid)
 [![npm](https://img.shields.io/npm/v/capsid.svg)](https://npm.im/capsid)
 
 - **Declarative DOM programming library** based on **TypeScript decorators**
@@ -78,7 +78,7 @@ If you prefer [Deno](https://deno.land/), you can import capsid via
 `deno.land/x` registry.
 
 ```js
-import { component } from "https://deno.land/x/capsid@v1.8.1/mod.ts";
+import { component } from "https://deno.land/x/capsid@v1.8.2/mod.ts";
 ```
 
 # Decorators
