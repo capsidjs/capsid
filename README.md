@@ -78,7 +78,7 @@ If you prefer [Deno](https://deno.land/), you can import capsid via
 `deno.land/x` registry.
 
 ```js
-import { component } from "https://deno.land/x/capsid@v1.8.0/src/mod.ts";
+import { component } from "https://deno.land/x/capsid@v1.8.1/mod.ts";
 ```
 
 # Decorators
