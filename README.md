@@ -17,7 +17,7 @@
 This example illustrates the basic ideas of `capsid`.
 
 ```ts
-import { on, wired, component } import "capsid";
+import { on, wired, component } from "capsid";
 
 // Declares `mirroring` component.
 // HTML elements which have `mirroring` class will be mounted by this component.
