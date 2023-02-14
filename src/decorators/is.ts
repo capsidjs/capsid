@@ -5,9 +5,9 @@ import { addMountHook } from "../add_hidden_item.ts";
  * @param args The list of class names
  */
 export default (...args: string[]) =>
-  // deno-lint-ignore ban-types
-  (Cls: Function) => {
-    addMountHook(Cls, (el: HTMLElement) => {
-      el.classList.add(...args);
-    });
-  };
+// deno-lint-ignore ban-types
+(Cls: Function) => {
+  addMountHook(Cls, (el: HTMLElement) => {
+    el.classList.add(...args);
+  });
+};

@@ -9,26 +9,26 @@ import check from "../util/check.ts";
  * @param event The event name
  */
 const emits = (event: string) =>
-  (
-    // deno-lint-ignore no-explicit-any
-    target: any,
-    key: string,
-    // deno-lint-ignore no-explicit-any
-    descriptor: any,
-  ) => {
-    const method = descriptor.value;
-    const constructor = target.constructor;
+(
+  // deno-lint-ignore no-explicit-any
+  target: any,
+  key: string,
+  // deno-lint-ignore no-explicit-any
+  descriptor: any,
+) => {
+  const method = descriptor.value;
+  const constructor = target.constructor;
 
-    check(
-      !!event,
-      `Unable to emits an empty event: constructor=${constructor.name} key=${key}`,
-    );
+  check(
+    !!event,
+    `Unable to emits an empty event: constructor=${constructor.name} key=${key}`,
+  );
 
-    descriptor.value = function () {
-      const result = method.apply(this, arguments);
-      triggerToElements([this.el], event, true, result);
-      return result;
-    };
+  descriptor.value = function () {
+    const result = method.apply(this, arguments);
+    triggerToElements([this.el], event, true, result);
+    return result;
   };
+};
 
 export default emits;

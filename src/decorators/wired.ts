@@ -11,15 +11,15 @@
  *     }
  */
 const wired = (sel: string) =>
-  // deno-lint-ignore no-explicit-any
-  (_target: any, _key: string): any => {
-    return {
-      get() {
-        return this.el.querySelector(sel);
-      },
-      set() {},
-    };
+// deno-lint-ignore no-explicit-any
+(_target: any, _key: string): any => {
+  return {
+    get() {
+      return this.el.querySelector(sel);
+    },
+    set() {},
   };
+};
 
 /**
  * Wires all the elements to the property.
@@ -36,14 +36,14 @@ const wired = (sel: string) =>
  *     }
  */
 const wiredAll = (sel: string) =>
-  // deno-lint-ignore no-explicit-any
-  (_target: any, _key: string): any => {
-    return {
-      get() {
-        return this.el.querySelectorAll(sel);
-      },
-    };
+// deno-lint-ignore no-explicit-any
+(_target: any, _key: string): any => {
+  return {
+    get() {
+      return this.el.querySelectorAll(sel);
+    },
   };
+};
 
 wired.all = wiredAll;
 

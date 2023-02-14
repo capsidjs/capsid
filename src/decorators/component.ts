@@ -7,7 +7,7 @@ import check from "../util/check.ts";
  * @param name The html class name to mount
  */
 // deno-lint-ignore no-explicit-any
-const component = (name: string): ((desc: any) => void) => {
+const component = (name: string): (desc: any) => void => {
   check(
     typeof name === "string" && !!name,
     "Component name must be a non-empty string",
